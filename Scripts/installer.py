@@ -31,7 +31,7 @@ def Package(): # http://doc.qt.io/qtinstallerframework/ifw-component-description
     with tag('Package'):
         with tag('DisplayName'):        text(APP_NAME)
         with tag('Version'):            text(APP_VERSION)
-        with tag('ReleaseDate'):        text(APP_RELEASE_DATE)
+        with tag('ReleaseDate'):        text(ConvertDate(APP_RELEASE_DATE, '%d %b %Y', '%Y-%m-%d'))
         #with tag('UpdateText'):         text(update_text)
         with tag('Description'):        text(APP_DESCRIPTION)
         with tag('Script'):             text(INSTALLSCRIPT_FILE_NAME)
