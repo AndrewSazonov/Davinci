@@ -92,13 +92,14 @@ install:
   - echo
   - sudo apt-get --yes install python3.6
   - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} FTP_USER FTP_PASSWORD ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
-  - cdcvfvf
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
   - sudo pip3 install yattag
   - sudo pip3 install ftputil
+  - pip3 show ftputil
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} FTP_USER FTP_PASSWORD ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
+  - cdcvfvf
   #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
   - sudo apt-get --yes install qt59base qt59svg
   - sudo apt-get --yes install p7zip-full
