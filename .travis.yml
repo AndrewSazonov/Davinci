@@ -3,8 +3,8 @@
 #---------------------------------#
 
 os: linux
-dist: precise # Ubuntu 12.04, https://docs.travis-ci.com/user/reference/overview/
-#dist: trusty # Ubuntu 14.04, https://docs.travis-ci.com/user/reference/overview/
+#dist: precise # Ubuntu 12.04, https://docs.travis-ci.com/user/reference/overview/
+dist: trusty # Ubuntu 14.04, https://docs.travis-ci.com/user/reference/overview/
 sudo: required
 
 compiler: gcc
