@@ -20,8 +20,8 @@ env:
   # Global variables
   global:
     # ftp user name, password
-    - secure: "kyKbOs5ELlY35uavuWhw5EZNxMdAPv4Y0PWFFTMb907Q7r2SPfE6fNIxIRJcYqfpbZWxG3zNqbzsAFzkcPii64MqF+1hgULRHVanyuaUMT5FLvQ8nvHO0WW0Pil4yrqmOkiKMd1lJkizl/7g9jI9+ZHYGjdFsMeJAm5gaW1F8mjenVL7Hfi1IbPZm+NlVLHq2hFULL+SGQlzo2Nq2BAovqbf0y6ntZmnlWywadV1sfLYSB2ebEDE1u+Aro888FLV8qQwyj026wvLNP9QtdBgT0tnGIMw2g/3M7jJDJ51jUIQ93W4iKCFnjQTx0ttgFh1VIa9sC+SOMDH33ep5BXykQRCrvhCBLzkDet02r84bwZ1V7y4LWqN3q9kZ+gnj0/IsoyopfC8bZrvMuy/3NTAcbmm5BHK9DbeKN58ooD5Jaq7tadHxUY/7uymF3XQa0KSL+w3AOigZsvPUb1AP7+fnvETBERCQjxZp5SiGhgABFnv43HhlMUg9xkDT3WhUdht+hJ+rzpLm/A0LEMk3ytOkaKIvikMBZ3XlL07JsVG2baHKPovBfoSqSI9E2f6clE9CqR6IkJFvqqcrPrbcB+vv5n7gZ2wQn580aMoCF9UmxkNQHokN13GYuYAIxeAdsOLjEypgsimYA67MUCY28VACzuHWzWmT9zEECw52oAtSyE="
-    - secure: "iHdoJjqfYRURWbVxDcM9I2y4JNMVlc7fKn+V1iFjmLfotkcEQoWdLfCiXI44vY9vKEMTylHEMcIru+VAsC/ZZGzUgnP3BZ722PGCWzEUntHXcvajku8Ef2r5tItD4TZHnG/A/VHAaZYLKoMRbm52+uzlVrQGEHxioG5nYy1Dx7N/arlw1sZeDh4zNEncZOkmoGK+F8zA+HhSWraTeeMEoVnsksJTowHFRWsGm/eNDx6ojhszHmlz3T37Zog4fjs8TWyFOjAgQw1fNiBldiPwNigiZqj4nd4wC9rpt475JIAfGzBtsduINud9mTpA+Uam75KQ2G6vsnhPzgUiUXDQJr6WCO8iYUJQfaRx9j08czEr3qEmmyUglXJP0u9H6Syw48KB2GCUiwRk7vp8OpZsGgZ2/V3inlCQlKEEAGuBGD8J6ctFjvwyqRJxdxnXXv6ow5xU7E4kRJDWWtyzIBE1nUbL42XLtbISioMWgfjSamDMU7t3I8F8G9K3uOe2OKNlLipklP/5pGNvCquF7nE7vU7V9280Un626kY5k+Alkr3PhnVHTMcEoZ3vk947rHV95gWHHsYdUqRofGwyguBCc6pyoh7fsJ/iMEEjtWNOiRnUPv4e6lcc82diB9PUpVdD18syhuSxrWsbvtOtqUvz1Iy9geyN/07NQfotpPMRrRA="
+    - secure: "tl+D0sXQAHVRKMu5cavYWxAMnFTa2tY6yCdktLX/qJ9ymRvyGYj3ygYq/8CWh5LREoBKjqE5Yzo10+YviH3LhmV1IGXGR0X+kycEhKgChkG8D+Sv2KFhOqE3N//xf6s4p/SgCbr7Ln8tNPm3LgnYS1MeIqTw5wylCPQIWdbKggbO91U7OOCC4t7PJ74xL7U0gxrUt1BZ2iHfyhRLEfVMfkDGcC779KSg57Tmb56mPwNL+RArnwQiVgfmmuOsL9aJpx4thPZ8Km8xAyjlVTa42CH+tFuKvTcWCd9i5q3RHToLrHEf1lNjZj5ERmuxXmwkbvNbEbQ6fuKatY9hWyv9BOgaWycN/h2y4aNQumCmx9KRn77REXPtgScicLO/qAxwBYzrG4KOo25BrpFIOcGtFjFrbTV92OjA595Q+nBs5OfoaBpCoVyvwC24mTtyoWG8+A2Pq64iO/o68EaE3XY3Mg7bDM4V7otgY0zzZsLjE0mLHMTg5FGLKfXmp8VY0MSQMa7Y2sp1idbU9cQvjGlDsw+ALrCXF0/4cIPrMWxwv4Aexx/1x7/y3OppVVFWOafiXB2EcjjNL85flXeemv1h97fIRktAa7rQmKLrC1lJQ01vKO3vWH0mcqkPn3knugOM6/s65lzGuNJIvYH2K5Hf9M9DmDvSKnR8gUROLLmQ8/0="
+    - secure: "Sx2jwO+oGU5DFhLY2k62hslEBDIkHVna0RVsPRo5Ccy+u9bpZa/Pb4ifY4hzLNe+ggxHpHUrSpXrNOLyp2+rawBWNu09zbrsHzeOH0ib+gZrJaibczc/z0i535p4QAkEWiZcJrc2gcNdc74CT4MB/zcFcsabP2AD4CJjRw36wBJCBN346dPA5EDqI05Yf8ZAhBq3TXkgYF1F2sQrOweF00vJt41dDwqzqpauSjwUGlX+g7IlZ1qYZKnBl+aAVh8XKLhXF07IlXdoS5Z5dz8QeiHNTNTetFTbqDlyhw6mlylXkpCh3ca1booZQwqUhZySG6h4x8VHAm0gJlrHa1HzQyBPMUcMqkK0FHUV6WI9y2E7hgBQ6+6rku1K3UHGYBgyXd2/NYaEsXqBg6GvOatNfyydAvKOzFyzOv7T9RoBwOOIUBAdON1sXh/1gnHb1HxUGFjQGHeV6tqdIWdC+o4h9YbsXENsgxLqevZAM+ekKyv+k+RHpD0uvQbXtW2bd2dBWpoV80+SJHHd/MDtuioGT0enDBbud5NbtljV2qassWVtlO5OWgLchbVZSPZiynDnbwH5jOzqW+7/8smWGfH6z8CpH50z9uvbXepB4ptZLAIlN98cTMUf6bntpVAdWhV6Ehe2OAyQcDcKzoQiZVaOXQYbX9Nn7o0+ssqJtz9Kxgo="
   # Build matrix
   matrix:
     - CONFIGURATION=release
@@ -34,34 +34,27 @@ env:
 before_install:
   # Set variables
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
-  - export QMAKESPEC=macx-clang
-  #- export PLATFORM=x86_64
-  #- export OWNER_NAME=$(dirname $TRAVIS_REPO_SLUG)
+  # Project
   - export PROJECT_NAME=$(basename $TRAVIS_REPO_SLUG)
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
-  - export RELEASE_DIR=${TRAVIS_BUILD_DIR}/../Build/${BUILD_TYPE}
   - export SCRIPTS_DIR=${TRAVIS_BUILD_DIR}/Scripts
-
-  - export FTP_FULL_PATH="${FTP_PATH}/${LATEST_RELEASE_NAME}/"
-
+  - export RELEASE_DIR=${TRAVIS_BUILD_DIR}/../Build/${BUILD_TYPE}
+  # QtIFW
   - export QTIFW_VERSION="3.0.2"
   - export QTIFW_BASE="QtInstallerFramework-mac-x64"
   - export QTIFW_URL="https://download.qt.io/official_releases/qt-installer-framework/${QTIFW_VERSION}/${QTIFW_BASE}.dmg"
   - export QTIFW_EXE="/Volumes/${QTIFW_BASE}/${QTIFW_BASE}.app/Contents/MacOS/${QTIFW_BASE}"
   - export QTIFW_SCRIPT="${TRAVIS_BUILD_DIR}/Scripts/silentinstall.js"
-
+  # Installer
   - export INSTALLER_DIR=${RELEASE_DIR}/../Installer
   - export INSTALLER=${INSTALLER_DIR}/${PROJECT_NAME}Installer
   - export INSTALLER_EXE=${INSTALLER}.app
   - export INSTALLER_ZIP=${INSTALLER}-macos64.zip
-
+  # Upload
   - export REPO=${INSTALLER_DIR}/${TRAVIS_BRANCH}
-
   - export FTP_DOMAIN=sazonov.org
   - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
   - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${TRAVIS_BRANCH}
-
-
   # Print variables
   - echo ${CONFIGURATION}
   - echo ${BUILD_TYPE}
@@ -70,113 +63,51 @@ before_install:
   - echo ${LATEST_RELEASE_NAME}
   - echo ${RELEASE_DIR}
   - echo ${SCRIPTS_DIR}
-  - echo ${INSTALLER_DIR}
-  - echo ${INSTALLER_EXE}
-  - echo ${INSTALLER_ZIP}
-  - echo ${REPO}
-  - echo ${FTP_RELEASES_DIR}
-  - echo ${FTP_REPOS_DIR}
-  # Update
-  #- brew update
+  # Update...
+  - brew update
+
+# Install Python, Pip, Qt, QtIFW
+install:
+  # Python
+  - brew install python3
+  - sudo pip3 install ftputil
+  - sudo pip3 install yattag
+  # 7zip
+  - brew install p7zip
+  # Qt
+  - brew install qt5
+  # QtIFW
   - curl -L -O ${QTIFW_URL}
   - hdiutil attach "${QTIFW_BASE}.dmg"
   - ${QTIFW_EXE} --script ${QTIFW_SCRIPT}
-  - export PATH=$PATH:/Users/travis/Qt/QtIFW-3.0.1/bin
-  #- sudo mkdir /usr/local/doc
-  #- sudo chmod +x /usr/local/doc
-  #- sudo mkdir /usr/local/doc/ftputil
-  #- sudo chmod +x /usr/local/doc/ftputil
-  #- ls /usr/local/doc
-
-install:
-  - brew install python3
-  - brew install p7zip
-  #- python3 --version
-  - sudo pip3 install ftputil
-  #- python3 -c "import ftputil"
-  - sudo pip3 install yattag
-  - brew install qt5
-  #- ls /usr/local/opt/qt/bin
-  #- echo ${QTDIR}
-  #- cd ${QTDIR}
-  #- ls
-  #- pip install ftputil
-  #- pip show ftputil
-  #- pip3 install ftputil
+  - export PATH=$PATH:/Users/travis/Qt/QtIFW-3.0.1/bin # 3.0.1 is actual folder for 3.0.2 in mac
 
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
 
 before_script:
-  - brew link --force qt5 # Force brew to create the symlinks for Qt
-  #- qmake -v
-  #- make -v
-  #- ls
+  # Create the symlinks for Qt
+  - brew link --force qt5
 
 script:
-  #- qmake Project.pro -r "CONFIG+=$CONFIGURATION" "CONFIG+=$PLATFORM"
-  #- qmake Project.pro -spec $QMAKESPEC "CONFIG+=$CONFIGURATION" "CONFIG+=$PLATFORM" && make qmake_all
-  #- qmake -spec ${QMAKESPEC} "CONFIG+=${CONFIGURATION}" "CONFIG+=${PLATFORM}"
-  #- make -j$(nproc)
+  # Build
   - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
   - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
-  #- ls
-#---------------------------------#
-#       tests configuration       #
-#---------------------------------#
+  # Tests
   - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
   - ${RELEASE_DIR}/${PROJECT_NAME}Tests
-  #- cd ../Build/${BUILD_TYPE}
-  #- ls
-  #- ./"${PROJECT_NAME}Console" --help
-  #- ./"${PROJECT_NAME}Tests"
-#---------------------------------#
-#      artifacts configuration    #
-#---------------------------------#
-  #- curl --remote-name https://raw.githubusercontent.com/scottt/scottt-bin/master/otool-rpath
-  #- chmod +x otool-rpath
-  #- ./otool-rpath "${PROJECT_NAME}.app/Contents/MacOS/${PROJECT_NAME}"
-  #- /usr/local/opt/qt5/bin/macdeployqt "${PROJECT_NAME}.app" -dmg
-  #- cp "${PROJECT_NAME}.dmg" "${ARTIFACT}"
-  #- ls
-  #- cd ${TRAVIS_BUILD_DIR}
-  #- ls
+  # Deployment
   - python3 ${SCRIPTS_DIR}/makeDeploy.py
+  # Installer
   - python3 ${SCRIPTS_DIR}/makeInstaller.py
+  # Artifacts
   - "7z a -tzip -bso0 -bsp0 ${INSTALLER_ZIP} ${INSTALLER_EXE}"
-  #- ls
-
 
 #---------------------------------#
-#     deployment configuration    #
+#      upload configuration       #
 #---------------------------------#
 
-# Custom Deployment to FTP
 after_success:
   - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
   - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
-  #- if [ "${CONFIGURATION}" == "release" ]; then
-      #curl --ftp-create-dirs -T ${ARTIFACT} -u ${FTP_USER}:${FTP_PASSWORD} ${FTP_FULL_PATH};
-  #    python ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
-  #  fi
-  #- if [ "${CONFIGURATION}" == "release" ]; then
-      #curl --ftp-create-dirs -T ${ARTIFACT} -u ${FTP_USER}:${FTP_PASSWORD} ${FTP_FULL_PATH};
-  #    python ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
-  #  fi
-
-## Deploys to GitHub Releases
-#deploy:
-#  provider: releases
-#  api_key:
-#    - secure: "qnQ5kCJfNAdLmat/rk4QhorGydQtdNEcrBYw3/PI85N8sFsJVO8ooiNYuVbFVmmEOkZV7AcqbPL6kHTFwRfhsYMH1bvSZs6+hlFoaHIJmuU7TMNtOXS1wT/fYzaGTypjSMMM0IpbiCgihnVJ9+wEVZQ/N1L0iWAy/6X0vXElrz2/u/jzFLyvRAVFPOHT9lhKFFPrVuRz048y71cIdr97BeNpXupuO7+wthdnmCnrgNhtKbVD6m0Fx6Xx6DlV+cGLcUnLF0joNaU6mBcxDEriW5mgfWug+bjtRZkF9Veulc1tK9nQyNDY1KpNB1LUrOpv1ZBRkjFTeEk5UnZZKiFurkY0HYwrXZZHnxsQz19ajrvPc4ggnnZDkL/lCfTcXvXC8ZfQD7RgXf5XkkCckUWJTxSf62st5/enkNRJtS6zqL8EGiXmr1LQd60yLxCx8S0ABYfwP4fLn3lmPtP8jI3Ut8gGO+pr3N9Ypb7vj98LpygpTktPPez1Y3BHl07lNO1/TOFLvZEsiruem3v/ObEy77MoJf9HPASmSRB8jFA/sctL1/czabuRnhVp4ygz0KoIw86eJVHVGZUnpqNB3mENvHh83wo/MPITu7u3yx/OkIgn9gAN3FnZRjCAEwj70MpzXaLwf+yKKrLe6QtSYp8BIGz3ASTJATuvslYyAx3Rrlk="
-#  file_glob: true
-#  file: "${ARTIFACT}"
-#  skip_cleanup: true
-#  overwrite: true
-#  on:
-#    #branch: macos_clang
-#    all_branches: true
-#    #tags: true
-#    #os: osx
-#    condition: $CONFIGURATION = release
