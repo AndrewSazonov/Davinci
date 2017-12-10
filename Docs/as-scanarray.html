@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Base.cpp -->
+  <title>ScanArray Class | Davinci 1.0.1</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");
+    // loading style sheet breaks anchors that were jumped to before
+    // so force jumping to anchor again
+    setTimeout(function() {
+        var anchor = location.hash;
+        // need to jump to different anchor first (e.g. none)
+        location.hash = "#";
+        setTimeout(function() {
+            location.hash = anchor;
+        }, 0);
+    }, 0);
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+<td >Davinci 1.0&#x2e;1</td><td >ScanArray</td></tr></table><table class="buildversion"><tr>
+<td id="buildversion" width="100%" align="right">Davinci 1.0.1 Reference Documentation</td>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#public-slots">Public Slots</a></li>
+<li class="level1"><a href="#signals">Signals</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">ScanArray Class</h1>
+<span class="small-subtitle">(<a href="as-scanarray.html">As::ScanArray</a>)<br/></span>
+<!-- $$$ScanArray-brief -->
+<p>The <a href="as-scanarray.html">ScanArray</a> is a class that provides an array of the measured scans. <a href="#details">More...</a></p>
+<!-- @@@ScanArray -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign">   <span class="preprocessor">#include &lt;ScanArray&gt;</span>
+</td></tr></table></div><ul>
+<li><a href="as-scanarray-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#ScanArray">ScanArray</a></b>(QObject *<i>parent</i> = Q_NULLPTR)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#dtor.ScanArray">~ScanArray</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> As::RealVector </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#IntensityWithSigma">IntensityWithSigma</a></b>(const As::RealVector &amp;<i>intensities</i>, const As::RealVector &amp;<i>sigmas</i>, const int <i>numLeftBkgPoints</i>, const int <i>numRightBkgPoints</i>, const int <i>numLeftSkipPoints</i>, const int <i>numRightSkipPoints</i>, const qreal <i>mcCandlishFactor</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#adjustBkgPoints">adjustBkgPoints</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::RealVector </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#anglesToXyz">anglesToXyz</a></b>(const qreal <i>wavelength</i>, qreal <i>gamma</i>, qreal <i>nu</i>, qreal <i>omega</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::RealVector </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#anglesToXyz-1">anglesToXyz</a></b>(const qreal <i>wavelength</i>, qreal <i>twotheta</i>, qreal <i>omega</i>, qreal <i>chi</i>, qreal <i>phi</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#append">append</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#appendScan">appendScan</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> As::Scan *</td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#at">at</a></b>(const int <i>i</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::Scan *</td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#at-1">at</a></b>(const int <i>i</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> As::Scan *</td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#begin">begin</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcBkg">calcBkg</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcEsd">calcEsd</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcFlippingRatio">calcFlippingRatio</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcFullWidthHalfMax">calcFullWidthHalfMax</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcMaxPeakInty">calcMaxPeakInty</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcNormPeakArea">calcNormPeakArea</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcPeakArea">calcPeakArea</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcStructFactor">calcStructFactor</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcSumPeakInty">calcSumPeakInty</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#calcUnpolData">calcUnpolData</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>, As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#clear">clear</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#createAllExtractedTablesModels">createAllExtractedTablesModels</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#createFullOutputTable">createFullOutputTable</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#definePolarisationCrossSection">definePolarisationCrossSection</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> bool </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#detectInputFileType">detectInputFileType</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> As::Scan *</td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#end">end</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#extract6t2Data">extract6t2Data</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#extractDataFromTable">extractDataFromTable</a></b>(As::Scan *<i>scan</i>, QList&lt;QStringList&gt; &amp;<i>headerMap</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#extractHeidiData">extractHeidiData</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#extractInputData">extractInputData</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#extractNicosData">extractNicosData</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#extractPoliLog">extractPoliLog</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#fileIndex">fileIndex</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> As::InputFileType </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#filesType">filesType</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#fillEmptyArrays">fillEmptyArrays</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#findNonPeakPoints">findNonPeakPoints</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::RealVector </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#hklToXyz">hklToXyz</a></b>(const As::RealMatrix9 &amp;<i>ub</i>, const qreal <i>h</i>, const qreal <i>k</i>, const qreal <i>l</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#indexPeaks">indexPeaks</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> qreal </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#lorentzCorrectionFactor">lorentzCorrectionFactor</a></b>(const qreal <i>gammaMean</i>, const qreal <i>nuMean</i> = 0.)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#normalizeByTime">normalizeByTime</a></b>(As::Scan *<i>scan</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#preTreatData">preTreatData</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#saveSelectedOutputColumns">saveSelectedOutputColumns</a></b>(const QString &amp;<i>fileName</i>, const QString &amp;<i>filter</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#scanIndex">scanIndex</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#setSelectedOutputColumns">setSelectedOutputColumns</a></b>(As::SaveHeaders &amp;<i>saveHeaders</i>, QString &amp;<i>table</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#size">size</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#treatData">treatData</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#treatSingle">treatSingle</a></b>(const int <i>index</i>, const bool <i>sure</i> = true)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::RealVector </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#xyzToAngles">xyzToAngles</a></b>(const qreal <i>wavelength</i>, const qreal <i>x</i>, const qreal <i>y</i>, const qreal <i>z</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::RealVector </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#xyzToHkl">xyzToHkl</a></b>(const As::RealMatrix9 &amp;<i>ub</i>, const qreal <i>x</i>, const qreal <i>y</i>, const qreal <i>z</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> As::Scan *</td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#operator-5b-5d">operator[]</a></b>(const int <i>i</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::Scan *</td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#operator-5b-5d-1">operator[]</a></b>(const int <i>i</i>) const</td></tr>
+</table></div>
+<a name="public-slots"></a>
+<h2 id="public-slots">Public Slots</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#setFileIndex">setFileIndex</a></b>(const int <i>index</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#setFileIndexByScanIndex">setFileIndexByScanIndex</a></b>(const int <i>index</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#setInputFileType">setInputFileType</a></b>(const As::InputFileType <i>type</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#setScanIndex">setScanIndex</a></b>(const int <i>index</i>)</td></tr>
+</table></div>
+<a name="signals"></a>
+<h2 id="signals">Signals</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#dataTypeChanged_Signal">dataTypeChanged_Signal</a></b>(const QString &amp;<i>type</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#facilityTypeChanged_Signal">facilityTypeChanged_Signal</a></b>(const QString &amp;<i>type</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#fileIndexChanged">fileIndexChanged</a></b>(const int <i>index</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#instrumentTypeChanged_Signal">instrumentTypeChanged_Signal</a></b>(const QString &amp;<i>type</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scanarray.html#scanIndexChanged">scanIndexChanged</a></b>(const int <i>index</i>)</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$ScanArray-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="as-scanarray.html">ScanArray</a> is a class that provides an array of the measured scans.</p>
+</div>
+<!-- @@@ScanArray -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$ScanArray[overload1]$$$ScanArrayQObject* -->
+<h3 class="fn" id="ScanArray"><a name="ScanArray"></a>ScanArray::<span class="name">ScanArray</span>(<span class="type">QObject</span> *<i>parent</i> = Q_NULLPTR)</h3>
+<p>Constructs an empty array of the scans with the given <i>parent</i>.</p>
+<!-- @@@ScanArray -->
+<!-- $$$~ScanArray[overload1]$$$~ScanArray -->
+<h3 class="fn" id="dtor.ScanArray"><a name="dtor.ScanArray"></a>ScanArray::<span class="name">~ScanArray</span>()</h3>
+<p>Destroys the array.</p>
+<!-- @@@~ScanArray -->
+<!-- $$$IntensityWithSigma[overload1]$$$IntensityWithSigmaconstAs::RealVector&constAs::RealVector&constintconstintconstintconstintconstqreal -->
+<h3 class="fn" id="IntensityWithSigma"><a name="IntensityWithSigma"></a><span class="type"><a href="as-realvector.html">As::RealVector</a></span> ScanArray::<span class="name">IntensityWithSigma</span>(const <span class="type"><a href="as-realvector.html">As::RealVector</a></span> &amp;<i>intensities</i>, const <span class="type"><a href="as-realvector.html">As::RealVector</a></span> &amp;<i>sigmas</i>, const <span class="type">int</span> <i>numLeftBkgPoints</i>, const <span class="type">int</span> <i>numRightBkgPoints</i>, const <span class="type">int</span> <i>numLeftSkipPoints</i>, const <span class="type">int</span> <i>numRightSkipPoints</i>, const <span class="type">qreal</span> <i>mcCandlishFactor</i>)</h3>
+<p>Returns the ratio of standard deviation to integrated intensity according to the given <i>intensities</i>, <i>sigmas</i>, <i>numLeftBkgPoints</i>, <i>numRightBkgPoints</i>, <i>numLeftSkipPoints</i>, <i>numRightSkipPoints</i> and <i>mcCandlishFactor</i>.</p>
+<!-- @@@IntensityWithSigma -->
+<!-- $$$adjustBkgPoints[overload1]$$$adjustBkgPointsAs::Scan* -->
+<h3 class="fn" id="adjustBkgPoints"><a name="adjustBkgPoints"></a><span class="type">void</span> ScanArray::<span class="name">adjustBkgPoints</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Adjusts the background points of the given <i>scan</i>.</p>
+<!-- @@@adjustBkgPoints -->
+<!-- $$$anglesToXyz[overload1]$$$anglesToXyzconstqrealqrealqrealqreal -->
+<h3 class="fn" id="anglesToXyz"><a name="anglesToXyz"></a>const <span class="type"><a href="as-realvector.html">As::RealVector</a></span> ScanArray::<span class="name">anglesToXyz</span>(const <span class="type">qreal</span> <i>wavelength</i>, <span class="type">qreal</span> <i>gamma</i>, <span class="type">qreal</span> <i>nu</i>, <span class="type">qreal</span> <i>omega</i>) const</h3>
+<p>Returns the calculated reciprocal lattice vectors <i>x</i>, <i>y</i>, <i>z</i> from the given wavelength <i>wavelength</i> and scattering angles <i>gamma</i>, <i>nu</i>, <i>omega</i> (Lifting counter geometry).</p>
+<!-- @@@anglesToXyz -->
+<!-- $$$anglesToXyz$$$anglesToXyzconstqrealqrealqrealqrealqreal -->
+<h3 class="fn" id="anglesToXyz-1"><a name="anglesToXyz-1"></a>const <span class="type"><a href="as-realvector.html">As::RealVector</a></span> ScanArray::<span class="name">anglesToXyz</span>(const <span class="type">qreal</span> <i>wavelength</i>, <span class="type">qreal</span> <i>twotheta</i>, <span class="type">qreal</span> <i>omega</i>, <span class="type">qreal</span> <i>chi</i>, <span class="type">qreal</span> <i>phi</i>) const</h3>
+<p>This is an overloaded function.</p>
+<p>Returns the calculated reciprocal lattice vectors <i>x</i>, <i>y</i>, <i>z</i> from the given wavelength <i>wavelength</i> and scattering angles <i>twotheta</i>, <i>omega</i>, <i>chi</i>, <i>phi</i> (Four-circle geometry).</p>
+<!-- @@@anglesToXyz -->
+<!-- $$$append[overload1]$$$appendAs::Scan* -->
+<h3 class="fn" id="append"><a name="append"></a><span class="type">void</span> ScanArray::<span class="name">append</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Inserts <i>scan</i> at the end of the array.</p>
+<!-- @@@append -->
+<!-- $$$appendScan[overload1]$$$appendScanAs::Scan* -->
+<h3 class="fn" id="appendScan"><a name="appendScan"></a><span class="type">void</span> ScanArray::<span class="name">appendScan</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Appends the <i>scan</i> to the scan array.</p>
+<!-- @@@appendScan -->
+<!-- $$$at[overload1]$$$atconstint -->
+<h3 class="fn" id="at"><a name="at"></a><span class="type"><a href="as-scan.html">As::Scan</a></span> *ScanArray::<span class="name">at</span>(const <span class="type">int</span> <i>i</i>)</h3>
+<p>Returns a pointer to the modifiable <a href="as-scan.html">As::Scan</a> at index position <i>i</i> in the base array <a href="as-scanarray.html">As::ScanArray</a>.</p>
+<p><i>i</i> must be a valid index position in the array (i.e&#x2e;, 0 &lt;= <i>i</i> &lt; <a href="as-scanarray.html#size">size</a>()).</p>
+<p><b>See also </b><a href="as-scanarray.html#operator-5b-5d">operator[]</a>().</p>
+<!-- @@@at -->
+<!-- $$$at$$$atconstint -->
+<h3 class="fn" id="at-1"><a name="at-1"></a>const <span class="type"><a href="as-scan.html">As::Scan</a></span> *ScanArray::<span class="name">at</span>(const <span class="type">int</span> <i>i</i>) const</h3>
+<p>This is an overloaded function.</p>
+<!-- @@@at -->
+<!-- $$$begin[overload1]$$$begin -->
+<h3 class="fn" id="begin"><a name="begin"></a><span class="type"><a href="as-scan.html">As::Scan</a></span> *ScanArray::<span class="name">begin</span>()</h3>
+<p>Returns a pointer to the first item in the array.</p>
+<!-- @@@begin -->
+<!-- $$$calcBkg[overload1]$$$calcBkgAs::Scan* -->
+<h3 class="fn" id="calcBkg"><a name="calcBkg"></a><span class="type">void</span> ScanArray::<span class="name">calcBkg</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the average background of the given <i>scan</i>.</p>
+<!-- @@@calcBkg -->
+<!-- $$$calcEsd[overload1]$$$calcEsdAs::Scan* -->
+<h3 class="fn" id="calcEsd"><a name="calcEsd"></a><span class="type">void</span> ScanArray::<span class="name">calcEsd</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the estimated standard deviations for the measured detector and monitor data arrays of the given <i>scan</i>.</p>
+<!-- @@@calcEsd -->
+<!-- $$$calcFlippingRatio[overload1]$$$calcFlippingRatioAs::Scan* -->
+<h3 class="fn" id="calcFlippingRatio"><a name="calcFlippingRatio"></a><span class="type">void</span> ScanArray::<span class="name">calcFlippingRatio</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the flipping ratio of the given <i>scan</i>.</p>
+<!-- @@@calcFlippingRatio -->
+<!-- $$$calcFullWidthHalfMax[overload1]$$$calcFullWidthHalfMaxAs::Scan* -->
+<h3 class="fn" id="calcFullWidthHalfMax"><a name="calcFullWidthHalfMax"></a><span class="type">void</span> ScanArray::<span class="name">calcFullWidthHalfMax</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the full width at half maximum (FWHM) of the given <i>scan</i>.</p>
+<!-- @@@calcFullWidthHalfMax -->
+<!-- $$$calcMaxPeakInty[overload1]$$$calcMaxPeakIntyAs::Scan* -->
+<h3 class="fn" id="calcMaxPeakInty"><a name="calcMaxPeakInty"></a><span class="type">void</span> ScanArray::<span class="name">calcMaxPeakInty</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the maximum peak intensity of the given <i>scan</i>.</p>
+<!-- @@@calcMaxPeakInty -->
+<!-- $$$calcNormPeakArea[overload1]$$$calcNormPeakAreaAs::Scan* -->
+<h3 class="fn" id="calcNormPeakArea"><a name="calcNormPeakArea"></a><span class="type">void</span> ScanArray::<span class="name">calcNormPeakArea</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the normalised peak area of the given <i>scan</i>.</p>
+<!-- @@@calcNormPeakArea -->
+<!-- $$$calcPeakArea[overload1]$$$calcPeakAreaAs::Scan* -->
+<h3 class="fn" id="calcPeakArea"><a name="calcPeakArea"></a><span class="type">void</span> ScanArray::<span class="name">calcPeakArea</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the peak area of the given <i>scan</i>.</p>
+<!-- @@@calcPeakArea -->
+<!-- $$$calcStructFactor[overload1]$$$calcStructFactorAs::Scan* -->
+<h3 class="fn" id="calcStructFactor"><a name="calcStructFactor"></a><span class="type">void</span> ScanArray::<span class="name">calcStructFactor</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the structure factor area of the given <i>scan</i>.</p>
+<!-- @@@calcStructFactor -->
+<!-- $$$calcSumPeakInty[overload1]$$$calcSumPeakIntyAs::Scan* -->
+<h3 class="fn" id="calcSumPeakInty"><a name="calcSumPeakInty"></a><span class="type">void</span> ScanArray::<span class="name">calcSumPeakInty</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Calculates the sum of all the peak point intensities of the given <i>scan</i>.</p>
+<!-- @@@calcSumPeakInty -->
+<!-- $$$calcUnpolData[overload1]$$$calcUnpolDataconstQString&constQString&As::Scan* -->
+<h3 class="fn" id="calcUnpolData"><a name="calcUnpolData"></a><span class="type">void</span> ScanArray::<span class="name">calcUnpolData</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>, <span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Sets the unpolarised neutron data based on the polarised neutron diffraction measurement for the given <i>scan</i> using the provided <i>section</i> and <i>entry</i>.</p>
+<!-- @@@calcUnpolData -->
+<!-- $$$clear[overload1]$$$clear -->
+<h3 class="fn" id="clear"><a name="clear"></a><span class="type">void</span> ScanArray::<span class="name">clear</span>()</h3>
+<p>Removes all the elements from the array.</p>
+<!-- @@@clear -->
+<!-- $$$createAllExtractedTablesModels[overload1]$$$createAllExtractedTablesModels -->
+<h3 class="fn" id="createAllExtractedTablesModels"><a name="createAllExtractedTablesModels"></a><span class="type">void</span> ScanArray::<span class="name">createAllExtractedTablesModels</span>()</h3>
+<p>Creates the table models for the extracted scans.</p>
+<!-- @@@createAllExtractedTablesModels -->
+<!-- $$$createFullOutputTable[overload1]$$$createFullOutputTable -->
+<h3 class="fn" id="createFullOutputTable"><a name="createFullOutputTable"></a><span class="type">void</span> ScanArray::<span class="name">createFullOutputTable</span>()</h3>
+<p>Creates the output table with all the processed parameters..</p>
+<!-- @@@createFullOutputTable -->
+<!-- $$$dataTypeChanged_Signal[overload1]$$$dataTypeChanged_SignalconstQString& -->
+<h3 class="fn" id="dataTypeChanged_Signal"><a name="dataTypeChanged_Signal"></a><code>[signal] </code><span class="type">void</span> ScanArray::<span class="name">dataTypeChanged_Signal</span>(const <span class="type">QString</span> &amp;<i>type</i>)</h3>
+<p>This signal is emitted whenever the type of the input data is changed. The new value is passed in <i>type</i>.</p>
+<!-- @@@dataTypeChanged_Signal -->
+<!-- $$$definePolarisationCrossSection[overload1]$$$definePolarisationCrossSectionAs::Scan* -->
+<h3 class="fn" id="definePolarisationCrossSection"><a name="definePolarisationCrossSection"></a><span class="type">void</span> ScanArray::<span class="name">definePolarisationCrossSection</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Defines the polarisation cross-section for the given <i>scan</i>.</p>
+<!-- @@@definePolarisationCrossSection -->
+<!-- $$$detectInputFileType[overload1]$$$detectInputFileType -->
+<h3 class="fn" id="detectInputFileType"><a name="detectInputFileType"></a><span class="type">bool</span> ScanArray::<span class="name">detectInputFileType</span>()</h3>
+<p>Returns the input file type.</p>
+<!-- @@@detectInputFileType -->
+<!-- $$$end[overload1]$$$end -->
+<h3 class="fn" id="end"><a name="end"></a><span class="type"><a href="as-scan.html">As::Scan</a></span> *ScanArray::<span class="name">end</span>()</h3>
+<p>Returns a pointer to the imaginary item after the last item in the array.</p>
+<!-- @@@end -->
+<!-- $$$extract6t2Data[overload1]$$$extract6t2Data -->
+<h3 class="fn" id="extract6t2Data"><a name="extract6t2Data"></a><span class="type">void</span> ScanArray::<span class="name">extract6t2Data</span>()</h3>
+<p>Extracts the scans from the 6T2 xml data file.</p>
+<!-- @@@extract6t2Data -->
+<!-- $$$extractDataFromTable[overload1]$$$extractDataFromTableAs::Scan*QList<QStringList>& -->
+<h3 class="fn" id="extractDataFromTable"><a name="extractDataFromTable"></a><span class="type">void</span> ScanArray::<span class="name">extractDataFromTable</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>, <span class="type">QList</span>&lt;<span class="type">QStringList</span>&gt; &amp;<i>headerMap</i>)</h3>
+<p>Extracts the data from the generic table created in the previous instrument specific extraction step for the given <i>scan</i> and according to the provided list of headers <i>headerMap</i>.</p>
+<!-- @@@extractDataFromTable -->
+<!-- $$$extractHeidiData[overload1]$$$extractHeidiData -->
+<h3 class="fn" id="extractHeidiData"><a name="extractHeidiData"></a><span class="type">void</span> ScanArray::<span class="name">extractHeidiData</span>()</h3>
+<p>Extracts the scans from the HEIDI data file.</p>
+<!-- @@@extractHeidiData -->
+<!-- $$$extractInputData[overload1]$$$extractInputData -->
+<h3 class="fn" id="extractInputData"><a name="extractInputData"></a><span class="type">void</span> ScanArray::<span class="name">extractInputData</span>()</h3>
+<p>Extracts the scans from the input data file.</p>
+<!-- @@@extractInputData -->
+<!-- $$$extractNicosData[overload1]$$$extractNicosData -->
+<h3 class="fn" id="extractNicosData"><a name="extractNicosData"></a><span class="type">void</span> ScanArray::<span class="name">extractNicosData</span>()</h3>
+<p>Extracts the scans from the NICOS data file.</p>
+<!-- @@@extractNicosData -->
+<!-- $$$extractPoliLog[overload1]$$$extractPoliLog -->
+<h3 class="fn" id="extractPoliLog"><a name="extractPoliLog"></a><span class="type">void</span> ScanArray::<span class="name">extractPoliLog</span>()</h3>
+<p>Extracts the scans from the POLI Igor Pro log file using <i>filesAsListOfStrings</i>.</p>
+<!-- @@@extractPoliLog -->
+<!-- $$$facilityTypeChanged_Signal[overload1]$$$facilityTypeChanged_SignalconstQString& -->
+<h3 class="fn" id="facilityTypeChanged_Signal"><a name="facilityTypeChanged_Signal"></a><code>[signal] </code><span class="type">void</span> ScanArray::<span class="name">facilityTypeChanged_Signal</span>(const <span class="type">QString</span> &amp;<i>type</i>)</h3>
+<p>This signal is emitted whenever the type of the facility in the input data is changed. The new value is passed in <i>type</i>.</p>
+<!-- @@@facilityTypeChanged_Signal -->
+<!-- $$$fileIndex[overload1]$$$fileIndex -->
+<h3 class="fn" id="fileIndex"><a name="fileIndex"></a><span class="type">int</span> ScanArray::<span class="name">fileIndex</span>() const</h3>
+<p>Returns the index of the file which contains the currently processed scan.</p>
+<p><b>See also </b><a href="as-scanarray.html#setFileIndex">setFileIndex</a>().</p>
+<!-- @@@fileIndex -->
+<!-- $$$fileIndexChanged[overload1]$$$fileIndexChangedconstint -->
+<h3 class="fn" id="fileIndexChanged"><a name="fileIndexChanged"></a><code>[signal] </code><span class="type">void</span> ScanArray::<span class="name">fileIndexChanged</span>(const <span class="type">int</span> <i>index</i>)</h3>
+<p>This signal is emitted whenever the file index of the current scan is changed. The new value is passed in <i>index</i>.</p>
+<!-- @@@fileIndexChanged -->
+<!-- $$$filesType[overload1]$$$filesType -->
+<h3 class="fn" id="filesType"><a name="filesType"></a><span class="type"><a href="as.html#InputFileType-enum">As::InputFileType</a></span> ScanArray::<span class="name">filesType</span>()</h3>
+<p>Returns the input file type.</p>
+<!-- @@@filesType -->
+<!-- $$$fillEmptyArrays[overload1]$$$fillEmptyArrays -->
+<h3 class="fn" id="fillEmptyArrays"><a name="fillEmptyArrays"></a><span class="type">void</span> ScanArray::<span class="name">fillEmptyArrays</span>()</h3>
+<p>Fills the array with single element.</p>
+<!-- @@@fillEmptyArrays -->
+<!-- $$$findNonPeakPoints[overload1]$$$findNonPeakPointsAs::Scan* -->
+<h3 class="fn" id="findNonPeakPoints"><a name="findNonPeakPoints"></a><span class="type">void</span> ScanArray::<span class="name">findNonPeakPoints</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Finds non-peak points (neighbors to be skipped + background) of the given <i>scan</i>.</p>
+<!-- @@@findNonPeakPoints -->
+<!-- $$$hklToXyz[overload1]$$$hklToXyzconstAs::RealMatrix9&constqrealconstqrealconstqreal -->
+<h3 class="fn" id="hklToXyz"><a name="hklToXyz"></a>const <span class="type"><a href="as-realvector.html">As::RealVector</a></span> ScanArray::<span class="name">hklToXyz</span>(const <span class="type"><a href="as-realmatrix9.html">As::RealMatrix9</a></span> &amp;<i>ub</i>, const <span class="type">qreal</span> <i>h</i>, const <span class="type">qreal</span> <i>k</i>, const <span class="type">qreal</span> <i>l</i>) const</h3>
+<p>Returns the calculated reciprocal lattice vectors <i>x</i>, <i>y</i>, <i>z</i> from the given UB matrix <i>ub</i> and Miller indices <i>h</i>, <i>k</i>, <i>l</i>. Reciprocal lattice vectors are returned in the form of <a href="as-realvector.html">As::RealVector</a> with the following order: 0 - <i>x</i>, 1 - <i>y</i>, 2 - <i>z</i>.</p>
+<!-- @@@hklToXyz -->
+<!-- $$$indexPeaks[overload1]$$$indexPeaks -->
+<h3 class="fn" id="indexPeaks"><a name="indexPeaks"></a><span class="type">void</span> ScanArray::<span class="name">indexPeaks</span>()</h3>
+<p>Index the reflection based on the scattering angles.</p>
+<!-- @@@indexPeaks -->
+<!-- $$$instrumentTypeChanged_Signal[overload1]$$$instrumentTypeChanged_SignalconstQString& -->
+<h3 class="fn" id="instrumentTypeChanged_Signal"><a name="instrumentTypeChanged_Signal"></a><code>[signal] </code><span class="type">void</span> ScanArray::<span class="name">instrumentTypeChanged_Signal</span>(const <span class="type">QString</span> &amp;<i>type</i>)</h3>
+<p>This signal is emitted whenever the type of the instrument in the input data is changed. The new value is passed in <i>type</i>.</p>
+<!-- @@@instrumentTypeChanged_Signal -->
+<!-- $$$lorentzCorrectionFactor[overload1]$$$lorentzCorrectionFactorconstqrealconstqreal -->
+<h3 class="fn" id="lorentzCorrectionFactor"><a name="lorentzCorrectionFactor"></a><span class="type">qreal</span> ScanArray::<span class="name">lorentzCorrectionFactor</span>(const <span class="type">qreal</span> <i>gammaMean</i>, const <span class="type">qreal</span> <i>nuMean</i> = 0.)</h3>
+<p>Returns the Lorentz correction coefficient calculated from the given detector 2theta angle <i>gammaMean</i> and lifting counter nu anlge <i>nuMean</i>.</p>
+<!-- @@@lorentzCorrectionFactor -->
+<!-- $$$normalizeByTime[overload1]$$$normalizeByTimeAs::Scan* -->
+<h3 class="fn" id="normalizeByTime"><a name="normalizeByTime"></a><span class="type">void</span> ScanArray::<span class="name">normalizeByTime</span>(<span class="type"><a href="as-scan.html">As::Scan</a></span> *<i>scan</i>)</h3>
+<p>Normalizes the measured detector and monitor data arrays of the given <i>scan</i> by the measured time.</p>
+<!-- @@@normalizeByTime -->
+<!-- $$$preTreatData[overload1]$$$preTreatData -->
+<h3 class="fn" id="preTreatData"><a name="preTreatData"></a><span class="type">void</span> ScanArray::<span class="name">preTreatData</span>()</h3>
+<p>Treats the data preliminary.</p>
+<!-- @@@preTreatData -->
+<!-- $$$saveSelectedOutputColumns[overload1]$$$saveSelectedOutputColumnsconstQString&constQString& -->
+<h3 class="fn" id="saveSelectedOutputColumns"><a name="saveSelectedOutputColumns"></a><span class="type">void</span> ScanArray::<span class="name">saveSelectedOutputColumns</span>(const <span class="type">QString</span> &amp;<i>fileName</i>, const <span class="type">QString</span> &amp;<i>filter</i>)</h3>
+<p>Saves the selected columns for the output file <i>fileName</i> according to the given <i>filter</i>.</p>
+<!-- @@@saveSelectedOutputColumns -->
+<!-- $$$scanIndex[overload1]$$$scanIndex -->
+<h3 class="fn" id="scanIndex"><a name="scanIndex"></a><span class="type">int</span> ScanArray::<span class="name">scanIndex</span>() const</h3>
+<p>Returns the index of the currently processed scan.</p>
+<p><b>See also </b><a href="as-scanarray.html#setScanIndex">setScanIndex</a>().</p>
+<!-- @@@scanIndex -->
+<!-- $$$scanIndexChanged[overload1]$$$scanIndexChangedconstint -->
+<h3 class="fn" id="scanIndexChanged"><a name="scanIndexChanged"></a><code>[signal] </code><span class="type">void</span> ScanArray::<span class="name">scanIndexChanged</span>(const <span class="type">int</span> <i>index</i>)</h3>
+<p>This signal is emitted whenever the index of the current scan is changed. The new value is passed in <i>index</i>.</p>
+<!-- @@@scanIndexChanged -->
+<!-- $$$setFileIndex[overload1]$$$setFileIndexconstint -->
+<h3 class="fn" id="setFileIndex"><a name="setFileIndex"></a><code>[slot] </code><span class="type">void</span> ScanArray::<span class="name">setFileIndex</span>(const <span class="type">int</span> <i>index</i>)</h3>
+<p>Sets the index of the file which contains the currently processed scan to be <i>index</i>.</p>
+<p><b>See also </b><a href="as-scanarray.html#fileIndex">fileIndex</a>().</p>
+<!-- @@@setFileIndex -->
+<!-- $$$setFileIndexByScanIndex[overload1]$$$setFileIndexByScanIndexconstint -->
+<h3 class="fn" id="setFileIndexByScanIndex"><a name="setFileIndexByScanIndex"></a><code>[slot] </code><span class="type">void</span> ScanArray::<span class="name">setFileIndexByScanIndex</span>(const <span class="type">int</span> <i>index</i>)</h3>
+<p>Sets the index of the file which contains the currently processed scan using the scan <i>index</i>.</p>
+<!-- @@@setFileIndexByScanIndex -->
+<!-- $$$setInputFileType[overload1]$$$setInputFileTypeconstAs::InputFileType -->
+<h3 class="fn" id="setInputFileType"><a name="setInputFileType"></a><code>[slot] </code><span class="type">void</span> ScanArray::<span class="name">setInputFileType</span>(const <span class="type"><a href="as.html#InputFileType-enum">As::InputFileType</a></span> <i>type</i>)</h3>
+<p>Sets the input file type to be <i>type</i>.</p>
+<!-- @@@setInputFileType -->
+<!-- $$$setScanIndex[overload1]$$$setScanIndexconstint -->
+<h3 class="fn" id="setScanIndex"><a name="setScanIndex"></a><code>[slot] </code><span class="type">void</span> ScanArray::<span class="name">setScanIndex</span>(const <span class="type">int</span> <i>index</i>)</h3>
+<p>Sets the index of the currently processed scan to be <i>index</i>.</p>
+<p><b>See also </b><a href="as-scanarray.html#scanIndex">scanIndex</a>().</p>
+<!-- @@@setScanIndex -->
+<!-- $$$setSelectedOutputColumns[overload1]$$$setSelectedOutputColumnsAs::SaveHeaders&QString& -->
+<h3 class="fn" id="setSelectedOutputColumns"><a name="setSelectedOutputColumns"></a><span class="type">void</span> ScanArray::<span class="name">setSelectedOutputColumns</span>(<span class="type"><a href="as-saveheaders.html">As::SaveHeaders</a></span> &amp;<i>saveHeaders</i>, <span class="type">QString</span> &amp;<i>table</i>)</h3>
+<p>Sets the selected columns for the output <i>table</i> according to the given headers <i>saveHeaders</i>.</p>
+<!-- @@@setSelectedOutputColumns -->
+<!-- $$$size[overload1]$$$size -->
+<h3 class="fn" id="size"><a name="size"></a><span class="type">int</span> ScanArray::<span class="name">size</span>() const</h3>
+<p>Returns the number of elements in the array.</p>
+<!-- @@@size -->
+<!-- $$$treatData[overload1]$$$treatData -->
+<h3 class="fn" id="treatData"><a name="treatData"></a><span class="type">void</span> ScanArray::<span class="name">treatData</span>()</h3>
+<p>Treats all the non-treated scans in the scan array.</p>
+<!-- @@@treatData -->
+<!-- $$$treatSingle[overload1]$$$treatSingleconstintconstbool -->
+<h3 class="fn" id="treatSingle"><a name="treatSingle"></a><span class="type">void</span> ScanArray::<span class="name">treatSingle</span>(const <span class="type">int</span> <i>index</i>, const <span class="type">bool</span> <i>sure</i> = true)</h3>
+<p>Treats the single <a href="as-scan.html">As::Scan</a> with the given <i>index</i> in the scan array if <i>sure</i> is <code>true</code>.</p>
+<!-- @@@treatSingle -->
+<!-- $$$xyzToAngles[overload1]$$$xyzToAnglesconstqrealconstqrealconstqrealconstqreal -->
+<h3 class="fn" id="xyzToAngles"><a name="xyzToAngles"></a>const <span class="type"><a href="as-realvector.html">As::RealVector</a></span> ScanArray::<span class="name">xyzToAngles</span>(const <span class="type">qreal</span> <i>wavelength</i>, const <span class="type">qreal</span> <i>x</i>, const <span class="type">qreal</span> <i>y</i>, const <span class="type">qreal</span> <i>z</i>) const</h3>
+<p>Returns the calculated scattering angles from the given wavelength <i>wavelength</i> and reciprocal lattice vectors <i>x</i>, <i>y</i>, <i>z</i>. Angles are returned in the form of <a href="as-realvector.html">As::RealVector</a> with the following order: 0 - <i>twotheta</i>, 1 - <i>omega</i>, 2 - <i>chi</i>, 3 - <i>phi</i> (Four-circle geometry), 4 - <i>twotheta</i>, 5 - <i>gamma</i>, 6 - <i>nu</i>, 7 - <i>omega</i> (Lifting counter geometry).</p>
+<!-- @@@xyzToAngles -->
+<!-- $$$xyzToHkl[overload1]$$$xyzToHklconstAs::RealMatrix9&constqrealconstqrealconstqreal -->
+<h3 class="fn" id="xyzToHkl"><a name="xyzToHkl"></a>const <span class="type"><a href="as-realvector.html">As::RealVector</a></span> ScanArray::<span class="name">xyzToHkl</span>(const <span class="type"><a href="as-realmatrix9.html">As::RealMatrix9</a></span> &amp;<i>ub</i>, const <span class="type">qreal</span> <i>x</i>, const <span class="type">qreal</span> <i>y</i>, const <span class="type">qreal</span> <i>z</i>) const</h3>
+<p>Returns the calculated Miller indices <i>h</i>, <i>k</i>, <i>l</i> from the given UB matrix <i>ub</i> and reciprocal lattice vectors <i>x</i>, <i>y</i>, <i>z</i>. Miller indices are returned in the form of <a href="as-realvector.html">As::RealVector</a> with the following order: 0 - <i>h</i>, 1 - <i>k</i>, 2 - <i>l</i>.</p>
+<!-- @@@xyzToHkl -->
+<!-- $$$operator[][overload1]$$$operator[]constint -->
+<h3 class="fn" id="operator-5b-5d"><a name="operator-5b-5d"></a><span class="type"><a href="as-scan.html">As::Scan</a></span> *ScanArray::<span class="name">operator[]</span>(const <span class="type">int</span> <i>i</i>)</h3>
+<p>This is an overloaded function.</p>
+<p>Same as <a href="as-scanarray.html#at">at</a>().</p>
+<!-- @@@operator[] -->
+<!-- $$$operator[]$$$operator[]constint -->
+<h3 class="fn" id="operator-5b-5d-1"><a name="operator-5b-5d-1"></a>const <span class="type"><a href="as-scan.html">As::Scan</a></span> *ScanArray::<span class="name">operator[]</span>(const <span class="type">int</span> <i>i</i>) const</h3>
+<p>This is an overloaded function.</p>
+<p>Same as <a href="as-scanarray.html#at">at</a>().</p>
+<!-- @@@operator[] -->
+</div>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2017 The Qt Company Ltd.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    Qt and respective logos are trademarks of The Qt Company Ltd.     in Finland and/or other countries worldwide. All other trademarks are property
+   of their respective owners. </p>
+</div>
+</body>
+</html>

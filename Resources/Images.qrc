@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <!-- Widget elements -->
+        <file>Images/Arrows-UpDown.svg</file>
+        <file>Images/Checkmark.svg</file>
+        <file>Images/TriangleArrow-Up.svg</file>
+        <file>Images/TriangleArrow-Down.svg</file>
+        <file>Images/TriangleArrow-Left.svg</file>
+        <file>Images/TriangleArrow-Right.svg</file>
+        <!-- Background images -->
+        <file>Images/Bkg_Drag-and-Drop.svg</file>
+        <!-- Button icons -->
+        <file>Images/Button_Auto.svg</file>
+        <file>Images/Button_Export.svg</file>
+        <file>Images/Button_Open-File.svg</file>
+        <file>Images/Button_Reload.svg</file>
+        <file>Images/Button_Open-Folder.svg</file>
+        <file>Images/Button_Sidebar_On.svg</file>
+        <file>Images/Button_Sidebar_Off.svg</file>
+        <!-- App icons -->
+        <file>Icon/Davinci.svg</file>
+    </qresource>
+</RCC>

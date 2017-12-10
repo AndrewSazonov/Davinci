@@ -1,0 +1,10 @@
+/*!
+\module Core
+
+\title As Core Module
+
+\brief Contains the base classes, functions and constants.
+
+The core module provides the base classes, functions and constants requared for
+the application.
+*/

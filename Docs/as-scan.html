@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Scan.cpp -->
+  <title>Scan Class | Davinci 1.0.1</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");
+    // loading style sheet breaks anchors that were jumped to before
+    // so force jumping to anchor again
+    setTimeout(function() {
+        var anchor = location.hash;
+        // need to jump to different anchor first (e.g. none)
+        location.hash = "#";
+        setTimeout(function() {
+            location.hash = anchor;
+        }, 0);
+    }, 0);
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+<td >Davinci 1.0&#x2e;1</td><td >Scan</td></tr></table><table class="buildversion"><tr>
+<td id="buildversion" width="100%" align="right">Davinci 1.0.1 Reference Documentation</td>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#public-slots">Public Slots</a></li>
+<li class="level1"><a href="#static-public-members">Static Public Members</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Scan Class</h1>
+<span class="small-subtitle">(<a href="as-scan.html">As::Scan</a>)<br/></span>
+<!-- $$$Scan-brief -->
+<p>The Scan is a class that provides a set of variables required to describe the generic diffraction scan. <a href="#details">More...</a></p>
+<!-- @@@Scan -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign">   <span class="preprocessor">#include &lt;Scan&gt;</span>
+</td></tr></table></div><ul>
+<li><a href="as-scan-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#Scan">Scan</a></b>(QObject *<i>parent</i> = Q_NULLPTR)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#dtor.Scan">~Scan</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#absoluteFilePath">absoluteFilePath</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#absolutePath">absolutePath</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#absolutePathWithBaseName">absolutePathWithBaseName</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#absolutePathWithBaseNameAndHkl">absolutePathWithBaseNameAndHkl</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#appendData">appendData</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>, const QString &amp;<i>data</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#baseName">baseName</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#data">data</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>, bool *<i>ok</i> = Q_NULLPTR) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#fileIndex">fileIndex</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#format">format</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>, bool *<i>ok</i> = Q_NULLPTR) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#index">index</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#init">init</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QStringList </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#keys">keys</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> As::PlotType </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#plotType">plotType</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#printDataRange">printDataRange</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#printDataSingle">printDataSingle</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>, const QString &amp;<i>format</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#printDataSingle-1">printDataSingle</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#removeData">removeData</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#scanAngle">scanAngle</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> qreal </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#scanStep">scanStep</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#setAbsoluteFilePath">setAbsoluteFilePath</a></b>(const QString &amp;<i>name</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#setData">setData</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>, const QString &amp;<i>data</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#setFileIndex">setFileIndex</a></b>(const int <i>index</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#setIndex">setIndex</a></b>(const int <i>index</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#setPlotType">setPlotType</a></b>(const As::PlotType <i>plotType</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#setScanAngle">setScanAngle</a></b>(const QString &amp;<i>name</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#setScanStep">setScanStep</a></b>(const qreal <i>value</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#setSize">setSize</a></b>(const int <i>size</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#size">size</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::ScanMap </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#toQMap">toQMap</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#value">value</a></b>(const QString &amp;<i>section</i>, const QString &amp;<i>entry</i>, const QString &amp;<i>name</i>, bool *<i>ok</i> = Q_NULLPTR) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const As::ScanSectionMap </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#operator-5b-5d">operator[]</a></b>(const QString &amp;<i>key</i>) const</td></tr>
+</table></div>
+<a name="public-slots"></a>
+<h2 id="public-slots">Public Slots</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#createExtractedTableModel_Slot">createExtractedTableModel_Slot</a></b>()</td></tr>
+</table></div>
+<a name="static-public-members"></a>
+<h2 id="static-public-members">Static Public Members</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> const QStringList </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#BKG_TYPES-var">BKG_TYPES</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QStringList </td><td class="memItemRight bottomAlign"><b><a href="as-scan.html#FIT_TYPES-var">FIT_TYPES</a></b></td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$Scan-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The Scan is a class that provides a set of variables required to describe the generic diffraction scan.</p>
+</div>
+<!-- @@@Scan -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$Scan[overload1]$$$ScanQObject* -->
+<h3 class="fn" id="Scan"><a name="Scan"></a>Scan::<span class="name">Scan</span>(<span class="type">QObject</span> *<i>parent</i> = Q_NULLPTR)</h3>
+<p>Constructs and initializes a scan with the given <i>parent</i>.</p>
+<!-- @@@Scan -->
+<!-- $$$~Scan[overload1]$$$~Scan -->
+<h3 class="fn" id="dtor.Scan"><a name="dtor.Scan"></a>Scan::<span class="name">~Scan</span>()</h3>
+<p>Destroys the scan.</p>
+<!-- @@@~Scan -->
+<!-- $$$absoluteFilePath[overload1]$$$absoluteFilePath -->
+<h3 class="fn" id="absoluteFilePath"><a name="absoluteFilePath"></a>const <span class="type">QString</span> Scan::<span class="name">absoluteFilePath</span>() const</h3>
+<p>Returns the absolute path of the file (including file name) which contains the scan.</p>
+<p><b>See also </b><a href="as-scan.html#setAbsoluteFilePath">setAbsoluteFilePath</a>().</p>
+<!-- @@@absoluteFilePath -->
+<!-- $$$absolutePath[overload1]$$$absolutePath -->
+<h3 class="fn" id="absolutePath"><a name="absolutePath"></a>const <span class="type">QString</span> Scan::<span class="name">absolutePath</span>() const</h3>
+<p>Returns the absolute path of the file (without file name) which contains the scan.</p>
+<!-- @@@absolutePath -->
+<!-- $$$absolutePathWithBaseName[overload1]$$$absolutePathWithBaseName -->
+<h3 class="fn" id="absolutePathWithBaseName"><a name="absolutePathWithBaseName"></a>const <span class="type">QString</span> Scan::<span class="name">absolutePathWithBaseName</span>() const</h3>
+<p>Returns the absolute path of the file which contains the scan.</p>
+<!-- @@@absolutePathWithBaseName -->
+<!-- $$$absolutePathWithBaseNameAndHkl[overload1]$$$absolutePathWithBaseNameAndHkl -->
+<h3 class="fn" id="absolutePathWithBaseNameAndHkl"><a name="absolutePathWithBaseNameAndHkl"></a>const <span class="type">QString</span> Scan::<span class="name">absolutePathWithBaseNameAndHkl</span>() const</h3>
+<p>Returns the absolute path (with base name and Miller indices h,k,l) of the file which contains the scan.</p>
+<!-- @@@absolutePathWithBaseNameAndHkl -->
+<!-- $$$appendData[overload1]$$$appendDataconstQString&constQString&constQString& -->
+<h3 class="fn" id="appendData"><a name="appendData"></a><span class="type">void</span> Scan::<span class="name">appendData</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>, const <span class="type">QString</span> &amp;<i>data</i>)</h3>
+<p>Appends the <i>data</i> to the given scan <i>section</i> and <i>entry</i>.</p>
+<!-- @@@appendData -->
+<!-- $$$baseName[overload1]$$$baseName -->
+<h3 class="fn" id="baseName"><a name="baseName"></a>const <span class="type">QString</span> Scan::<span class="name">baseName</span>() const</h3>
+<p>Returns the base name (without extension) of the file which contains the scan.</p>
+<!-- @@@baseName -->
+<!-- $$$createExtractedTableModel_Slot[overload1]$$$createExtractedTableModel_Slot -->
+<h3 class="fn" id="createExtractedTableModel_Slot"><a name="createExtractedTableModel_Slot"></a><code>[slot] </code><span class="type">void</span> Scan::<span class="name">createExtractedTableModel_Slot</span>()</h3>
+<p>Creates the table model of extracted scans.</p>
+<!-- @@@createExtractedTableModel_Slot -->
+<!-- $$$data[overload1]$$$dataconstQString&constQString&bool* -->
+<h3 class="fn" id="data"><a name="data"></a>const <span class="type">QString</span> Scan::<span class="name">data</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>, <span class="type">bool</span> *<i>ok</i> = Q_NULLPTR) const</h3>
+<p>Returns the data field of the given scan <i>section</i> and <i>entry</i>.</p>
+<p>If an error occurs, *<i>ok</i> is set to <code>false</code>; otherwise *<i>ok</i> is set to <code>true</code>.</p>
+<p><b>See also </b><a href="as-scan.html#setData">setData</a>().</p>
+<!-- @@@data -->
+<!-- $$$fileIndex[overload1]$$$fileIndex -->
+<h3 class="fn" id="fileIndex"><a name="fileIndex"></a><span class="type">int</span> Scan::<span class="name">fileIndex</span>() const</h3>
+<p>Returns the index of the file which contains the scan.</p>
+<p><b>See also </b><a href="as-scan.html#setFileIndex">setFileIndex</a>().</p>
+<!-- @@@fileIndex -->
+<!-- $$$format[overload1]$$$formatconstQString&constQString&bool* -->
+<h3 class="fn" id="format"><a name="format"></a>const <span class="type">QString</span> Scan::<span class="name">format</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>, <span class="type">bool</span> *<i>ok</i> = Q_NULLPTR) const</h3>
+<p>Returns the format field of the given scan <i>section</i> and <i>entry</i>.</p>
+<p>If an error occurs, *<i>ok</i> is set to <code>false</code>; otherwise *<i>ok</i> is set to <code>true</code>.</p>
+<!-- @@@format -->
+<!-- $$$index[overload1]$$$index -->
+<h3 class="fn" id="index"><a name="index"></a><span class="type">int</span> Scan::<span class="name">index</span>() const</h3>
+<p>Returns the scan index.</p>
+<p><b>See also </b><a href="as-scan.html#setIndex">setIndex</a>().</p>
+<!-- @@@index -->
+<!-- $$$init[overload1]$$$init -->
+<h3 class="fn" id="init"><a name="init"></a><span class="type">void</span> Scan::<span class="name">init</span>()</h3>
+<p>Initializes a scan with default parameters.</p>
+<!-- @@@init -->
+<!-- $$$keys[overload1]$$$keys -->
+<h3 class="fn" id="keys"><a name="keys"></a>const <span class="type">QStringList</span> Scan::<span class="name">keys</span>() const</h3>
+<p>Returns a list containing all the keys in the scan map in ascending order.</p>
+<!-- @@@keys -->
+<!-- $$$plotType[overload1]$$$plotType -->
+<h3 class="fn" id="plotType"><a name="plotType"></a><span class="type"><a href="as.html#PlotType-enum">As::PlotType</a></span> Scan::<span class="name">plotType</span>() const</h3>
+<p>Returns the scan plot type.</p>
+<p><b>See also </b><a href="as-scan.html#setPlotType">setPlotType</a>().</p>
+<!-- @@@plotType -->
+<!-- $$$printDataRange[overload1]$$$printDataRangeconstQString&constQString& -->
+<h3 class="fn" id="printDataRange"><a name="printDataRange"></a>const <span class="type">QString</span> Scan::<span class="name">printDataRange</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>) const</h3>
+<p>Returns the range data values of the given scan <i>section</i> and <i>entry</i>.</p>
+<!-- @@@printDataRange -->
+<!-- $$$printDataSingle[overload1]$$$printDataSingleconstQString&constQString&constQString& -->
+<h3 class="fn" id="printDataSingle"><a name="printDataSingle"></a>const <span class="type">QString</span> Scan::<span class="name">printDataSingle</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>, const <span class="type">QString</span> &amp;<i>format</i>) const</h3>
+<p>Returns the single data value of the given scan <i>section</i> and <i>entry</i> formatted with <i>format</i>.</p>
+<!-- @@@printDataSingle -->
+<!-- $$$printDataSingle$$$printDataSingleconstQString&constQString& -->
+<h3 class="fn" id="printDataSingle-1"><a name="printDataSingle-1"></a>const <span class="type">QString</span> Scan::<span class="name">printDataSingle</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>) const</h3>
+<p>Returns the single data value of the given scan <i>section</i> and <i>entry</i>.</p>
+<p>This is an overloaded function.</p>
+<!-- @@@printDataSingle -->
+<!-- $$$removeData[overload1]$$$removeDataconstQString&constQString& -->
+<h3 class="fn" id="removeData"><a name="removeData"></a><span class="type">void</span> Scan::<span class="name">removeData</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>)</h3>
+<p>Removes the given scan <i>section</i> and <i>entry</i>.</p>
+<!-- @@@removeData -->
+<!-- $$$scanAngle[overload1]$$$scanAngle -->
+<h3 class="fn" id="scanAngle"><a name="scanAngle"></a>const <span class="type">QString</span> Scan::<span class="name">scanAngle</span>() const</h3>
+<p>Returns the name of the scan angle.</p>
+<p><b>See also </b><a href="as-scan.html#setScanAngle">setScanAngle</a>().</p>
+<!-- @@@scanAngle -->
+<!-- $$$scanStep[overload1]$$$scanStep -->
+<h3 class="fn" id="scanStep"><a name="scanStep"></a><span class="type">qreal</span> Scan::<span class="name">scanStep</span>() const</h3>
+<p>Returns the scan step size.</p>
+<p><b>See also </b><a href="as-scan.html#setScanStep">setScanStep</a>().</p>
+<!-- @@@scanStep -->
+<!-- $$$setAbsoluteFilePath[overload1]$$$setAbsoluteFilePathconstQString& -->
+<h3 class="fn" id="setAbsoluteFilePath"><a name="setAbsoluteFilePath"></a><span class="type">void</span> Scan::<span class="name">setAbsoluteFilePath</span>(const <span class="type">QString</span> &amp;<i>name</i>)</h3>
+<p>Sets <i>name</i> to the absolute path of the file (including file name) which contains the scan.</p>
+<p><b>See also </b><a href="as-scan.html#absoluteFilePath">absoluteFilePath</a>().</p>
+<!-- @@@setAbsoluteFilePath -->
+<!-- $$$setData[overload1]$$$setDataconstQString&constQString&constQString& -->
+<h3 class="fn" id="setData"><a name="setData"></a><span class="type">void</span> Scan::<span class="name">setData</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>, const <span class="type">QString</span> &amp;<i>data</i>)</h3>
+<p>Sets the <i>data</i> to the given scan <i>section</i> and <i>entry</i>.</p>
+<p><b>See also </b><a href="as-scan.html#data">data</a>().</p>
+<!-- @@@setData -->
+<!-- $$$setFileIndex[overload1]$$$setFileIndexconstint -->
+<h3 class="fn" id="setFileIndex"><a name="setFileIndex"></a><span class="type">void</span> Scan::<span class="name">setFileIndex</span>(const <span class="type">int</span> <i>index</i>)</h3>
+<p>Sets the <i>index</i> of the scan file.</p>
+<p><b>See also </b><a href="as-scan.html#fileIndex">fileIndex</a>().</p>
+<!-- @@@setFileIndex -->
+<!-- $$$setIndex[overload1]$$$setIndexconstint -->
+<h3 class="fn" id="setIndex"><a name="setIndex"></a><span class="type">void</span> Scan::<span class="name">setIndex</span>(const <span class="type">int</span> <i>index</i>)</h3>
+<p>Sets the <i>index</i> of the scan.</p>
+<p><b>See also </b><a href="as-scan.html#index">index</a>().</p>
+<!-- @@@setIndex -->
+<!-- $$$setPlotType[overload1]$$$setPlotTypeconstAs::PlotType -->
+<h3 class="fn" id="setPlotType"><a name="setPlotType"></a><span class="type">void</span> Scan::<span class="name">setPlotType</span>(const <span class="type"><a href="as.html#PlotType-enum">As::PlotType</a></span> <i>plotType</i>)</h3>
+<p>Sets a scan plot type with the <i>plotType</i>.</p>
+<p><b>See also </b><a href="as-scan.html#plotType">plotType</a>().</p>
+<!-- @@@setPlotType -->
+<!-- $$$setScanAngle[overload1]$$$setScanAngleconstQString& -->
+<h3 class="fn" id="setScanAngle"><a name="setScanAngle"></a><span class="type">void</span> Scan::<span class="name">setScanAngle</span>(const <span class="type">QString</span> &amp;<i>name</i>)</h3>
+<p>Sets <i>name</i> to the scan angle.</p>
+<p><b>See also </b><a href="as-scan.html#scanAngle">scanAngle</a>().</p>
+<!-- @@@setScanAngle -->
+<!-- $$$setScanStep[overload1]$$$setScanStepconstqreal -->
+<h3 class="fn" id="setScanStep"><a name="setScanStep"></a><span class="type">void</span> Scan::<span class="name">setScanStep</span>(const <span class="type">qreal</span> <i>value</i>)</h3>
+<p>Sets <i>value</i> to the scan step size.</p>
+<p><b>See also </b><a href="as-scan.html#scanStep">scanStep</a>().</p>
+<!-- @@@setScanStep -->
+<!-- $$$setSize[overload1]$$$setSizeconstint -->
+<h3 class="fn" id="setSize"><a name="setSize"></a><span class="type">void</span> Scan::<span class="name">setSize</span>(const <span class="type">int</span> <i>size</i>)</h3>
+<p>Sets the <i>size</i> (number of points) of the scan.</p>
+<p><b>See also </b><a href="as-scan.html#size">size</a>().</p>
+<!-- @@@setSize -->
+<!-- $$$size[overload1]$$$size -->
+<h3 class="fn" id="size"><a name="size"></a><span class="type">int</span> Scan::<span class="name">size</span>() const</h3>
+<p>Returns the size (number of points) of the scan.</p>
+<p><b>See also </b><a href="as-scan.html#setSize">setSize</a>().</p>
+<!-- @@@size -->
+<!-- $$$toQMap[overload1]$$$toQMap -->
+<h3 class="fn" id="toQMap"><a name="toQMap"></a>const <span class="type"><a href="as.html#ScanMap-typedef">As::ScanMap</a></span> Scan::<span class="name">toQMap</span>() const</h3>
+<p>Returns the scan as a QMap.</p>
+<!-- @@@toQMap -->
+<!-- $$$value[overload1]$$$valueconstQString&constQString&constQString&bool* -->
+<h3 class="fn" id="value"><a name="value"></a>const <span class="type">QString</span> Scan::<span class="name">value</span>(const <span class="type">QString</span> &amp;<i>section</i>, const <span class="type">QString</span> &amp;<i>entry</i>, const <span class="type">QString</span> &amp;<i>name</i>, <span class="type">bool</span> *<i>ok</i> = Q_NULLPTR) const</h3>
+<p>Returns the required field value of the given scan <i>section</i>, <i>entry</i> and <i>name</i>.</p>
+<p>If an error occurs, *<i>ok</i> is set to <code>false</code>; otherwise *<i>ok</i> is set to <code>true</code>.</p>
+<!-- @@@value -->
+<!-- $$$operator[][overload1]$$$operator[]constQString& -->
+<h3 class="fn" id="operator-5b-5d"><a name="operator-5b-5d"></a>const <span class="type"><a href="as.html#ScanSectionMap-typedef">As::ScanSectionMap</a></span> Scan::<span class="name">operator[]</span>(const <span class="type">QString</span> &amp;<i>key</i>) const</h3>
+<p>Returns the value associated with the <i>key</i>.</p>
+<!-- @@@operator[] -->
+</div>
+<div class="vars">
+<h2>Member Variable Documentation</h2>
+<!-- $$$BKG_TYPES -->
+<h3 class="fn" id="BKG_TYPES-var"><a name="BKG_TYPES-var"></a>const <span class="type">QStringList</span> Scan::<span class="name">BKG_TYPES</span></h3>
+<p>This variable holds the background determination types available for the scan.</p>
+<!-- @@@BKG_TYPES -->
+<!-- $$$FIT_TYPES -->
+<h3 class="fn" id="FIT_TYPES-var"><a name="FIT_TYPES-var"></a>const <span class="type">QStringList</span> Scan::<span class="name">FIT_TYPES</span></h3>
+<p>This variable holds the peak profile fit types available for the scan.</p>
+<!-- @@@FIT_TYPES -->
+</div>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2017 The Qt Company Ltd.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    Qt and respective logos are trademarks of The Qt Company Ltd.     in Finland and/or other countries worldwide. All other trademarks are property
+   of their respective owners. </p>
+</div>
+</body>
+</html>

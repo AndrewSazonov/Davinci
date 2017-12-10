@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- String.cpp -->
+  <title>String Class | Davinci 1.0.1</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");
+    // loading style sheet breaks anchors that were jumped to before
+    // so force jumping to anchor again
+    setTimeout(function() {
+        var anchor = location.hash;
+        // need to jump to different anchor first (e.g. none)
+        location.hash = "#";
+        setTimeout(function() {
+            location.hash = anchor;
+        }, 0);
+    }, 0);
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+<td >Davinci 1.0&#x2e;1</td><td >String</td></tr></table><table class="buildversion"><tr>
+<td id="buildversion" width="100%" align="right">Davinci 1.0.1 Reference Documentation</td>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">String Class</h1>
+<span class="small-subtitle">(<a href="as-string.html">As::String</a>)<br/></span>
+<!-- $$$String-brief -->
+<p>The String class is a class that provides a string of the QString type, which takes just the required functions of QString. <a href="#details">More...</a></p>
+<!-- @@@String -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign">   <span class="preprocessor">#include &lt;String&gt;</span>
+</td></tr><tr><td class="memItemLeft rightAlign topAlign"> Inherited By:</td><td class="memItemRight bottomAlign"> <p><a href="as-stringparser.html">As::StringParser</a></p>
+</td></tr></table></div><ul>
+<li><a href="as-string-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-string.html#String">String</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-string.html#String-1">String</a></b>(const QString &amp;<i>other</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> virtual </td><td class="memItemRight bottomAlign"><b><a href="as-string.html#dtor.String">~String</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-string.html#append">append</a></b>(const QString &amp;<i>other</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-string.html#mid">mid</a></b>(const int <i>position</i>, const int <i>n</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString &amp;</td><td class="memItemRight bottomAlign"><b><a href="as-string.html#remove">remove</a></b>(const QRegExp &amp;<i>subString</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString &amp;</td><td class="memItemRight bottomAlign"><b><a href="as-string.html#replace">replace</a></b>(const QRegExp &amp;<i>before</i>, const QString &amp;<i>after</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-string.html#size">size</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> bool </td><td class="memItemRight bottomAlign"><b><a href="as-string.html#startsWith">startsWith</a></b>(const QString &amp;<i>subString</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-string.html#toQString">toQString</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString &amp;</td><td class="memItemRight bottomAlign"><b><a href="as-string.html#operator-eq">operator=</a></b>(const QString &amp;<i>other</i>)</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$String-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The String class is a class that provides a string of the QString type, which takes just the required functions of QString.</p>
+</div>
+<!-- @@@String -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$String[overload1]$$$String -->
+<h3 class="fn" id="String"><a name="String"></a>String::<span class="name">String</span>()</h3>
+<p>Constructs an empty string.</p>
+<!-- @@@String -->
+<!-- $$$String$$$StringconstQString& -->
+<h3 class="fn" id="String-1"><a name="String-1"></a>String::<span class="name">String</span>(const <span class="type">QString</span> &amp;<i>other</i>)</h3>
+<p>Constructs a copy of <i>other</i>.</p>
+<!-- @@@String -->
+<!-- $$$~String[overload1]$$$~String -->
+<h3 class="fn" id="dtor.String"><a name="dtor.String"></a><code>[virtual] </code>String::<span class="name">~String</span>()</h3>
+<p>Constructs the string.</p>
+<!-- @@@~String -->
+<!-- $$$append[overload1]$$$appendconstQString& -->
+<h3 class="fn" id="append"><a name="append"></a><span class="type">void</span> String::<span class="name">append</span>(const <span class="type">QString</span> &amp;<i>other</i>)</h3>
+<p>Appends the string <i>other</i> onto the end of this string.</p>
+<!-- @@@append -->
+<!-- $$$mid[overload1]$$$midconstintconstint -->
+<h3 class="fn" id="mid"><a name="mid"></a><span class="type">QString</span> String::<span class="name">mid</span>(const <span class="type">int</span> <i>position</i>, const <span class="type">int</span> <i>n</i>) const</h3>
+<p>Returns a string that contains <i>n</i> characters of this string, starting at the specified <i>position</i> index.</p>
+<p>Returns a null string if the <i>position</i> index exceeds the length of the string. If there are less than <i>n</i> characters available in the string starting at the given <i>position</i>, or if <i>n</i> is -1 (default), the function returns all characters that are available from the specified <i>position</i>.</p>
+<!-- @@@mid -->
+<!-- $$$remove[overload1]$$$removeconstQRegExp& -->
+<h3 class="fn" id="remove"><a name="remove"></a><span class="type">QString</span> &amp;String::<span class="name">remove</span>(const <span class="type">QRegExp</span> &amp;<i>subString</i>)</h3>
+<p>Removes every occurrence of the given <i>subString</i> string in this string, and returns a reference to this string.</p>
+<!-- @@@remove -->
+<!-- $$$replace[overload1]$$$replaceconstQRegExp&constQString& -->
+<h3 class="fn" id="replace"><a name="replace"></a><span class="type">QString</span> &amp;String::<span class="name">replace</span>(const <span class="type">QRegExp</span> &amp;<i>before</i>, const <span class="type">QString</span> &amp;<i>after</i>)</h3>
+<p>Replaces every occurrence of the string <i>before</i> with the string <i>after</i> and returns a reference to this string.</p>
+<!-- @@@replace -->
+<!-- $$$size[overload1]$$$size -->
+<h3 class="fn" id="size"><a name="size"></a><span class="type">int</span> String::<span class="name">size</span>() const</h3>
+<p>Returns the number of characters in this string.</p>
+<p>The last character in the string is at position size() - 1.</p>
+<!-- @@@size -->
+<!-- $$$startsWith[overload1]$$$startsWithconstQString& -->
+<h3 class="fn" id="startsWith"><a name="startsWith"></a><span class="type">bool</span> String::<span class="name">startsWith</span>(const <span class="type">QString</span> &amp;<i>subString</i>) const</h3>
+<p>Returns <code>true</code> if the string starts with <i>subString</i>; otherwise returns <code>false</code>.</p>
+<!-- @@@startsWith -->
+<!-- $$$toQString[overload1]$$$toQString -->
+<h3 class="fn" id="toQString"><a name="toQString"></a><span class="type">QString</span> String::<span class="name">toQString</span>() const</h3>
+<p>Returns the string as a QString.</p>
+<!-- @@@toQString -->
+<!-- $$$operator=[overload1]$$$operator=constQString& -->
+<h3 class="fn" id="operator-eq"><a name="operator-eq"></a><span class="type">QString</span> &amp;String::<span class="name">operator=</span>(const <span class="type">QString</span> &amp;<i>other</i>)</h3>
+<p>Assigns <i>other</i> to this string and returns a reference to this string.</p>
+<!-- @@@operator= -->
+</div>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2017 The Qt Company Ltd.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    Qt and respective logos are trademarks of The Qt Company Ltd.     in Finland and/or other countries worldwide. All other trademarks are property
+   of their respective owners. </p>
+</div>
+</body>
+</html>

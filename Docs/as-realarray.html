@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- RealArray.cpp -->
+  <title>RealArray Class | Davinci 1.0.1</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");
+    // loading style sheet breaks anchors that were jumped to before
+    // so force jumping to anchor again
+    setTimeout(function() {
+        var anchor = location.hash;
+        // need to jump to different anchor first (e.g. none)
+        location.hash = "#";
+        setTimeout(function() {
+            location.hash = anchor;
+        }, 0);
+    }, 0);
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+<td >Davinci 1.0&#x2e;1</td><td >RealArray</td></tr></table><table class="buildversion"><tr>
+<td id="buildversion" width="100%" align="right">Davinci 1.0.1 Reference Documentation</td>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#protected-functions">Protected Functions</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">RealArray Class</h1>
+<span class="small-subtitle">(<a href="as-realarray.html">As::RealArray</a>)<br/></span>
+<!-- $$$RealArray-brief -->
+<p>The <a href="as-realarray.html">RealArray</a> class is a base class that provides an array of the QVector&lt;qreal&gt; type, which takes just the required functions of QVector. <a href="#details">More...</a></p>
+<!-- @@@RealArray -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign">   <span class="preprocessor">#include &lt;RealArray&gt;</span>
+</td></tr><tr><td class="memItemLeft rightAlign topAlign"> Inherited By:</td><td class="memItemRight bottomAlign"> <p><a href="as-realmatrix9.html">As::RealMatrix9</a> and <a href="as-realvector.html">As::RealVector</a></p>
+</td></tr></table></div><ul>
+<li><a href="as-realarray-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#RealArray">RealArray</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#RealArray-1">RealArray</a></b>(const As::RealArray &amp;<i>other</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#RealArray-2">RealArray</a></b>(const QVector&lt;qreal&gt; &amp;<i>other</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#RealArray-3">RealArray</a></b>(const int <i>size</i>, const qreal <i>defaultValue</i> = 0.0)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> virtual </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#dtor.RealArray">~RealArray</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#append">append</a></b>(const qreal <i>value</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#indexOf">indexOf</a></b>(const qreal <i>value</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> bool </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#isEmpty">isEmpty</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QVector&lt;qreal&gt; </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#mid">mid</a></b>(const int <i>pos</i>, const int <i>length</i> = -1) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#prepend">prepend</a></b>(const qreal <i>value</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> virtual void </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#set">set</a></b>(const QVector&lt;qreal&gt; &amp;<i>other</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#size">size</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#toQString">toQString</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QString </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#toQString-1">toQString</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const QVector&lt;qreal&gt; </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#toQVector">toQVector</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> RealArray </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#operator-2b">operator+</a></b>(const As::RealArray &amp;<i>other</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QVector&lt;qreal&gt; &amp;</td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#operator-eq">operator=</a></b>(const QVector&lt;qreal&gt; &amp;<i>other</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> bool </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#operator-eq-eq">operator==</a></b>(const As::RealArray &amp;<i>other</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> qreal &amp;</td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#operator-5b-5d">operator[]</a></b>(const int <i>i</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const qreal &amp;</td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#operator-5b-5d-1">operator[]</a></b>(const int <i>i</i>) const</td></tr>
+</table></div>
+<a name="protected-functions"></a>
+<h2 id="protected-functions">Protected Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> const qreal *</td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#begin">begin</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> const qreal *</td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#end">end</a></b>() const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-realarray.html#resize">resize</a></b>(const int <i>size</i>)</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$RealArray-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="as-realarray.html">RealArray</a> class is a base class that provides an array of the QVector&lt;qreal&gt; type, which takes just the required functions of QVector.</p>
+</div>
+<!-- @@@RealArray -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$RealArray[overload1]$$$RealArray -->
+<h3 class="fn" id="RealArray"><a name="RealArray"></a>RealArray::<span class="name">RealArray</span>()</h3>
+<p>Constructs an empty array.</p>
+<!-- @@@RealArray -->
+<!-- $$$RealArray$$$RealArrayconstAs::RealArray& -->
+<h3 class="fn" id="RealArray-1"><a name="RealArray-1"></a>RealArray::<span class="name">RealArray</span>(const <span class="type"><a href="as-realarray.html">As::RealArray</a></span> &amp;<i>other</i>)</h3>
+<p>Constructs a copy of <i>other</i>.</p>
+<!-- @@@RealArray -->
+<!-- $$$RealArray$$$RealArrayconstQVector<qreal>& -->
+<h3 class="fn" id="RealArray-2"><a name="RealArray-2"></a>RealArray::<span class="name">RealArray</span>(const <span class="type">QVector</span>&lt;<span class="type">qreal</span>&gt; &amp;<i>other</i>)</h3>
+<p>Constructs a copy of <i>other</i>.</p>
+<!-- @@@RealArray -->
+<!-- $$$RealArray$$$RealArrayconstintconstqreal -->
+<h3 class="fn" id="RealArray-3"><a name="RealArray-3"></a>RealArray::<span class="name">RealArray</span>(const <span class="type">int</span> <i>size</i>, const <span class="type">qreal</span> <i>defaultValue</i> = 0.0)</h3>
+<p>Constructs an array with an initial size of <i>size</i> elements. Each element is initialized with <i>defaultValue</i>.</p>
+<!-- @@@RealArray -->
+<!-- $$$~RealArray[overload1]$$$~RealArray -->
+<h3 class="fn" id="dtor.RealArray"><a name="dtor.RealArray"></a><code>[virtual] </code>RealArray::<span class="name">~RealArray</span>()</h3>
+<p>Destroys the array.</p>
+<!-- @@@~RealArray -->
+<!-- $$$append[overload1]$$$appendconstqreal -->
+<h3 class="fn" id="append"><a name="append"></a><span class="type">void</span> RealArray::<span class="name">append</span>(const <span class="type">qreal</span> <i>value</i>)</h3>
+<p>Inserts <i>value</i> at the end of the array.</p>
+<!-- @@@append -->
+<!-- $$$begin[overload1]$$$begin -->
+<h3 class="fn" id="begin"><a name="begin"></a><code>[protected] </code>const <span class="type">qreal</span> *RealArray::<span class="name">begin</span>() const</h3>
+<p>Returns a const pointer to the first item in the array.</p>
+<!-- @@@begin -->
+<!-- $$$end[overload1]$$$end -->
+<h3 class="fn" id="end"><a name="end"></a><code>[protected] </code>const <span class="type">qreal</span> *RealArray::<span class="name">end</span>() const</h3>
+<p>Returns a const pointer to the imaginary item after the last item in the array.</p>
+<!-- @@@end -->
+<!-- $$$indexOf[overload1]$$$indexOfconstqreal -->
+<h3 class="fn" id="indexOf"><a name="indexOf"></a><span class="type">int</span> RealArray::<span class="name">indexOf</span>(const <span class="type">qreal</span> <i>value</i>) const</h3>
+<p>Returns the index position of the first occurrence of <i>value</i> in the vector. Returns -1 if no item matched.</p>
+<!-- @@@indexOf -->
+<!-- $$$isEmpty[overload1]$$$isEmpty -->
+<h3 class="fn" id="isEmpty"><a name="isEmpty"></a><span class="type">bool</span> RealArray::<span class="name">isEmpty</span>() const</h3>
+<p>Returns <code>true</code> if the base array is empty; otherwise returns <code>false</code>.</p>
+<!-- @@@isEmpty -->
+<!-- $$$mid[overload1]$$$midconstintconstint -->
+<h3 class="fn" id="mid"><a name="mid"></a><span class="type">QVector</span>&lt;<span class="type">qreal</span>&gt; RealArray::<span class="name">mid</span>(const <span class="type">int</span> <i>pos</i>, const <span class="type">int</span> <i>length</i> = -1) const</h3>
+<p>Returns a sub-vector which contains elements from this vector, starting at position <i>pos</i>. If <i>length</i> is -1 (the default), all elements after <i>pos</i> are included; otherwise <i>length</i> elements (or all remaining elements if there are less than <i>length</i> elements) are included.</p>
+<!-- @@@mid -->
+<!-- $$$prepend[overload1]$$$prependconstqreal -->
+<h3 class="fn" id="prepend"><a name="prepend"></a><span class="type">void</span> RealArray::<span class="name">prepend</span>(const <span class="type">qreal</span> <i>value</i>)</h3>
+<p>Inserts <i>value</i> at the beginning of the array.</p>
+<!-- @@@prepend -->
+<!-- $$$resize[overload1]$$$resizeconstint -->
+<h3 class="fn" id="resize"><a name="resize"></a><code>[protected] </code><span class="type">void</span> RealArray::<span class="name">resize</span>(const <span class="type">int</span> <i>size</i>)</h3>
+<p>Sets the size of the array to <i>size</i>. If <i>size</i> is greater than the current size, elements are added to the end; the new elements are initialized with a default-constructed value. If size is less than the current size, elements are removed from the end.</p>
+<!-- @@@resize -->
+<!-- $$$set[overload1]$$$setconstQVector<qreal>& -->
+<h3 class="fn" id="set"><a name="set"></a><code>[virtual] </code><span class="type">void</span> RealArray::<span class="name">set</span>(const <span class="type">QVector</span>&lt;<span class="type">qreal</span>&gt; &amp;<i>other</i>)</h3>
+<p>Sets the array with <i>other</i>.</p>
+<!-- @@@set -->
+<!-- $$$size[overload1]$$$size -->
+<h3 class="fn" id="size"><a name="size"></a><span class="type">int</span> RealArray::<span class="name">size</span>() const</h3>
+<p>Returns the number of elements in the array.</p>
+<p>Example:</p>
+<pre class="cpp">
+
+  <span class="comment">// array: [3.0, 5.0, 1.0]</span>
+  <span class="comment">// array.size(): 3</span>
+
+</pre>
+<!-- @@@size -->
+<!-- $$$toQString[overload1]$$$toQString -->
+<h3 class="fn" id="toQString"><a name="toQString"></a><span class="type">QString</span> RealArray::<span class="name">toQString</span>()</h3>
+<p>Returns the base array as QString with single spaces between the numbers.</p>
+<!-- @@@toQString -->
+<!-- $$$toQString$$$toQString -->
+<h3 class="fn" id="toQString-1"><a name="toQString-1"></a>const <span class="type">QString</span> RealArray::<span class="name">toQString</span>() const</h3>
+<p>This is an overloaded function.</p>
+<!-- @@@toQString -->
+<!-- $$$toQVector[overload1]$$$toQVector -->
+<h3 class="fn" id="toQVector"><a name="toQVector"></a>const <span class="type">QVector</span>&lt;<span class="type">qreal</span>&gt; RealArray::<span class="name">toQVector</span>() const</h3>
+<p>Returns the base array as QVector&lt;qreal&gt;.</p>
+<!-- @@@toQVector -->
+<!-- $$$operator+[overload1]$$$operator+constAs::RealArray& -->
+<h3 class="fn" id="operator-2b"><a name="operator-2b"></a><span class="type"><a href="as-realarray.html#RealArray">RealArray</a></span> RealArray::<span class="name">operator+</span>(const <span class="type"><a href="as-realarray.html">As::RealArray</a></span> &amp;<i>other</i>) const</h3>
+<p>Returns an array that contains sum of the items from this array and the <i>other</i> array.</p>
+<!-- @@@operator+ -->
+<!-- $$$operator=[overload1]$$$operator=constQVector<qreal>& -->
+<h3 class="fn" id="operator-eq"><a name="operator-eq"></a><span class="type">QVector</span>&lt;<span class="type">qreal</span>&gt; &amp;RealArray::<span class="name">operator=</span>(const <span class="type">QVector</span>&lt;<span class="type">qreal</span>&gt; &amp;<i>other</i>)</h3>
+<p>Assigns <i>other</i> to this array and returns a reference to this array.</p>
+<!-- @@@operator= -->
+<!-- $$$operator==[overload1]$$$operator==constAs::RealArray& -->
+<h3 class="fn" id="operator-eq-eq"><a name="operator-eq-eq"></a><span class="type">bool</span> RealArray::<span class="name">operator==</span>(const <span class="type"><a href="as-realarray.html">As::RealArray</a></span> &amp;<i>other</i>) const</h3>
+<p>Returns <code>true</code> if <i>other</i> is equal to this array; otherwise returns <code>false</code>. Two arrays are considered equal if they contain the same values in the same order.</p>
+<!-- @@@operator== -->
+<!-- $$$operator[][overload1]$$$operator[]constint -->
+<h3 class="fn" id="operator-5b-5d"><a name="operator-5b-5d"></a><span class="type">qreal</span> &amp;RealArray::<span class="name">operator[]</span>(const <span class="type">int</span> <i>i</i>)</h3>
+<p>Returns the element at index position <i>i</i> in the base array.</p>
+<p><i>i</i> must be a valid index position in the array (i.e&#x2e;, 0 &lt;= <i>i</i> &lt; <a href="as-realarray.html#size">size</a>()).</p>
+<p>Example:</p>
+<pre class="cpp">
+
+  <span class="comment">// array: [3.0, 5.0, 1.0]</span>
+  <span class="comment">// array[0]: 3.0</span>
+
+</pre>
+<!-- @@@operator[] -->
+<!-- $$$operator[]$$$operator[]constint -->
+<h3 class="fn" id="operator-5b-5d-1"><a name="operator-5b-5d-1"></a>const <span class="type">qreal</span> &amp;RealArray::<span class="name">operator[]</span>(const <span class="type">int</span> <i>i</i>) const</h3>
+<p>This is an overloaded function.</p>
+<!-- @@@operator[] -->
+</div>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2017 The Qt Company Ltd.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    Qt and respective logos are trademarks of The Qt Company Ltd.     in Finland and/or other countries worldwide. All other trademarks are property
+   of their respective owners. </p>
+</div>
+</body>
+</html>

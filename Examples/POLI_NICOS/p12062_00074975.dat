@@ -1,0 +1,239 @@
+### NICOS data file, created at 2017-05-05 21:38:00
+#                    number : 74975
+#                  filename : p12062_00074975.dat
+#                  filepath : /data/2017/p12062/data/p12062_00074975.dat
+#                      info : contscan(omega, -169.4396, -167.9396, 0.0500, 1)
+### Experiment information
+#          Exp_localcontact : V. Hutanu <vladimir.hutanu@frm2.tum.de>
+#                 Exp_title : Commissioning of new supermirror bender polariser on POLI
+#                 Exp_users : Vladimir Hutanu <vladimir.hutanu@frm2.tum.de> (Institut für Kristallographie RWTH Aachen)
+#              Exp_proposal : p12062
+#                Exp_remark : 
+### Sample and alignment
+#           Sample_ubmatrix : ([0.05357436749888997, 0.05125032544169535, 0.09195674656117203], [0.18828929692829852, 0.2005824231720992, -0.02475070145818667], [-0.20699057984750038, 0.19572498050272671, 0.0012862051907023301])
+#               Sample_laue : 1
+#         Sample_samplename : Ho2NiB2C
+#              Sample_gamma : 90.0
+#               Sample_beta : 90.0
+#                  Sample_c : 10.5
+#              Sample_alpha : 90.0
+#                  Sample_b : 3.51
+#                  Sample_a : 3.51
+#            Sample_bravais : P
+### Instrument setup
+#                   T_alias : T_variox1
+#       wavelength_reltheta : False
+#          wavelength_order : 1
+#                  POLI_doi : http://dx.doi.org/10.17815/jlsrf-1-22
+#                  Ts_alias : T_variox1_sample
+#     wavelength_hfocuspars : 0.0
+#        wavelength_focmode : manual
+#            POLI_operators : ()
+#         wavelength_mosaic : 0.5 deg
+#              POLI_website : http://www.mlz-garching.de
+#     wavelength_vfocuspars : 0.0
+#                 sth_alias : omega
+#          POLI_responsible : V. Hutanu <vladimir.hutanu@frm2.tum.de>
+#           POLI_instrument : POLI
+#         wavelength_dvalue : 3.355 A
+#             POLI_facility : MLZ
+### Offsets
+#               chi2_offset : 0.00 deg
+#              omega_offset : 0.00 deg
+#               chi1_offset : 0.00 deg
+#              gamma_offset : -0.57 deg
+#             xtrans_offset : 0.00 mm
+#                sth_offset : 0.00 deg
+#         liftingctr_offset : 0.01 deg
+#             ytrans_offset : 0.00 mm
+### Limits
+#            x_m_userlimits : (0.00, 90.00) kstep
+#          omega_userlimits : (-180.00, 180.00) deg
+#      T_variox1_userlimits : (0.000, 350.000) K
+#     variox1_nv_userlimits : (0.0, 100.0) %
+#        theta_m_userlimits : (0.00, 1300.00) kstep
+#            siv_userlimits : (0.03, 8.17) kstep
+#          chi_m_userlimits : (0.00, 12.70) kstep
+#          gamma_userlimits : (-18.49, 130.31) deg
+#            bmv_userlimits : (115.00, 188.00) mm
+#         xtrans_userlimits : (-10.00, 10.00) mm
+#       cam_temp_userlimits : (-10.000, 30.000) degC
+#     wavelength_userlimits : (0.100, 3.000) A
+#            sih_userlimits : (0.03, 8.17) kstep
+#              T_userlimits : (0.000, 350.000) K
+#            bmh_userlimits : (6.50, 80.00) mm
+#     liftingctr_userlimits : (-4.21, 24.99) deg
+#      variox1_p_userlimits : (0.0, 1000.0) mbar
+#      changer_m_userlimits : (0.00, 4000.00) kstep
+#           chi1_userlimits : (-5.00, 5.00) deg
+#            sth_userlimits : (-180.00, 180.00) deg
+#           chi2_userlimits : (-5.00, 5.00) deg
+#         ytrans_userlimits : (-10.00, 10.00) mm
+### Precisions/tolerances
+#            chi2_precision : 0.01 deg
+#   T_variox1_vti_precision : 0.000 K
+#           chi_m_precision : 0.01 kstep
+# variox1_ln2_fill_precision : 0.0 %
+# variox1_lhe_fill_precision : 0.0 %
+#   variox1_ppump_precision : 0.0 mbar
+#             siv_precision : 0.03 kstep
+#             x_m_precision : 0.01 kstep
+#    variox1_piso_precision : 0 mbar
+#       variox1_p_precision : 0.5 mbar
+#      wavelength_precision : 0.012 A
+#      liftingctr_precision : 0.01 deg
+#          xtrans_precision : 0.01 mm
+#           gamma_precision : 0.01 deg
+#             bmv_precision : 0.20 mm
+# variox1_psample_precision : 0.0 mbar
+#             sth_precision : 0.01 deg
+# T_variox1_sample_precision : 0.000 K
+#            chi1_precision : 0.01 deg
+#         theta_m_precision : 0.10 kstep
+#               T_precision : 0.050 K
+#       T_variox1_precision : 0.050 K
+#              Ts_precision : 0.000 K
+#             sih_precision : 0.03 kstep
+#           omega_precision : 0.01 deg
+#          ytrans_precision : 0.01 mm
+#             bmh_precision : 0.20 mm
+#       changer_m_precision : 0.10 kstep
+### Device status
+#                siv_status : ok: ON [PosOk Sync]
+#                 bm_status : ok: horizontal=ON [PosOk], vertical=ON [PosOk Sync]
+#          variox1_p_status : ok: regulating
+#               chi1_status : ok: motor halted
+#          changer_m_status : ok: ON [Ref PosOk Sync]
+#      T_variox1_vti_status : ok
+#           camimage_status : ok: idle
+#                sth_status : busy: moving
+#    variox1_psample_status : ok: 0
+#                det_status : ok: timer=idle or paused, mon1=idle or paused, mon2=idle or paused, ctr1=idle or paused
+#               chi2_status : ok: motor halted
+#   T_variox1_sample_status : ok
+#   variox1_ln2_fill_status : ok
+#           camtimer_status : ok: idle
+#          T_variox1_status : ok: sweeping
+#               POLI_status : busy: mono=(theta=idle, twotheta=idle), omega=moving, nu=motor halted, gamma=motor halted
+#         liftingctr_status : ok: motor halted
+#                cam_status : ok: camimage=idle, camtimer=idle
+#                 bp_status : ok: left=ON [Ref PosOk], right=ON [Ref PosOk], bottom=ON [Ref PosOk], top=ON [Ref PosOk]
+#                bmh_status : ok: ON [PosOk]
+#                  T_status : ok: sweeping
+#                x_m_status : ok: ON [Ref PosOk]
+#       variox1_piso_status : ok: 0
+#    variox1_control_status : ok
+#         wavelength_status : ok: theta=idle, twotheta=idle
+#             xtrans_status : ok: motor halted
+#                sih_status : ok: ON [PosOk]
+#   variox1_lhe_fill_status : ok
+#           cam_temp_status : ok: cooling on
+#              Space_status : ok: 1562.72 GiB free
+#                 Ts_status : ok
+#              gamma_status : ok: motor halted
+#      variox1_ppump_status : ok: 0
+#              chi_m_status : ok: ON [Ref PosOk Sync]
+#            Shutter_status : warn: local
+#       ReactorPower_status : ok: idle
+#                bmv_status : ok: ON [PosOk Sync]
+#             ytrans_status : ok: motor halted
+#            theta_m_status : ok: ON [Ref PosOk Sync]
+#         variox1_nv_status : ok
+#              omega_status : busy: moving
+### Detector preset information
+#                cam_preset : 3600.0 s
+#                  cam_mode : time
+#                det_preset : 3600.0 s
+#                  det_mode : time
+### Device positions and sample environment state
+#     variox1_control_value : VTI
+#        ReactorPower_value : 20.0 MW
+#           changer_m_value : 3790.00 kstep
+#        T_variox1_setpoint : 1.5
+#    variox1_lhe_fill_value : 77.6 %
+#        variox1_p_setpoint : 6.1
+#            T_heateroutput : 1.7
+#           T_variox1_value : 1.499 K
+#       variox1_ppump_value : 8.2 mbar
+#                  bm_value : 39.98 180.04 mm
+#                  T_window : 60.0 s
+#                chi2_value : -0.00 deg
+#                 sth_value : -169.39 deg
+#                  Ts_value : 310.400 K
+#       T_variox1_vti_value : 1.499 K
+#               Space_value : 1562.720 GiB
+#               variox1_p_d : 1.0
+#          wavelength_value : 1.150 A
+#           variox1_p_value : 5.9 mbar
+#             Shutter_value : open
+#               T_variox1_d : 0.0
+#                   T_value : 1.499 K
+#            cam_temp_value : -7.055 degC
+#               omega_value : -169.39 deg
+#               variox1_p_i : 10.0
+#        variox1_piso_value : 6.2e-06 mbar
+#    variox1_p_heateroutput : 35.9784192523
+#    variox1_ln2_fill_value : 79.8 %
+#          variox1_p_window : 60.0 s
+#               gamma_value : 79.23 deg
+#                 sih_value : 8.18 kstep
+#                T_setpoint : 1.5
+#              ytrans_value : -4.00 mm
+#          T_variox1_window : 60.0 s
+#                chi1_value : 0.00 deg
+#                       T_d : 0.0
+#              xtrans_value : 0.51 mm
+#               T_variox1_i : 0.4
+#                 siv_value : 3.80 kstep
+#                 bmv_value : 180.04 mm
+#    T_variox1_sample_value : 310.400 K
+#                 bmh_value : 39.98 mm
+#             theta_m_value : 268.50 kstep
+#                       T_p : 30.0
+#          liftingctr_value : -2.16 deg
+#               chi_m_value : 6.30 kstep
+#               variox1_p_p : 25.0
+#     variox1_psample_value : 0.6 mbar
+#                       T_i : 0.4
+#               T_variox1_p : 30.0
+#    T_variox1_heateroutput : 1.7
+#                POLI_value : [1.9763, 1.9756, -8.1062] rlu rlu rlu
+#          variox1_nv_value : 37.0 %
+#                 x_m_value : 45.00 kstep
+#                  bp_value : 10.00 10.00 9.00 20.00 mm
+### Scan data
+# omega	Ts	T	;	timer	mon1	mon2	ctr1
+# deg	K	K	;	s	cts	cts	cts
+-169.42	312.400	1.499	;	1.01	19768	0	59
+-169.37	316.300	1.498	;	1.00	19634	0	68
+-169.32	318.700	1.498	;	1.00	19595	0	66
+-169.27	319.600	1.498	;	1.00	19587	0	67
+-169.22	319.900	1.498	;	1.00	19620	0	93
+-169.17	320.000	1.498	;	1.00	19614	0	83
+-169.13	320.100	1.498	;	1.00	19721	0	118
+-169.08	320.100	1.498	;	1.00	19690	0	262
+-169.03	320.100	1.498	;	1.02	19936	0	734
+-168.98	320.100	1.498	;	0.99	19392	0	2006
+-168.93	320.100	1.498	;	1.00	19750	0	4476
+-168.88	320.100	1.498	;	1.00	19812	0	7173
+-168.83	320.100	1.499	;	1.00	19813	0	9623
+-168.79	320.100	1.499	;	1.01	19958	0	10256
+-168.74	320.100	1.499	;	1.01	20083	0	9776
+-168.69	320.100	1.499	;	0.99	19738	0	7425
+-168.64	320.100	1.499	;	1.00	19820	0	5244
+-168.59	320.100	1.499	;	1.00	19785	0	3301
+-168.54	320.100	1.499	;	1.00	19762	0	1760
+-168.49	320.100	1.499	;	1.02	19906	0	870
+-168.44	320.100	1.499	;	0.99	19829	0	414
+-168.40	320.100	1.499	;	1.00	19919	0	278
+-168.35	320.100	1.499	;	1.00	19630	0	167
+-168.30	320.100	1.499	;	1.00	19635	0	104
+-168.25	320.100	1.499	;	1.00	19479	0	81
+-168.20	320.100	1.499	;	1.00	19760	0	78
+-168.15	320.100	1.499	;	1.00	19457	0	68
+-168.10	320.100	1.499	;	1.04	20231	0	59
+-168.05	320.100	1.499	;	0.98	19157	0	63
+-168.01	320.100	1.499	;	0.99	19440	0	68
+-167.96	320.100	1.499	;	1.00	19871	0	78
+-167.94	320.100	1.499	;	1.00	19597	0	42
+### End of NICOS data file p12062_00074975.dat

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- StringParser.cpp -->
+  <title>StringParser Class | Davinci 1.0.1</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");
+    // loading style sheet breaks anchors that were jumped to before
+    // so force jumping to anchor again
+    setTimeout(function() {
+        var anchor = location.hash;
+        // need to jump to different anchor first (e.g. none)
+        location.hash = "#";
+        setTimeout(function() {
+            location.hash = anchor;
+        }, 0);
+    }, 0);
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+<td >Davinci 1.0&#x2e;1</td><td >StringParser</td></tr></table><table class="buildversion"><tr>
+<td id="buildversion" width="100%" align="right">Davinci 1.0.1 Reference Documentation</td>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">StringParser Class</h1>
+<span class="small-subtitle">(<a href="as-stringparser.html">As::StringParser</a>)<br/></span>
+<!-- $$$StringParser-brief -->
+<p>The <a href="as-stringparser.html">StringParser</a> is a class based on the <a href="as-string.html">As::String</a> that provides a string parser. <a href="#details">More...</a></p>
+<!-- @@@StringParser -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign">   <span class="preprocessor">#include &lt;StringParser&gt;</span>
+</td></tr><tr><td class="memItemLeft rightAlign topAlign"> Inherits:</td><td class="memItemRight bottomAlign"> <a href="as-string.html">As::String</a></td></tr></table></div><ul>
+<li><a href="as-stringparser-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#StringParser">StringParser</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#StringParser-1">StringParser</a></b>(const String &amp;<i>other</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> virtual </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#dtor.StringParser">~StringParser</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#indexOfText">indexOfText</a></b>(const QString &amp;<i>text</i>, const QStringList &amp;<i>list</i>, const int <i>from</i> = 0) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#parseNumberNearText">parseNumberNearText</a></b>(const QString &amp;<i>text</i>, const QString &amp;<i>order</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#parseNumberNearText-1">parseNumberNearText</a></b>(const QString &amp;<i>text</i>, const QString &amp;<i>order</i>, const QStringList &amp;<i>list</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#parsePattern">parsePattern</a></b>(const QString &amp;<i>pattern</i>, const QString &amp;<i>del</i> = QString())</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#parseString">parseString</a></b>(const QString &amp;<i>type</i>, const QString &amp;<i>del</i> = QString())</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#parseString-1">parseString</a></b>(const int <i>index</i>, const QString &amp;<i>type</i>, const QStringList &amp;<i>list</i>, const int <i>skip</i> = 0, const int <i>grab</i> = 1)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#parseString-2">parseString</a></b>(const QString &amp;<i>text</i>, const QString &amp;<i>type</i>, const QStringList &amp;<i>list</i>, const int <i>skip</i> = 0, const int <i>grab</i> = 1)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#parseString-3">parseString</a></b>(const QString &amp;<i>textFrom</i>, const QString &amp;<i>textTo</i>, const QString &amp;<i>type</i>, const QStringList &amp;<i>list</i>, const int <i>skip</i> = 0)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#readCheckIncrement">readCheckIncrement</a></b>(const QStringList &amp;<i>list</i>, int &amp;<i>index</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#setFromList">setFromList</a></b>(const int <i>index</i>, const QStringList &amp;<i>list</i>, const int <i>skip</i> = 0, const int <i>grab</i> = 1)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#setFromList-1">setFromList</a></b>(const QString &amp;<i>text</i>, const QStringList &amp;<i>list</i>, const int <i>skip</i> = 0, const int <i>grab</i> = 1)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#setFromList-2">setFromList</a></b>(const QString &amp;<i>textFrom</i>, const QString &amp;<i>textTo</i>, const QStringList &amp;<i>list</i>, const int <i>skip</i> = 0)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="as-stringparser.html#splitText">splitText</a></b>(const int <i>nChars</i>, const int <i>nColumns</i>)</td></tr>
+</table></div>
+<ul>
+<li class="fn">8 public functions inherited from <a href="as-string.html#public-functions">As::String</a></li>
+</ul>
+<a name="details"></a>
+<!-- $$$StringParser-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="as-stringparser.html">StringParser</a> is a class based on the <a href="as-string.html">As::String</a> that provides a string parser.</p>
+</div>
+<!-- @@@StringParser -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$StringParser[overload1]$$$StringParser -->
+<h3 class="fn" id="StringParser"><a name="StringParser"></a>StringParser::<span class="name">StringParser</span>()</h3>
+<p>Constructs an empty string parser.</p>
+<!-- @@@StringParser -->
+<!-- $$$StringParser$$$StringParserconstString& -->
+<h3 class="fn" id="StringParser-1"><a name="StringParser-1"></a>StringParser::<span class="name">StringParser</span>(const <span class="type"><a href="as-string.html#String">String</a></span> &amp;<i>other</i>)</h3>
+<p>Default constructs an instance of StringParser.</p><!-- @@@StringParser -->
+<!-- $$$~StringParser[overload1]$$$~StringParser -->
+<h3 class="fn" id="dtor.StringParser"><a name="dtor.StringParser"></a><code>[virtual] </code>StringParser::<span class="name">~StringParser</span>()</h3>
+<p>Destroys the string parser.</p>
+<!-- @@@~StringParser -->
+<!-- $$$indexOfText[overload1]$$$indexOfTextconstQString&constQStringList&constint -->
+<h3 class="fn" id="indexOfText"><a name="indexOfText"></a><span class="type">int</span> StringParser::<span class="name">indexOfText</span>(const <span class="type">QString</span> &amp;<i>text</i>, const <span class="type">QStringList</span> &amp;<i>list</i>, const <span class="type">int</span> <i>from</i> = 0) const</h3>
+<p>Returns the index position of the first exact match of <i>text</i> in the <i>list</i>, searching forward from index position <i>from</i>. Returns -1 if no item matched.</p>
+<p>By default, this function is case sensitive.</p>
+<!-- @@@indexOfText -->
+<!-- $$$parseNumberNearText[overload1]$$$parseNumberNearTextconstQString&constQString& -->
+<h3 class="fn" id="parseNumberNearText"><a name="parseNumberNearText"></a><span class="type">QString</span> StringParser::<span class="name">parseNumberNearText</span>(const <span class="type">QString</span> &amp;<i>text</i>, const <span class="type">QString</span> &amp;<i>order</i>)</h3>
+<p>Returns the parsed number based on the given <i>text</i> and <i>order</i>.</p>
+<!-- @@@parseNumberNearText -->
+<!-- $$$parseNumberNearText$$$parseNumberNearTextconstQString&constQString&constQStringList& -->
+<h3 class="fn" id="parseNumberNearText-1"><a name="parseNumberNearText-1"></a><span class="type">QString</span> StringParser::<span class="name">parseNumberNearText</span>(const <span class="type">QString</span> &amp;<i>text</i>, const <span class="type">QString</span> &amp;<i>order</i>, const <span class="type">QStringList</span> &amp;<i>list</i>)</h3>
+<p>Returns the parsed number based on the given <i>text</i>, <i>order</i> and <i>list</i>.</p>
+<p>This is an overloaded function.</p>
+<!-- @@@parseNumberNearText -->
+<!-- $$$parsePattern[overload1]$$$parsePatternconstQString&constQString& -->
+<h3 class="fn" id="parsePattern"><a name="parsePattern"></a><span class="type">QString</span> StringParser::<span class="name">parsePattern</span>(const <span class="type">QString</span> &amp;<i>pattern</i>, const <span class="type">QString</span> &amp;<i>del</i> = QString())</h3>
+<p>Returns the parsed pattern based on the given <i>pattern</i> and <i>del</i>.</p>
+<!-- @@@parsePattern -->
+<!-- $$$parseString[overload1]$$$parseStringconstQString&constQString& -->
+<h3 class="fn" id="parseString"><a name="parseString"></a><span class="type">QString</span> StringParser::<span class="name">parseString</span>(const <span class="type">QString</span> &amp;<i>type</i>, const <span class="type">QString</span> &amp;<i>del</i> = QString())</h3>
+<p>Returns the parsed string based on the given <i>type</i> and <i>del</i>.</p>
+<!-- @@@parseString -->
+<!-- $$$parseString$$$parseStringconstintconstQString&constQStringList&constintconstint -->
+<h3 class="fn" id="parseString-1"><a name="parseString-1"></a><span class="type">QString</span> StringParser::<span class="name">parseString</span>(const <span class="type">int</span> <i>index</i>, const <span class="type">QString</span> &amp;<i>type</i>, const <span class="type">QStringList</span> &amp;<i>list</i>, const <span class="type">int</span> <i>skip</i> = 0, const <span class="type">int</span> <i>grab</i> = 1)</h3>
+<p>Returns the parsed string based on the given <i>index</i>, <i>type</i>, <i>list</i>, <i>skip</i> and <i>grab</i>.</p>
+<p>This is an overloaded function.</p>
+<!-- @@@parseString -->
+<!-- $$$parseString$$$parseStringconstQString&constQString&constQStringList&constintconstint -->
+<h3 class="fn" id="parseString-2"><a name="parseString-2"></a><span class="type">QString</span> StringParser::<span class="name">parseString</span>(const <span class="type">QString</span> &amp;<i>text</i>, const <span class="type">QString</span> &amp;<i>type</i>, const <span class="type">QStringList</span> &amp;<i>list</i>, const <span class="type">int</span> <i>skip</i> = 0, const <span class="type">int</span> <i>grab</i> = 1)</h3>
+<p>Returns the parsed string based on the given <i>text</i>, <i>type</i>, <i>list</i>, <i>skip</i> and <i>grab</i>.</p>
+<p>This is an overloaded function.</p>
+<!-- @@@parseString -->
+<!-- $$$parseString$$$parseStringconstQString&constQString&constQString&constQStringList&constint -->
+<h3 class="fn" id="parseString-3"><a name="parseString-3"></a><span class="type">QString</span> StringParser::<span class="name">parseString</span>(const <span class="type">QString</span> &amp;<i>textFrom</i>, const <span class="type">QString</span> &amp;<i>textTo</i>, const <span class="type">QString</span> &amp;<i>type</i>, const <span class="type">QStringList</span> &amp;<i>list</i>, const <span class="type">int</span> <i>skip</i> = 0)</h3>
+<p>Returns the parsed string based on the given <i>textFrom</i>, <i>textTo</i>, <i>type</i>, <i>list</i> and <i>skip</i>.</p>
+<p>This is an overloaded function.</p>
+<!-- @@@parseString -->
+<!-- $$$readCheckIncrement[overload1]$$$readCheckIncrementconstQStringList&int& -->
+<h3 class="fn" id="readCheckIncrement"><a name="readCheckIncrement"></a><span class="type">void</span> StringParser::<span class="name">readCheckIncrement</span>(const <span class="type">QStringList</span> &amp;<i>list</i>, <span class="type">int</span> &amp;<i>index</i>)</h3>
+<p>Reads the <i>list</i> at the position <i>index</i> and increments <i>index</i>, if it is smaller than the number of list elements.</p>
+<!-- @@@readCheckIncrement -->
+<!-- $$$setFromList[overload1]$$$setFromListconstintconstQStringList&constintconstint -->
+<h3 class="fn" id="setFromList"><a name="setFromList"></a><span class="type">void</span> StringParser::<span class="name">setFromList</span>(const <span class="type">int</span> <i>index</i>, const <span class="type">QStringList</span> &amp;<i>list</i>, const <span class="type">int</span> <i>skip</i> = 0, const <span class="type">int</span> <i>grab</i> = 1)</h3>
+<p>Sets the string parser from the given <i>list</i>, <i>index</i>, <i>skip</i> and <i>grab</i>.</p>
+<!-- @@@setFromList -->
+<!-- $$$setFromList$$$setFromListconstQString&constQStringList&constintconstint -->
+<h3 class="fn" id="setFromList-1"><a name="setFromList-1"></a><span class="type">void</span> StringParser::<span class="name">setFromList</span>(const <span class="type">QString</span> &amp;<i>text</i>, const <span class="type">QStringList</span> &amp;<i>list</i>, const <span class="type">int</span> <i>skip</i> = 0, const <span class="type">int</span> <i>grab</i> = 1)</h3>
+<p>Sets the string parser from the given <i>text</i>, <i>list</i>, <i>skip</i> and <i>grab</i>.</p>
+<p>This is an overloaded function.</p>
+<!-- @@@setFromList -->
+<!-- $$$setFromList$$$setFromListconstQString&constQString&constQStringList&constint -->
+<h3 class="fn" id="setFromList-2"><a name="setFromList-2"></a><span class="type">void</span> StringParser::<span class="name">setFromList</span>(const <span class="type">QString</span> &amp;<i>textFrom</i>, const <span class="type">QString</span> &amp;<i>textTo</i>, const <span class="type">QStringList</span> &amp;<i>list</i>, const <span class="type">int</span> <i>skip</i> = 0)</h3>
+<p>Sets the string parser from the given <i>textFrom</i>, <i>textTo</i>, <i>list</i> and <i>skip</i>.</p>
+<p>This is an overloaded function.</p>
+<!-- @@@setFromList -->
+<!-- $$$splitText[overload1]$$$splitTextconstintconstint -->
+<h3 class="fn" id="splitText"><a name="splitText"></a><span class="type">QString</span> StringParser::<span class="name">splitText</span>(const <span class="type">int</span> <i>nChars</i>, const <span class="type">int</span> <i>nColumns</i>)</h3>
+<p>Returns the splitted and separated with spaces text based on the given <i>nChars</i> and <i>nColumns</i>.</p>
+<!-- @@@splitText -->
+</div>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2017 The Qt Company Ltd.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    Qt and respective logos are trademarks of The Qt Company Ltd.     in Finland and/or other countries worldwide. All other trademarks are property
+   of their respective owners. </p>
+</div>
+</body>
+</html>

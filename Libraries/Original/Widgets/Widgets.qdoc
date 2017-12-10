@@ -1,0 +1,21 @@
+/*!
+\module Widgets
+
+\title As Widgets Module
+
+\brief Contains classes with the custom GUI widgets.
+
+The widgets module provides classes with the custom Qt-based widgets to make
+graphical user interface for the main window.
+*/
+
+/*!
+\group Widgets
+
+\title As Widgets Group
+
+\brief Contains classes with the custom GUI widgets.
+
+The widgets group contains classes with the custom Qt-based widgets to make
+graphical user interface for the main window.
+*/

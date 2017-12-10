@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[en_US]=Software for visualization and processing of single-crystal diffraction data measured with a point detector
+Comment=Software for visualization and processing of single-crystal diffraction data measured with a point detector
+Exec=/home/messgast/sazonov/Soft/Davinci/build-Davinci-Desktop_Qt_5_5_1-Release/Davinci
+GenericName[en_US]=
+GenericName=
+Icon=/home/messgast/sazonov/Soft/Davinci/App/Resources/Icon/Davinci.png
+MimeType=
+Name[en_US]=Davinci
+Name=Davinci
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -1,0 +1,10 @@
+/*!
+\module DataTypes
+
+\title As DataTypes Module
+
+\brief Contains classes with the custom data types.
+
+The data types module provides classes with the custom data types to required
+for the application.
+*/

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Line.cpp -->
+  <title>Line Class | Davinci 1.0.1</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");
+    // loading style sheet breaks anchors that were jumped to before
+    // so force jumping to anchor again
+    setTimeout(function() {
+        var anchor = location.hash;
+        // need to jump to different anchor first (e.g. none)
+        location.hash = "#";
+        setTimeout(function() {
+            location.hash = anchor;
+        }, 0);
+    }, 0);
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+<td >Davinci 1.0&#x2e;1</td><td >Line</td></tr></table><table class="buildversion"><tr>
+<td id="buildversion" width="100%" align="right">Davinci 1.0.1 Reference Documentation</td>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Line Class</h1>
+<span class="small-subtitle">(<a href="as-line.html">As::Line</a>)<br/></span>
+<!-- $$$Line-brief -->
+<p>The Line class provides a geometrical line build by 2 points with given coordinates. <a href="#details">More...</a></p>
+<!-- @@@Line -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Header:</td><td class="memItemRight bottomAlign">   <span class="preprocessor">#include &lt;Line&gt;</span>
+</td></tr></table></div><ul>
+<li><a href="as-line-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-line.html#Line">Line</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="as-line.html#Line-1">Line</a></b>(const qreal <i>x1</i>, const qreal <i>y1</i>, const qreal <i>x2</i>, const qreal <i>y2</i>, const qreal <i>esdX1</i> = 0., const qreal <i>esdY1</i> = 0., const qreal <i>esdX2</i> = 0., const qreal <i>esdY2</i> = 0.)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> virtual </td><td class="memItemRight bottomAlign"><b><a href="as-line.html#dtor.Line">~Line</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> qreal </td><td class="memItemRight bottomAlign"><b><a href="as-line.html#esdXForY">esdXForY</a></b>(const qreal <i>y</i>, const qreal <i>esdY</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> qreal </td><td class="memItemRight bottomAlign"><b><a href="as-line.html#esdYForY">esdYForY</a></b>(const qreal <i>y</i>) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> qreal </td><td class="memItemRight bottomAlign"><b><a href="as-line.html#xForY">xForY</a></b>(const qreal <i>y</i>) const</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$Line-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The Line class provides a geometrical line build by 2 points with given coordinates.</p>
+</div>
+<!-- @@@Line -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$Line[overload1]$$$Line -->
+<h3 class="fn" id="Line"><a name="Line"></a>Line::<span class="name">Line</span>()</h3>
+<p>Constructs a default line.</p>
+<!-- @@@Line -->
+<!-- $$$Line$$$Lineconstqrealconstqrealconstqrealconstqrealconstqrealconstqrealconstqrealconstqreal -->
+<h3 class="fn" id="Line-1"><a name="Line-1"></a>Line::<span class="name">Line</span>(const <span class="type">qreal</span> <i>x1</i>, const <span class="type">qreal</span> <i>y1</i>, const <span class="type">qreal</span> <i>x2</i>, const <span class="type">qreal</span> <i>y2</i>, const <span class="type">qreal</span> <i>esdX1</i> = 0., const <span class="type">qreal</span> <i>esdY1</i> = 0., const <span class="type">qreal</span> <i>esdX2</i> = 0., const <span class="type">qreal</span> <i>esdY2</i> = 0.)</h3>
+<p>Constructs a line based on the coordinates of two points (<i>x1</i>, <i>y1</i>) and (<i>x2</i>, <i>y2</i>). The respective estimated standard deviation (ESD) of the coordinates (<i>esdX1</i>, <i>esdY1</i>) and (<i>esdX2</i>, <i>esdY2</i>) should also be given if differ from 0.</p>
+<!-- @@@Line -->
+<!-- $$$~Line[overload1]$$$~Line -->
+<h3 class="fn" id="dtor.Line"><a name="dtor.Line"></a><code>[virtual] </code>Line::<span class="name">~Line</span>()</h3>
+<p>Destroys the array.</p>
+<!-- @@@~Line -->
+<!-- $$$esdXForY[overload1]$$$esdXForYconstqrealconstqreal -->
+<h3 class="fn" id="esdXForY"><a name="esdXForY"></a><span class="type">qreal</span> Line::<span class="name">esdXForY</span>(const <span class="type">qreal</span> <i>y</i>, const <span class="type">qreal</span> <i>esdY</i>) const</h3>
+<p>Returns the calculated x ESD for the given <i>y</i> coordinate and its <i>esdY</i> ESD.</p>
+<!-- @@@esdXForY -->
+<!-- $$$esdYForY[overload1]$$$esdYForYconstqreal -->
+<h3 class="fn" id="esdYForY"><a name="esdYForY"></a><span class="type">qreal</span> Line::<span class="name">esdYForY</span>(const <span class="type">qreal</span> <i>y</i>) const</h3>
+<p>Returns the calculated y ESD for the given <i>y</i> coordinate.</p>
+<!-- @@@esdYForY -->
+<!-- $$$xForY[overload1]$$$xForYconstqreal -->
+<h3 class="fn" id="xForY"><a name="xForY"></a><span class="type">qreal</span> Line::<span class="name">xForY</span>(const <span class="type">qreal</span> <i>y</i>) const</h3>
+<p>Returns the calculated x coordinate for the given <i>y</i> coordinate.</p>
+<!-- @@@xForY -->
+</div>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2017 The Qt Company Ltd.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    Qt and respective logos are trademarks of The Qt Company Ltd.     in Finland and/or other countries worldwide. All other trademarks are property
+   of their respective owners. </p>
+</div>
+</body>
+</html>

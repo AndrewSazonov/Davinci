@@ -1,0 +1,9 @@
+/*!
+\module Diffraction
+
+\title As Diffraction Module
+
+\brief Contains classes for the diffraction scans treatment.
+
+The diffraction module provides classes for the treatment of the diffraction scans.
+*/

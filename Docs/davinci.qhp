@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>org.sazonov.davinci.003</namespace>
+    <virtualFolder>Davinci</virtualFolder>
+    <filterSection>
+        <toc>
+            <section ref="index.html" title="Davinci">
+                <section ref="" title="">
+                    <section ref="as.html" title="As"/>
+                    <section ref="as-checkbox.html" title="As::CheckBox Class Reference">
+                        <section ref="as-checkbox-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-color.html" title="As::Color Class Reference">
+                        <section ref="as-color-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-combobox.html" title="As::ComboBox Class Reference">
+                        <section ref="as-combobox-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-fontcombobox.html" title="As::FontComboBox Class Reference">
+                        <section ref="as-fontcombobox-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-groupbox.html" title="As::GroupBox Class Reference">
+                        <section ref="as-groupbox-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-hboxlayout.html" title="As::HBoxLayout Class Reference">
+                        <section ref="as-hboxlayout-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-label.html" title="As::Label Class Reference">
+                        <section ref="as-label-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-labelquatroblock.html" title="As::LabelQuatroBlock Class Reference">
+                        <section ref="as-labelquatroblock-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-labeltripleblock.html" title="As::LabelTripleBlock Class Reference">
+                        <section ref="as-labeltripleblock-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-line.html" title="As::Line Class Reference">
+                        <section ref="as-line-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-lineedit.html" title="As::LineEdit Class Reference">
+                        <section ref="as-lineedit-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-messagewidget.html" title="As::MessageWidget Class Reference">
+                        <section ref="as-messagewidget-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-progressbar.html" title="As::ProgressBar Class Reference">
+                        <section ref="as-progressbar-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-pushbutton.html" title="As::PushButton Class Reference">
+                        <section ref="as-pushbutton-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-realarray.html" title="As::RealArray Class Reference">
+                        <section ref="as-realarray-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-realmatrix9.html" title="As::RealMatrix9 Class Reference">
+                        <section ref="as-realmatrix9-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-realvector.html" title="As::RealVector Class Reference">
+                        <section ref="as-realvector-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-saveheaders.html" title="As::SaveHeaders Class Reference">
+                        <section ref="as-saveheaders-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-scan.html" title="As::Scan Class Reference">
+                        <section ref="as-scan-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-scanarray.html" title="As::ScanArray Class Reference">
+                        <section ref="as-scanarray-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-scandatabase.html" title="As::ScanDatabase Class Reference">
+                        <section ref="as-scandatabase-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-spaceobject.html" title="As::SpaceObject Class Reference">
+                        <section ref="as-spaceobject-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-spinbox.html" title="As::SpinBox Class Reference">
+                        <section ref="as-spinbox-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-spinboxdoubleblock.html" title="As::SpinBoxDoubleBlock Class Reference">
+                        <section ref="as-spinboxdoubleblock-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-spinboxsingleblock.html" title="As::SpinBoxSingleBlock Class Reference">
+                        <section ref="as-spinboxsingleblock-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-string.html" title="As::String Class Reference">
+                        <section ref="as-string-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-stringparser.html" title="As::StringParser Class Reference">
+                        <section ref="as-stringparser-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-tableview.html" title="As::TableView Class Reference">
+                        <section ref="as-tableview-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-toolbarbutton.html" title="As::ToolBarButton Class Reference">
+                        <section ref="as-toolbarbutton-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-toolbarspacer.html" title="As::ToolBarSpacer Class Reference">
+                        <section ref="as-toolbarspacer-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-toolbutton.html" title="As::ToolButton Class Reference">
+                        <section ref="as-toolbutton-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-underlabeledwidget.html" title="As::UnderLabeledWidget Class Reference">
+                        <section ref="as-underlabeledwidget-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="as-vboxlayout.html" title="As::VBoxLayout Class Reference">
+                        <section ref="as-vboxlayout-members.html" title="List of all members"/>
+                    </section>
+                    <section ref="core-module.html" title="As Core Module"/>
+                    <section ref="datatypes-module.html" title="As DataTypes Module"/>
+                    <section ref="diffraction-module.html" title="As Diffraction Module"/>
+                    <section ref="widgets.html" title="As Widgets Group"/>
+                </section>
+            </section>
+        </toc>
+        <keywords>
+            <keyword name="ADD_NUM_PEAK" id="As::ADD_NUM_PEAK" ref="as.html#ADD_NUM_PEAK-var"/>
+            <keyword name="ADEBUG" id="ADEBUG" ref="as.html#ADEBUG"/>
+            <keyword name="ADESTROYED" id="ADESTROYED" ref="as.html#ADESTROYED"/>
+            <keyword name="AEXIT" id="AEXIT" ref="as.html#AEXIT"/>
+            <keyword name="AFUNC" id="AFUNC" ref="as.html#AFUNC"/>
+            <keyword name="AND" id="AND" ref="as.html#AND"/>
+            <keyword name="APP_WINDOW_HEIGHT" id="As::APP_WINDOW_HEIGHT" ref="as.html#APP_WINDOW_HEIGHT-var"/>
+            <keyword name="APP_WINDOW_WIDTH" id="As::APP_WINDOW_WIDTH" ref="as.html#APP_WINDOW_WIDTH-var"/>
+            <keyword name="As" id="As" ref="as.html"/>
+            <keyword name="As::CCSL_DAT" id="As::CCSL_DAT" ref="as.html#OutputFileType-enum"/>
+            <keyword name="As::Excluded" id="As::Excluded" ref="as.html#PlotType-enum"/>
+            <keyword name="As::Fitted" id="As::Fitted" ref="as.html#PlotType-enum"/>
+            <keyword name="As::GENERAL_CSV" id="As::GENERAL_CSV" ref="as.html#OutputFileType-enum"/>
+            <keyword name="As::GlobalColor" id="As::GlobalColor" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::HEIDI_DAT" id="As::HEIDI_DAT" ref="as.html#InputFileType-enum"/>
+            <keyword name="As::HEIDI_LOG" id="As::HEIDI_LOG" ref="as.html#InputFileType-enum"/>
+            <keyword name="As::InputFileType" id="As::InputFileType" ref="as.html#InputFileType-enum"/>
+            <keyword name="As::Integrated" id="As::Integrated" ref="as.html#PlotType-enum"/>
+            <keyword name="As::NICOS_DAT" id="As::NICOS_DAT" ref="as.html#InputFileType-enum"/>
+            <keyword name="As::OutputFileType" id="As::OutputFileType" ref="as.html#OutputFileType-enum"/>
+            <keyword name="As::POLI_LOG" id="As::POLI_LOG" ref="as.html#InputFileType-enum"/>
+            <keyword name="As::PlotType" id="As::PlotType" ref="as.html#PlotType-enum"/>
+            <keyword name="As::Raw" id="As::Raw" ref="as.html#PlotType-enum"/>
+            <keyword name="As::S6T2_DAT" id="As::S6T2_DAT" ref="as.html#InputFileType-enum"/>
+            <keyword name="As::SHELX_HKL" id="As::SHELX_HKL" ref="as.html#OutputFileType-enum"/>
+            <keyword name="As::ScanMap" id="As::ScanMap" ref="as.html#ScanMap-typedef"/>
+            <keyword name="As::ScanSectionMap" id="As::ScanSectionMap" ref="as.html#ScanSectionMap-typedef"/>
+            <keyword name="As::TBAR_TB" id="As::TBAR_TB" ref="as.html#OutputFileType-enum"/>
+            <keyword name="As::UNKNOWN_FILE" id="As::UNKNOWN_FILE" ref="as.html#InputFileType-enum"/>
+            <keyword name="As::black" id="As::black" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blue" id="As::blue" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blueDark" id="As::blueDark" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blueDarkUltra" id="As::blueDarkUltra" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blueDarkVery" id="As::blueDarkVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blueLight" id="As::blueLight" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blueLightTransparent" id="As::blueLightTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blueLightUltra" id="As::blueLightUltra" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blueLightVery" id="As::blueLightVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::blueTransparent" id="As::blueTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::gray" id="As::gray" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::grayDark" id="As::grayDark" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::grayDarkUltra" id="As::grayDarkUltra" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::grayDarkVery" id="As::grayDarkVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::grayLight" id="As::grayLight" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::grayLightTransparent" id="As::grayLightTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::grayLightUltra" id="As::grayLightUltra" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::grayLightVery" id="As::grayLightVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::grayTransparent" id="As::grayTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::green" id="As::green" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::greenDark" id="As::greenDark" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::greenDarkUltra" id="As::greenDarkUltra" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::greenDarkVery" id="As::greenDarkVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::greenLight" id="As::greenLight" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::greenLightTransparent" id="As::greenLightTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::greenLightUltra" id="As::greenLightUltra" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::greenLightVery" id="As::greenLightVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::greenTransparent" id="As::greenTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::orange" id="As::orange" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::orangeLight" id="As::orangeLight" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::red" id="As::red" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::redDark" id="As::redDark" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::redDarkUltra" id="As::redDarkUltra" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::redDarkVery" id="As::redDarkVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::redLight" id="As::redLight" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::redLightTransparent" id="As::redLightTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::redLightUltra" id="As::redLightUltra" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::redLightVery" id="As::redLightVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::redTransparent" id="As::redTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::white" id="As::white" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::whiteTransparent" id="As::whiteTransparent" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::yellow" id="As::yellow" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::yellowDark" id="As::yellowDark" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::yellowLight" id="As::yellowLight" ref="as.html#GlobalColor-enum"/>
+            <keyword name="As::yellowLightVery" id="As::yellowLightVery" ref="as.html#GlobalColor-enum"/>
+            <keyword name="BKG_TYPES" id="Scan::BKG_TYPES" ref="as-scan.html#BKG_TYPES-var"/>
+            <keyword name="CheckBox" id="As::CheckBox" ref="as-checkbox.html"/>
+            <keyword name="Color" id="As::Color" ref="as-color.html"/>
+            <keyword name="ComboBox" id="As::ComboBox" ref="as-combobox.html"/>
+            <keyword name="Core" id="Core" ref="core-module.html"/>
+            <keyword name="DEBUG_FILE_WIDTH" id="As::DEBUG_FILE_WIDTH" ref="as.html#DEBUG_FILE_WIDTH-var"/>
+            <keyword name="DEBUG_FUNCTION_WIDTH" id="As::DEBUG_FUNCTION_WIDTH" ref="as.html#DEBUG_FUNCTION_WIDTH-var"/>
+            <keyword name="DEBUG_INDEX_WIDTH" id="As::DEBUG_INDEX_WIDTH" ref="as.html#DEBUG_INDEX_WIDTH-var"/>
+            <keyword name="DEBUG_LINE_WIDTH" id="As::DEBUG_LINE_WIDTH" ref="as.html#DEBUG_LINE_WIDTH-var"/>
+            <keyword name="DEBUG_MESSAGE_WIDTH" id="As::DEBUG_MESSAGE_WIDTH" ref="as.html#DEBUG_MESSAGE_WIDTH-var"/>
+            <keyword name="DEBUG_SPACE" id="As::DEBUG_SPACE" ref="as.html#DEBUG_SPACE-var"/>
+            <keyword name="DEBUG_TIME_WIDTH" id="As::DEBUG_TIME_WIDTH" ref="as.html#DEBUG_TIME_WIDTH-var"/>
+            <keyword name="DEBUG_WIDTH" id="As::DEBUG_WIDTH" ref="as.html#DEBUG_WIDTH-var"/>
+            <keyword name="DataTypes" id="DataTypes" ref="datatypes-module.html"/>
+            <keyword name="DebugHeader" id="As::DebugHeader" ref="as.html#DebugHeader"/>
+            <keyword name="DetailedMessageOutput" id="As::DetailedMessageOutput" ref="as.html#DetailedMessageOutput"/>
+            <keyword name="Diffraction" id="Diffraction" ref="diffraction-module.html"/>
+            <keyword name="EI" id="EI" ref="as.html#EI"/>
+            <keyword name="EL" id="EL" ref="as.html#EL"/>
+            <keyword name="EmptyMessageOutput" id="As::EmptyMessageOutput" ref="as.html#EmptyMessageOutput"/>
+            <keyword name="FIT_TYPES" id="Scan::FIT_TYPES" ref="as-scan.html#FIT_TYPES-var"/>
+            <keyword name="FontComboBox" id="As::FontComboBox" ref="as-fontcombobox.html"/>
+            <keyword name="FormatString" id="As::FormatString" ref="as.html#FormatString"/>
+            <keyword name="FormatStringToRange" id="As::FormatStringToRange" ref="as.html#FormatStringToRange"/>
+            <keyword name="FormatStringToText" id="As::FormatStringToText" ref="as.html#FormatStringToText"/>
+            <keyword name="FormatToPathWithName" id="As::FormatToPathWithName" ref="as.html#FormatToPathWithName"/>
+            <keyword name="GroupBox" id="As::GroupBox" ref="as-groupbox.html"/>
+            <keyword name="HBoxLayout" id="As::HBoxLayout" ref="as-hboxlayout.html"/>
+            <keyword name="IF" id="IF" ref="as.html#IF"/>
+            <keyword name="IS_DEBUG" id="IS_DEBUG" ref="as.html#IS_DEBUG"/>
+            <keyword name="IntensityWithSigma" id="ScanArray::IntensityWithSigma" ref="as-scanarray.html#IntensityWithSigma"/>
+            <keyword name="Label" id="As::Label" ref="as-label.html"/>
+            <keyword name="LabelQuatroBlock" id="As::LabelQuatroBlock" ref="as-labelquatroblock.html"/>
+            <keyword name="LabelTripleBlock" id="As::LabelTripleBlock" ref="as-labeltripleblock.html"/>
+            <keyword name="Line" id="As::Line" ref="as-line.html"/>
+            <keyword name="LineEdit" id="As::LineEdit" ref="as-lineedit.html"/>
+            <keyword name="MIN_NUM_BKG" id="As::MIN_NUM_BKG" ref="as.html#MIN_NUM_BKG-var"/>
+            <keyword name="MIN_NUM_SCAN" id="As::MIN_NUM_SCAN" ref="as.html#MIN_NUM_SCAN-var"/>
+            <keyword name="MIN_NUM_SKIP" id="As::MIN_NUM_SKIP" ref="as.html#MIN_NUM_SKIP-var"/>
+            <keyword name="MONITOR_NORM" id="As::MONITOR_NORM" ref="as.html#MONITOR_NORM-var"/>
+            <keyword name="MessageWidget" id="As::MessageWidget" ref="as-messagewidget.html"/>
+            <keyword name="NoMessageOutput" id="As::NoMessageOutput" ref="as.html#NoMessageOutput"/>
+            <keyword name="OR" id="OR" ref="as.html#OR"/>
+            <keyword name="ProgressBar" id="As::ProgressBar" ref="as-progressbar.html"/>
+            <keyword name="PushButton" id="As::PushButton" ref="as-pushbutton.html"/>
+            <keyword name="RealArray" id="As::RealArray" ref="as-realarray.html"/>
+            <keyword name="RealMatrix9" id="As::RealMatrix9" ref="as-realmatrix9.html"/>
+            <keyword name="RealVector" id="As::RealVector" ref="as-realvector.html"/>
+            <keyword name="SB_INT" id="SB_INT" ref="as.html#SB_INT"/>
+            <keyword name="SaveHeaders" id="As::SaveHeaders" ref="as-saveheaders.html"/>
+            <keyword name="Scan" id="As::Scan" ref="as-scan.html"/>
+            <keyword name="ScanArray" id="As::ScanArray" ref="as-scanarray.html"/>
+            <keyword name="ScanDatabase" id="As::ScanDatabase" ref="as-scandatabase.html"/>
+            <keyword name="SetDebugOutputFormat" id="As::SetDebugOutputFormat" ref="as.html#SetDebugOutputFormat"/>
+            <keyword name="SidebarWidth" id="As::SidebarWidth" ref="as.html#SidebarWidth"/>
+            <keyword name="SpaceObject" id="As::SpaceObject" ref="as-spaceobject.html"/>
+            <keyword name="SpinBox" id="As::SpinBox" ref="as-spinbox.html"/>
+            <keyword name="SpinBoxDoubleBlock" id="As::SpinBoxDoubleBlock" ref="as-spinboxdoubleblock.html"/>
+            <keyword name="SpinBoxSingleBlock" id="As::SpinBoxSingleBlock" ref="as-spinboxsingleblock.html"/>
+            <keyword name="Sqr" id="As::Sqr" ref="as.html#Sqr"/>
+            <keyword name="String" id="As::String" ref="as-string.html"/>
+            <keyword name="StringParser" id="As::StringParser" ref="as-stringparser.html"/>
+            <keyword name="StringVersionToInt" id="As::StringVersionToInt" ref="as.html#StringVersionToInt"/>
+            <keyword name="TE_INT" id="TE_INT" ref="as.html#TE_INT"/>
+            <keyword name="TableView" id="As::TableView" ref="as-tableview.html"/>
+            <keyword name="ToDateTime" id="As::ToDateTime" ref="as.html#ToDateTime"/>
+            <keyword name="ToHumanDate" id="As::ToHumanDate" ref="as.html#ToHumanDate"/>
+            <keyword name="ToMainAngularRange" id="As::ToMainAngularRange" ref="as.html#ToMainAngularRange"/>
+            <keyword name="ToRealVector" id="As::ToRealVector" ref="as.html#ToRealVector"/>
+            <keyword name="ToString" id="As::ToString" ref="as.html#ToString"/>
+            <keyword name="ToStringList" id="As::ToStringList" ref="as.html#ToStringList"/>
+            <keyword name="ToolBarButton" id="As::ToolBarButton" ref="as-toolbarbutton.html"/>
+            <keyword name="ToolBarSpacer" id="As::ToolBarSpacer" ref="as-toolbarspacer.html"/>
+            <keyword name="ToolButton" id="As::ToolButton" ref="as-toolbutton.html"/>
+            <keyword name="UI_VERTICAL_SPACE_ROWS" id="As::UI_VERTICAL_SPACE_ROWS" ref="as.html#UI_VERTICAL_SPACE_ROWS-var"/>
+            <keyword name="UnderLabeledWidget" id="As::UnderLabeledWidget" ref="as-underlabeledwidget.html"/>
+            <keyword name="VBoxLayout" id="As::VBoxLayout" ref="as-vboxlayout.html"/>
+            <keyword name="Widgets" id="Widgets" ref="widgets-module.html"/>
+            <keyword name="Widgets" id="Widgets" ref="widgets.html"/>
+            <keyword name="absoluteFilePath" id="Scan::absoluteFilePath" ref="as-scan.html#absoluteFilePath"/>
+            <keyword name="absolutePath" id="Scan::absolutePath" ref="as-scan.html#absolutePath"/>
+            <keyword name="absolutePathWithBaseName" id="Scan::absolutePathWithBaseName" ref="as-scan.html#absolutePathWithBaseName"/>
+            <keyword name="absolutePathWithBaseNameAndHkl" id="Scan::absolutePathWithBaseNameAndHkl" ref="as-scan.html#absolutePathWithBaseNameAndHkl"/>
+            <keyword name="adjustBkgPoints" id="ScanArray::adjustBkgPoints" ref="as-scanarray.html#adjustBkgPoints"/>
+            <keyword name="anglesToXyz" id="ScanArray::anglesToXyz" ref="as-scanarray.html#anglesToXyz"/>
+            <keyword name="append" id="RealArray::append" ref="as-realarray.html#append"/>
+            <keyword name="append" id="ScanArray::append" ref="as-scanarray.html#append"/>
+            <keyword name="append" id="String::append" ref="as-string.html#append"/>
+            <keyword name="appendData" id="Scan::appendData" ref="as-scan.html#appendData"/>
+            <keyword name="appendScan" id="ScanArray::appendScan" ref="as-scanarray.html#appendScan"/>
+            <keyword name="at" id="ScanArray::at" ref="as-scanarray.html#at"/>
+            <keyword name="baseName" id="Scan::baseName" ref="as-scan.html#baseName"/>
+            <keyword name="begin" id="RealArray::begin" ref="as-realarray.html#begin"/>
+            <keyword name="begin" id="ScanArray::begin" ref="as-scanarray.html#begin"/>
+            <keyword name="calcBkg" id="ScanArray::calcBkg" ref="as-scanarray.html#calcBkg"/>
+            <keyword name="calcEsd" id="ScanArray::calcEsd" ref="as-scanarray.html#calcEsd"/>
+            <keyword name="calcFlippingRatio" id="ScanArray::calcFlippingRatio" ref="as-scanarray.html#calcFlippingRatio"/>
+            <keyword name="calcFullWidthHalfMax" id="ScanArray::calcFullWidthHalfMax" ref="as-scanarray.html#calcFullWidthHalfMax"/>
+            <keyword name="calcMaxPeakInty" id="ScanArray::calcMaxPeakInty" ref="as-scanarray.html#calcMaxPeakInty"/>
+            <keyword name="calcNormPeakArea" id="ScanArray::calcNormPeakArea" ref="as-scanarray.html#calcNormPeakArea"/>
+            <keyword name="calcPeakArea" id="ScanArray::calcPeakArea" ref="as-scanarray.html#calcPeakArea"/>
+            <keyword name="calcStructFactor" id="ScanArray::calcStructFactor" ref="as-scanarray.html#calcStructFactor"/>
+            <keyword name="calcSumPeakInty" id="ScanArray::calcSumPeakInty" ref="as-scanarray.html#calcSumPeakInty"/>
+            <keyword name="calcUnpolData" id="ScanArray::calcUnpolData" ref="as-scanarray.html#calcUnpolData"/>
+            <keyword name="clear" id="ScanArray::clear" ref="as-scanarray.html#clear"/>
+            <keyword name="createAllExtractedTablesModels" id="ScanArray::createAllExtractedTablesModels" ref="as-scanarray.html#createAllExtractedTablesModels"/>
+            <keyword name="createExtractedTableModel_Slot" id="Scan::createExtractedTableModel_Slot" ref="as-scan.html#createExtractedTableModel_Slot"/>
+            <keyword name="createFullOutputTable" id="ScanArray::createFullOutputTable" ref="as-scanarray.html#createFullOutputTable"/>
+            <keyword name="darker" id="Color::darker" ref="as-color.html#darker"/>
+            <keyword name="data" id="Scan::data" ref="as-scan.html#data"/>
+            <keyword name="dataTypeChanged_Signal" id="ScanArray::dataTypeChanged_Signal" ref="as-scanarray.html#dataTypeChanged_Signal"/>
+            <keyword name="definePolarisationCrossSection" id="ScanArray::definePolarisationCrossSection" ref="as-scanarray.html#definePolarisationCrossSection"/>
+            <keyword name="det" id="RealMatrix9::det" ref="as-realmatrix9.html#det"/>
+            <keyword name="detectInputFileType" id="ScanArray::detectInputFileType" ref="as-scanarray.html#detectInputFileType"/>
+            <keyword name="end" id="RealArray::end" ref="as-realarray.html#end"/>
+            <keyword name="end" id="ScanArray::end" ref="as-scanarray.html#end"/>
+            <keyword name="esdXForY" id="Line::esdXForY" ref="as-line.html#esdXForY"/>
+            <keyword name="esdYForY" id="Line::esdYForY" ref="as-line.html#esdYForY"/>
+            <keyword name="extract6t2Data" id="ScanArray::extract6t2Data" ref="as-scanarray.html#extract6t2Data"/>
+            <keyword name="extractDataFromTable" id="ScanArray::extractDataFromTable" ref="as-scanarray.html#extractDataFromTable"/>
+            <keyword name="extractHeidiData" id="ScanArray::extractHeidiData" ref="as-scanarray.html#extractHeidiData"/>
+            <keyword name="extractInputData" id="ScanArray::extractInputData" ref="as-scanarray.html#extractInputData"/>
+            <keyword name="extractNicosData" id="ScanArray::extractNicosData" ref="as-scanarray.html#extractNicosData"/>
+            <keyword name="extractPoliLog" id="ScanArray::extractPoliLog" ref="as-scanarray.html#extractPoliLog"/>
+            <keyword name="facilityTypeChanged_Signal" id="ScanArray::facilityTypeChanged_Signal" ref="as-scanarray.html#facilityTypeChanged_Signal"/>
+            <keyword name="fileIndex" id="Scan::fileIndex" ref="as-scan.html#fileIndex"/>
+            <keyword name="fileIndex" id="ScanArray::fileIndex" ref="as-scanarray.html#fileIndex"/>
+            <keyword name="fileIndexChanged" id="ScanArray::fileIndexChanged" ref="as-scanarray.html#fileIndexChanged"/>
+            <keyword name="filesType" id="ScanArray::filesType" ref="as-scanarray.html#filesType"/>
+            <keyword name="fillEmptyArrays" id="ScanArray::fillEmptyArrays" ref="as-scanarray.html#fillEmptyArrays"/>
+            <keyword name="findNonPeakPoints" id="ScanArray::findNonPeakPoints" ref="as-scanarray.html#findNonPeakPoints"/>
+            <keyword name="format" id="Scan::format" ref="as-scan.html#format"/>
+            <keyword name="hideOrShow" id="ProgressBar::hideOrShow" ref="as-progressbar.html#hideOrShow"/>
+            <keyword name="hklToXyz" id="ScanArray::hklToXyz" ref="as-scanarray.html#hklToXyz"/>
+            <keyword name="index" id="Scan::index" ref="as-scan.html#index"/>
+            <keyword name="indexOf" id="RealArray::indexOf" ref="as-realarray.html#indexOf"/>
+            <keyword name="indexOfMax" id="RealVector::indexOfMax" ref="as-realvector.html#indexOfMax"/>
+            <keyword name="indexOfMin" id="RealVector::indexOfMin" ref="as-realvector.html#indexOfMin"/>
+            <keyword name="indexOfText" id="StringParser::indexOfText" ref="as-stringparser.html#indexOfText"/>
+            <keyword name="indexPeaks" id="ScanArray::indexPeaks" ref="as-scanarray.html#indexPeaks"/>
+            <keyword name="init" id="Scan::init" ref="as-scan.html#init"/>
+            <keyword name="instrumentTypeChanged_Signal" id="ScanArray::instrumentTypeChanged_Signal" ref="as-scanarray.html#instrumentTypeChanged_Signal"/>
+            <keyword name="inv" id="RealMatrix9::inv" ref="as-realmatrix9.html#inv"/>
+            <keyword name="isEmpty" id="RealArray::isEmpty" ref="as-realarray.html#isEmpty"/>
+            <keyword name="isZero" id="RealVector::isZero" ref="as-realvector.html#isZero"/>
+            <keyword name="keys" id="Scan::keys" ref="as-scan.html#keys"/>
+            <keyword name="keys" id="ScanDatabase::keys" ref="as-scandatabase.html#keys"/>
+            <keyword name="lighter" id="Color::lighter" ref="as-color.html#lighter"/>
+            <keyword name="lorentzCorrectionFactor" id="ScanArray::lorentzCorrectionFactor" ref="as-scanarray.html#lorentzCorrectionFactor"/>
+            <keyword name="m_addHeader" id="SaveHeaders::m_addHeader" ref="as-saveheaders.html#m_addHeader-var"/>
+            <keyword name="m_dataType" id="ScanArray::m_dataType" ref="as-scanarray.html#m_dataType-var"/>
+            <keyword name="m_facilityType" id="ScanArray::m_facilityType" ref="as-scanarray.html#m_facilityType-var"/>
+            <keyword name="m_fieldWidth" id="SaveHeaders::m_fieldWidth" ref="as-saveheaders.html#m_fieldWidth-var"/>
+            <keyword name="m_fileIndex" id="ScanArray::m_fileIndex" ref="as-scanarray.html#m_fileIndex-var"/>
+            <keyword name="m_format" id="SaveHeaders::m_format" ref="as-saveheaders.html#m_format-var"/>
+            <keyword name="m_index" id="SaveHeaders::m_index" ref="as-saveheaders.html#m_index-var"/>
+            <keyword name="m_inputFileType" id="ScanArray::m_inputFileType" ref="as-scanarray.html#m_inputFileType-var"/>
+            <keyword name="m_inputFilesContents" id="ScanArray::m_inputFilesContents" ref="as-scanarray.html#m_inputFilesContents-var"/>
+            <keyword name="m_instrumentType" id="ScanArray::m_instrumentType" ref="as-scanarray.html#m_instrumentType-var"/>
+            <keyword name="m_integrationSubType" id="Scan::m_integrationSubType" ref="as-scan.html#m_integrationSubType-var"/>
+            <keyword name="m_integrationType" id="Scan::m_integrationType" ref="as-scan.html#m_integrationType-var"/>
+            <keyword name="m_isIndividuallyTreated" id="Scan::m_isIndividuallyTreated" ref="as-scan.html#m_isIndividuallyTreated-var"/>
+            <keyword name="m_mcCandlishFactor" id="Scan::m_mcCandlishFactor" ref="as-scan.html#m_mcCandlishFactor-var"/>
+            <keyword name="m_meanIndexH" id="Scan::m_meanIndexH" ref="as-scan.html#m_meanIndexH-var"/>
+            <keyword name="m_meanIndexK" id="Scan::m_meanIndexK" ref="as-scan.html#m_meanIndexK-var"/>
+            <keyword name="m_meanIndexL" id="Scan::m_meanIndexL" ref="as-scan.html#m_meanIndexL-var"/>
+            <keyword name="m_name" id="SaveHeaders::m_name" ref="as-saveheaders.html#m_name-var"/>
+            <keyword name="m_normMeanBkg" id="Scan::m_normMeanBkg" ref="as-scan.html#m_normMeanBkg-var"/>
+            <keyword name="m_numLeftBkgPoints" id="Scan::m_numLeftBkgPoints" ref="as-scan.html#m_numLeftBkgPoints-var"/>
+            <keyword name="m_numLeftSkipPoints" id="Scan::m_numLeftSkipPoints" ref="as-scan.html#m_numLeftSkipPoints-var"/>
+            <keyword name="m_numNonSkipPoints" id="Scan::m_numNonSkipPoints" ref="as-scan.html#m_numNonSkipPoints-var"/>
+            <keyword name="m_numPeakPoints" id="Scan::m_numPeakPoints" ref="as-scan.html#m_numPeakPoints-var"/>
+            <keyword name="m_numPoints" id="Scan::m_numPoints" ref="as-scan.html#m_numPoints-var"/>
+            <keyword name="m_numRightBkgPoints" id="Scan::m_numRightBkgPoints" ref="as-scan.html#m_numRightBkgPoints-var"/>
+            <keyword name="m_numRightSkipPoints" id="Scan::m_numRightSkipPoints" ref="as-scan.html#m_numRightSkipPoints-var"/>
+            <keyword name="m_outputTableData" id="ScanArray::m_outputTableData" ref="as-scanarray.html#m_outputTableData-var"/>
+            <keyword name="m_outputTableHeaders" id="ScanArray::m_outputTableHeaders" ref="as-scanarray.html#m_outputTableHeaders-var"/>
+            <keyword name="m_peakPosition" id="Scan::m_peakPosition" ref="as-scan.html#m_peakPosition-var"/>
+            <keyword name="m_precision" id="SaveHeaders::m_precision" ref="as-saveheaders.html#m_precision-var"/>
+            <keyword name="m_removeNeighborsType" id="Scan::m_removeNeighborsType" ref="as-scan.html#m_removeNeighborsType-var"/>
+            <keyword name="m_scanArray" id="ScanArray::m_scanArray" ref="as-scanarray.html#m_scanArray-var"/>
+            <keyword name="m_scanIndex" id="ScanArray::m_scanIndex" ref="as-scanarray.html#m_scanIndex-var"/>
+            <keyword name="m_tableModel" id="Scan::m_tableModel" ref="as-scan.html#m_tableModel-var"/>
+            <keyword name="max" id="RealVector::max" ref="as-realvector.html#max"/>
+            <keyword name="mean" id="RealVector::mean" ref="as-realvector.html#mean"/>
+            <keyword name="mid" id="RealArray::mid" ref="as-realarray.html#mid"/>
+            <keyword name="mid" id="String::mid" ref="as-string.html#mid"/>
+            <keyword name="middle" id="RealVector::middle" ref="as-realvector.html#middle"/>
+            <keyword name="min" id="RealVector::min" ref="as-realvector.html#min"/>
+            <keyword name="normalizeBy" id="RealVector::normalizeBy" ref="as-realvector.html#normalizeBy"/>
+            <keyword name="normalizeByTime" id="ScanArray::normalizeByTime" ref="as-scanarray.html#normalizeByTime"/>
+            <keyword name="operator+" id="RealArray::operator+" ref="as-realarray.html#operator-2b"/>
+            <keyword name="operator=" id="RealArray::operator=" ref="as-realarray.html#operator-eq"/>
+            <keyword name="operator=" id="String::operator=" ref="as-string.html#operator-eq"/>
+            <keyword name="operator==" id="RealArray::operator==" ref="as-realarray.html#operator-eq-eq"/>
+            <keyword name="operator[]" id="RealArray::operator[]" ref="as-realarray.html#operator-5b-5d"/>
+            <keyword name="operator[]" id="Scan::operator[]" ref="as-scan.html#operator-5b-5d"/>
+            <keyword name="operator[]" id="ScanDatabase::operator[]" ref="as-scandatabase.html#operator-5b-5d"/>
+            <keyword name="parseNumberNearText" id="StringParser::parseNumberNearText" ref="as-stringparser.html#parseNumberNearText"/>
+            <keyword name="parsePattern" id="StringParser::parsePattern" ref="as-stringparser.html#parsePattern"/>
+            <keyword name="parseString" id="StringParser::parseString" ref="as-stringparser.html#parseString"/>
+            <keyword name="plotType" id="Scan::plotType" ref="as-scan.html#plotType"/>
+            <keyword name="preTreatData" id="ScanArray::preTreatData" ref="as-scanarray.html#preTreatData"/>
+            <keyword name="prepend" id="RealArray::prepend" ref="as-realarray.html#prepend"/>
+            <keyword name="printDataRange" id="Scan::printDataRange" ref="as-scan.html#printDataRange"/>
+            <keyword name="printDataSingle" id="Scan::printDataSingle" ref="as-scan.html#printDataSingle"/>
+            <keyword name="range" id="RealVector::range" ref="as-realvector.html#range"/>
+            <keyword name="readCheckIncrement" id="StringParser::readCheckIncrement" ref="as-stringparser.html#readCheckIncrement"/>
+            <keyword name="remove" id="String::remove" ref="as-string.html#remove"/>
+            <keyword name="removeData" id="Scan::removeData" ref="as-scan.html#removeData"/>
+            <keyword name="replace" id="String::replace" ref="as-string.html#replace"/>
+            <keyword name="resize" id="RealArray::resize" ref="as-realarray.html#resize"/>
+            <keyword name="reverse" id="RealVector::reverse" ref="as-realvector.html#reverse"/>
+            <keyword name="saveSelectedOutputColumns" id="ScanArray::saveSelectedOutputColumns" ref="as-scanarray.html#saveSelectedOutputColumns"/>
+            <keyword name="scanAngle" id="Scan::scanAngle" ref="as-scan.html#scanAngle"/>
+            <keyword name="scanIndex" id="ScanArray::scanIndex" ref="as-scanarray.html#scanIndex"/>
+            <keyword name="scanIndexChanged" id="ScanArray::scanIndexChanged" ref="as-scanarray.html#scanIndexChanged"/>
+            <keyword name="scanStep" id="Scan::scanStep" ref="as-scan.html#scanStep"/>
+            <keyword name="set" id="RealArray::set" ref="as-realarray.html#set"/>
+            <keyword name="set" id="RealMatrix9::set" ref="as-realmatrix9.html#set"/>
+            <keyword name="set" id="RealMatrix9::set" ref="as-realmatrix9.html#set-1"/>
+            <keyword name="setAbsoluteFilePath" id="Scan::setAbsoluteFilePath" ref="as-scan.html#setAbsoluteFilePath"/>
+            <keyword name="setCheckedSilently" id="CheckBox::setCheckedSilently" ref="as-checkbox.html#setCheckedSilently"/>
+            <keyword name="setData" id="Scan::setData" ref="as-scan.html#setData"/>
+            <keyword name="setFileIndex" id="Scan::setFileIndex" ref="as-scan.html#setFileIndex"/>
+            <keyword name="setFileIndex" id="ScanArray::setFileIndex" ref="as-scanarray.html#setFileIndex"/>
+            <keyword name="setFileIndexByScanIndex" id="ScanArray::setFileIndexByScanIndex" ref="as-scanarray.html#setFileIndexByScanIndex"/>
+            <keyword name="setFromList" id="StringParser::setFromList" ref="as-stringparser.html#setFromList"/>
+            <keyword name="setIndex" id="Scan::setIndex" ref="as-scan.html#setIndex"/>
+            <keyword name="setInputFileType" id="ScanArray::setInputFileType" ref="as-scanarray.html#setInputFileType"/>
+            <keyword name="setLayout" id="GroupBox::setLayout" ref="as-groupbox.html#setLayout"/>
+            <keyword name="setMaximumSilently" id="SpinBox::setMaximumSilently" ref="as-spinbox.html#setMaximumSilently"/>
+            <keyword name="setMinimumSilently" id="SpinBox::setMinimumSilently" ref="as-spinbox.html#setMinimumSilently"/>
+            <keyword name="setModel" id="TableView::setModel" ref="as-tableview.html#setModel"/>
+            <keyword name="setPlotType" id="Scan::setPlotType" ref="as-scan.html#setPlotType"/>
+            <keyword name="setRangeSilently" id="SpinBox::setRangeSilently" ref="as-spinbox.html#setRangeSilently"/>
+            <keyword name="setScanAngle" id="Scan::setScanAngle" ref="as-scan.html#setScanAngle"/>
+            <keyword name="setScanIndex" id="ScanArray::setScanIndex" ref="as-scanarray.html#setScanIndex"/>
+            <keyword name="setScanStep" id="Scan::setScanStep" ref="as-scan.html#setScanStep"/>
+            <keyword name="setSelectedOutputColumns" id="ScanArray::setSelectedOutputColumns" ref="as-scanarray.html#setSelectedOutputColumns"/>
+            <keyword name="setSize" id="Scan::setSize" ref="as-scan.html#setSize"/>
+            <keyword name="setValueSilently" id="SpinBox::setValueSilently" ref="as-spinbox.html#setValueSilently"/>
+            <keyword name="simplified" id="RealVector::simplified" ref="as-realvector.html#simplified"/>
+            <keyword name="size" id="RealArray::size" ref="as-realarray.html#size"/>
+            <keyword name="size" id="Scan::size" ref="as-scan.html#size"/>
+            <keyword name="size" id="ScanArray::size" ref="as-scanarray.html#size"/>
+            <keyword name="size" id="String::size" ref="as-string.html#size"/>
+            <keyword name="splitText" id="StringParser::splitText" ref="as-stringparser.html#splitText"/>
+            <keyword name="sqrt" id="RealVector::sqrt" ref="as-realvector.html#sqrt"/>
+            <keyword name="startsWith" id="String::startsWith" ref="as-string.html#startsWith"/>
+            <keyword name="step" id="RealVector::step" ref="as-realvector.html#step"/>
+            <keyword name="sum" id="RealVector::sum" ref="as-realvector.html#sum"/>
+            <keyword name="sumSqr" id="RealVector::sumSqr" ref="as-realvector.html#sumSqr"/>
+            <keyword name="toQMap" id="Scan::toQMap" ref="as-scan.html#toQMap"/>
+            <keyword name="toQString" id="RealArray::toQString" ref="as-realarray.html#toQString"/>
+            <keyword name="toQString" id="String::toQString" ref="as-string.html#toQString"/>
+            <keyword name="toQVector" id="RealArray::toQVector" ref="as-realarray.html#toQVector"/>
+            <keyword name="trans" id="RealMatrix9::trans" ref="as-realmatrix9.html#trans"/>
+            <keyword name="transparenter" id="Color::transparenter" ref="as-color.html#transparenter"/>
+            <keyword name="treatData" id="ScanArray::treatData" ref="as-scanarray.html#treatData"/>
+            <keyword name="treatSingle" id="ScanArray::treatSingle" ref="as-scanarray.html#treatSingle"/>
+            <keyword name="value" id="Scan::value" ref="as-scan.html#value"/>
+            <keyword name="xForY" id="Line::xForY" ref="as-line.html#xForY"/>
+            <keyword name="xyzToAngles" id="ScanArray::xyzToAngles" ref="as-scanarray.html#xyzToAngles"/>
+            <keyword name="xyzToHkl" id="ScanArray::xyzToHkl" ref="as-scanarray.html#xyzToHkl"/>
+            <keyword name="~CheckBox" id="CheckBox::~CheckBox" ref="as-checkbox.html#dtor.CheckBox"/>
+            <keyword name="~Color" id="Color::~Color" ref="as-color.html#dtor.Color"/>
+            <keyword name="~ComboBox" id="ComboBox::~ComboBox" ref="as-combobox.html#dtor.ComboBox"/>
+            <keyword name="~FontComboBox" id="FontComboBox::~FontComboBox" ref="as-fontcombobox.html#dtor.FontComboBox"/>
+            <keyword name="~GroupBox" id="GroupBox::~GroupBox" ref="as-groupbox.html#dtor.GroupBox"/>
+            <keyword name="~HBoxLayout" id="HBoxLayout::~HBoxLayout" ref="as-hboxlayout.html#dtor.HBoxLayout"/>
+            <keyword name="~Label" id="Label::~Label" ref="as-label.html#dtor.Label"/>
+            <keyword name="~LabelQuatroBlock" id="LabelQuatroBlock::~LabelQuatroBlock" ref="as-labelquatroblock.html#dtor.LabelQuatroBlock"/>
+            <keyword name="~LabelTripleBlock" id="LabelTripleBlock::~LabelTripleBlock" ref="as-labeltripleblock.html#dtor.LabelTripleBlock"/>
+            <keyword name="~Line" id="Line::~Line" ref="as-line.html#dtor.Line"/>
+            <keyword name="~LineEdit" id="LineEdit::~LineEdit" ref="as-lineedit.html#dtor.LineEdit"/>
+            <keyword name="~MessageWidget" id="MessageWidget::~MessageWidget" ref="as-messagewidget.html#dtor.MessageWidget"/>
+            <keyword name="~ProgressBar" id="ProgressBar::~ProgressBar" ref="as-progressbar.html#dtor.ProgressBar"/>
+            <keyword name="~PushButton" id="PushButton::~PushButton" ref="as-pushbutton.html#dtor.PushButton"/>
+            <keyword name="~RealArray" id="RealArray::~RealArray" ref="as-realarray.html#dtor.RealArray"/>
+            <keyword name="~RealMatrix9" id="RealMatrix9::~RealMatrix9" ref="as-realmatrix9.html#dtor.RealMatrix9"/>
+            <keyword name="~RealVector" id="RealVector::~RealVector" ref="as-realvector.html#dtor.RealVector"/>
+            <keyword name="~SaveHeaders" id="SaveHeaders::~SaveHeaders" ref="as-saveheaders.html#dtor.SaveHeaders"/>
+            <keyword name="~Scan" id="Scan::~Scan" ref="as-scan.html#dtor.Scan"/>
+            <keyword name="~ScanArray" id="ScanArray::~ScanArray" ref="as-scanarray.html#dtor.ScanArray"/>
+            <keyword name="~ScanDatabase" id="ScanDatabase::~ScanDatabase" ref="as-scandatabase.html#dtor.ScanDatabase"/>
+            <keyword name="~SpaceObject" id="SpaceObject::~SpaceObject" ref="as-spaceobject.html#dtor.SpaceObject"/>
+            <keyword name="~SpinBox" id="SpinBox::~SpinBox" ref="as-spinbox.html#dtor.SpinBox"/>
+            <keyword name="~SpinBoxDoubleBlock" id="SpinBoxDoubleBlock::~SpinBoxDoubleBlock" ref="as-spinboxdoubleblock.html#dtor.SpinBoxDoubleBlock"/>
+            <keyword name="~SpinBoxSingleBlock" id="SpinBoxSingleBlock::~SpinBoxSingleBlock" ref="as-spinboxsingleblock.html#dtor.SpinBoxSingleBlock"/>
+            <keyword name="~String" id="String::~String" ref="as-string.html#dtor.String"/>
+            <keyword name="~StringParser" id="StringParser::~StringParser" ref="as-stringparser.html#dtor.StringParser"/>
+            <keyword name="~TableView" id="TableView::~TableView" ref="as-tableview.html#dtor.TableView"/>
+            <keyword name="~ToolBarButton" id="ToolBarButton::~ToolBarButton" ref="as-toolbarbutton.html#dtor.ToolBarButton"/>
+            <keyword name="~ToolBarSpacer" id="ToolBarSpacer::~ToolBarSpacer" ref="as-toolbarspacer.html#dtor.ToolBarSpacer"/>
+            <keyword name="~ToolButton" id="ToolButton::~ToolButton" ref="as-toolbutton.html#dtor.ToolButton"/>
+            <keyword name="~UnderLabeledWidget" id="UnderLabeledWidget::~UnderLabeledWidget" ref="as-underlabeledwidget.html#dtor.UnderLabeledWidget"/>
+            <keyword name="~VBoxLayout" id="VBoxLayout::~VBoxLayout" ref="as-vboxlayout.html#dtor.VBoxLayout"/>
+        </keywords>
+        <files>
+            <file>as-checkbox-members.html</file>
+            <file>as-checkbox.html</file>
+            <file>as-color-members.html</file>
+            <file>as-color.html</file>
+            <file>as-combobox-members.html</file>
+            <file>as-combobox.html</file>
+            <file>as-fontcombobox-members.html</file>
+            <file>as-fontcombobox.html</file>
+            <file>as-groupbox-members.html</file>
+            <file>as-groupbox.html</file>
+            <file>as-hboxlayout-members.html</file>
+            <file>as-hboxlayout.html</file>
+            <file>as-label-members.html</file>
+            <file>as-label.html</file>
+            <file>as-labelquatroblock-members.html</file>
+            <file>as-labelquatroblock.html</file>
+            <file>as-labeltripleblock-members.html</file>
+            <file>as-labeltripleblock.html</file>
+            <file>as-line-members.html</file>
+            <file>as-line.html</file>
+            <file>as-lineedit-members.html</file>
+            <file>as-lineedit.html</file>
+            <file>as-messagewidget-members.html</file>
+            <file>as-messagewidget.html</file>
+            <file>as-progressbar-members.html</file>
+            <file>as-progressbar.html</file>
+            <file>as-pushbutton-members.html</file>
+            <file>as-pushbutton.html</file>
+            <file>as-realarray-members.html</file>
+            <file>as-realarray.html</file>
+            <file>as-realmatrix9-members.html</file>
+            <file>as-realmatrix9.html</file>
+            <file>as-realvector-members.html</file>
+            <file>as-realvector.html</file>
+            <file>as-saveheaders-members.html</file>
+            <file>as-saveheaders.html</file>
+            <file>as-scan-members.html</file>
+            <file>as-scan.html</file>
+            <file>as-scanarray-members.html</file>
+            <file>as-scanarray.html</file>
+            <file>as-scandatabase-members.html</file>
+            <file>as-scandatabase.html</file>
+            <file>as-spaceobject-members.html</file>
+            <file>as-spaceobject.html</file>
+            <file>as-spinbox-members.html</file>
+            <file>as-spinbox.html</file>
+            <file>as-spinboxdoubleblock-members.html</file>
+            <file>as-spinboxdoubleblock.html</file>
+            <file>as-spinboxsingleblock-members.html</file>
+            <file>as-spinboxsingleblock.html</file>
+            <file>as-string-members.html</file>
+            <file>as-string.html</file>
+            <file>as-stringparser-members.html</file>
+            <file>as-stringparser.html</file>
+            <file>as-tableview-members.html</file>
+            <file>as-tableview.html</file>
+            <file>as-toolbarbutton-members.html</file>
+            <file>as-toolbarbutton.html</file>
+            <file>as-toolbarspacer-members.html</file>
+            <file>as-toolbarspacer.html</file>
+            <file>as-toolbutton-members.html</file>
+            <file>as-toolbutton.html</file>
+            <file>as-underlabeledwidget-members.html</file>
+            <file>as-underlabeledwidget.html</file>
+            <file>as-vboxlayout-members.html</file>
+            <file>as-vboxlayout.html</file>
+            <file>as.html</file>
+            <file>core-module.html</file>
+            <file>datatypes-module.html</file>
+            <file>diffraction-module.html</file>
+            <file>images/arrow_bc.png</file>
+            <file>images/bgrContent.png</file>
+            <file>images/btn_next.png</file>
+            <file>images/btn_prev.png</file>
+            <file>images/bullet_dn.png</file>
+            <file>images/bullet_sq.png</file>
+            <file>images/home.png</file>
+            <file>images/ico_note.png</file>
+            <file>images/ico_note_attention.png</file>
+            <file>images/ico_out.png</file>
+            <file>images/logo.png</file>
+            <file>style/offline-simple.css</file>
+            <file>style/offline.css</file>
+            <file>widgets-module.html</file>
+            <file>widgets.html</file>
+        </files>
+    </filterSection>
+</QtHelpProject>

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0.1
+Comment=Davinci
+Exec=Davinci
+GenericName=Davinci
+Icon=Davinci
+Name=Davinci
+NoDisplay=false
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Network;Qt
