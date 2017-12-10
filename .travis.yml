@@ -80,41 +80,22 @@ before_install:
 
 # Install Python, Pip, Qt, QtIFW
 install:
-  - echo ${LATEST_RELEASE_NAME}
-  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
-  - echo ${LATEST_RELEASE_NAME}
-  - echo ${FTP_DOMAIN}
-  - echo ${FTP_USER}
-  - echo ${FTP_PASSWORD}
-  - echo ${INSTALLER_ZIP}
-  - echo ${FTP_RELEASES_DIR}
-  - echo ${LATEST_RELEASE_NAME}
-  - echo
+  # Python
   - sudo apt-get --yes install python3.6
   - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
   - sudo pip3 install yattag
   - sudo pip3 install ftputil
-  - pip3 show ftputil
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} FTP_USER FTP_PASSWORD ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
-  - cdcvfvf
   #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
+  # Qt
   - sudo apt-get --yes install qt59base qt59svg
+  # 7zip
   - sudo apt-get --yes install p7zip-full
+  # QtIFW
   - curl -L ${QTIFW_URL} -O
   - chmod a+x ${QTIFW_EXE}
   - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
-  - echo ${LATEST_RELEASE_NAME}
-  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
-  - echo ${LATEST_RELEASE_NAME}
-  - echo ${FTP_DOMAIN}
-  - echo ${FTP_USER}
-  - echo ${FTP_PASSWORD}
-  - echo ${INSTALLER_ZIP}
-  - echo ${FTP_RELEASES_DIR}
-  - echo ${LATEST_RELEASE_NAME}
 
 #---------------------------------#
 #       build configuration       #
