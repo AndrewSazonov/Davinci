@@ -16,7 +16,7 @@ branches:
   - linux_gcc
 
 #---------------------------------#
-#    environment configuration    #
+#    environment configuration    # 
 #---------------------------------#
 
 env:
