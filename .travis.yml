@@ -16,7 +16,7 @@ branches:
   - linux_gcc
 
 #---------------------------------#
-#    environment configuration    # 
+#    environment configuration    #
 #---------------------------------#
 
 env:
@@ -95,6 +95,12 @@ install:
   - echo ${LATEST_RELEASE_NAME}
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - echo ${LATEST_RELEASE_NAME}
+  - echo ${FTP_DOMAIN}
+  - echo ${FTP_USER}
+  - echo ${FTP_PASSWORD}
+  - echo ${INSTALLER_ZIP}
+  - echo ${FTP_RELEASES_DIR}
+  - echo ${LATEST_RELEASE_NAME}
 
 #---------------------------------#
 #       build configuration       #
@@ -107,7 +113,7 @@ script:
   # Build
   - python3.6 ${SCRIPTS_DIR}/makeQtProFiles.py
   - python3.6 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
-  - ls ${RELEASE_DIR}
+  #- ls ${RELEASE_DIR}
   # Tests
   - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
   - ${RELEASE_DIR}/${PROJECT_NAME}Tests
@@ -116,10 +122,10 @@ script:
   - chmod a+x ${LINUXDEPLOYQT_EXE}
   - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
   - python3.6 ${SCRIPTS_DIR}/makeDeploy.py
-  - ls ${DEPLOY_DIR}
+  #- ls ${DEPLOY_DIR}
   # Installer
   - python3.6 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
-  - ls ${INSTALLER_DIR}
+  #- ls ${INSTALLER_DIR}
   - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
 
 #---------------------------------#
