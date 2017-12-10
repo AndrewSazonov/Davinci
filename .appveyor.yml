@@ -17,7 +17,7 @@ install:
   - ps: $env:LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x86 # 32-bit
+platform: x86 # 32-bit 
 
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
