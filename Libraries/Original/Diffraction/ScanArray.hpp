@@ -128,10 +128,13 @@ public: // to check qdoc!
     int m_fileIndex = 0;
 
     // Extract methods: ScanArray.cpp/Extract.cpp
+    // Instrument specific methods
+    void extractHeidiLog();
     void extractHeidiData();
     void extractNicosData();
     void extractPoliLog();
     void extract6t2Data();
+    // Common methods
     void findScanAngle(As::Scan *scan);
     void extractDataFromTable(As::Scan *scan,
                               QList<QStringList> &headerMap);

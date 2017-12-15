@@ -50,28 +50,33 @@ class Changelog:
         #self.all_articles.append(self.last_article)
 
     def add_articles(self):
+    
         self.add(version="1.0.0",
                  date="2017-12-09",
                  list=['First release'])
 
-        #self.add(version="1.0.1",
-        #         date="2017-??-??",
-        #         list=['Fixes a crash when closing a tab while connecting',
-        #               'Improves macOS 10.13 High Sierra compatibility...',
-        #               'Adds Polish localization',
-        #               'Numerous other fixes and improvements'])
+        self.add(version="1.0.1",
+                 date="2017-12-15",
+                 list=['Adds support of the new input format: HEiDi at MLZ instrument log data',
+                       'Fixes an issue with automatic determination of the peak and background parameters',
+                       'Fixes a bug with cursor position change in the input data viewer when go through the scans'])
 
         #self.add(version="1.0.2",
         #         date="2017-??-??",
-        #         list=['Fixes a bug to build with CI',
+        #         list=[
+        #               'Fixes a bug to build with CI',
         #               'Fixes an issue with editing files on mounted remote volumes resulted in adding NUL to the end of the document',
-        #               'Fixes a crash when closing a tab while connecting'])
+        #               'Fixes a crash when closing a tab while connecting'
 
         #self.add(version="1.0.3",
         #         date="2017-??-??",
         #         list=['Fixes a bug to build with CI',
+        #               'Fixes a crash when closing a tab while connecting',
         #               'Fixes an issue with editing files on mounted remote volumes resulted in adding NUL to the end of the document',
         #               'Fixes a crash when closing a tab while connecting'])
+        #               'Improves macOS 10.13 High Sierra compatibility...',
+        #               'Adds Polish localization',
+        #               'Numerous other fixes and improvements'])
 
 
 

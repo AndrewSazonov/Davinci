@@ -340,6 +340,22 @@ qreal As::Scan::scanStep() const
 }
 
 /*!
+Sets \a value of the first line corresponding to scan data in the input file.
+*/
+void As::Scan::setScanLine(const int value)
+{
+    m_scanLine = value;
+}
+
+/*!
+Returns the first line corresponding to scan data in the input file.
+*/
+int As::Scan::scanLine() const
+{
+    return m_scanLine;
+}
+
+/*!
 Sets \a name to the absolute path of the file (including file name) which contains the scan.
 */
 void As::Scan::setAbsoluteFilePath(const QString &name)
