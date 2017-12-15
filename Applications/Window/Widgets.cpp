@@ -218,6 +218,7 @@ As::TextEditor *As::Window::createInputTextWidget()
 //    connect(m_inputTextWidget, &As::TextEditor::cursorPositionChanged, this, &As::Window::highlightCurrentLine_Slot);
 //    connect(this, &As::Window::currentLineChanged_Signal, m_inputTextWidget, TE&As::TextEditor::setCursorPosition);
     //connect(this, SIGNAL(currentScanChanged_Signal(int)), m_inputTextWidget, SLOT(setCursorPosition(int)));
+    ///connect(this, &As::Window::currentScanChanged_Signal, m_inputTextWidget, &As::TextEditor::setCursorPosition);
 
     return m_inputTextWidget;
 }

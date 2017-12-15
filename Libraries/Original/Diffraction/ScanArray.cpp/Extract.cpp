@@ -19,6 +19,7 @@
  */
 
 #include <QDateTime>
+#include <QRegularExpression>
 #include <QXmlStreamReader>
 #include <QtMath>
 
@@ -50,7 +51,7 @@ void As::ScanArray::extractInputData()
         extractHeidiData(); break;
 
     case HEIDI_LOG:
-        ADEBUG << "Not implemented yet"; break;
+        extractHeidiLog(); break;
 
     case NICOS_DAT:
         extractNicosData(); break;
@@ -161,6 +162,122 @@ void As::ScanArray::extractHeidiData()
                     appendScan(scan); }
 
                 i = iEnd; } } }
+}
+
+/*!
+Extracts the scans from the HEIDI log file.
+*/
+void As::ScanArray::extractHeidiLog()
+{
+    ADEBUG;
+
+    // Make a header map between the possible internal names and 6T2 xml parameter names
+    QList<QStringList> headerMap;
+    headerMap.append({"angles",      "2Theta",          "2Theta"});
+    headerMap.append({"angles",      "Omega",           "Omega"});
+    headerMap.append({"angles",      "Phi",             "Phi"});
+    headerMap.append({"angles",      "Chi",             "Chi"});
+    headerMap.append({"intensities", "Detector",        "Idet"});
+    headerMap.append({"intensities", "Monitor",         "Imon"});
+
+    const QRegExp re("[^-.0-9]");     // regular expression for the splitting: all characters but "-", ".", "0123456789"
+    QStringList list;
+    QString str;
+
+    QString wavelength = "1";
+    QString timePerStep = "1";
+    QString matrix;
+
+    // Go through every open file
+    for (const QString &fileAsString : m_inputFilesContents.second) {
+
+        // Get every file content as a list of strings
+        const QStringList file = fileAsString.split("\n");
+
+        // Go through every line
+        for (int i = 0; i < file.size(); ++i) {
+
+            // Read line
+            str = file[i];
+
+            // Get wavelength
+            // both cases: "Wavelength [0.79350] ?" and "Wavelength [0.79350] ? 1.169"
+            if (str.simplified().startsWith("Wavelength")) {
+                list = str.split(re, QString::SkipEmptyParts);
+                wavelength = list[list.size()-1]; }
+
+            // Get time per step
+            // both cases: "Time/step :   1.00 sec ?" and "Time/step :   1.00 sec ? 2"
+            if (str.simplified().startsWith("Time/step :")) {
+                list = str.split(re, QString::SkipEmptyParts);
+                timePerStep = list[list.size()-1]; }
+
+            // Get orientation matrix: 1st type (after ro, rc, ol, pm commands)
+            if (str.simplified().startsWith("Orienting")) {
+                matrix = str.replace(re, " ");
+                str = file[++i];
+                matrix += str.replace(re, " ");
+                str = file[++i];
+                matrix += str.replace(re, " "); }
+
+            // Get orientation matrix: 2nd type (after mr command)
+            if (str.simplified().startsWith("Refined orienting matrix")) {
+                str = file[++i];
+                matrix = str;
+                str = file[++i];
+                matrix += str;
+                str = file[++i];
+                matrix += str; }
+
+            // Get scan data (after ss command)
+            if (str.simplified().startsWith("Scan centre =")) {
+
+                // Variables
+                auto scan = new As::Scan; // scan to be added to the scan array
+
+                // Set parameters of the scan defined extracted above
+                scan->setData("conditions", "Wavelength", wavelength);
+                scan->setData("conditions", "Time/step", timePerStep);
+                scan->setData("orientation", "matrix", matrix);
+
+                // Set scan angles
+                list = str.split(re, QString::SkipEmptyParts);
+                scan->setData("angles", "2Theta", list[0]);
+                scan->setData("angles", "Omega", list[1]);
+                scan->setData("angles", "Chi", list[2]);
+                scan->setData("angles", "Phi", list[3]);
+
+                // Read data headers
+                str = file[++i];
+                str = file[++i];
+                scan->setData("scandata", "headers", str.section('|', 0, 0));
+
+                // Read data table
+                str = file[++i];
+                str = file[++i];
+                QString data;
+                QString lines;
+                while (!str.simplified().startsWith("Centre at point") AND !str.simplified().startsWith("#")) {
+                    QRegularExpression re("[|+]");
+                    if (str.contains(re)) {
+                        data.append(str.section(re, 0, 0) + "\n");
+                        lines.append(QString::number(i) + " "); }
+                    str = file[++i]; }
+                scan->setData("scandata", "data", data);
+                scan->setData("misc", "lines", lines);
+
+                // Get the index of the file which contains the current scan
+                const int index = &fileAsString - &m_inputFilesContents.second[0];
+                scan->setFileIndex(index + 1); //!?
+
+                // Read and set data from the scan table created above according to the header map
+                extractDataFromTable(scan, headerMap);
+
+                // Define scan angle name
+                findScanAngle(scan);
+
+                // Append single scan to the scan array
+                appendScan(scan); } } }
 }
 
 /*!
@@ -350,12 +467,14 @@ void As::ScanArray::extract6t2Data()
 */
 void As::ScanArray::findScanAngle(As::Scan *scan)
 {
-    ADEBUG;
+    //ADEBUG;
 
     // Set scan angle, if not yet setted
     if (scan->scanAngle().isEmpty()) {
         QStringList subitemKeys = (*scan)["angles"].keys();
+        //ADEBUG << subitemKeys;
         for (const QString &subitemKey : subitemKeys) {
+            //ADEBUG << subitemKey << (*scan)["angles"][subitemKey]["data"];
             const As::RealVector data = (*scan)["angles"][subitemKey]["data"];
             /// add all the angles with non-zero range to the list of scan angles!?
             /// and allow user to chose the axis in the plot
@@ -372,27 +491,28 @@ provided list of headers \a headerMap.
 void As::ScanArray::extractDataFromTable(As::Scan *scan,
                                          QList<QStringList> &headerMap)
 {
-    ADEBUG;
+    //ADEBUG;
 
     // Make 2D map of the actually measured data from the single data string
     const QStringList dataList = (*scan)["scandata"]["data"]["data"].split("\n");
     QList<QStringList> dataMap;
     for (const QString &string : dataList)
-        dataMap << string.split(" ");
+        dataMap << string.split(QRegExp("\\s"), QString::SkipEmptyParts);
 
     // Exit from function if no data were found
     if (dataMap.size() == 1 AND dataMap[0].size() == 1)
         return;
 
     // Check if data measured according to the header, and fill the respective array
-    const QStringList headerList = (*scan)["scandata"]["headers"]["data"].split(" ");
+    const QStringList headerList = (*scan)["scandata"]["headers"]["data"].split(QRegExp("\\s"), QString::SkipEmptyParts);
     for (int i = 0; i < headerMap.size(); ++i) {
         for (const QString &name : headerMap[i][2].split("|")) {
             int row = headerList.indexOf(name);
             if (row != -1) {
                 QStringList data;
                 for (const QStringList &dataList : dataMap) {
-                    data << dataList[row]; }
+                    if (dataList.size() > row)
+                        data << dataList[row]; }
                 scan->setData(headerMap[i][0], headerMap[i][1], data.join(" ")); } } }
 }
 
@@ -401,13 +521,25 @@ Appends the \a scan to the scan array.
 */
 void As::ScanArray::appendScan(As::Scan *scan)
 {
-    ADEBUG << scan;
+    //ADEBUG << scan;
 
+    if (scan->scanAngle().isEmpty())
+        return;
+
+    // Set scan line
+    scan->setScanLine(1);
+    bool ok = false;
+    const int line = scan->data("misc", "lines", &ok).section(" ", 0, 0).toInt(&ok) + 1;
+    if (ok)
+        scan->setScanLine(line);
+
+    //
     int numPointsMax = 0;
     for (const QString &countType : As::COUNT_TYPES) {
         const int numPoints = (*scan)["intensities"]["Detector" + countType]["data"].split(" ").size(); // unify everything with numPoints!
         numPointsMax = qMax(numPoints, numPointsMax); }
 
+    //
     if (numPointsMax >= MIN_NUM_SCAN) {
         QStringList itemKeys = {"angles", "indices"};
         for (const auto &itemKey : itemKeys) {
