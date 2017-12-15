@@ -72,7 +72,7 @@ As::RealVector::RealVector(const QString &string)
 {
     if (string.isEmpty())
         return;
-    QStringList list = string.split(" ");
+    QStringList list = string.split(QRegExp("\\s"), QString::SkipEmptyParts);
     bool ok;
     for (const QString &num : list) {
         append(num.toDouble(&ok));
