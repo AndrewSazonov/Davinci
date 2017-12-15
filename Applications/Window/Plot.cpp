@@ -550,6 +550,9 @@ void As::Plot::updateAllOnPlot(const As::Scan *scan)
     As::RealVector x  = (*scan)["angles"][scan->scanAngle()]["data"];
     As::RealVector y  = (*scan)["intensities"]["DetectorNorm"]["data"];
     As::RealVector sy = (*scan)["intensities"]["sDetectorNorm"]["data"];
+    ADEBUG << x;
+    ADEBUG << y;
+    ADEBUG << sy;
     // Update axes ranges
     updateAxesRanges(x, y, sy); // Auto by QCustomPlot: rescaleAxes();
     // Remove all existing graphs

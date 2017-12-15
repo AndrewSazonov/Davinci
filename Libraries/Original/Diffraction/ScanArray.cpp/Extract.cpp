@@ -19,6 +19,7 @@
  */
 
 #include <QDateTime>
+#include <QRegularExpression>
 #include <QXmlStreamReader>
 #include <QtMath>
 
@@ -253,23 +254,31 @@ void As::ScanArray::extractHeidiLog()
                 // Read data table
                 str = file[++i];
                 str = file[++i];
+                //ADEBUG << i << str;
                 QString data;
-                while (!str.simplified().startsWith("Centre at point")) {
-                    data.append(str.section(QRegExp("[|+]"), 0, 0) + "\n");
+                while (!str.simplified().startsWith("Centre at point") AND !str.simplified().startsWith("#")) {
+                    QRegularExpression re("[|+]");
+                    if (str.contains(re))
+                        data.append(str.section(re, 0, 0) + "\n");
                     str = file[++i]; }
+                //ADEBUG;
                 scan->setData("scandata", "data", data);
+                //ADEBUG;
 
                 // Get the index of the file which contains the current scan
                 const int index = &fileAsString - &m_inputFilesContents.second[0];
                 scan->setFileIndex(index + 1); //!?
 
                 // Read and set data from the scan table created above according to the header map
+                //ADEBUG;
                 extractDataFromTable(scan, headerMap);
 
                 // Define scan angle name
+                //ADEBUG;
                 findScanAngle(scan);
 
                 // Append single scan to the scan array
+                //ADEBUG;
                 appendScan(scan); } } }
 }
 
@@ -465,7 +474,9 @@ void As::ScanArray::findScanAngle(As::Scan *scan)
     // Set scan angle, if not yet setted
     if (scan->scanAngle().isEmpty()) {
         QStringList subitemKeys = (*scan)["angles"].keys();
+        //ADEBUG << subitemKeys;
         for (const QString &subitemKey : subitemKeys) {
+            //ADEBUG << subitemKey << (*scan)["angles"][subitemKey]["data"];
             const As::RealVector data = (*scan)["angles"][subitemKey]["data"];
             /// add all the angles with non-zero range to the list of scan angles!?
             /// and allow user to chose the axis in the plot
@@ -513,6 +524,9 @@ Appends the \a scan to the scan array.
 void As::ScanArray::appendScan(As::Scan *scan)
 {
     //ADEBUG << scan;
+
+    if (scan->scanAngle().isEmpty())
+        return;
 
     int numPointsMax = 0;
     for (const QString &countType : As::COUNT_TYPES) {

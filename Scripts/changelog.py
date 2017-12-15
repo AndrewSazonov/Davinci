@@ -56,22 +56,28 @@ class Changelog:
 
         #self.add(version="1.0.1",
         #         date="2017-??-??",
-        #         list=['Fixes a crash when closing a tab while connecting',
-        #               'Improves macOS 10.13 High Sierra compatibility...',
-        #               'Adds Polish localization',
-        #               'Numerous other fixes and improvements'])
+        #         list=['Adds the HEiDi\@MLZ instrument log format.',
+        #               'Fixes an issue with automatic determination of the peak and background parameters.',
+        #               '',
+        #               '',
+        #               'Fixes some bugs???'])
 
         #self.add(version="1.0.2",
         #         date="2017-??-??",
-        #         list=['Fixes a bug to build with CI',
+        #         list=[
+        #               'Fixes a bug to build with CI',
         #               'Fixes an issue with editing files on mounted remote volumes resulted in adding NUL to the end of the document',
-        #               'Fixes a crash when closing a tab while connecting'])
+        #               'Fixes a crash when closing a tab while connecting'
 
         #self.add(version="1.0.3",
         #         date="2017-??-??",
         #         list=['Fixes a bug to build with CI',
+        #               'Fixes a crash when closing a tab while connecting',
         #               'Fixes an issue with editing files on mounted remote volumes resulted in adding NUL to the end of the document',
         #               'Fixes a crash when closing a tab while connecting'])
+        #               'Improves macOS 10.13 High Sierra compatibility...',
+        #               'Adds Polish localization',
+        #               'Numerous other fixes and improvements'])
 
 
 
