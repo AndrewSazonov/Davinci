@@ -83,6 +83,9 @@ public:
     void setScanStep(const qreal value);
     qreal scanStep() const;
 
+    void setScanLine(const int value);
+    int scanLine() const;
+
     void setAbsoluteFilePath(const QString &name);
     const QString absoluteFilePath() const;
     const QString absolutePath() const;
@@ -153,6 +156,7 @@ private:
     int m_fileIndex;
     As::PlotType m_plotType;
     qreal m_scanStep = qQNaN();
+    int m_scanLine;
     int m_index;
     int m_size;
 

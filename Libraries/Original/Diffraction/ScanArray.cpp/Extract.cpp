@@ -19,6 +19,7 @@
  */
 
 #include <QDateTime>
+#include <QRegularExpression>
 #include <QXmlStreamReader>
 #include <QtMath>
 
@@ -196,6 +197,7 @@ void As::ScanArray::extractHeidiLog()
         // Go through every line
         for (int i = 0; i < file.size(); ++i) {
 
+            // Read line
             str = file[i];
 
             // Get wavelength
@@ -254,10 +256,15 @@ void As::ScanArray::extractHeidiLog()
                 str = file[++i];
                 str = file[++i];
                 QString data;
-                while (!str.simplified().startsWith("Centre at point")) {
-                    data.append(str.section(QRegExp("[|+]"), 0, 0) + "\n");
+                QString lines;
+                while (!str.simplified().startsWith("Centre at point") AND !str.simplified().startsWith("#")) {
+                    QRegularExpression re("[|+]");
+                    if (str.contains(re)) {
+                        data.append(str.section(re, 0, 0) + "\n");
+                        lines.append(QString::number(i) + " "); }
                     str = file[++i]; }
                 scan->setData("scandata", "data", data);
+                scan->setData("misc", "lines", lines);
 
                 // Get the index of the file which contains the current scan
                 const int index = &fileAsString - &m_inputFilesContents.second[0];
@@ -465,7 +472,9 @@ void As::ScanArray::findScanAngle(As::Scan *scan)
     // Set scan angle, if not yet setted
     if (scan->scanAngle().isEmpty()) {
         QStringList subitemKeys = (*scan)["angles"].keys();
+        //ADEBUG << subitemKeys;
         for (const QString &subitemKey : subitemKeys) {
+            //ADEBUG << subitemKey << (*scan)["angles"][subitemKey]["data"];
             const As::RealVector data = (*scan)["angles"][subitemKey]["data"];
             /// add all the angles with non-zero range to the list of scan angles!?
             /// and allow user to chose the axis in the plot
@@ -514,11 +523,23 @@ void As::ScanArray::appendScan(As::Scan *scan)
 {
     //ADEBUG << scan;
 
+    if (scan->scanAngle().isEmpty())
+        return;
+
+    // Set scan line
+    scan->setScanLine(1);
+    bool ok = false;
+    const int line = scan->data("misc", "lines", &ok).section(" ", 0, 0).toInt(&ok) + 1;
+    if (ok)
+        scan->setScanLine(line);
+
+    //
     int numPointsMax = 0;
     for (const QString &countType : As::COUNT_TYPES) {
         const int numPoints = (*scan)["intensities"]["Detector" + countType]["data"].split(" ").size(); // unify everything with numPoints!
         numPointsMax = qMax(numPoints, numPointsMax); }
 
+    //
     if (numPointsMax >= MIN_NUM_SCAN) {
         QStringList itemKeys = {"angles", "indices"};
         for (const auto &itemKey : itemKeys) {
