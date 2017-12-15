@@ -229,19 +229,19 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 
     qreal minRatio = qInf();
 
-    const bool autoSkip = (scan->m_removeNeighborsType.contains("Automatically"));
-    const bool autoBkg = (scan->m_integrationSubType.contains("Automatically"));
+    const bool autoSkip = scan->m_removeNeighborsType.contains("Automatically");
+    const bool autoBkg = scan->m_integrationSubType.contains("Automatically");
 
     // Automatically detect background and skip points
     if (autoBkg AND autoSkip) {
 
         // Find Bkg points
-        int from = MIN_NUM_BKG;
-        int to   = scan->m_numPoints - MIN_NUM_BKG;
-        for (int numLeftBkgPoints = from; numLeftBkgPoints < to; ++numLeftBkgPoints) {
-            from = MIN_NUM_BKG;
-            to   = scan->m_numPoints - numLeftBkgPoints;
-            for (int numRightBkgPoints = from; numRightBkgPoints < to; ++numRightBkgPoints) {
+        const int fromLS = MIN_NUM_BKG;
+        const int toLS   = scan->m_numPoints - MIN_NUM_BKG;
+        for (int numLeftBkgPoints = fromLS; numLeftBkgPoints < toLS; ++numLeftBkgPoints) {
+            const int fromRS = MIN_NUM_BKG;
+            const int toRS   = scan->m_numPoints - numLeftBkgPoints;
+            for (int numRightBkgPoints = fromRS; numRightBkgPoints < toRS; ++numRightBkgPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              numLeftBkgPoints, numRightBkgPoints,
                                              0, 0,
@@ -253,13 +253,13 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                     scan->m_numRightBkgPoints = numRightBkgPoints; } } }
 
         // Find Skip points
-        from = MIN_NUM_SKIP;
-        to   = scan->m_numLeftBkgPoints - MIN_NUM_BKG + 1;
-        for (int numLeftSkipPoints = from; numLeftSkipPoints < to; ++numLeftSkipPoints) {
+        const int fromLB = MIN_NUM_SKIP;
+        const int toLB   = scan->m_numLeftBkgPoints - MIN_NUM_BKG;
+        for (int numLeftSkipPoints = fromLB; numLeftSkipPoints < toLB; ++numLeftSkipPoints) {
             const int numLeftBkgPoints = scan->m_numLeftBkgPoints - numLeftSkipPoints;
-            from = MIN_NUM_SKIP;
-            to   = scan->m_numRightBkgPoints - MIN_NUM_BKG + 1;
-            for (int numRightSkipPoints = from; numRightSkipPoints < to; ++numRightSkipPoints) {
+            const int fromRB = MIN_NUM_SKIP;
+            const int toRB   = scan->m_numRightBkgPoints - MIN_NUM_BKG;
+            for (int numRightSkipPoints = fromRB; numRightSkipPoints < toRB; ++numRightSkipPoints) {
                 const int numRightBkgPoints = scan->m_numRightBkgPoints - numRightSkipPoints;
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              numLeftBkgPoints, numRightBkgPoints,
@@ -280,12 +280,12 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 
         // Find Bkg points
         const int numNonSkipPoints = scan->m_numPoints - scan->m_numLeftSkipPoints - scan->m_numRightSkipPoints;
-        int from = MIN_NUM_BKG;
-        int to   = numNonSkipPoints - MIN_NUM_BKG;
-        for (int numLeftBkgPoints = from; numLeftBkgPoints < to; ++numLeftBkgPoints) {
-            from = MIN_NUM_BKG;
-            to   = numNonSkipPoints - numLeftBkgPoints;
-            for (int numRightBkgPoints = from; numRightBkgPoints < to; ++numRightBkgPoints) {
+        const int fromLB = MIN_NUM_BKG;
+        const int toLB   = numNonSkipPoints - MIN_NUM_BKG;
+        for (int numLeftBkgPoints = fromLB; numLeftBkgPoints < toLB; ++numLeftBkgPoints) {
+            const int fromRB = MIN_NUM_BKG;
+            const int toRB   = numNonSkipPoints - numLeftBkgPoints;
+            for (int numRightBkgPoints = fromRB; numRightBkgPoints < toRB; ++numRightBkgPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              numLeftBkgPoints, numRightBkgPoints,
                                              scan->m_numLeftSkipPoints, scan->m_numRightSkipPoints,
@@ -299,12 +299,12 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
     // Manually set background and automatically detect skip points
     else if (!autoBkg AND autoSkip) {
         const int numNonBkgPoints = scan->m_numPoints - scan->m_numLeftBkgPoints - scan->m_numRightBkgPoints;
-        int from = MIN_NUM_SKIP;
-        int to   = numNonBkgPoints - MIN_NUM_SKIP;
-        for (int numLeftSkipPoints = from; numLeftSkipPoints < to; ++numLeftSkipPoints) {
-            from = MIN_NUM_SKIP;
-            to   = numNonBkgPoints - numLeftSkipPoints - MIN_NUM_SKIP;
-            for (int numRightSkipPoints = from; numRightSkipPoints < to; ++numRightSkipPoints) {
+        const int fromLS = MIN_NUM_SKIP;
+        const int toLS   = numNonBkgPoints - MIN_NUM_SKIP;
+        for (int numLeftSkipPoints = fromLS; numLeftSkipPoints < toLS; ++numLeftSkipPoints) {
+            const int fromRS = MIN_NUM_SKIP;
+            const int toRS   = numNonBkgPoints - numLeftSkipPoints - MIN_NUM_SKIP;
+            for (int numRightSkipPoints = fromRS; numRightSkipPoints < toRS; ++numRightSkipPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              scan->m_numLeftBkgPoints, scan->m_numRightBkgPoints,
                                              numLeftSkipPoints, numRightSkipPoints,

@@ -76,7 +76,7 @@ const int UI_VERTICAL_SPACE_ROWS = 7;
 const int MIN_NUM_SCAN = 3;
 const int MIN_NUM_SKIP = 0;
 const int MIN_NUM_BKG  = 1;
-const int ADD_NUM_PEAK = 1;
+const int ADD_NUM_PEAK = 1; //1
 
 const double MONITOR_NORM = 10000.;
 

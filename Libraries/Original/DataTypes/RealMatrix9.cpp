@@ -89,7 +89,7 @@ Sets the array with elements stored in \a string.
 */
 void As::RealMatrix9::set(const QString &string)
 {
-    QStringList list = string.split(" ");
+    QStringList list = string.split(QRegExp("\\s"), QString::SkipEmptyParts);
     QVector<qreal> vector;
     bool ok;
     for (const QString &num : list) {

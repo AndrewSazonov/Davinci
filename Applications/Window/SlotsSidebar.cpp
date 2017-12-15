@@ -111,6 +111,9 @@ void As::Window::gotoScan_Slot(const int index)
 
     //ADEBUG << "index:" << index;
 
+    // Update the text widget
+    m_inputTextWidget->setCursorPosition(currentScan()->scanLine());
+
     // Update the visualized plot
     if (m_visualizedPlotsWidget) {
         m_visualizedPlotsWidget->updateAllOnPlot(scanAt(index));
