@@ -50,17 +50,16 @@ class Changelog:
         #self.all_articles.append(self.last_article)
 
     def add_articles(self):
+    
         self.add(version="1.0.0",
                  date="2017-12-09",
                  list=['First release'])
 
-        #self.add(version="1.0.1",
-        #         date="2017-??-??",
-        #         list=['Adds the HEiDi\@MLZ instrument log format.',
-        #               'Fixes an issue with automatic determination of the peak and background parameters.',
-        #               '',
-        #               '',
-        #               'Fixes some bugs???'])
+        self.add(version="1.0.1",
+                 date="2017-12-15",
+                 list=['Adds support of the new input format: HEiDi at MLZ instrument log data',
+                       'Fixes an issue with automatic determination of the peak and background parameters',
+                       'Fixes a bug with cursor position change in the input data viewer when go through the scans'])
 
         #self.add(version="1.0.2",
         #         date="2017-??-??",
