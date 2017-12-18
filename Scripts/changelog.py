@@ -55,11 +55,11 @@ class Changelog:
                  date="2017-12-09",
                  list=['First release'])
 
-        self.add(version="1.0.1",
-                 date="2017-12-15",
-                 list=['Adds support of the new input format: HEiDi at MLZ instrument log data',
-                       'Fixes an issue with automatic determination of the peak and background parameters',
-                       'Fixes a bug with cursor position change in the input data viewer when go through the scans'])
+        #self.add(version="1.0.1",
+        #         date="2017-12-15",
+        #         list=['Adds support of the new input format: HEiDi at MLZ instrument log data',
+        #               'Fixes an issue with automatic determination of the peak and background parameters',
+        #               'Fixes a bug with cursor position change in the input data viewer when go through the scans'])
 
         #self.add(version="1.0.2",
         #         date="2017-??-??",
