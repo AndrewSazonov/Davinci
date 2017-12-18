@@ -2,7 +2,7 @@
 
 function Controller()
 {
-installer.executeDetached("set", "QWE2=qwe4");
+//installer.executeDetached("set", "QWE2=qwe4");
 }
 
 Controller.prototype.IntroductionPageCallback = function()
@@ -22,23 +22,23 @@ Controller.prototype.IntroductionPageCallback = function()
         }
         if (installer.isUninstaller())
         {
-                gui.clickButton(buttons.NextButton);
+                //gui.clickButton(buttons.NextButton);
         }
         if (installer.isUpdater())
         {
-                gui.clickButton(buttons.NextButton);
+                //gui.clickButton(buttons.NextButton);
         }
     }
 }
 
 Controller.prototype.TargetDirectoryPageCallback = function()
 {
-    var page = gui.currentPageWidget();
-    if (page != null)
-    {
+    //var page = gui.currentPageWidget();
+    //if (page != null)
+    //{
         //page.TargetDirectoryLineEdit.textChanged.connect(this, Controller.prototype.targetChanged);
         //Controller.prototype.targetChanged(page.TargetDirectoryLineEdit.text);
-    }
+    //}
 }
 
 Controller.prototype.targetChanged = function(path)
@@ -80,9 +80,9 @@ Controller.prototype.ComponentSelectionPageCallback = function()
     var page = gui.currentPageWidget();
     if (page != null)
     {
-        page.visible = false;
-        page.title = " ";
-        page.selectAll();
+        ///page.visible = false;
+        ///page.title = " ";
+        ///page.selectAll();
         //gui.clickButton(buttons.NextButton);
     }
 }
@@ -92,10 +92,10 @@ Controller.prototype.LicenseAgreementPageCallback = function()
     var page = gui.currentPageWidget();
     if (page != null)
     {
-        page.title = " ";
+        ///page.title = " ";
         //page.AcceptLicenseRadioButton.visible = false;
         //page.RejectLicenseRadioButton.visible = false;
-        page.AcceptLicenseRadioButton.checked = true;
+        ///page.AcceptLicenseRadioButton.checked = true;
         //installer.setDefaultPageVisible(QInstaller.LicenseCheck, false);
     }
 }
@@ -125,7 +125,7 @@ Controller.prototype.PerformInstallationPageCallback = function()
     var page = gui.currentPageWidget();
     if (page != null)
     {
-        page.title = " ";
+        ///page.title = " ";
         //gui.clickButton(buttons.NextButton);
     }
 }
@@ -152,8 +152,8 @@ Controller.prototype.FinishedPageCallback = function()
             }
             if (installer.isUpdater())
             {
-                Controller.prototype.runApp();
-                gui.clickButton(buttons.FinishButton);
+                ///Controller.prototype.runApp();
+                ///gui.clickButton(buttons.FinishButton);
             }
             if (installer.isUninstaller())
             {
