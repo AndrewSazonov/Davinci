@@ -7,10 +7,11 @@ function Component()
     
     //installer.setDefaultPageVisible(QInstaller.Introduction, false);
     //installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
-    if (installer.isInstaller()) {
-    ///    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
-    ///    installer.setDefaultPageVisible(QInstaller.LicenseCheck, false);
-        }
+    //if (installer.isInstaller())
+    //{
+        installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+    //}
+    installer.setDefaultPageVisible(QInstaller.LicenseCheck, false);
     //installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
     //installer.setDefaultPageVisible(QInstaller.ReadyForInstallation, false);
     //installer.setDefaultPageVisible(QInstaller.PerformInstallation, false);
