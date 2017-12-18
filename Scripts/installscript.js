@@ -1,10 +1,15 @@
+
 function Component()
 {
 
 //installer.executeDetached("set", "QWE2=qwe3");
     // default constructor
   //  installer.installationFinished.connect(this, Component.prototype.installationFinishedPageIsShown);
-    
+
+
+
+
+
     //installer.setDefaultPageVisible(QInstaller.Introduction, false);
     //installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
     //if (installer.isInstaller())
@@ -56,19 +61,19 @@ Component.prototype.createOperations = function()
     // https://forum.qt.io/topic/30227/solved-qt-installer-framework-question-about-setting-enviroment-variables/2
     // https://stackoverflow.com/questions/43111510/qt-installer-framework-how-to-add-my-program-to-windows-system-variable-path
     // dont work
-    /*
+ 
         // Add to system path
         //var sep = ":";
         //if (installer.value("os") == "win") { sep = ";" }
-        component.addOperation("EnvironmentVariable",
+        //component.addOperation("EnvironmentVariable",
         //"PATH",
-        "DAVINCI_DIR",
+        //"DAVINCI_DIR",
         //installer.environmentVariable("PATH") + sep + "@TargetDir@",
-        "@TargetDir@",
-        true, // persistently
-        false // for all users
-        );
-    */
+        //"@TargetDir@",
+        //true, // persistently
+        //false // for all users
+        //);
+ 
 
 
     if (systemInfo.productType === "windows")

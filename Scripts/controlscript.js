@@ -187,3 +187,4 @@ Controller.prototype.runApp = function()
         QDesktopServices.openUrl(path);
     }
 }
+
