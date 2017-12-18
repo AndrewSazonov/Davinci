@@ -220,8 +220,8 @@ private:
     // Files or folders pathes list (for the reload action)
     QStringList m_pathList;
     // Array of experimental scans and single scan for global settings
-    As::ScanArray *m_scans;
-    As::Scan *m_commonScan;
+    As::ScanArray *m_scans = Q_NULLPTR;
+    As::Scan *m_commonScan = Q_NULLPTR;
     // Misc
     QFontComboBox *monospacedFonts;
     QTimer *m_delayBeforeSearching;
