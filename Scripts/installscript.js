@@ -7,8 +7,10 @@ function Component()
     
     //installer.setDefaultPageVisible(QInstaller.Introduction, false);
     //installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
-    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
-    installer.setDefaultPageVisible(QInstaller.LicenseCheck, false);
+    if (installer.isInstaller()) {
+    ///    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+    ///    installer.setDefaultPageVisible(QInstaller.LicenseCheck, false);
+        }
     //installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
     //installer.setDefaultPageVisible(QInstaller.ReadyForInstallation, false);
     //installer.setDefaultPageVisible(QInstaller.PerformInstallation, false);
@@ -24,7 +26,7 @@ Component.prototype.installationFinishedPageIsShown = function()
         if (installer.isInstaller() && installer.status == QInstaller.Success) {
             //var args = ["PATH=%PATH;@TargetDir@"]
             //installer.executeDetached("set", args);
-            installer.executeDetached("set", "QWE2=qwe2");
+            ///installer.executeDetached("set", "QWE2=qwe2");
         }
     } catch(e) {
         console.log(e);
