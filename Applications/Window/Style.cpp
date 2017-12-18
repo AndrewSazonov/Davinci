@@ -438,9 +438,10 @@ void As::Style::createStyle()
     //add("border-top: 1px solid", As::Color(As::red).name());
 
     */
-    startBlock("QTabBar::tab");
-    add("min-width:", TAB_WIDTH);
-    add("max-width:", TAB_WIDTH);
+//    startBlock("QTabBar::tab");
+//    add("min-width:", TAB_WIDTH);
+//    add("max-width:", TAB_WIDTH);
+//    add("margin-left:", "-1px");
     /*
     add("min-height:", "26px");
     add("max-height:", "26px");
@@ -525,9 +526,6 @@ void As::Style::createStyle()
     //startBlock("QTabBar::tab:only-one");
     //add("margin-left:", "-1px");
 
-    startBlock("#sidebarTabsWidget QTabBar::tab"); /// How else?!
-    add("margin-left:", "0px");
-
     startBlock("QTabBar::tab:selected");
     add("color:", As::Color(As::white).name());
     add("background-color:", As::Color(As::blue).name());
@@ -546,6 +544,11 @@ void As::Style::createStyle()
     //add("border-style:", "none");
     //add("border-top-style:", "none");
     //add("border-style:", "none");
+
+    startBlock("#sidebarTabsWidget QTabBar::tab"); /// How else?!
+    add("border-style:", "none");
+    add("border-left: 1px solid", As::Color(As::grayLightVery).name());
+    add("margin-left:", "0px");
 
     //=========
     // QToolBar
