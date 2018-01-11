@@ -188,7 +188,7 @@ void As::Window::exportOutputTable_Slot()
                    "ShelX format (3i4,2f8.2) (*.hkl);;"
                    "TBAR format (*.tb);;"
                    "CCSL fratio format (*.dat)"),
-                &format ); // can be a problem on linux: http://www.qtcentre.org/threads/21019-Determining-selected-filter-on-getSaveFileName
+                &format); // can be a problem on linux: http://www.qtcentre.org/threads/21019-Determining-selected-filter-on-getSaveFileName
 
     // Save selected columns
     m_scans->saveSelectedOutputColumns(fileName, format);
@@ -340,7 +340,9 @@ void As::Window::checkApplicationUpdateNow_Slot(const bool hideOutput)
 
     // Read the output
     const QByteArray data = updater.readAllStandardOutput();
-    //const QByteArray err = updater.readAllStandardError();
+    const QByteArray err = updater.readAllStandardError();
+    ADEBUG << "data:\n" << data;
+    ADEBUG << "err:\n" << err;
 
     // Regular expression for app version in format 1.0.12
     const QRegularExpression re("\\d+\\.\\d+\\.\\d+");
