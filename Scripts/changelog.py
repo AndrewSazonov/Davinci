@@ -56,12 +56,16 @@ class Changelog:
                  list=['First release'])
 
         self.add(version="1.0.1",
-                 date="2017-12-18",
+                 date="2018-01-11",
                  list=['Adds support of the new input format: HEiDi at MLZ instrument log data',
                        'Fixes an issue with automatic determination of the peak and background parameters',
                        'Fixes a bug with cursor position change in the input data viewer when go through the scans',
                        'Fixes a crash when open a new file',
                        'Fixes a sidebar issue with the tabs width'])
+
+        self.add(version="1.0.2",
+                 date="2018-01-23",
+                 list=['Fixes a bug with automatic update with the installer framework'])
 
         #self.add(version="1.0.2",
         #         date="2017-??-??",
