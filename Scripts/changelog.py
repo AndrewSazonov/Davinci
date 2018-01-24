@@ -63,9 +63,9 @@ class Changelog:
                        'Fixes a crash when open a new file',
                        'Fixes a sidebar issue with the tabs width'])
 
-#        self.add(version="1.0.2",
-#                 date="2018-01-23",
-#                 list=['Fixes a bug with automatic update with the installer framework'])
+        self.add(version="1.0.2",
+                 date="2018-01-23",
+                 list=['Fixes a bug with automatic update with the installer framework'])
 
         #self.add(version="1.0.2",
         #         date="2017-??-??",
