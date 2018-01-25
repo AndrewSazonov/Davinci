@@ -22,11 +22,11 @@ Controller.prototype.IntroductionPageCallback = function()
         }
         if (installer.isUninstaller())
         {
-//******//                gui.clickButton(buttons.NextButton);
+                gui.clickButton(buttons.NextButton);//******//
         }
         if (installer.isUpdater())
         {
-//******//                gui.clickButton(buttons.NextButton);
+                gui.clickButton(buttons.NextButton);//******//
         }
     }
 }
