@@ -1,5 +1,8 @@
 # Davinci Version History
 
+## Version 1.0.2 (26 Jan 2018)
+* Fixes a bug with the update function of the installer parogram
+
 ## Version 1.0.1 (11 Jan 2018)
 * Adds support of the new input format: HEiDi at MLZ instrument log data
 * Fixes an issue with automatic determination of the peak and background parameters
