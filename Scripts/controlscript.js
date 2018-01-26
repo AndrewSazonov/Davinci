@@ -22,11 +22,11 @@ Controller.prototype.IntroductionPageCallback = function()
         }
         if (installer.isUninstaller())
         {
-                //gui.clickButton(buttons.NextButton);
+                gui.clickButton(buttons.NextButton);//******//
         }
         if (installer.isUpdater())
         {
-                //gui.clickButton(buttons.NextButton);
+                gui.clickButton(buttons.NextButton);//******//
         }
     }
 }
@@ -75,6 +75,7 @@ Controller.prototype.targetChanged = function(path)
     }
 }
 
+
 Controller.prototype.ComponentSelectionPageCallback = function()
 {
     var page = gui.currentPageWidget();
@@ -82,10 +83,17 @@ Controller.prototype.ComponentSelectionPageCallback = function()
     {
         ///page.visible = false;
         ///page.title = " ";
-        ///page.selectAll();
+        //page.selectAll();
         //gui.clickButton(buttons.NextButton);
+        //if (installer.isUpdater())
+        //{
+        // Temporary solution, as setDefaultPageVisible = false in installscript.js
+        // works for Installer, but not for Updater !?
+//******//            gui.clickButton(buttons.NextButton);
+        //}
     }
 }
+
 
 Controller.prototype.LicenseAgreementPageCallback = function()
 {
@@ -179,3 +187,4 @@ Controller.prototype.runApp = function()
         QDesktopServices.openUrl(path);
     }
 }
+
