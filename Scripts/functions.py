@@ -29,12 +29,14 @@ def GetFilePath(dir_name, file_name):
     return pjoin(script_path, dir_name, file_name)
 
 def ReadFileToString(path):
+    if type(path) is not str:
+        path = pjoin(path)
     with open(path, 'r') as f:
         read_data = f.read()
     f.closed
     return read_data
 
-def ReadFileToString(dir_name, file_name):
+def ReadFileToStringX(dir_name, file_name):
     path = GetFilePath(dir_name, file_name)
     with open(path, 'r') as f:
         read_data = f.read()
