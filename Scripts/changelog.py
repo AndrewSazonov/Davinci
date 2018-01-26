@@ -64,7 +64,7 @@ class Changelog:
                        'Fixes a sidebar issue with the tabs width'])
 
         self.add(version="1.0.2",
-                 date="2018-01-26",
+                 date="2018-01-27",
                  list=['Fixes a bug with the update function of the installer parogram'])
 
 
