@@ -1,5 +1,8 @@
 # Davinci Version History
 
+## Version 1.0.3 (13 Mar 2018)
+* Fixes issue #2, Not reading new files with Oxford magnet on POLI
+
 ## Version 1.0.2 (27 Jan 2018)
 * Fixes a bug with the update function of the installer parogram
 
