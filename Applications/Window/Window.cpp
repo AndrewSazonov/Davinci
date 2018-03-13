@@ -80,8 +80,6 @@ As::Window::Window()
     // Start program timer
     As::elapsedTimer.start();
 
-    ADEBUG << QString::number(0.5 * 300 - 1);
-
     // Print application info
     printAppInfo_Slot();
 

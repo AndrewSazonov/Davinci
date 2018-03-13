@@ -1,0 +1,336 @@
+### NICOS data file, created at 2018-03-10 13:27:36
+#                    number : 134303
+#                  filename : p10394_00134303.dat
+#                  filepath : /data/2018/p10394/data/p10394_00134303.dat
+#                      info : scan(sth_jvm2, 144.5815, 0.2000, 21, 2.0000)
+### Experiment information
+#                 Exp_users : Tapan Chatterji <chatterji@ill.fr> (Institut Laue-Langevin)
+#          Exp_localcontact : V. Hutanu <vladimir.hutanu@frm2.tum.de>
+#                 Exp_title : Spontaneous electric polarization in orthoferrite HoFeO3 crystal
+#              Exp_proposal : p10394
+#                Exp_remark : 
+### Sample and alignment
+#         Sample_samplename : HoFeO3 / HoFeO3
+#                  Sample_a : 5.2858096382
+#                  Sample_c : 7.64179608892
+#            Sample_bravais : P
+#           Sample_ubmatrix : ([0.13338404457268951, 0.1268301569410743, 0.004969944193152325], [-0.13474072569369377, 0.1256622330496641, 0.014171432871961563], [-0.003424718085848942, -0.00654173518834132, 0.13059241586735598])
+#               Sample_laue : 1
+#              Sample_alpha : 93.8106254983
+#               Sample_beta : 86.0942469685
+#                  Sample_b : 5.60960092829
+#              Sample_gamma : 90.2723396176
+### Instrument setup
+#       wavelength_reltheta : False
+#              POLI_website : http://www.mlz-garching.de/poli
+#          wavelength_order : 1
+#                   B_alias : B_jvm2
+#                   T_alias : T_jvm2_vti
+#        wavelength_focmode : manual
+#          POLI_responsible : V. Hutanu <vladimir.hutanu@frm2.tum.de>
+#           POLI_instrument : POLI
+#                  POLI_doi : http://dx.doi.org/10.17815/jlsrf-1-22
+#                  Ts_alias : T_jvm2_stick
+#     wavelength_hfocuspars : 0.0
+#            POLI_operators : RWTH Aachen University
+#         wavelength_mosaic : 0.5 deg
+#     wavelength_vfocuspars : 0.0
+#                 sth_alias : sth_jvm2
+#         wavelength_dvalue : 3.355 A
+#             POLI_facility : MLZ
+### Offsets
+#               chi2_offset : 0.00 deg
+#              omega_offset : 1.00 deg
+#             ytrans_offset : 0.00 mm
+#           stz_jvm2_offset : 0.000 mm
+#             xtrans_offset : 0.00 mm
+#         liftingctr_offset : 0.02 deg
+#              gamma_offset : 0.01 deg
+#                sth_offset : 0.000 deg
+#               chi1_offset : 0.00 deg
+#           sth_jvm2_offset : 0.000 deg
+### Limits
+#            cuv_userlimits : (0.00, 173.00) kstep
+#     T_jvm2_vti_userlimits : (0.000, 320.000) K
+#            x_m_userlimits : (0.00, 90.00) kstep
+#          chi_m_userlimits : (0.00, 12.70) kstep
+#             Ts_userlimits : (0.000, 320.000) K
+# T_jvm2_vti_heater_userlimits : (0.000, 100.000) %
+#          gamma_userlimits : (-15.37, 129.74) deg
+#            bmv_userlimits : (115.00, 188.00) mm
+#       cam_temp_userlimits : (-10.000, 30.000) degC
+#     wavelength_userlimits : (0.100, 3.000) A
+#         B_jvm2_userlimits : (-8.000, 8.000) T
+#    jvm2_pdewar_userlimits : (0.000, 0.000) mbar
+#            bmh_userlimits : (6.50, 80.00) mm
+#            sth_userlimits : (-360.000, 360.000) deg
+#  T_jvm2_vti_nv_userlimits : (0.000, 100.000) %
+#           chi2_userlimits : (-4.00, 4.00) deg
+#        theta_m_userlimits : (0.00, 1300.00) kstep
+#              B_userlimits : (-8.000, 8.000) T
+#         ytrans_userlimits : (-15.00, 15.00) mm
+#  T_ccr20_stick_userlimits : (0.000, 420.000) K
+#          omega_userlimits : (-181.00, 179.00) deg
+#            cuh_userlimits : (0.00, 152.00) kstep
+#       sth_jvm2_userlimits : (-360.000, 360.000) deg
+# T_jvm2_htstick_userlimits : (0.000, 800.000) K
+#        T_ccr20_userlimits : (0.000, 420.000) K
+#         xtrans_userlimits : (-15.00, 15.00) mm
+# T_jvm2_stick_heater_userlimits : (0.000, 100.000) %
+#              T_userlimits : (0.000, 320.000) K
+#   T_ccr20_tube_userlimits : (0.000, 300.000) K
+#     liftingctr_userlimits : (-4.20, 29.93) deg
+#       stz_jvm2_userlimits : (-52.000, 52.000) mm
+#           chi1_userlimits : (-4.00, 4.00) deg
+#   T_jvm2_stick_userlimits : (0.000, 320.000) K
+#      changer_m_userlimits : (0.00, 4000.00) kstep
+### Precisions/tolerances
+#            chi2_precision : 0.01 deg
+#           chi_m_precision : 0.01 kstep
+#    T_ccr20_tube_precision : 0.100 K
+#        stz_jvm2_precision : 0.010 mm
+#             x_m_precision : 0.01 kstep
+#      wavelength_precision : 0.012 A
+#       T_ccr20_A_precision : 0.000 K
+#     jvm2_pdewar_precision : 0.100 mbar
+#          B_jvm2_precision : 0.010 T
+#        jvm2_LN2_precision : 0.000 %
+#           gamma_precision : 0.01 deg
+#             bmv_precision : 0.20 mm
+#         theta_m_precision : 0.10 kstep
+#               T_precision : 0.100 K
+#    T_jvm2_stick_precision : 0.100 K
+#       jvm2_Tmag_precision : 0.000 K
+#     jvm2_Urecon_precision : 0.000 V
+#      T_jvm2_vti_precision : 0.100 K
+#        sth_jvm2_precision : 0.001 deg
+#             cuh_precision : 0.00 kstep
+#            chi1_precision : 0.01 deg
+#      liftingctr_precision : 0.01 deg
+#               B_precision : 0.010 T
+#          xtrans_precision : 0.01 mm
+#       T_ccr20_B_precision : 0.050 K
+#   T_ccr20_stick_precision : 0.250 K
+#             sth_precision : 0.001 deg
+#  jvm2_Tcoldhead_precision : 0.000 K
+#              Ts_precision : 0.100 K
+#      jvm2_Bhall_precision : 0.000 T
+#  T_jvm2_htstick_precision : 0.100 K
+#           omega_precision : 0.01 deg
+#          ytrans_precision : 0.01 mm
+#       T_ccr20_C_precision : 0.000 K
+#             bmh_precision : 0.20 mm
+#       T_ccr20_D_precision : 0.000 K
+#       changer_m_precision : 0.10 kstep
+#        jvm2_LHe_precision : 0.000 %
+#             cuv_precision : 0.00 kstep
+### Device status
+#     T_jvm2_htstick_status : error: sensor open circuit, heater open circuit
+# ccr20_vacuum_switch_status : ok: idle
+#                 bm_status : ok: horizontal=ON [PosOk], vertical=ON [PosOk Sync]
+#               chi1_status : ok: ON [PosOk]
+#         T_jvm2_vti_status : ok: ok
+#           ccr20_p1_status : ok: idle
+#          T_ccr20_A_status : warn: temp overrange, sensor units overrange
+#        jvm2_Urecon_status : ok
+# T_ccr20_stick_range_status : warn: above warn limit (medium)
+#                sth_status : ok: enabled
+#    ccr20_p1_limits_status : ok: idle
+#                cuh_status : ok: ON [PosOk Sync]
+#           camimage_status : ok: idle
+#           camtimer_status : ok: idle
+#               POLI_status : ok: mono=(theta=idle, twotheta=idle), omega=enabled, in position, nu=motor halted, gamma=ON [PosOk]
+# T_ccr20_tube_range_status : warn: above warn limit (medium)
+#   ccr20_gas_switch_status : ok: idle
+#    ccr20_p2_limits_status : warn: warning, lower limit reached
+#                 bp_status : ok: left=ON [PosOk Sync], right=ON [PosOk Sync], bottom=ON [PosOk Sync], top=ON [PosOk]
+#             B_jvm2_status : ok: ok
+#           jvm2_LN2_status : ok
+#           jvm2_LHe_status : ok
+#      I_jvm2_supply_status : ok
+#                 Ts_status : ok: ok
+#            Shutter_status : warn: local
+#            theta_m_status : ok: ON [PosOk Sync]
+#             Sample_status : ok
+#      T_ccr20_stick_status : warn: invalid reading
+#           ccr20_p2_status : warn: warning, lower limit reached
+#     jvm2_Tcoldhead_status : ok
+#          jvm2_Tmag_status : ok
+#                cuv_status : ok: ON [PosOk Sync]
+#          changer_m_status : ok: ON [PosOk Sync]
+#       T_jvm2_stick_status : ok: ok
+#       T_ccr20_tube_status : warn: temp overrange
+#                det_status : ok: timer=idle, mon1=idle, mon2=idle, ctr1=idle
+#                  B_status : ok: ok
+#               chi2_status : ok: ON [PosOk]
+#          T_ccr20_D_status : warn: temp overrange
+#      T_jvm2_vti_nv_status : ok
+#              chi_m_status : ok: ON [PosOk Sync]
+#           stz_jvm2_status : error: fault detected: 0b1
+#         liftingctr_status : ok: motor halted
+#                cam_status : ok: camimage=idle, camtimer=idle
+#          T_ccr20_C_status : warn: temp overrange
+#                bmh_status : ok: ON [PosOk]
+# ccr20_pressure_regulate_status : ok: idle
+#   ccr20_compressor_status : error: error (please reset), Compressor disconnected
+#                x_m_status : ok: ON [PosOk]
+#         jvm2_Bhall_status : ok
+# T_jvm2_stick_heater_status : ok
+#         wavelength_status : ok: theta=idle, twotheta=idle
+#             xtrans_status : ok: ON [PosOk]
+#            T_ccr20_status : warn: T_ccr20_tube=temp overrange
+#           cam_temp_status : ok: cooling on
+#              Space_status : ok: 1446.63 GiB free
+#                  T_status : ok: ok
+#                bmv_status : ok: ON [PosOk Sync]
+#              gamma_status : ok: ON [PosOk]
+#          T_ccr20_B_status : warn: invalid reading
+#              omega_status : ok: ON [PosOk Sync]
+#       ReactorPower_status : ok
+#           sth_jvm2_status : ok: enabled
+#  T_jvm2_vti_heater_status : ok
+#             ytrans_status : ok: ON [PosOk]
+#        jvm2_pdewar_status : warn: ok, above user limit (0.000 mbar)
+### Detector preset information
+#                det_preset : 2.0 s
+#                  det_mode : time
+#                cam_preset : 3600.0 s
+#                  cam_mode : time
+### Device positions and sample environment state
+#            T_jvm2_stick_d : 0.0
+#   T_jvm2_vti_heater_value : 0.690 %
+#        T_jvm2_stick_value : 20.117 K
+#     T_jvm2_htstick_window : 60.0 s
+# ccr20_pressure_regulate_value : off
+#                  bm_value : 44.99 169.99 mm
+#                chi2_value : 0.00 deg
+#                 sth_value : 144.582 deg
+#     ccr20_p2_limits_value : (0.0, 1000.0) mbar
+#               Space_value : 1446.634 GiB
+#     T_jvm2_stick_setpoint : 20.0
+#          T_jvm2_vti_value : 20.002 K
+#          wavelength_value : 0.889 A
+#                      Ts_i : 0.4
+#            sth_jvm2_value : 144.582 deg
+#   T_jvm2_vti_heateroutput : 0.691
+#             jvm2_pdewar_i : 0.3
+#                   T_value : 20.002 K
+#               omega_value : 0.00 deg
+#           T_ccr20_B_value : 0.000 K
+#   T_jvm2_htstick_setpoint : 70.0
+#       T_ccr20_tube_window : 60.0 s
+#           T_ccr20_stick_p : 50.0
+#                 cuh_value : 50.00 kstep
+# T_jvm2_stick_heater_value : 0.000 %
+#     T_ccr20_tube_setpoint : 290.0
+#                   B_value : 1.000 T
+#              T_jvm2_vti_p : 2.0
+#  jvm2_pdewar_heateroutput : 5.5125
+#            T_ccr20_tube_i : 20.0
+#             T_ccr20_value : 0.000 K
+#              ytrans_value : -0.00 mm
+#             jvm2_pdewar_d : 0.0
+#           T_ccr20_D_value : 0.000 K
+#            jvm2_LN2_value : 733.102 %
+#      T_ccr20_stick_window : 60.0 s
+#                      Ts_p : 20.0
+#            T_jvm2_stick_p : 20.0
+#                 bmv_value : 169.99 mm
+# T_jvm2_htstick_heateroutput : 0.0066
+#            T_ccr20_tube_d : 1.0
+#                       T_p : 2.0
+#              T_jvm2_vti_i : 1.0
+#         jvm2_Urecon_value : 0.001 V
+#               chi_m_value : 6.39 kstep
+#       T_jvm2_vti_setpoint : 20.0
+#                       T_i : 1.0
+#            T_jvm2_stick_i : 0.4
+#         T_jvm2_vti_window : 60.0 s
+#                 x_m_value : 61.00 kstep
+#                  bp_value : 7.00 7.00 10.00 10.00 mm
+#    T_ccr20_stick_setpoint : 300.0
+#            T_heateroutput : 0.691
+#          T_jvm2_htstick_p : 20.0
+#       T_jvm2_stick_window : 60.0 s
+#        jvm2_pdewar_window : 60.0 s
+#        ReactorPower_value : 20.0 MW
+#           changer_m_value : 150.00 kstep
+#          T_ccr20_setpoint : 290.0 K
+#           jvm2_Tmag_value : 4.578 K
+# T_ccr20_tube_heateroutput : 0.0
+#      jvm2_Tcoldhead_value : 4.274 K
+#           T_ccr20_stick_d : 0.0
+#     ccr20_p1_limits_value : (0.0, 1000.0) mbar
+#                  T_window : 60.0 s
+#                  Ts_value : 20.117 K
+#        T_ccr20_tube_value : 0.000 K
+# T_ccr20_stick_heateroutput : 0.0
+#              T_jvm2_vti_d : 0.0
+#             Shutter_value : open
+#    ccr20_gas_switch_value : off
+#                 bmh_value : 44.99 mm
+# ccr20_vacuum_switch_value : off
+# T_jvm2_stick_heateroutput : 0.0
+#             jvm2_pdewar_p : 0.05
+#          jvm2_Bhall_value : 0.963 T
+#            ccr20_p2_value : -0.125 bar
+#      T_jvm2_htstick_value : 815.000 K
+#            cam_temp_value : -6.652 degC
+#       T_jvm2_vti_nv_value : 2.647 %
+#                      Ts_d : 0.0
+#           T_ccr20_A_value : 0.000 K
+#            ccr20_p1_value : 1.66e-05 mbar
+#              Sample_value : HoFeO3 / HoFeO3
+#            jvm2_LHe_value : 84.869 %
+#            T_ccr20_tube_p : 50.0
+#           Ts_heateroutput : 0.0
+#               gamma_value : 10.06 deg
+# T_ccr20_stick_range_value : off
+#    ccr20_compressor_value : off
+#       I_jvm2_supply_value : 0.003 A
+#                T_setpoint : 20.0
+#      jvm2_pdewar_setpoint : 1027.5
+#                chi1_value : -0.00 deg
+#                       T_d : 0.0
+#         jvm2_pdewar_value : 1045.444 mbar
+#              xtrans_value : -0.00 mm
+#               Ts_setpoint : 20.0
+#          T_jvm2_htstick_d : 0.6
+#                POLI_value : [-1.0019, -0.0382, 0.9980] rlu rlu rlu
+#            stz_jvm2_value : -0.434 mm
+#              B_jvm2_value : 1.000 T
+#                 Ts_window : 60.0 s
+#             theta_m_value : 136.00 kstep
+#                 cuv_value : 120.00 kstep
+#  T_ccr20_tube_range_value : off
+#          liftingctr_value : 6.84 deg
+#           T_ccr20_stick_i : 20.0
+#          T_jvm2_htstick_i : 1.0
+#       T_ccr20_stick_value : 0.000 K
+#    T_ccr20_regulationmode : tube
+#           T_ccr20_C_value : 0.000 K
+### Scan data
+# sth_jvm2	;	timer	mon1	mon2	ctr1
+# deg	;	s	cts	cts	cts
+144.582	;	2.00	36901	0	296
+144.782	;	2.00	37086	0	289
+144.982	;	2.00	36962	0	313
+145.182	;	2.00	37070	0	326
+145.382	;	2.00	37362	0	352
+145.582	;	2.00	36899	0	691
+145.782	;	2.00	37345	0	2119
+145.982	;	2.00	37306	0	4110
+146.181	;	2.00	37622	0	6831
+146.381	;	2.00	37298	0	9417
+146.582	;	2.00	36903	0	10635
+146.782	;	2.00	36971	0	9566
+146.982	;	2.00	36858	0	6539
+147.182	;	2.00	37149	0	4254
+147.382	;	2.00	37557	0	1820
+147.582	;	2.00	37150	0	455
+147.782	;	2.00	37065	0	268
+147.982	;	2.00	36979	0	241
+148.181	;	2.00	37272	0	241
+148.381	;	2.00	37456	0	247
+148.581	;	2.00	37128	0	262
+### End of NICOS data file p10394_00134303.dat
