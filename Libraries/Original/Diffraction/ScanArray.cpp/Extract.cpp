@@ -480,6 +480,8 @@ void As::ScanArray::findScanAngle(As::Scan *scan)
             /// and allow user to chose the axis in the plot
             if (data.simplified().size() > 1 AND data.range() > 0.1) {
                 scan->setScanAngle(subitemKey);
+                //ADEBUG << scan->scanAngle();
+                //AEXIT;
                 return; } } }
 }
 
@@ -499,20 +501,27 @@ void As::ScanArray::extractDataFromTable(As::Scan *scan,
     for (const QString &string : dataList)
         dataMap << string.split(QRegExp("\\s"), QString::SkipEmptyParts);
 
+    //ADEBUG << dataMap;
+    //ADEBUG << headerMap;
+
     // Exit from function if no data were found
     if (dataMap.size() == 1 AND dataMap[0].size() == 1)
         return;
 
     // Check if data measured according to the header, and fill the respective array
     const QStringList headerList = (*scan)["scandata"]["headers"]["data"].split(QRegExp("\\s"), QString::SkipEmptyParts);
+    //ADEBUG << headerList;
     for (int i = 0; i < headerMap.size(); ++i) {
         for (const QString &name : headerMap[i][2].split("|")) {
-            int row = headerList.indexOf(name);
+            //ADEBUG << name;
+            const QRegularExpression re(name + "(_.*){0,1}"); // to catch, e.g., both 'sth' and 'sth_jvm2' cases
+            const int row = headerList.indexOf(re);
             if (row != -1) {
                 QStringList data;
                 for (const QStringList &dataList : dataMap) {
                     if (dataList.size() > row)
                         data << dataList[row]; }
+                //ADEBUG << headerMap[i][0] << headerMap[i][1] << data.join(" ");
                 scan->setData(headerMap[i][0], headerMap[i][1], data.join(" ")); } } }
 }
 

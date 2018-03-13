@@ -67,6 +67,10 @@ class Changelog:
                  date="2018-01-27",
                  list=['Fixes a bug with the update function of the installer parogram'])
 
+        self.add(version="1.0.3",
+                 date="2018-03-13",
+                 list=['Fixes issue #2, Not reading new files with Oxford magnet on POLI'])
+
 
 
 
