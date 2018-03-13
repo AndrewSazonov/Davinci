@@ -63,9 +63,9 @@ class Changelog:
                        'Fixes a crash when open a new file',
                        'Fixes a sidebar issue with the tabs width'])
 
-        #self.add(version="1.0.2",
-        #         date="2018-01-26",
-        #         list=['Fixes a bug with the update function of the installer parogram'])
+        self.add(version="1.0.2",
+                 date="2018-01-27",
+                 list=['Fixes a bug with the update function of the installer parogram'])
 
 
 
