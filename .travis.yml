@@ -69,7 +69,8 @@ before_install:
 # Install Python, Pip, Qt, QtIFW
 install:
   # Python
-  - brew install python3
+  #- brew install python3
+  - brew upgrade python # upgrade to python3
   - sudo pip3 install ftputil
   - sudo pip3 install yattag
   # 7zip
