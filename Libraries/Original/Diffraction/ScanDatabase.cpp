@@ -126,7 +126,11 @@ As::ScanDatabase::ScanDatabase()
     set("intensities", "Monitor(-)",       "",    "counts", "Intensity (Down) measured in the monitor");
     set("intensities", "sMonitor(-)",      "",    "counts", "ESD Intensity measured in the monitor");
     set("intensities", "Monitor1",         "",    "counts", "Intensity measured in the first monitor");
+    set("intensities", "Monitor1(+)",      "",    "counts", "Intensity (Up) measured in the monitor");
+    set("intensities", "Monitor1(-)",      "",    "counts", "Intensity (Down) measured in the monitor");
     set("intensities", "Monitor2",         "",    "counts", "Intensity measured in the second monitor");
+    set("intensities", "Monitor2(+)",      "",    "counts", "Intensity (Up) measured in the monitor");
+    set("intensities", "Monitor2(-)",      "",    "counts", "Intensity (Down) measured in the monitor");
     set("intensities", "DetectorNorm",     "",    "counts", "Intensity measured in the detector normalised by time");
     set("intensities", "sDetectorNorm",    "",    "counts", "ESD Intensity measured in the detector normalised by time");
     set("intensities", "DetectorNorm(+)",  "",    "counts", "Intensity measured in the detector normalised by time");
