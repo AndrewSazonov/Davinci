@@ -81,7 +81,7 @@ before_install:
   # Add repositories, update...
   - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
-  - sudo apt-add-repository --yes ppa:beineri/opt-qt592-trusty
+  - sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
   ##- sudo apt-get -qq update
   - sudo apt-get --quiet --yes update
   #-#- sudo apt-get upgrade python
@@ -134,6 +134,8 @@ install:
 #---------------------------------#
 
 before_script:
+  - ls -l /opt/
+  - ls -l /opt/qt*/bin/
   - source /opt/qt*/bin/qt*-env.sh
 
 script:
