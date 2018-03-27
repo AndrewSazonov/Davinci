@@ -99,6 +99,7 @@ install:
   - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   #- sudo apt-get install python3-pip
   - pip3 --version
+  - python3.6 -m pip -V
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
 #+  - sudo pip3 install yattag
