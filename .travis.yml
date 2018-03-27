@@ -98,7 +98,7 @@ install:
   - python3 --version
   - python3.6 --version
   - sudo apt-get install python3-pip
-  - pip3 --version
+  - pip --version
 #  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   #- sudo apt-get install python3-pip
 #  - pip3 --version
