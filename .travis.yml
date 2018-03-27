@@ -102,8 +102,15 @@ install:
   - ls -l
   - ls -l /home/
   - ls -l /home/travis/
-  - ls -l ${INSTALLER_DIR}
-  - ls -l ${DEPLOY_DIR}
+  #- ls -l ${INSTALLER_DIR}
+  #- ls -l ${DEPLOY_DIR}
+  - echo ${SCRIPTS_DIR}
+  - echo ${FTP_DOMAIN}
+  - echo ${FTP_USER}
+  - echo ${INSTALLER_ZIP}
+  - echo ${FTP_RELEASES_DIR}
+  - echo ${LATEST_RELEASE_NAME}
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
 
 
 #---------------------------------#
