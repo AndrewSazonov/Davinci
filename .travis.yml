@@ -78,7 +78,7 @@ before_install:
   - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
 ##  - sudo apt-add-repository --yes ppa:beineri/opt-qt592-trusty
-##  - sudo apt-get -qq update
+  - sudo apt-get -qq update
 
 # Install Python, Pip, Qt, QtIFW
 install:
