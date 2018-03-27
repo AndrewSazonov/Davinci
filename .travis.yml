@@ -79,7 +79,8 @@ before_install:
   - echo ${SCRIPTS_DIR}
   - echo ${TRAVIS_BRANCH}
   # Add repositories, update...
-  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
+  #- sudo add-apt-repository --yes ppa:jonathonf/python-3.6
+  - sudo add-apt-repository --yes ppa:deadsnakes/ppa
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
   - sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
   ##- sudo apt-get -qq update
@@ -93,13 +94,15 @@ install:
   - sudo apt-get --yes install python3.6
   - python3 --version
   - python3.6 --version
+  - sudo apt-get install python3-pip
+  - pip3 --version
   - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   #- sudo apt-get install python3-pip
   - pip3 --version
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
 #+  - sudo pip3 install yattag
-#+  - sudo pip3 install ftputil
+  - sudo pip3 install ftputil
   # - sudo python3 -m pip install ftputil EQUALS - sudo apt-get install python3-pip AND - sudo pip3 install ftputil
   #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
   # Qt
