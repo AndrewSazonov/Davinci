@@ -73,6 +73,12 @@ before_install:
   - echo ${LATEST_RELEASE_NAME}
   - echo ${RELEASE_DIR}
   - echo ${SCRIPTS_DIR}
+  - echo ${TRAVIS_BRANCH}
+
+
+  #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
+
+
   # Add repositories, update...
   - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
@@ -118,11 +124,13 @@ script:
   - chmod a+x ${LINUXDEPLOYQT_EXE}
   - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
   - python3.6 ${SCRIPTS_DIR}/makeDeploy.py
-  #- ls ${DEPLOY_DIR}
+  - ls ${DEPLOY_DIR}
   # Installer
   - python3.6 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
-  #- ls ${INSTALLER_DIR}
+  - ls ${INSTALLER_DIR}
   - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
+  - ls ${INSTALLER_DIR}
+  - ls ${DEPLOY_DIR}
 
 #---------------------------------#
 #      upload configuration       #
