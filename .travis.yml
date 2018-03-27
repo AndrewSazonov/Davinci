@@ -6,7 +6,7 @@ os: linux
 #dist: precise # Ubuntu 12.04, https://docs.travis-ci.com/user/reference/overview/
 dist: trusty # Ubuntu 14.04, https://docs.travis-ci.com/user/reference/overview/
 sudo: required
-##group: deprecated-2017Q4 # https://blog.travis-ci.com/2017-12-12-new-trusty-images-q4-launch
+group: deprecated-2017Q4 # https://blog.travis-ci.com/2017-12-12-new-trusty-images-q4-launch
 
 compiler: gcc
 
@@ -147,6 +147,8 @@ install:
 ####  - echo ${FTP_RELEASES_DIR}
 ####  - echo ${LATEST_RELEASE_NAME}
 ####  - echo ${FTP_REPOS_DIR}
+  - ls -l ${SCRIPTS_DIR}/test/
+  - echo ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
   - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test ${FTP_REPOS_DIR}
 
