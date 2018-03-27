@@ -84,7 +84,7 @@ before_install:
   - sudo apt-add-repository --yes ppa:beineri/opt-qt592-trusty
 ###  - sudo apt-get -qq update
   - sudo apt-get update
-  - sudo apt-get upgrade python
+  #-#- sudo apt-get upgrade python
 
 # Install Python, Pip, Qt, QtIFW
 install:
@@ -93,8 +93,8 @@ install:
   - sudo apt-get --yes install python3.6
   - python3 --version
   - python3.6 --version
-###  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
-  - sudo apt-get install python3-pip
+  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
+  #- sudo apt-get install python3-pip
   - pip3 --version
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
@@ -138,8 +138,8 @@ before_script:
 
 script:
   # Build
-  - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
-  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
+  - python3.6 ${SCRIPTS_DIR}/makeQtProFiles.py
+  - python3.6 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
   #- ls ${RELEASE_DIR}
   # Tests
   - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
@@ -148,10 +148,10 @@ script:
   - curl -L ${LINUXDEPLOYQT_URL} -o ${LINUXDEPLOYQT_EXE}
   - chmod a+x ${LINUXDEPLOYQT_EXE}
   - unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
-  - python3 ${SCRIPTS_DIR}/makeDeploy.py
+  - python3.6 ${SCRIPTS_DIR}/makeDeploy.py
 ####  - ls -l ${DEPLOY_DIR}
   # Installer
-  - python3 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
+  - python3.6 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
 ##  - ls -l ${INSTALLER_DIR}
   - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
 ##  - ls -l ${INSTALLER_DIR}
@@ -168,5 +168,5 @@ after_success:
 ##  - echo ${FTP_RELEASES_DIR}
 ##  - echo ${LATEST_RELEASE_NAME}
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
-  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
-  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
