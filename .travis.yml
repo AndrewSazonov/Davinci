@@ -105,7 +105,7 @@ install:
 #  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   - wget https://bootstrap.pypa.io/get-pip.py
   #- sudo python3.6 get-pip.py
-  - sudo python3 get-pip.py
+  - sudo python3.5 get-pip.py
 #- sudo apt-get install python3-pip
 
   #- sudo ln -s /usr/local/bin/pip /usr/local/bin/pip3
@@ -121,7 +121,7 @@ install:
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
 #+  - sudo pip3 install yattag
-  - sudo pip3 install ftputil
+  - sudo pip3.5 install ftputil
   # - sudo python3 -m pip install ftputil EQUALS - sudo apt-get install python3-pip AND - sudo pip3 install ftputil
   #- sudo python3.6 -m pip install ftputil
   #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
@@ -150,7 +150,7 @@ install:
 ####  - echo ${FTP_REPOS_DIR}
   - ls -l ${SCRIPTS_DIR}/test/
   - echo ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
-  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+  - python3.5 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test ${FTP_REPOS_DIR}
 
 
