@@ -37,6 +37,9 @@ env:
 
 before_install:
   - python3 --version
+  - sudo apt-get install python3.6
+  - python3 --version
+  - python3.6.3 --version
   # Set variables
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   # Project
