@@ -106,10 +106,12 @@ install:
   #- sudo apt-get install python3-pip
 
   - sudo ln -s /usr/bin/python3.6 /usr/local/bin/python3
-  - sudo ln -s /usr/local/bin/pip /usr/local/bin/pip3
+  #- sudo ln -s /usr/local/bin/pip /usr/local/bin/pip3
+  - ls -l /usr/bin/
+  - ls -l /usr/local/bin/
 
 
-  - pip --version
+  #- pip --version
   - pip3 --version
   - pip3.6 --version
   - python3.6 -m pip -V
