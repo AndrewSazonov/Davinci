@@ -99,9 +99,9 @@ install:
 ##  - chmod a+x ${QTIFW_EXE}
 ##  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
 
-  - ls -l
-  - ls -l /home/
-  - ls -l /home/travis/
+  #- ls -l
+  #- ls -l /home/
+  #- ls -l /home/travis/
   #- ls -l ${INSTALLER_DIR}
   #- ls -l ${DEPLOY_DIR}
   - echo ${SCRIPTS_DIR}
@@ -109,18 +109,19 @@ install:
   - echo ${FTP_USER}
   - echo ${FTP_RELEASES_DIR}
   - echo ${LATEST_RELEASE_NAME}
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR} ${FTP_REPOS_DIR}
+  - echo ${FTP_REPOS_DIR}
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test ${FTP_REPOS_DIR}
 
 
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
 
-before_script:
+##before_script:
 ##  - source /opt/qt*/bin/qt*-env.sh
 
-script:
+##script:
   # Build
 ##  - python3.6 ${SCRIPTS_DIR}/makeQtProFiles.py
 ##  - python3.6 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
@@ -144,12 +145,12 @@ script:
 #---------------------------------#
 #      upload configuration       #
 #---------------------------------#
-after_success:
-  - echo ${SCRIPTS_DIR}
-  - echo ${FTP_DOMAIN}
-  - echo ${FTP_USER}
-  - echo ${INSTALLER_ZIP}
-  - echo ${FTP_RELEASES_DIR}
-  - echo ${LATEST_RELEASE_NAME}
+##after_success:
+##  - echo ${SCRIPTS_DIR}
+##  - echo ${FTP_DOMAIN}
+##  - echo ${FTP_USER}
+##  - echo ${INSTALLER_ZIP}
+##  - echo ${FTP_RELEASES_DIR}
+##  - echo ${LATEST_RELEASE_NAME}
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
 ##  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
