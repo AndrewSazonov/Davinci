@@ -98,18 +98,18 @@ install:
   - pip3 --version
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
-  - sudo pip3 install yattag
-  - sudo pip3 install ftputil
+#+  - sudo pip3 install yattag
+#+  - sudo pip3 install ftputil
   # - sudo python3 -m pip install ftputil EQUALS - sudo apt-get install python3-pip AND - sudo pip3 install ftputil
   #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
   # Qt
-  - sudo apt-get --yes install qt59base qt59svg
+#+  - sudo apt-get --yes install qt59base qt59svg
   # 7zip
-  - sudo apt-get --yes install p7zip-full
+#+  - sudo apt-get --yes install p7zip-full
   # QtIFW
-  - curl -L ${QTIFW_URL} -O
-  - chmod a+x ${QTIFW_EXE}
-  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
+#+  - curl -L ${QTIFW_URL} -O
+#+  - chmod a+x ${QTIFW_EXE}
+#+  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
 
 ####  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
 ####  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/v1.0.4
@@ -137,6 +137,7 @@ before_script:
   - ls -l /opt/
   - ls -l /opt/qt*/bin/
   - source /opt/qt*/bin/qt*-env.sh
+  - qmake -v
 
 script:
   # Build
