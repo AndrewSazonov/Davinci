@@ -102,8 +102,9 @@ install:
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
 #+  - sudo pip3 install yattag
-  - sudo pip3 install ftputil
+  #- sudo pip3 install ftputil
   # - sudo python3 -m pip install ftputil EQUALS - sudo apt-get install python3-pip AND - sudo pip3 install ftputil
+  - sudo python3.6 -m pip install ftputil
   #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
   # Qt
 #+  - sudo apt-get --yes install qt59base qt59svg
