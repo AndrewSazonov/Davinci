@@ -36,6 +36,7 @@ env:
 #---------------------------------#
 
 before_install:
+  - python3 --version
   # Set variables
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   # Project
@@ -84,6 +85,7 @@ before_install:
 # Install Python, Pip, Qt, QtIFW
 install:
   # Python
+  - python3 --version
 ###  - sudo apt-get --yes install python3.6
 ###  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   - sudo apt-get install python3-pip
