@@ -75,16 +75,16 @@ before_install:
   - echo ${SCRIPTS_DIR}
   #- echo ${TRAVIS_BRANCH}
   # Add repositories, update...
-  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
+###  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
 ##  - sudo apt-add-repository --yes ppa:beineri/opt-qt592-trusty
-  - sudo apt-get -qq update
+###  - sudo apt-get -qq update
 
 # Install Python, Pip, Qt, QtIFW
 install:
   # Python
-  - sudo apt-get --yes install python3.6
-  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
+###  - sudo apt-get --yes install python3.6
+###  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
 ##  - sudo pip3 install yattag
@@ -99,8 +99,8 @@ install:
 ##  - chmod a+x ${QTIFW_EXE}
 ##  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
 
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/v1.0.4
+  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/v1.0.4
   #- ls -l
   #- ls -l /home/
   #- ls -l /home/travis/
