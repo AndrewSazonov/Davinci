@@ -36,10 +36,10 @@ env:
 #---------------------------------#
 
 before_install:
-  - python3 --version
-  - sudo apt-get install python3.6
-  - python3 --version
-  - python3.6.3 --version
+  #- python3 --version
+  #- sudo apt-get install python3.6
+  #- python3 --version
+  #- python3.6.3 --version
   # Set variables
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   # Project
@@ -79,7 +79,7 @@ before_install:
   - echo ${SCRIPTS_DIR}
   - echo ${TRAVIS_BRANCH}
   # Add repositories, update...
-###  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
+  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
   - sudo apt-add-repository --yes ppa:beineri/opt-qt592-trusty
 ###  - sudo apt-get -qq update
@@ -89,9 +89,12 @@ before_install:
 install:
   # Python
   - python3 --version
-###  - sudo apt-get --yes install python3.6
+  - sudo apt-get --yes install python3.6
+  - python3 --version
+  - python3.6 --version
 ###  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   - sudo apt-get install python3-pip
+  - pip3 --version
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
   - sudo pip3 install yattag
