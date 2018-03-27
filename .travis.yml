@@ -89,39 +89,40 @@ before_install:
 # Install Python, Pip, Qt, QtIFW
 install:
   # Python
-  - python3 --version
-  - sudo apt-get install --only-upgrade python3
-  - python3 --version
+  #- python3 --version
+  #- sudo apt-get install --only-upgrade python3
+  #- python3 --version
   - sudo apt-get --yes install python3.6
   - sudo apt-get --yes install python3.6-dev
   - sudo apt-get --yes install python3.6-venv
+  - sudo ln -s /usr/bin/python3.6 /usr/local/bin/python3
   ###- sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
   - python3 --version
-  - python3.6 --version
+  #- python3.6 --version
   ###- sudo apt-get install python3-pip
   ###- pip --version
 #  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
   - wget https://bootstrap.pypa.io/get-pip.py
-  - sudo python3.6 get-pip.py
-  #- sudo apt-get install python3-pip
+  #- sudo python3.6 get-pip.py
+  - sudo python3 get-pip.py
+#- sudo apt-get install python3-pip
 
-  - sudo ln -s /usr/bin/python3.6 /usr/local/bin/python3
   #- sudo ln -s /usr/local/bin/pip /usr/local/bin/pip3
-  - ls -l /usr/bin/
-  - ls -l /usr/local/bin/
+  #- ls -l /usr/bin/
+  #- ls -l /usr/local/bin/
 
 
   #- pip --version
   - pip3 --version
-  - pip3.6 --version
-  - python3.6 -m pip -V
-  - python3 -m pip -V
+  #- pip3.6 --version
+  #- python3.6 -m pip -V
+  #- python3 -m pip -V
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
 #+  - sudo pip3 install yattag
-  #- sudo pip3 install ftputil
+  - sudo pip3 install ftputil
   # - sudo python3 -m pip install ftputil EQUALS - sudo apt-get install python3-pip AND - sudo pip3 install ftputil
-  - sudo python3.6 -m pip install ftputil
+  #- sudo python3.6 -m pip install ftputil
   #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
   # Qt
 #+  - sudo apt-get --yes install qt59base qt59svg
@@ -146,7 +147,7 @@ install:
 ####  - echo ${FTP_RELEASES_DIR}
 ####  - echo ${LATEST_RELEASE_NAME}
 ####  - echo ${FTP_REPOS_DIR}
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test ${FTP_REPOS_DIR}
 
 
