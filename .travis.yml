@@ -107,10 +107,10 @@ install:
   - echo ${SCRIPTS_DIR}
   - echo ${FTP_DOMAIN}
   - echo ${FTP_USER}
-  - echo ${INSTALLER_ZIP}
   - echo ${FTP_RELEASES_DIR}
   - echo ${LATEST_RELEASE_NAME}
   - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/upload.py ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR} ${FTP_REPOS_DIR};
 
 
 #---------------------------------#
