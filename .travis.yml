@@ -99,6 +99,8 @@ install:
 ##  - chmod a+x ${QTIFW_EXE}
 ##  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
 
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/v1.0.4
   #- ls -l
   #- ls -l /home/
   #- ls -l /home/travis/

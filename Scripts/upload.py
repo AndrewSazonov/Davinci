@@ -62,7 +62,7 @@ def UploadFile(server, username, password, local_path, remote_dir):
             pass
         # Try to upload the file
         try:
-            print(206)
+            print(206,local_path,remote_path)
             ftp.upload(local_path, remote_path)
             print('Uploaded file: {}'.format(name))
         except:
