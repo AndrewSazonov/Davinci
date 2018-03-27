@@ -111,7 +111,7 @@ install:
   - echo ${LATEST_RELEASE_NAME}
   - echo ${FTP_REPOS_DIR}
   - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test ${FTP_REPOS_DIR}
+  #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test ${FTP_REPOS_DIR}
 
 
 #---------------------------------#
