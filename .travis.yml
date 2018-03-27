@@ -79,12 +79,14 @@ before_install:
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
 ##  - sudo apt-add-repository --yes ppa:beineri/opt-qt592-trusty
 ###  - sudo apt-get -qq update
+  - sudo apt-get update
 
 # Install Python, Pip, Qt, QtIFW
 install:
   # Python
 ###  - sudo apt-get --yes install python3.6
 ###  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
+  - sudo apt-get install python3-pip
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
 ##  - sudo pip3 install yattag
