@@ -79,8 +79,7 @@ before_install:
   - echo ${SCRIPTS_DIR}
   - echo ${TRAVIS_BRANCH}
   # Add repositories, update...
-  #- sudo add-apt-repository --yes ppa:jonathonf/python-3.6
-  - sudo add-apt-repository --yes ppa:deadsnakes/ppa
+  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
   - sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
   ##- sudo apt-get -qq update
