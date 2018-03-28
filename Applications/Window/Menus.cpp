@@ -198,6 +198,14 @@ void As::Window::createActionsMenusToolBar()
     preferences_Act->setShortcuts(QKeySequence::Preferences);
     preferences_Act->setMenuRole(QAction::PreferencesRole); // not required due to the TextHeuristicRole
 
+    // Add action
+    QAction *userManual_Act = helpMenu->addAction(tr("&User manual (online)"), this, &As::Window::openUserManual_Slot);
+    userManual_Act->setToolTip(tr("Show online user manual in web browser."));
+
+    // Add action
+    QAction *issue_Act = helpMenu->addAction(tr("&Report issue (online)"), this, &As::Window::openIssueTracker_Slot);
+    issue_Act->setToolTip(tr("Report a bug on the online issue tracker."));
+
     //===========================
     // Toolbar additional widgets
     //===========================

@@ -1,5 +1,9 @@
 # Davinci Version History
 
+## Version 1.0.4 (28 Mar 2018)
+* Adds support of the new input format for POLI: polarized NICOS data with adet
+* Adds user manual and report issue links to the Help menu
+
 ## Version 1.0.3 (13 Mar 2018)
 * Fixes issue #2, Not reading new files with Oxford magnet on POLI
 
