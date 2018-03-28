@@ -41,7 +41,8 @@ before_install:
   # Project
   - export PROJECT_NAME=$(basename ${TRAVIS_REPO_SLUG})
   #- git fetch -t
-  - git describe --tags
+  - ls -l
+  #- git describe --tags
   - git describe --tags --abbrev=0
   - git describe --tags --abbrev=0 --match v*.*.*
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
