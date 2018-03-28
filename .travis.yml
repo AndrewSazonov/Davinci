@@ -41,8 +41,9 @@ before_install:
   # Project
   - export PROJECT_NAME=$(basename ${TRAVIS_REPO_SLUG})
   - git remote update
-  - git describe --abbrev=0 --tags
   - git fetch -t
+  - git tag -l v[0-9].* | tail -n1
+  - git describe --abbrev=0 --tags
   #- export LATEST_RELEASE_NAME=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
   #- export LATEST_RELEASE_NAME=$(git describe --tags $(git rev-list --tags --max-count=1))
   #- export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
