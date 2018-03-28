@@ -40,6 +40,7 @@ before_install:
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   # Project
   - export PROJECT_NAME=$(basename ${TRAVIS_REPO_SLUG})
+  - git fetch -t
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - export SCRIPTS_DIR=${TRAVIS_BUILD_DIR}/Scripts
   - export RELEASE_DIR=${TRAVIS_BUILD_DIR}/../Build/${BUILD_TYPE}
