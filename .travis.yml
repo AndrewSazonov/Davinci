@@ -81,6 +81,10 @@ before_install:
   - echo ${SCRIPTS_DIR}
   - echo ${TRAVIS_BRANCH}
   #
+  - echo ${CONFIGURATION}
+  - echo ${TRAVIS_REPO_SLUG}
+  - echo ${TRAVIS_BUILD_DIR}
+  #
   #- curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${SCRIPTS_DIR}/test/test.txt ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/
   #- erfre
   #
