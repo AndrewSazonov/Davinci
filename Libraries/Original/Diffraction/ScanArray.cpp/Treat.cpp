@@ -615,13 +615,13 @@ void As::ScanArray::calcFlippingRatio(As::Scan *scan)
     scan->m_flippingRatio    = plus / minus;
     scan->m_flippingRatioErr = qSqrt(As::Sqr(1 / minus * sigPlus) +
                                      As::Sqr(-plus / As::Sqr(minus) * sigMinus));
-    qreal fr2sfr = qAbs(scan->m_flippingRatio - 1) / scan->m_flippingRatioErr;
+    qreal significance = qAbs(scan->m_flippingRatio - 1) / scan->m_flippingRatioErr;
     if (scan->m_flippingRatio < 0)
-        fr2sfr *= -1;
+        significance *= -1;
     // Set data for the auto appearance in the output table
-    scan->setData("calculations", "FR",         QString::number(scan->m_flippingRatio));
-    scan->setData("calculations", "sFR",        QString::number(scan->m_flippingRatioErr));
-    scan->setData("calculations", "|FR-1|/sFR", QString::number(fr2sfr));
+    scan->setData("calculations", "FR",           QString::number(scan->m_flippingRatio));
+    scan->setData("calculations", "FRerr",        QString::number(scan->m_flippingRatioErr));
+    scan->setData("calculations", "|FR-1|/FRerr", QString::number(significance));
 }
 
 /*!
