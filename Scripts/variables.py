@@ -39,6 +39,8 @@ APP_URL                     = 'http://davinci.sazonov.org'
 APP_COPYRIGHT               = 'Copyright (C) {} {}. All rights reserved.'.format(APP_RELEASE_YEAR, APP_OWNER)
 APP_DESCRIPTION             = 'A Scientific Software for the Visualization and Processing of Single-Crystal Diffraction Data Measured with a Point Detector'
 
+ISSUETRACKER_URL            = 'https://github.com/AndrewSazonov/{}/issues'.format(APP_NAME)
+
 ###################
 # Directories names
 ###################
@@ -169,31 +171,6 @@ REPO_DIR_NAME_MACOS         = 'macos_clang'
 #REPO_DIR                    = INSTALLER_DIR + [REPO_DIR_NAME]
 #REPO_URL                    = '{}/{}/{}'.format(APP_URL, REPOS_DIR_NAME, REPO_DIR_NAME)
 
-##############
-# DEFINE MACRO
-##############
-
-# Adding C preprocessor #DEFINE so we can use APP_NAME, etc. in C++ code
-DEFINES_DICT                = {'APP_NAME':          APP_NAME,
-                               'APP_VERSION':       APP_VERSION,
-                               'APP_RELEASE_DATE':  APP_RELEASE_DATE,
-                               'APP_URL':           APP_URL,
-                               'APP_DOMAIN':        APP_DOMAIN,
-                               'APP_OWNER':         APP_OWNER,
-                               'APP_COPYRIGHT':     APP_COPYRIGHT,
-                               'APP_DESCRIPTION':   APP_DESCRIPTION,
-                               'MAINTAINER_NAME':   MAINTAINER_NAME }
-
-# Add in release output of such information as %{function}, %{line}, %{message}, etc.
-DEFINES_MISC                = 'QT_MESSAGELOGCONTEXT'
-
-#####
-# C++
-#####
-
-CPP_VERSION                 = 'c++11'
-QMAKE_CXXFLAGS              = '-std=gnu++11 -std=c++11'.split()
-
 ############
 # Misc files
 ############
@@ -209,6 +186,7 @@ CHANGELOG_TITLE             = '{} Version History'.format(APP_NAME)
 USERMANUAL_TITLE            = APP_NAME + ' User Manual'
 USERMANUAL_DIR_NAME         = 'UserManual'
 USERMANUAL_FILE_NAME        = 'umanual'
+USERMANUAL_URL              = '{}/{}.html'.format(APP_URL, USERMANUAL_FILE_NAME)
 USERMANUAL_FILE_EXT         = '.tex'
 USERMANUAL_DIR              = PROJECT_DIR + ['..', USERMANUAL_DIR_NAME]
 USERMANUAL_FILE             = USERMANUAL_DIR + [USERMANUAL_FILE_NAME + USERMANUAL_FILE_EXT]
@@ -242,6 +220,35 @@ HEADER_EXT                  = '.hpp .h'
 SOURCE_EXT                  = '.cpp'
 RESOURCE_EXT                = '.qrc'
 DOC_EXT                     = '.qdoc'
+
+##############
+# DEFINE MACRO
+##############
+
+# Adding C preprocessor #DEFINE so we can use APP_NAME, etc. in C++ code
+DEFINES_DICT                = {'APP_NAME':          APP_NAME,
+                               'APP_VERSION':       APP_VERSION,
+                               'APP_RELEASE_DATE':  APP_RELEASE_DATE,
+                               'APP_URL':           APP_URL,
+                               'APP_DOMAIN':        APP_DOMAIN,
+                               'APP_OWNER':         APP_OWNER,
+                               'APP_COPYRIGHT':     APP_COPYRIGHT,
+                               'APP_DESCRIPTION':   APP_DESCRIPTION,
+                               'MAINTAINER_NAME':   MAINTAINER_NAME,
+                               'USERMANUAL_URL':    USERMANUAL_URL,
+                               'ISSUETRACKER_URL':  ISSUETRACKER_URL}
+
+# Add in release output of such information as %{function}, %{line}, %{message}, etc.
+DEFINES_MISC                = 'QT_MESSAGELOGCONTEXT'
+
+#####
+# C++
+#####
+
+CPP_VERSION                 = 'c++11'
+QMAKE_CXXFLAGS              = '-std=gnu++11 -std=c++11'.split()
+
+
 
 #changelog = Changelog(title='{} Version History'.format(app_name))
 #product_version = changelog.version()

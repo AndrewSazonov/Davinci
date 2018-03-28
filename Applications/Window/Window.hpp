@@ -138,6 +138,8 @@ private slots:
     void showPreferences_Slot();
     void showSidebar_Slot(const bool show = true);
     void showOrHideSidebarBlocks_Slot(const int index);
+    void openUserManual_Slot();
+    void openIssueTracker_Slot();
 
     // Update application
     void acceptAutoUpdate_Slot();

@@ -294,6 +294,28 @@ void As::Window::showOrHideSidebarBlocks_Slot(const int index)
 }
 
 /*!
+Opens online user manual in web browser.
+*/
+void As::Window::openUserManual_Slot()
+{
+    ADEBUG;
+
+    //QString link = "http://www.google.com";
+    QDesktopServices::openUrl(QUrl(USERMANUAL_URL));
+}
+
+/*!
+Opens online issue tracker in web browser.
+*/
+void As::Window::openIssueTracker_Slot()
+{
+    ADEBUG;
+
+    //QString link = "http://www.google.com";
+    QDesktopServices::openUrl(QUrl(ISSUETRACKER_URL));
+}
+
+/*!
 ...
 */
 void As::Window::acceptAutoUpdate_Slot()
