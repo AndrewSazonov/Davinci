@@ -80,14 +80,6 @@ before_install:
   - echo ${RELEASE_DIR}
   - echo ${SCRIPTS_DIR}
   - echo ${TRAVIS_BRANCH}
-  #
-  - echo ${CONFIGURATION}
-  - echo ${TRAVIS_REPO_SLUG}
-  - echo ${TRAVIS_BUILD_DIR}
-  #
-  #- curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${SCRIPTS_DIR}/test/test.txt ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/
-  #- erfre
-  #
   # Add repositories, update...
   - sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
   - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
@@ -148,7 +140,6 @@ script:
 #      upload configuration       #
 #---------------------------------#
 after_success:
-  #- python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
   - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
   #- curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${INSTALLER_ZIP} ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/
   - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}

@@ -21,17 +21,17 @@ pro_file = '{}'.format(pjoin(PROJECT_FILE))
 # Os spceific vars
 if Os() == 'mac':
     spec = '-spec macx-clang "CONFIG+=x86_64"'
-    compiler = 'make -j' # -j$(nproc)
+    compiler = 'make'# -j' # -j$(nproc)
 elif Os() == 'win':
     if branch == 'windows_mingw':
         spec = '-spec win32-g++ "CONFIG+=x86"'
-        compiler = 'mingw32-make -j' # -j%NUMBER_OF_PROCESSORS%
+        compiler = 'mingw32-make'# -j' # -j%NUMBER_OF_PROCESSORS%
     elif branch == 'windows_msvc':
         spec = '-spec win32-msvc "CONFIG+=x64"'
         compiler = 'nmake /NOLOGO'
 elif Os() == 'lin':
     spec = 'PREFIX=/usr'
-    compiler = 'make -j'
+    compiler = 'make'# -j'
 else:
     print('ERROR: Unknown OS')
     exit()
@@ -49,4 +49,3 @@ result = subprocess.run(args, stdout=subprocess.PIPE).stdout.decode('utf-8')
 args = compiler.split()
 result = subprocess.run(args, stdout=subprocess.PIPE).stdout.decode('utf-8')
 #print(result)
-
