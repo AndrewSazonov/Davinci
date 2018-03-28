@@ -7,7 +7,7 @@ os: linux
 dist: trusty # Ubuntu 14.04, https://docs.travis-ci.com/user/reference/overview/
 sudo: required
 #group: deprecated-2017Q4 # https://blog.travis-ci.com/2017-12-12-new-trusty-images-q4-launch
-group: deprecated-2017Q3
+#group: deprecated-2017Q3
 
 compiler: gcc
 
@@ -83,8 +83,8 @@ before_install:
   - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
   - sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
-  - sudo apt-get -qq update
-  ##- sudo apt-get --quiet --yes update
+  ##- sudo apt-get -qq update
+  - sudo apt-get --quiet --yes update
   #-#- sudo apt-get upgrade python
 
 # Install Python, Pip, Qt, QtIFW
@@ -93,10 +93,10 @@ install:
   #- python3 --version
   #- sudo apt-get install --only-upgrade python3
   #- python3 --version
-  - sudo apt-get --yes install python3.5
+  - sudo apt-get --yes install python3.6
 #  - sudo apt-get --yes install python3.6-dev
 #  - sudo apt-get --yes install python3.6-venv
-  - sudo ln -s /usr/bin/python3.5 /usr/local/bin/python3
+  - sudo ln -s /usr/bin/python3.6 /usr/local/bin/python3
   ###- sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
   - python3 --version
   #- python3.6 --version
@@ -120,19 +120,19 @@ install:
   #- python3 -m pip -V
   #- sudo rm /usr/bin/python3
   #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
-#+  - sudo pip3 install yattag
+  - sudo pip3 install yattag
   - sudo pip3 install ftputil
   # - sudo python3 -m pip install ftputil EQUALS - sudo apt-get install python3-pip AND - sudo pip3 install ftputil
   #- sudo python3.6 -m pip install ftputil
   #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
   # Qt
-#+  - sudo apt-get --yes install qt59base qt59svg
+  - sudo apt-get --yes install qt59base qt59svg
   # 7zip
-#+  - sudo apt-get --yes install p7zip-full
+  - sudo apt-get --yes install p7zip-full
   # QtIFW
-#+  - curl -L ${QTIFW_URL} -O
-#+  - chmod a+x ${QTIFW_EXE}
-#+  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
+  - curl -L ${QTIFW_URL} -O
+  - chmod a+x ${QTIFW_EXE}
+  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
 
 ####  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
 ####  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} /home/travis/build.sh ${FTP_RELEASES_DIR}/v1.0.4
@@ -148,9 +148,9 @@ install:
 ####  - echo ${FTP_RELEASES_DIR}
 ####  - echo ${LATEST_RELEASE_NAME}
 ####  - echo ${FTP_REPOS_DIR}
-  - ls -l ${SCRIPTS_DIR}/test/
-  - echo ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
-  - python3.5 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+  #- ls -l ${SCRIPTS_DIR}/test/
+  #- echo ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+  #- python3.5 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test/test.txt ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${SCRIPTS_DIR}/test ${FTP_REPOS_DIR}
 
 
@@ -159,15 +159,15 @@ install:
 #---------------------------------#
 
 before_script:
-  - ls -l /opt/
-  - ls -l /opt/qt*/bin/
+  #- ls -l /opt/
+  #- ls -l /opt/qt*/bin/
   - source /opt/qt*/bin/qt*-env.sh
-  - qmake -v
+  #- qmake -v
 
 script:
   # Build
-  - python3.6 ${SCRIPTS_DIR}/makeQtProFiles.py
-  - python3.6 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
+  - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
+  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
   #- ls ${RELEASE_DIR}
   # Tests
   - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
@@ -176,10 +176,10 @@ script:
   - curl -L ${LINUXDEPLOYQT_URL} -o ${LINUXDEPLOYQT_EXE}
   - chmod a+x ${LINUXDEPLOYQT_EXE}
   - unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
-  - python3.6 ${SCRIPTS_DIR}/makeDeploy.py
+  - python3 ${SCRIPTS_DIR}/makeDeploy.py
 ####  - ls -l ${DEPLOY_DIR}
   # Installer
-  - python3.6 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
+  - python3 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
 ##  - ls -l ${INSTALLER_DIR}
   - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
 ##  - ls -l ${INSTALLER_DIR}
@@ -196,5 +196,7 @@ after_success:
 ##  - echo ${FTP_RELEASES_DIR}
 ##  - echo ${LATEST_RELEASE_NAME}
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
+  #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
+  #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
+  - "curl --ftp-create-dirs -T ${INSTALLER_ZIP} -u ${FTP_USER}:${FTP_PASSWORD} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}"
+  - "curl --ftp-create-dirs -T ${REPO} -u ${FTP_USER}:${FTP_PASSWORD} ${FTP_REPOS_DIR}"
