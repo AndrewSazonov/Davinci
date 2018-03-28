@@ -53,23 +53,28 @@ class Changelog:
     
         self.add(version="1.0.0",
                  date="2017-12-09",
-                 list=['First release'])
+                 list=[ 'First release'])
 
         self.add(version="1.0.1",
                  date="2018-01-11",
-                 list=['Adds support of the new input format: HEiDi at MLZ instrument log data',
-                       'Fixes an issue with automatic determination of the peak and background parameters',
-                       'Fixes a bug with cursor position change in the input data viewer when go through the scans',
-                       'Fixes a crash when open a new file',
-                       'Fixes a sidebar issue with the tabs width'])
+                 list=[ 'Adds support of the new input format: HEiDi at MLZ instrument log data',
+                        'Fixes an issue with automatic determination of the peak and background parameters',
+                        'Fixes a bug with cursor position change in the input data viewer when go through the scans',
+                        'Fixes a crash when open a new file',
+                        'Fixes a sidebar issue with the tabs width'])
 
         self.add(version="1.0.2",
                  date="2018-01-27",
-                 list=['Fixes a bug with the update function of the installer parogram'])
+                 list=[ 'Fixes a bug with the update function of the installer parogram'])
 
         self.add(version="1.0.3",
                  date="2018-03-13",
-                 list=['Fixes issue #2, Not reading new files with Oxford magnet on POLI'])
+                 list=[ 'Fixes issue #2, Not reading new files with Oxford magnet on POLI'])
+
+        self.add(version="1.0.4",
+                 date="2018-03-28",
+                 list=[ 'Adds support of the new input format for POLI: polarized NICOS data with adet',
+                        'Adds user manual and report issue links to the Help menu'])
 
 
 

@@ -87,8 +87,8 @@ As::SaveHeaders::SaveHeaders(QString type,
         m_format << "6i"   << "4i" << "4i" << "4i" << "10.2f" << "10.2f"  << "8.2f"   << "8.2f"  << "8.2f" << "8.2f"; }
 
     else if (type.contains("ccsl")) {
-        m_name   << "Scan" << "H"  << "K"  << "L"  << "Omega" << "Gamma" << "Nu"   << "FR"    << "sFR"   << "|FR-1|/sFR" << "Temperature" << "Magnetic field";
-        m_format << "5i"   << "5i" << "5i" << "5i" << "8.2f"  << "8.2f"  << "8.2f" << "10.6f" << "10.6f" << "8.2f"       << "7.1f"        << "5.1f"; }
+        m_name   << "Scan" << "H"  << "K"  << "L"  << "Omega" << "Gamma" << "Nu"   << "FR"    << "FRerr" << "|FR-1|/FRerr" << "Temperature" << "Magnetic field";
+        m_format << "5i"   << "5i" << "5i" << "5i" << "8.2f"  << "8.2f"  << "8.2f" << "10.6f" << "10.6f" << "8.2f"         << "7.1f"        << "5.1f"; }
 }
 
 /*!
