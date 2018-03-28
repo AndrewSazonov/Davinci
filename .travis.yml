@@ -199,4 +199,4 @@ after_success:
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
   #- python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
   #- "curl --ftp-create-dirs -T ${INSTALLER_ZIP} -u ${FTP_USER}:${FTP_PASSWORD} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/"
-  - "curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${INSTALLER_ZIP} ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/"
+  - curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${INSTALLER_ZIP} ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/
