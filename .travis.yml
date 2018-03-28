@@ -45,8 +45,8 @@ before_install:
   #- export LATEST_RELEASE_NAME=$(git describe --tags $(git rev-list --tags --max-count=1))
   #- export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   #- export LATEST_RELEASE_NAME=$(git describe --tags $(git rev-list --tags='v[0-9].[0-9]*' --max-count=1))
-  #- export LATEST_RELEASE_NAME=$(git tag -l v[0-9].* | tail -n1)
-  - export LATEST_RELEASE_NAME=$(git fetch -t | git tag -l v[0-9].* | tail -n1); echo $LATEST_RELEASE_NAME
+  - git fetch -t
+  - export LATEST_RELEASE_NAME=$(git tag -l v[0-9].* | tail -n1)
   - export SCRIPTS_DIR=${TRAVIS_BUILD_DIR}/Scripts
   - export RELEASE_DIR=${TRAVIS_BUILD_DIR}/../Build/${BUILD_TYPE}
   # Deploy
