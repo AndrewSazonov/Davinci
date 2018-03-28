@@ -73,8 +73,8 @@ class Changelog:
 
         self.add(version="1.0.4",
                  date="2018-03-28",
-                 list=[ 'Adds user manual and report issue links to the Help menu',
-                        'Adds support of the new input format for POLI: polarized NICOS data with adet'])
+                 list=[ 'Adds support of the new input format for POLI: polarized NICOS data with adet',
+                        'Adds user manual and report issue links to the Help menu'])
 
 
 
