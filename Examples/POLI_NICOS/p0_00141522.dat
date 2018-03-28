@@ -1,7 +1,7 @@
-### NICOS data file, created at 2018-03-21 16:31:01
-#                    number : 141509
-#                  filename : p0_00141509.dat
-#                  filepath : /data/2018/p0/data/p0_00141509.dat
+### NICOS data file, created at 2018-03-21 17:40:22
+#                    number : 141522
+#                  filename : p0_00141522.dat
+#                  filepath : /data/2018/p0/data/p0_00141522.dat
 #                      info : manualscan(sth)
 ### Experiment information
 #                 Exp_users : 
@@ -142,7 +142,7 @@
 #   ccr20_gas_switch_status : ok: idle
 #           ccm2a_TB_status : ok
 #                pc2_status : ok: idle
-#    ccr20_p2_limits_status : warn: warning, lower limit reached, AUX0
+#    ccr20_p2_limits_status : warn: warning, lower limit reached
 #                 bp_status : ok: left=ON [PosOk Sync], right=ON [PosOk], bottom=ON [PosOk Sync], top=ON [RefMinus Sync Stop]
 #                  T_status : ok: T_ccr20_tube=ok
 #         polarcorr2_status : ok: idle
@@ -160,7 +160,7 @@
 #             Sample_status : ok
 #          polarmain_status : ok: idle
 #                cuh_status : ok: ON [PosOk Sync]
-#           ccr20_p2_status : warn: warning, lower limit reached, AUX0
+#           ccr20_p2_status : warn: warning, lower limit reached
 #           ccr20_p1_status : ok: idle
 #                cuv_status : ok: ON [PosOk Sync]
 #          changer_m_status : ok: ON [PosOk Sync]
@@ -201,42 +201,42 @@
 #             B_ccm2a_value : 2.200 T
 # ccr20_pressure_regulate_value : off
 #                chi2_value : 0.10 deg
-#                 sth_value : -40.635 deg
+#                 sth_value : 49.377 deg
 #               nutax_value : 2.00 A
 #     ccr20_p2_limits_value : (0.0, 1000.0) mbar
 #                  bm_value : 44.94 169.99 mm
 #          T_regulationmode : tube
-#               Space_value : 1445.051 GiB
+#               Space_value : 1445.047 GiB
 #          wavelength_value : 0.892 A
 #          decpolmain_value : -0.01 A
 #           nutator1c_value : 0.00 A
 #                 pc1_value : 2.208 A
-#                   T_value : 3.405 K
+#                   T_value : 3.361 K
 #               omega_value : -0.00 deg
-#           T_ccr20_B_value : 3.701 K
+#           T_ccr20_B_value : 3.706 K
 #       T_ccr20_tube_window : 60.0 s
 #           T_ccr20_stick_p : 50.0
 #                 cuh_value : 59.30 kstep
 # T_ccr20_tube_heateroutput : 0.0
-#     ccm2a_watertemp_value : 23.6 degC
+#     ccm2a_watertemp_value : 23.7 degC
 #                 bmv_value : 169.99 mm
 #     T_ccr20_tube_setpoint : 290.0
 #                   B_value : 2.200 T
 #              Sample_value : 
 #            T_ccr20_tube_i : 20.0
-#             T_ccr20_value : 3.405 K
+#             T_ccr20_value : 3.361 K
 #              ytrans_value : -0.00 mm
-#           T_ccr20_D_value : 3.339 K
+#           T_ccr20_D_value : 3.418 K
 #      T_ccr20_stick_window : 60.0 s
 #                 bmh_value : 44.94 mm
-#            ccm2a_T1_value : 39.260 K
+#            ccm2a_T1_value : 39.330 K
 #     ccm2a_waterflow_value : 6.1 l/min
 #            T_ccr20_tube_d : 1.0
 #            T_ccr20_tube_p : 50.0
 #               chi_m_value : 6.39 kstep
-#           nutator2c_value : -0.00 A
-#            ccm2a_T2_value : 8.280 K
-#                POLI_value : [5.9409, 6.0285, -3.0860] rlu rlu rlu
+#           nutator2c_value : 0.00 A
+#            ccm2a_T2_value : 8.210 K
+#                POLI_value : [0.3937, 0.5418, 39.8090] rlu rlu rlu
 #                 x_m_value : 61.00 kstep
 #                  bp_value : 6.00 7.00 12.00 3.71 mm
 #    T_ccr20_stick_setpoint : 300.0
@@ -246,12 +246,12 @@
 #           T_ccr20_stick_d : 0.0
 #           polarmain_value : 0.70 A
 #     ccr20_p1_limits_value : (0.0, 1000.0) mbar
-#                  Ts_value : 3.701 K
-#        T_ccr20_tube_value : 3.405 K
+#                  Ts_value : 3.706 K
+#        T_ccr20_tube_value : 3.361 K
 #           pcflipper_value : on
 # T_ccr20_stick_heateroutput : 0.0
 #             Shutter_value : open
-#            ccm2a_TB_value : 15.530 K
+#            ccm2a_TB_value : 15.550 K
 #    ccr20_gas_switch_value : off
 # ccr20_vacuum_switch_value : off
 #         decpolcorr2_value : 0.00 A
@@ -262,29 +262,29 @@
 #           T_ccr20_A_value : 0.000 K
 #            ccr20_p1_value : 31.9 mbar
 #         decpolcorr1_value : -0.00 A
-#               gamma_value : 87.88 deg
+#               gamma_value : 87.99 deg
 #             flipper_value : on
 # T_ccr20_stick_range_value : off
 #    ccr20_compressor_value : off
-#            ccm2a_TA_value : 17.090 K
+#            ccm2a_TA_value : 17.110 K
 #                T_setpoint : 290.0 K
 #                chi1_value : -1.20 deg
 #              xtrans_value : -0.00 mm
-#       sth_newport11_value : -40.635 deg
-#       T_ccr20_stick_value : 3.707 K
+#       sth_newport11_value : 49.377 deg
+#       T_ccr20_stick_value : 3.706 K
 #    ccm2a_compressor_value : on
 #             theta_m_value : 137.00 kstep
 #                 pc2_value : 2.559 A
 #                 cuv_value : 121.00 kstep
 #  T_ccr20_tube_range_value : off
-#          liftingctr_value : -2.48 deg
+#          liftingctr_value : -0.65 deg
 #    T_ccr20_regulationmode : tube
-#           T_ccr20_C_value : 3.003 K
+#           T_ccr20_C_value : 3.004 K
 #    B_ccm2a_readback_value : 2.20 T
 ### Scan data
 # sth	B	Ts	T	;	FR	Asym	dAsym	timer_up	mon1_up	mon2_up	ctr1_up	timer_dn	mon1_dn	mon2_dn	ctr1_dn
 # deg	T	K	K	;	-	-	-	s	cts	cts	cts	s	cts	cts	cts
--40.635	2.200	3.702	3.353	;	1.250	0.111	0.092	15.00	203919	26313	65	15.00	202687	26191	52
--35.734	2.200	3.701	3.337	;	1.003	0.002	0.006	120.00	1623335	210448	15728	120.00	1629431	209832	15675
--30.834	2.200	3.701	3.423	;	1.694	0.258	0.098	15.00	204043	26233	61	15.00	203283	26276	36
-### End of NICOS data file p0_00141509.dat
+49.377	2.200	3.705	3.337	;	0.867	-0.071	0.109	15.00	203189	25451	39	15.00	202712	25682	45
+54.277	2.200	3.705	3.388	;	0.997	-0.001	0.007	120.00	1625726	205391	9686	120.00	1623926	205550	9712
+59.177	2.200	3.705	3.396	;	1.270	0.119	0.108	15.00	203152	25688	47	15.00	202746	25206	37
+### End of NICOS data file p0_00141522.dat

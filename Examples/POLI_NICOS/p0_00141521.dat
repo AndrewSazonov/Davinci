@@ -1,7 +1,7 @@
-### NICOS data file, created at 2018-03-21 16:15:03
-#                    number : 141506
-#                  filename : p0_00141506.dat
-#                  filepath : /data/2018/p0/data/p0_00141506.dat
+### NICOS data file, created at 2018-03-21 17:34:56
+#                    number : 141521
+#                  filename : p0_00141521.dat
+#                  filepath : /data/2018/p0/data/p0_00141521.dat
 #                      info : manualscan(sth)
 ### Experiment information
 #                 Exp_users : 
@@ -129,8 +129,8 @@
 #                 bm_status : ok: horizontal=ON [PosOk], vertical=ON [PosOk Sync]
 #    ccm2a_waterflow_status : ok: idle
 #               chi1_status : ok: ON [PosOk]
-#        decpolcorr1_status : warn: idle, below user limit (0.00 A)
-#          T_ccr20_A_status : warn: temp overrange, zero sensor units
+#        decpolcorr1_status : ok: idle
+#          T_ccr20_A_status : warn: invalid reading
 # T_ccr20_stick_range_status : warn: above warn limit (medium)
 #                sth_status : ok: idle
 #    ccr20_p1_limits_status : ok: idle
@@ -201,42 +201,42 @@
 #             B_ccm2a_value : 2.200 T
 # ccr20_pressure_regulate_value : off
 #                chi2_value : 0.10 deg
-#                 sth_value : -57.160 deg
+#                 sth_value : 34.303 deg
 #               nutax_value : 2.00 A
 #     ccr20_p2_limits_value : (0.0, 1000.0) mbar
 #                  bm_value : 44.94 169.99 mm
 #          T_regulationmode : tube
-#               Space_value : 1445.052 GiB
+#               Space_value : 1445.047 GiB
 #          wavelength_value : 0.892 A
 #          decpolmain_value : -0.02 A
 #           nutator1c_value : 0.00 A
 #                 pc1_value : 2.208 A
-#                   T_value : 3.428 K
+#                   T_value : 3.394 K
 #               omega_value : -0.00 deg
-#           T_ccr20_B_value : 3.702 K
+#           T_ccr20_B_value : 3.706 K
 #       T_ccr20_tube_window : 60.0 s
 #           T_ccr20_stick_p : 50.0
 #                 cuh_value : 59.30 kstep
 # T_ccr20_tube_heateroutput : 0.0
-#     ccm2a_watertemp_value : 23.4 degC
+#     ccm2a_watertemp_value : 23.5 degC
 #                 bmv_value : 169.99 mm
 #     T_ccr20_tube_setpoint : 290.0
 #                   B_value : 2.200 T
 #              Sample_value : 
 #            T_ccr20_tube_i : 20.0
-#             T_ccr20_value : 3.428 K
+#             T_ccr20_value : 3.394 K
 #              ytrans_value : -0.00 mm
-#           T_ccr20_D_value : 3.355 K
+#           T_ccr20_D_value : 3.372 K
 #      T_ccr20_stick_window : 60.0 s
 #                 bmh_value : 44.94 mm
-#            ccm2a_T1_value : 39.250 K
-#     ccm2a_waterflow_value : 6.1 l/min
+#            ccm2a_T1_value : 39.310 K
+#     ccm2a_waterflow_value : 6.2 l/min
 #            T_ccr20_tube_d : 1.0
 #            T_ccr20_tube_p : 50.0
 #               chi_m_value : 6.39 kstep
-#           nutator2c_value : 0.00 A
-#            ccm2a_T2_value : 8.440 K
-#                POLI_value : [3.9280, 4.0387, -2.0952] rlu rlu rlu
+#           nutator2c_value : -0.00 A
+#            ccm2a_T2_value : 8.390 K
+#                POLI_value : [0.2675, 0.4075, 27.8423] rlu rlu rlu
 #                 x_m_value : 61.00 kstep
 #                  bp_value : 6.00 7.00 12.00 3.71 mm
 #    T_ccr20_stick_setpoint : 300.0
@@ -246,12 +246,12 @@
 #           T_ccr20_stick_d : 0.0
 #           polarmain_value : 0.70 A
 #     ccr20_p1_limits_value : (0.0, 1000.0) mbar
-#                  Ts_value : 3.702 K
-#        T_ccr20_tube_value : 3.428 K
+#                  Ts_value : 3.706 K
+#        T_ccr20_tube_value : 3.394 K
 #           pcflipper_value : on
 # T_ccr20_stick_heateroutput : 0.0
 #             Shutter_value : open
-#            ccm2a_TB_value : 15.530 K
+#            ccm2a_TB_value : 15.550 K
 #    ccr20_gas_switch_value : off
 # ccr20_vacuum_switch_value : off
 #         decpolcorr2_value : 0.00 A
@@ -260,31 +260,31 @@
 #          polarcorr1_value : 1.05 A
 #          polarcorr2_value : 1.00 A
 #           T_ccr20_A_value : 0.000 K
-#            ccr20_p1_value : 31.9 mbar
-#         decpolcorr1_value : -0.00 A
-#               gamma_value : 55.01 deg
+#            ccr20_p1_value : 32 mbar
+#         decpolcorr1_value : 0.00 A
+#               gamma_value : 58.14 deg
 #             flipper_value : on
 # T_ccr20_stick_range_value : off
 #    ccr20_compressor_value : off
-#            ccm2a_TA_value : 17.080 K
+#            ccm2a_TA_value : 17.110 K
 #                T_setpoint : 290.0 K
 #                chi1_value : -1.20 deg
 #              xtrans_value : -0.00 mm
-#       sth_newport11_value : -57.160 deg
-#       T_ccr20_stick_value : 3.702 K
+#       sth_newport11_value : 34.303 deg
+#       T_ccr20_stick_value : 3.706 K
 #    ccm2a_compressor_value : on
 #             theta_m_value : 137.00 kstep
 #                 pc2_value : 2.559 A
 #                 cuv_value : 121.00 kstep
 #  T_ccr20_tube_range_value : off
-#          liftingctr_value : -1.30 deg
+#          liftingctr_value : -0.22 deg
 #    T_ccr20_regulationmode : tube
-#           T_ccr20_C_value : 3.021 K
+#           T_ccr20_C_value : 3.026 K
 #    B_ccm2a_readback_value : 2.20 T
 ### Scan data
 # sth	B	Ts	T	;	FR	Asym	dAsym	timer_up	mon1_up	mon2_up	ctr1_up	timer_dn	mon1_dn	mon2_dn	ctr1_dn
 # deg	T	K	K	;	-	-	-	s	cts	cts	cts	s	cts	cts	cts
--57.160	2.200	3.702	3.426	;	1.750	0.273	0.097	15.00	202777	26478	63	15.00	201910	26432	36
--52.261	2.200	3.701	3.385	;	1.020	0.010	0.004	120.00	1624288	210600	30395	120.00	1621380	211377	29794
--47.361	2.200	3.701	3.341	;	1.167	0.077	0.098	15.00	203336	26193	56	15.00	202786	26493	48
-### End of NICOS data file p0_00141506.dat
+34.303	2.200	3.705	3.392	;	0.978	-0.011	0.074	15.00	204148	25797	90	15.00	202921	25754	92
+39.203	2.200	3.705	3.348	;	1.015	0.008	0.006	120.00	1626195	205861	12851	120.00	1622779	205602	12657
+44.103	2.200	3.706	3.345	;	1.236	0.106	0.070	15.00	203401	25565	110	15.00	202896	25889	89
+### End of NICOS data file p0_00141521.dat
