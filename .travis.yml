@@ -42,6 +42,7 @@ before_install:
   - export PROJECT_NAME=$(basename ${TRAVIS_REPO_SLUG})
   - git fetch -t
   - ls -l
+  - git describe --exact-match --abbrev=0
   #- git describe --tags
   - git describe --tags --always HEAD
   #- git describe --tags --abbrev=0
