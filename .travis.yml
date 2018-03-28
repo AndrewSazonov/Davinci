@@ -6,7 +6,7 @@ os: linux
 #dist: precise # Ubuntu 12.04, https://docs.travis-ci.com/user/reference/overview/
 dist: trusty # Ubuntu 14.04, https://docs.travis-ci.com/user/reference/overview/
 sudo: required
-group: deprecated-2017Q4 # https://blog.travis-ci.com/2017-12-12-new-trusty-images-q4-launch
+#group: deprecated-2017Q4 # https://blog.travis-ci.com/2017-12-12-new-trusty-images-q4-launch
 
 compiler: gcc
 
@@ -40,8 +40,12 @@ before_install:
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   # Project
   - export PROJECT_NAME=$(basename ${TRAVIS_REPO_SLUG})
-  - git fetch -t
+  #- git fetch -t
+  - git describe --tags
+  - git describe --tags --abbrev=0
+  - git describe --tags --abbrev=0 --match v*.*.*
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
+  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0)
   - export SCRIPTS_DIR=${TRAVIS_BUILD_DIR}/Scripts
   - export RELEASE_DIR=${TRAVIS_BUILD_DIR}/../Build/${BUILD_TYPE}
   # Deploy
