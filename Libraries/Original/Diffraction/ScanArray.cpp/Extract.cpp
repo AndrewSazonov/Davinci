@@ -308,9 +308,17 @@ void As::ScanArray::extractNicosData()
     headerMap.append({"conditions",    "Wavelength",    "wavelength"});
     // Append additional possible header names to the header map (apriori not single numbers in the scan table)
     headerMap.append({"conditions",    "Time/step",     "timer"});
+    headerMap.append({"conditions",    "Time/step(+)",  "timer_up"});
+    headerMap.append({"conditions",    "Time/step(-)",  "timer_dn"});
     headerMap.append({"intensities",   "Detector",      "ctr1"});
+    headerMap.append({"intensities",   "Detector(+)",   "ctr1_up"});
+    headerMap.append({"intensities",   "Detector(-)",   "ctr1_dn"});
     headerMap.append({"intensities",   "Monitor1",      "mon1"});
+    headerMap.append({"intensities",   "Monitor1(+)",   "mon1_up"});
+    headerMap.append({"intensities",   "Monitor1(-)",   "mon1_dn"});
     headerMap.append({"intensities",   "Monitor2",      "mon2"});
+    headerMap.append({"intensities",   "Monitor2(+)",   "mon2_up"});
+    headerMap.append({"intensities",   "Monitor2(-)",   "mon2_dn"});
     headerMap.append({"polarisation",  "Pin",           "Pin"});
     headerMap.append({"polarisation",  "Pout",          "Pout"});
     headerMap.append({"polarisation",  "Fin",           "Fin"});
@@ -345,16 +353,37 @@ void As::ScanArray::extractNicosData()
         scan->setData("scandata",    "data",           string.parseString("### Scan data", "### End", "mult", file, 3));
         scan->setData("scandata",    "headers",        string.parseString("### Scan data",            "txt",  file, 1));
 
+        ADEBUG;
+
         // Read and set data from the scan table created above according to the header map
         extractDataFromTable(scan, headerMap);
+
+        ADEBUG;
 
         // Select appropriate data for the monitor
         As::RealVector monitor1 = (*scan)["intensities"]["Monitor1"]["data"];
         As::RealVector monitor2 = (*scan)["intensities"]["Monitor2"]["data"];
+        As::RealVector monitor1up = (*scan)["intensities"]["Monitor1(+)"]["data"];
+        As::RealVector monitor1down = (*scan)["intensities"]["Monitor1(-)"]["data"];
+        As::RealVector monitor2up = (*scan)["intensities"]["Monitor2(+)"]["data"];
+        As::RealVector monitor2down = (*scan)["intensities"]["Monitor2(-)"]["data"];
+        //
         if (monitor1.isZero())
             scan->setData("intensities", "Monitor", monitor2.toQString());
         else
             scan->setData("intensities", "Monitor", monitor1.toQString());
+        //
+        if (!monitor1up.isZero()) {
+            scan->setData("intensities", "Monitor1(+)", monitor1up.toQString());
+            scan->setData("intensities", "Monitor(+)", monitor1up.toQString()); }
+        if (!monitor1down.isZero()) {
+            scan->setData("intensities", "Monitor1(-)", monitor1down.toQString());
+            scan->setData("intensities", "Monitor(-)", monitor1down.toQString()); }
+        //
+        if (!monitor2up.isZero())
+            scan->setData("intensities", "Monitor2(+)", monitor2up.toQString());
+        if (!monitor2down.isZero())
+            scan->setData("intensities", "Monitor2(-)", monitor2down.toQString());
 
         // Define scan angle name
         findScanAngle(scan);
