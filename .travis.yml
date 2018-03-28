@@ -41,14 +41,6 @@ before_install:
   # Project
   - export PROJECT_NAME=$(basename ${TRAVIS_REPO_SLUG})
   - git fetch -t
-  #- ls -l
-  #- git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1
-  #- git describe --tags $(git rev-list --tags --max-count=1)
-  #- git describe --exact-match --abbrev=0
-  #- git describe --tags
-  #- git describe --tags --always HEAD
-  #- git describe --tags --abbrev=0
-  #- git describe --tags --abbrev=0 --match v*.*.*
   #- export LATEST_RELEASE_NAME=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
   #- export LATEST_RELEASE_NAME=$(git describe --tags $(git rev-list --tags --max-count=1))
   #- export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
@@ -87,11 +79,9 @@ before_install:
   - echo ${SCRIPTS_DIR}
   - echo ${TRAVIS_BRANCH}
   #
-  - curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${SCRIPTS_DIR}/test/test.txt ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/
-  - erfre
-
-
-
+  #- curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${SCRIPTS_DIR}/test/test.txt ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/
+  #- erfre
+  #
   # Add repositories, update...
   - sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
   - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
