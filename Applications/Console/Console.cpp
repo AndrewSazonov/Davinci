@@ -99,6 +99,8 @@ QString As::Console::outputFileExt() const
 {
     ADEBUG;
 
+    // sync with GUI types???
+
     const QString format = outputFileFormat().toLower();
     QString ext;
 
@@ -109,7 +111,7 @@ QString As::Console::outputFileExt() const
         ext = "tb";
 
     EI (format.contains("ccsl"))
-        ext = "dat";
+        ext = "fli";
 
     EL // default
         ext = "csv";

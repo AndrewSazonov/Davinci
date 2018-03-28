@@ -126,7 +126,11 @@ As::ScanDatabase::ScanDatabase()
     set("intensities", "Monitor(-)",       "",    "counts", "Intensity (Down) measured in the monitor");
     set("intensities", "sMonitor(-)",      "",    "counts", "ESD Intensity measured in the monitor");
     set("intensities", "Monitor1",         "",    "counts", "Intensity measured in the first monitor");
+    set("intensities", "Monitor1(+)",      "",    "counts", "Intensity (Up) measured in the monitor");
+    set("intensities", "Monitor1(-)",      "",    "counts", "Intensity (Down) measured in the monitor");
     set("intensities", "Monitor2",         "",    "counts", "Intensity measured in the second monitor");
+    set("intensities", "Monitor2(+)",      "",    "counts", "Intensity (Up) measured in the monitor");
+    set("intensities", "Monitor2(-)",      "",    "counts", "Intensity (Down) measured in the monitor");
     set("intensities", "DetectorNorm",     "",    "counts", "Intensity measured in the detector normalised by time");
     set("intensities", "sDetectorNorm",    "",    "counts", "ESD Intensity measured in the detector normalised by time");
     set("intensities", "DetectorNorm(+)",  "",    "counts", "Intensity measured in the detector normalised by time");
@@ -150,8 +154,8 @@ As::ScanDatabase::ScanDatabase()
     set("calculations", "Fwhm",         "0.4f", "deg",       "Full width at half max");
     set("calculations", "FwhmErr",      "0.4f", "deg",       "ESD Full width at half max");
     set("calculations", "FR",           "0.4f", "arb.units", "Flipping ratio");
-    set("calculations", "sFR",          "0.4f", "arb.units", "ESD Flipping ratio");
-    set("calculations", "|FR-1|/sFR",   "0.2f", "arb.units", "Flipping ratio");
+    set("calculations", "FRerr",        "0.4f", "arb.units", "ESD Flipping ratio");
+    set("calculations", "|FR-1|/FRerr", "0.2f", "arb.units", "Flipping ratio");
     //  --------------------------------------------------------------------------------------
     set("calculations", "numBkgLeft",   "0.2f", "counts",    "Number of the left background points");
     set("calculations", "numBkgRight",  "0.2f", "counts",    "Number of the right background points");
