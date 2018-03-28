@@ -40,6 +40,8 @@ before_install:
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   # Project
   - export PROJECT_NAME=$(basename ${TRAVIS_REPO_SLUG})
+  - git remote update
+  - git describe --abbrev=0 --tags
   - git fetch -t
   #- export LATEST_RELEASE_NAME=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
   #- export LATEST_RELEASE_NAME=$(git describe --tags $(git rev-list --tags --max-count=1))
