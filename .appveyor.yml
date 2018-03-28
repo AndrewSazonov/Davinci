@@ -2,6 +2,9 @@
 #      general configuration      #
 #---------------------------------#
 
+# linux image
+image: ubuntu
+
 # appveyor build version format
 version: "{build}"
 
@@ -14,7 +17,8 @@ version: "{build}"
 
 # Scripts that run after cloning repository
 install:
-  - ps: $env:LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
+  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
+  - echo $LATEST_RELEASE_NAME
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
 platform: x86 # 32-bit 
@@ -46,7 +50,7 @@ environment:
 # Branches to build
 branches:
   only:
-    - windows_mingw
+    - linux_gcc
 
 # Build Configuration, i.e. Debug, Release, etc.
 configuration:
@@ -55,6 +59,8 @@ configuration:
 
 # Set paths, etc.
 before_build:
+  - echo $LATEST_RELEASE_NAME
+  - echo $FTP_REPOS_DIR
   - echo %LATEST_RELEASE_NAME%
   - call "%QTDIR%\bin\qtenv2.bat"
   - set PATH=%QTIFWDIR%\bin;%PATH%
@@ -88,3 +94,5 @@ after_test:
   - 7z a -tzip -bso0 -bsp0 %INSTALLER_ZIP% %INSTALLER_EXE%
   - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %REPO% %FTP_REPOS_DIR%
   - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %INSTALLER_ZIP% %FTP_RELEASES_DIR%/%LATEST_RELEASE_NAME%
+
+build: off
