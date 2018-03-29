@@ -1,29 +1,25 @@
 #---------------------------------#
-#      general configuration      #
+#          configuration          #
 #---------------------------------#
 
-# linux image
+# Image to load
 image: ubuntu
 
-# appveyor build version format
+# Appveyor build version format
 version: "{build}"
 
-#---------------------------------#
-#    environment configuration    #
-#---------------------------------#
+# Build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform: x86 # 32-bit
 
-# Scripts that are called at very beginning, before repo cloning
-init:
-  - echo $QTDIR
-  - echo %QTDIR%
+# Branches to build
+branches:
+  only:
+    - linux_gcc
 
-# Scripts that run after cloning repository
-install:
-  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
-  - echo $LATEST_RELEASE_NAME
-
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x86 # 32-bit 
+# Build Configuration, i.e. Debug, Release, etc.
+configuration:
+  - release
+  #- debug
 
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
@@ -46,18 +42,25 @@ environment:
     secure: LiqyRhdTXjYm5IgchOLjKA==
 
 #---------------------------------#
-#       build configuration       #
+#        init and install         #
 #---------------------------------#
 
-# Branches to build
-branches:
-  only:
-    - linux_gcc
+# Scripts that are called at very beginning, before repo cloning
+init:
+  - echo $QTDIR
+  - echo $(QTDIR)
+  - echo ${QTDIR}
+  - echo %CONFIGURATION%
+  - echo $CONFIGURATION
 
-# Build Configuration, i.e. Debug, Release, etc.
-configuration:
-  - release
-  #- debug
+# Scripts that run after cloning repository
+install:
+  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
+  - echo $LATEST_RELEASE_NAME
+
+#---------------------------------#
+#              build              #
+#---------------------------------#
 
 # Set paths, etc.
 before_build:
@@ -78,7 +81,7 @@ build_script:
 #after_build:
 
 #---------------------------------#
-#       tests configuration       #
+#               tests             #
 #---------------------------------#
 
 # To run your custom scripts instead of automatic tests
@@ -87,7 +90,7 @@ build_script:
 #  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Tests.exe
 
 #---------------------------------#
-#     deployment configuration    #
+#           deployment            #
 #---------------------------------#
 
 #after_test:
@@ -96,5 +99,9 @@ build_script:
 #  - 7z a -tzip -bso0 -bsp0 %INSTALLER_ZIP% %INSTALLER_EXE%
 #  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %REPO% %FTP_REPOS_DIR%
 #  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %INSTALLER_ZIP% %FTP_RELEASES_DIR%/%LATEST_RELEASE_NAME%
+
+#---------------------------------#
+#              end                #
+#---------------------------------#
 
 build: off
