@@ -24,21 +24,6 @@ configuration:
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
   APPVEYOR_BUILD_FOLDER: $(pwd)
-  QTDIR: C:\Qt\5.9\mingw53_32
-  QTIFWDIR: C:\Qt\QtIFW-3.0.1
-  PYTHONDIR: C:\Python36
-  RELEASE_DIR: ${APPVEYOR_BUILD_FOLDER}\..\Build\%CONFIGURATION%
-  RELEASE_DIR2: ${APPVEYOR_BUILD_FOLDER}\..\Build\${CONFIGURATION}
-  INSTALLER_DIR: ${RELEASE_DIR}\..\Installer
-  INSTALLER: ${INSTALLER_DIR}\%APPVEYOR_PROJECT_NAME%Installer
-  INSTALLER2: ${INSTALLER_DIR}\${APPVEYOR_PROJECT_NAME}Installer
-  INSTALLER_EXE: $(INSTALLER).exe
-  INSTALLER_ZIP: $(INSTALLER)-windows32.zip
-  REPO: $(INSTALLER_DIR)\%APPVEYOR_REPO_BRANCH%
-  SCRIPTS_DIR: $(APPVEYOR_BUILD_FOLDER)\Scripts
-  FTP_DOMAIN: sazonov.org
-  FTP_RELEASES_DIR: davinci.sazonov.org/releases
-  FTP_REPOS_DIR: davinci.sazonov.org/repositories/%APPVEYOR_REPO_BRANCH%
   FTP_USER:
     secure: Ag6W1J98FaP5sNtcmxvlAg==
   FTP_PASSWORD:
@@ -49,24 +34,53 @@ environment:
 #---------------------------------#
 
 # Scripts that are called at very beginning, before repo cloning
-init:
-  - echo $QTDIR
-  - echo ${QTDIR}
-  - echo %CONFIGURATION%
-  - echo ${CONFIGURATION}
-  - echo ${INSTALLER}
-  - echo ${INSTALLER2}
-  - echo ${APPVEYOR_BUILD_FOLDER}
+#init:
 
 # Scripts that run after cloning repository
 install:
+  # Set variables
+  - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
+  # Project
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
-  - echo $LATEST_RELEASE_NAME
-  - echo $LATEST_RELEASE_NAME2
+  - export SCRIPTS_DIR=${APPVEYOR_BUILD_FOLDER}/Scripts
+  - export RELEASE_DIR=${APPVEYOR_BUILD_FOLDER}/../Build/${BUILD_TYPE}
+  # Deploy
+  - export DEPLOY_DIR=${RELEASE_DIR}/../Deploy
+  - export LINUXDEPLOYQT_URL="https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+  - export LINUXDEPLOYQT_EXE=linuxdeployqt
+  - export PATH=$PATH:${APPVEYOR_BUILD_FOLDER}
+  # QtIFW
+  - export QTIFW_VERSION="3.0.2"
+  - export QTIFW_BASE="QtInstallerFramework-linux-x64"
+  - export QTIFW_EXE="${QTIFW_BASE}.run"
+  - export QTIFW_URL="https://download.qt.io/official_releases/qt-installer-framework/${QTIFW_VERSION}/${QTIFW_EXE}"
+  - export QTIFW_SCRIPT="${APPVEYOR_BUILD_FOLDER}/Scripts/silentinstall.js"
+  - export PATH=$PATH:~/Qt/QtIFW-${QTIFW_VERSION}/bin
+  # Installer
+  - export INSTALLER_DIR=${RELEASE_DIR}/../Installer
+  - export INSTALLER=${INSTALLER_DIR}/${APPVEYOR_PROJECT_NAME}Installer
+  - export INSTALLER_EXE=${INSTALLER}
+  - export INSTALLER_ZIP=${INSTALLER}-linux64.zip
+  # Upload
+  - export REPO=${INSTALLER_DIR}/${APPVEYOR_REPO_BRANCH}
+  - export FTP_DOMAIN=sazonov.org
+  - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
+  - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${APPVEYOR_REPO_BRANCH}
+  # Print variables
   - echo ${CONFIGURATION}
-  - ls -l
+  - echo ${BUILD_TYPE}
+  - echo ${APPVEYOR_BUILD_FOLDER}
+  - echo ${APPVEYOR_PROJECT_NAME}
+  - echo ${LATEST_RELEASE_NAME}
   - echo ${RELEASE_DIR}
-  - echo ${RELEASE_DIR2}
+  - echo ${SCRIPTS_DIR}
+  - echo ${APPVEYOR_REPO_BRANCH}
+  # Add repositories, update...
+  - sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
+  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
+  #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
+  - sudo apt-get --quiet --yes update
+  #- sudo apt-get -qq update
 
 #---------------------------------#
 #              build              #
@@ -74,6 +88,7 @@ install:
 
 # Set paths, etc.
 before_build:
+  - qmake -v
   - echo $LATEST_RELEASE_NAME
   - echo $FTP_REPOS_DIR
   - echo %LATEST_RELEASE_NAME%
