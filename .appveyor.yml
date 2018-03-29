@@ -13,7 +13,9 @@ version: "{build}"
 #---------------------------------#
 
 # Scripts that are called at very beginning, before repo cloning
-#init:
+init:
+  - echo $QTDIR
+  - echo %QTDIR%
 
 # Scripts that run after cloning repository
 install:
@@ -80,9 +82,9 @@ build_script:
 #---------------------------------#
 
 # To run your custom scripts instead of automatic tests
-test_script:
-  - call %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Console.exe --help
-  - call %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Tests.exe
+#test_script:
+  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Console.exe --help
+  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Tests.exe
 
 #---------------------------------#
 #     deployment configuration    #
