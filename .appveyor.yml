@@ -83,18 +83,18 @@ build_script:
 
 # To run your custom scripts instead of automatic tests
 #test_script:
-  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Console.exe --help
-  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Tests.exe
+#  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Console.exe --help
+#  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Tests.exe
 
 #---------------------------------#
 #     deployment configuration    #
 #---------------------------------#
 
-after_test:
-  - python %SCRIPTS_DIR%\makeDeploy.py
-  - python %SCRIPTS_DIR%\makeInstaller.py %APPVEYOR_REPO_BRANCH%
-  - 7z a -tzip -bso0 -bsp0 %INSTALLER_ZIP% %INSTALLER_EXE%
-  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %REPO% %FTP_REPOS_DIR%
-  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %INSTALLER_ZIP% %FTP_RELEASES_DIR%/%LATEST_RELEASE_NAME%
+#after_test:
+#  - python %SCRIPTS_DIR%\makeDeploy.py
+#  - python %SCRIPTS_DIR%\makeInstaller.py %APPVEYOR_REPO_BRANCH%
+#  - 7z a -tzip -bso0 -bsp0 %INSTALLER_ZIP% %INSTALLER_EXE%
+#  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %REPO% %FTP_REPOS_DIR%
+#  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %INSTALLER_ZIP% %FTP_RELEASES_DIR%/%LATEST_RELEASE_NAME%
 
 build: off
