@@ -93,6 +93,7 @@ RESOURCES_DIR_NAME          = 'Resources'
 ICON_DIR_NAME               = 'Icon'
 RESOURCES_DIR               = PROJECT_DIR + [RESOURCES_DIR_NAME]
 ICON_DIR                    = RESOURCES_DIR + [ICON_DIR_NAME]
+ICON_FILE_PNG               = ICON_DIR + [APP_NAME + '.png']
 
 # Builds
 BUILD_DIR_NAME              = 'Build'
@@ -210,6 +211,10 @@ for item in USERMANUAL_CHAPTER_NAMES:
 
 EXAMPLES_DIR_NAME           = 'Examples'
 EXAMPLES_DIR                = PROJECT_DIR + [EXAMPLES_DIR_NAME]
+
+#LINUX_DESKTOP_FILE_EXT      = '.desktop'
+#LINUX_DESKTOP_FILE_NAME     = APP_NAME + LINUX_DESKTOP_FILE_EXT
+#LINUX_DESKTOP_FILE          = RESOURCES_DIR + ['Desktop', LINUX_DESKTOP_FILE_NAME]
 
 DOCS_DIR_NAME               = 'Docs'
 DOCS_DIR                    = PROJECT_DIR + [DOCS_DIR_NAME]
