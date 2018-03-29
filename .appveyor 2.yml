@@ -1,0 +1,162 @@
+#---------------------------------#
+#          configuration          #
+#---------------------------------#
+
+# Image to load
+image: ubuntu
+
+# Appveyor build version format
+version: "{build}"
+
+# Build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform: x86 # 32-bit
+
+# Branches to build
+branches:
+  only:
+    - linux_gcc
+
+# Build Configuration, i.e. Debug, Release, etc.
+configuration:
+  - release
+  #- debug
+
+# Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
+environment:
+  APPVEYOR_BUILD_FOLDER: $(pwd)
+  FTP_USER:
+    secure: Ag6W1J98FaP5sNtcmxvlAg==
+  FTP_PASSWORD:
+    secure: LiqyRhdTXjYm5IgchOLjKA==
+
+#---------------------------------#
+#        init and install         #
+#---------------------------------#
+
+# Scripts that are called at very beginning, before repo cloning
+#init:
+
+# Scripts that run after cloning repository
+install:
+  # Set variables
+  #- export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
+  - export BUILD_TYPE=${CONFIGURATION}
+  - export BUILD_TYPE2="${CONFIGURATION}"
+  - export BUILD_TYPE3=%CONFIGURATION%
+  - export BUILD_TYPE4="%CONFIGURATION%"
+  # Project
+  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
+  - export SCRIPTS_DIR=${APPVEYOR_BUILD_FOLDER}/Scripts
+  - export RELEASE_DIR=${APPVEYOR_BUILD_FOLDER}/../Build/${BUILD_TYPE}
+  # Deploy
+  - export DEPLOY_DIR=${RELEASE_DIR}/../Deploy
+  - export LINUXDEPLOYQT_URL="https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+  - export LINUXDEPLOYQT_EXE=linuxdeployqt
+  - export PATH=$PATH:${APPVEYOR_BUILD_FOLDER}
+  # QtIFW
+  - export QTIFW_VERSION="3.0.2"
+  - export QTIFW_BASE="QtInstallerFramework-linux-x64"
+  - export QTIFW_EXE="${QTIFW_BASE}.run"
+  - export QTIFW_URL="https://download.qt.io/official_releases/qt-installer-framework/${QTIFW_VERSION}/${QTIFW_EXE}"
+  - export QTIFW_SCRIPT="${APPVEYOR_BUILD_FOLDER}/Scripts/silentinstall.js"
+  - export PATH=$PATH:~/Qt/QtIFW-${QTIFW_VERSION}/bin
+  # Installer
+  - export INSTALLER_DIR=${RELEASE_DIR}/../Installer
+  - export INSTALLER=${INSTALLER_DIR}/${APPVEYOR_PROJECT_NAME}Installer
+  - export INSTALLER_EXE=${INSTALLER}
+  - export INSTALLER_ZIP=${INSTALLER}-linux64.zip
+  # Upload
+  - export REPO=${INSTALLER_DIR}/${APPVEYOR_REPO_BRANCH}
+  - export FTP_DOMAIN=sazonov.org
+  - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
+  - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${APPVEYOR_REPO_BRANCH}
+  # Print variables
+  - echo ${CONFIGURATION}
+  - echo ${BUILD_TYPE}
+  - echo ${BUILD_TYPE2}
+  - echo ${BUILD_TYPE3}
+  - echo ${BUILD_TYPE4}
+  - echo ${APPVEYOR_BUILD_FOLDER}
+  - echo ${APPVEYOR_PROJECT_NAME}
+  - echo ${LATEST_RELEASE_NAME}
+  - echo ${RELEASE_DIR}
+  - echo ${SCRIPTS_DIR}
+  - echo ${APPVEYOR_REPO_BRANCH}
+  # Add repositories, update...
+  #- sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt594-xenial
+  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
+  #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
+  - sudo apt-get --quiet --yes update
+  #- sudo apt-get -qq update
+
+#---------------------------------#
+#              build              #
+#---------------------------------#
+
+# Set paths, etc.
+before_build:
+  - echo $LATEST_RELEASE_NAME
+  - echo $FTP_REPOS_DIR
+  - echo %LATEST_RELEASE_NAME%
+  - python -V
+  - python3 -V
+  - pip -V
+  - sudo apt-get install --yes python3-pip
+  - pip3 -V
+  #- call "%QTDIR%\bin\qtenv2.bat"
+  #- set PATH=%QTIFWDIR%\bin;%PATH%
+  #- set PATH=%PYTHONDIR%;%PYTHONDIR%\Scripts;%PATH%
+#  - sudo pip3 install yattag #--quiet
+#  - sudo pip3 install ftputil #--quiet
+  # Qt
+#  - sudo apt-get --yes install qt59base qt59svg
+#  - source /opt/qt*/bin/qt*-env.sh
+#  - qmake -v
+  # 7zip
+#  - sudo apt-get --yes install p7zip-full
+  # QtIFW
+#  - curl -L ${QTIFW_URL} -O
+#  - chmod a+x ${QTIFW_EXE}
+#  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
+
+# To run your custom scripts instead of automatic MSBuild
+#build_script:
+#  - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
+#  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
+
+#after_build:
+
+#---------------------------------#
+#               tests             #
+#---------------------------------#
+
+# To run your custom scripts instead of automatic tests
+#test_script:
+#  - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
+#  - ${RELEASE_DIR}/${PROJECT_NAME}Tests
+
+#---------------------------------#
+#   deploy, installer and upload  #
+#---------------------------------#
+
+#after_test:
+  # Deployment, https://github.com/probonopd/linuxdeployqt
+#  - curl -L ${LINUXDEPLOYQT_URL} -o ${LINUXDEPLOYQT_EXE}
+#  - chmod a+x ${LINUXDEPLOYQT_EXE}
+#  - unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
+#  - python3 ${SCRIPTS_DIR}/makeDeploy.py
+  # Installer
+#  - python3 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
+#  - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
+  # Upload
+#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}
+
+#  - python %SCRIPTS_DIR%\makeDeploy.py
+#  - python %SCRIPTS_DIR%\makeInstaller.py %APPVEYOR_REPO_BRANCH%
+#  - 7z a -tzip -bso0 -bsp0 %INSTALLER_ZIP% %INSTALLER_EXE%
+#  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %REPO% %FTP_REPOS_DIR%
+#  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %INSTALLER_ZIP% %FTP_RELEASES_DIR%/%LATEST_RELEASE_NAME%
+
+
