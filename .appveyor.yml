@@ -58,6 +58,7 @@ install:
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - echo $LATEST_RELEASE_NAME
   - echo ${CONFIGURATION}
+  - ls -l
 
 #---------------------------------#
 #              build              #
