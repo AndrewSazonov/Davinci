@@ -40,7 +40,7 @@ environment:
 install:
   # Set variables
   #- export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
-  - export BUILD_TYPE=${CONFIGURATION)
+  - export BUILD_TYPE=${CONFIGURATION}
   - export BUILD_TYPE2="${CONFIGURATION}"
   # Project
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
