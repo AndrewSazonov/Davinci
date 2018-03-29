@@ -61,6 +61,7 @@ before_install:
   - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${BRANCH}
   # Print variables
   - sw_vers # macOS version
+  - echo ${BRANCH}
   - echo ${CONFIGURATION}
   - echo ${BUILD_TYPE}
   - echo ${BUILD_DIR}
@@ -74,8 +75,8 @@ before_install:
 # Install Python, Pip, Qt, QtIFW
 install:
   # Python
-  #- brew upgrade python # upgrade to python3
-  - brew install python3
+  #- brew install python3
+  - brew upgrade python # upgrade to python3
   - python3 --version
   - pip3 --version
   # Python libs
@@ -86,6 +87,7 @@ install:
   # Qt
   - brew install qt5
   - brew link --force qt5 # Create the symlinks for Qt
+  - qmake -v
   # QtIFW
   - curl -L -O ${QTIFW_URL}
   - hdiutil attach "${QTIFW_BASE}.dmg"
