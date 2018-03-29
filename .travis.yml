@@ -3,6 +3,7 @@
 #---------------------------------#
 
 os: osx
+osx_image: xcode6.4 # OS X 10.10, https://docs.travis-ci.com/user/reference/osx/
 
 compiler: clang
 
@@ -56,6 +57,7 @@ before_install:
   - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
   - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${TRAVIS_BRANCH}
   # Print variables
+  - sw_vers # macOS version
   - echo ${CONFIGURATION}
   - echo ${BUILD_TYPE}
   - echo ${TRAVIS_BUILD_DIR}
