@@ -80,6 +80,7 @@ install:
   - echo ${BUILD_TYPE2}
   - echo ${BUILD_TYPE3}
   - echo ${BUILD_TYPE4}
+  - echo ${QWE}
   - echo ${APPVEYOR_BUILD_FOLDER}
   - echo ${APPVEYOR_PROJECT_NAME}
   - echo ${LATEST_RELEASE_NAME}
