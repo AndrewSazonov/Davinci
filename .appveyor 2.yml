@@ -23,7 +23,10 @@ configuration:
 
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
-  APPVEYOR_BUILD_FOLDER: $(pwd)
+  #APPVEYOR_BUILD_FOLDER: ${pwd}
+  QWE: %APPVEYOR_BUILD_FOLDER%
+  CONFIGURATION: %CONFIGURATION%
+  #CONFIGURATION: ${CONFIGURATION}
   FTP_USER:
     secure: Ag6W1J98FaP5sNtcmxvlAg==
   FTP_PASSWORD:
@@ -44,6 +47,7 @@ install:
   - export BUILD_TYPE2="${CONFIGURATION}"
   - export BUILD_TYPE3=%CONFIGURATION%
   - export BUILD_TYPE4="%CONFIGURATION%"
+  - export BUILD_TYPE4=${QWE}
   # Project
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - export SCRIPTS_DIR=${APPVEYOR_BUILD_FOLDER}/Scripts
