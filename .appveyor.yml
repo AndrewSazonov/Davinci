@@ -9,7 +9,7 @@ image: ubuntu
 version: "{build}"
 
 # Build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x86 # 32-bit
+platform: x64 # 64-bit
 
 # Branches to build
 branches:
@@ -23,10 +23,9 @@ configuration:
 
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
-  #APPVEYOR_BUILD_FOLDER: ${pwd}
-  QWE: ${APPVEYOR_BUILD_FOLDER}
+  APPVEYOR_BUILD_FOLDER: ${pwd}
   #CONFIGURATION: %CONFIGURATION%
-  CONFIGURATION: ${CONFIGURATION}
+  CONF: ${CONFIGURATION}
   FTP_USER:
     secure: Ag6W1J98FaP5sNtcmxvlAg==
   FTP_PASSWORD:
@@ -43,11 +42,10 @@ environment:
 install:
   # Set variables
   #- export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
-  - export BUILD_TYPE=${CONFIGURATION}
-  - export BUILD_TYPE2="${CONFIGURATION}"
+  - export BUILD_TYPE=${CONF}
+  - export BUILD_TYPE2="${CONF}"
   - export BUILD_TYPE3=%CONFIGURATION%
   - export BUILD_TYPE4="%CONFIGURATION%"
-  - export BUILD_TYPE4=${QWE}
   # Project
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - export SCRIPTS_DIR=${APPVEYOR_BUILD_FOLDER}/Scripts
