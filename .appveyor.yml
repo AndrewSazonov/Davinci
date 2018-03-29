@@ -128,8 +128,8 @@ build_script:
 
 # To run your custom scripts instead of automatic tests
 test_script:
-  - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
-  - ${RELEASE_DIR}/${PROJECT_NAME}Tests
+  - ${RELEASE_DIR}/${APPVEYOR_PROJECT_NAME}Console --help
+  - ${RELEASE_DIR}/${APPVEYOR_PROJECT_NAME}Tests
 
 #---------------------------------#
 #   deploy, installer and upload  #
