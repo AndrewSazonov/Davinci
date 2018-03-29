@@ -23,8 +23,8 @@ configuration:
 
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
-  APPVEYOR_BUILD_FOLDER: ${pwd}
-  CONF: ${CONFIGURATION}
+  APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux?
+  CONF: ${CONFIGURATION}        # CONFIGURATION in 'install' doesn't work for Linux?
   FTP_USER:
     secure: Ag6W1J98FaP5sNtcmxvlAg==
   FTP_PASSWORD:
@@ -79,46 +79,42 @@ install:
   - echo ${APPVEYOR_REPO_BRANCH}
   # Add repositories, update...
   #- sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt594-xenial
-  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
+  - sudo add-apt-repository -qq ppa:beineri/opt-qt594-xenial
+  - sudo add-apt-repository -qq ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
-  - sudo apt-get --quiet --yes update
-  #- sudo apt-get -qq update
+  #- sudo apt-get --quiet --yes update
+  - sudo apt-get -qq update
 
 #---------------------------------#
 #              build              #
 #---------------------------------#
 
-# Set paths, etc.
+# Install Python, Pip, Qt, QtIFW, etc.
 before_build:
-  - echo $LATEST_RELEASE_NAME
-  - echo $FTP_REPOS_DIR
-  - echo %LATEST_RELEASE_NAME%
-  - python -V
+  # Python
   - python3 -V
-  - pip -V
-  - sudo apt-get install --yes python3-pip
+  # Pip
+  - sudo apt-get install -qq python3-pip
   - pip3 -V
-  #- call "%QTDIR%\bin\qtenv2.bat"
-  #- set PATH=%QTIFWDIR%\bin;%PATH%
-  #- set PATH=%PYTHONDIR%;%PYTHONDIR%\Scripts;%PATH%
-#  - sudo pip3 install yattag #--quiet
-#  - sudo pip3 install ftputil #--quiet
+  # Misc
+  - sudo pip3 install -qq yattag #--quiet
+  - sudo pip3 install -qq ftputil #--quiet
   # Qt
 #  - sudo apt-get --yes install qt59base qt59svg
-#  - source /opt/qt*/bin/qt*-env.sh
-#  - qmake -v
+  - sudo apt-get --yes install qt59base qt59svg
+  - source /opt/qt*/bin/qt*-env.sh
+  - qmake -v
   # 7zip
-#  - sudo apt-get --yes install p7zip-full
+  - sudo apt-get --yes install p7zip-full
   # QtIFW
-#  - curl -L ${QTIFW_URL} -O
-#  - chmod a+x ${QTIFW_EXE}
-#  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
+  - curl -L ${QTIFW_URL} -O
+  - chmod a+x ${QTIFW_EXE}
+  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
 
 # To run your custom scripts instead of automatic MSBuild
-#build_script:
-#  - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
-#  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
+build_script:
+  - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
+  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
 
 #after_build:
 
@@ -127,26 +123,26 @@ before_build:
 #---------------------------------#
 
 # To run your custom scripts instead of automatic tests
-#test_script:
-#  - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
-#  - ${RELEASE_DIR}/${PROJECT_NAME}Tests
+test_script:
+  - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
+  - ${RELEASE_DIR}/${PROJECT_NAME}Tests
 
 #---------------------------------#
 #   deploy, installer and upload  #
 #---------------------------------#
 
-#after_test:
+after_test:
   # Deployment, https://github.com/probonopd/linuxdeployqt
-#  - curl -L ${LINUXDEPLOYQT_URL} -o ${LINUXDEPLOYQT_EXE}
-#  - chmod a+x ${LINUXDEPLOYQT_EXE}
-#  - unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
-#  - python3 ${SCRIPTS_DIR}/makeDeploy.py
+  - curl -L ${LINUXDEPLOYQT_URL} -o ${LINUXDEPLOYQT_EXE}
+  - chmod a+x ${LINUXDEPLOYQT_EXE}
+  - unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
+  - python3 ${SCRIPTS_DIR}/makeDeploy.py
   # Installer
-#  - python3 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
-#  - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
+  - python3 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
+  - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
   # Upload
-#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
-#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}
+  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}
 
 #  - python %SCRIPTS_DIR%\makeDeploy.py
 #  - python %SCRIPTS_DIR%\makeInstaller.py %APPVEYOR_REPO_BRANCH%
