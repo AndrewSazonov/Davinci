@@ -69,7 +69,7 @@ install:
   - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
   - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${APPVEYOR_REPO_BRANCH}
   # Print variables
-  - echo ${CONFIGURATION}
+  - echo ${CONF}
   - echo ${BUILD_TYPE}
   - echo ${APPVEYOR_BUILD_FOLDER}
   - echo ${APPVEYOR_PROJECT_NAME}
@@ -94,27 +94,31 @@ before_build:
   # Python
   - python3 -V
   # Pip
-  - sudo apt-get install -qq python3-pip
+  - sudo apt-get install --quiet --yes python3-pip
   - pip3 -V
   # Misc
-  - sudo pip3 install -qq yattag #--quiet
-  - sudo pip3 install -qq ftputil #--quiet
+  - sudo pip3 install --quiet yattag
+  - sudo pip3 install --quiet ftputil
   # Qt
 #  - sudo apt-get --yes install qt59base qt59svg
-  - sudo apt-get --yes install qt59base qt59svg
+  - sudo apt-get --quiet --yes install qt59base qt59svg
   - source /opt/qt*/bin/qt*-env.sh
   - qmake -v
   # 7zip
-  - sudo apt-get --yes install p7zip-full
+  - sudo apt-get install --quiet --yes p7zip-full
   # QtIFW
   - curl -L ${QTIFW_URL} -O
   - chmod a+x ${QTIFW_EXE}
   - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
+  # Install OpenGL libraries
+  - sudo apt-get install --quiet --yes mesa-common-dev libglu1-mesa-dev
+  # Install g++
+  - sudo apt-get install --quiet --yes build-essential
 
 # To run your custom scripts instead of automatic MSBuild
 build_script:
   - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
-  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
+  - python3 ${SCRIPTS_DIR}/makeBuild.py ${APPVEYOR_REPO_BRANCH}
 
 #after_build:
 
