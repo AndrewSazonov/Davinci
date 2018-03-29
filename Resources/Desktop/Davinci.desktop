@@ -1,0 +1,10 @@
+[Desktop Entry]
+Comment=A Scientific Software for the Visualization and Processing of Single-Crystal Diffraction Data Measured with a Point Detector.
+Type=Application
+Exec=/home/osboxes/Davinci/Davinci
+Path=/home/osboxes/Davinci
+Name=Davinci
+GenericName=Davinci
+Icon=/home/osboxes/Davinci/Davinci.png
+Terminal=false
+Categories=Science;Office;

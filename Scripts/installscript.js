@@ -46,22 +46,22 @@ Component.prototype.createOperations = function()
 
     // call default implementation to actually install the registeredfile
     component.createOperations();
-    
-    
+
+
 //    var sep = ":";
 //    if (installer.value("os") == "win") { sep = ";" }
 //    var path = installer.environmentVariable("PATH") + sep + installer.value("TargetDir")
 //    QMessageBox.warning("delete.question", "Installer", path, QMessageBox.Yes | QMessageBox.No);
 
     //component.addOperation("EnvironmentVariable", "FARSA_DIR", "@TargetDir@", true);
-    
-    
+
+
     // http://danlec.com/st4k#questions/43111510
     // https://bugreports.qt.io/browse/QTIFW-527
     // https://forum.qt.io/topic/30227/solved-qt-installer-framework-question-about-setting-enviroment-variables/2
     // https://stackoverflow.com/questions/43111510/qt-installer-framework-how-to-add-my-program-to-windows-system-variable-path
     // dont work
- 
+
         // Add to system path
         //var sep = ":";
         //if (installer.value("os") == "win") { sep = ";" }
@@ -73,7 +73,7 @@ Component.prototype.createOperations = function()
         //true, // persistently
         //false // for all users
         //);
- 
+
 
 
     if (systemInfo.productType === "windows")
@@ -100,6 +100,19 @@ Component.prototype.createOperations = function()
         "iconPath=@TargetDir@/@ProductName@.exe", "iconId=0",
         "description=@ProductName@");
     }
+
+    if (installer.value("os") == "x11")
+    {
+        component.addOperation( "CreateDesktopEntry",
+                                "@TargetDir@/Davinci.desktop",
+                                "Comment=A Scientific Software for the Visualization and Processing of Single-Crystal Diffraction Data Measured with a Point Detector.\nType=Application\nExec=@TargetDir@/@ProductName@\nPath=@TargetDir@\nName=Davinci\nGenericName=Davinci\nIcon=@TargetDir@/@ProductName@.png\nTerminal=false\nCategories=Science;Office;" );
+        component.addOperation("Copy", "@TargetDir@/Davinci.desktop", "@HomeDir@/Desktop/Davinci.desktop");
+    }
+
+
+
+
+
+
+
 }
-
-
