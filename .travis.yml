@@ -3,7 +3,7 @@
 #---------------------------------#
 
 os: osx
-osx_image: xcode6.4 # OS X 10.10, https://docs.travis-ci.com/user/reference/osx/
+osx_image: xcode7.3 # OS X 10.11, https://docs.travis-ci.com/user/reference/osx/
 
 compiler: clang
 
@@ -34,33 +34,36 @@ env:
 
 before_install:
   # Set variables
+  - export BRANCH=${TRAVIS_BRANCH}
+  - export BUILD_DIR=${TRAVIS_BUILD_DIR}
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   # Project
   - export PROJECT_NAME=$(basename $TRAVIS_REPO_SLUG)
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
-  - export SCRIPTS_DIR=${TRAVIS_BUILD_DIR}/Scripts
-  - export RELEASE_DIR=${TRAVIS_BUILD_DIR}/../Build/${BUILD_TYPE}
+  - export SCRIPTS_DIR=${BUILD_DIR}/Scripts
+  - export RELEASE_DIR=${BUILD_DIR}/../Build/${BUILD_TYPE}
   # QtIFW
-  - export QTIFW_VERSION="3.0.2"
+  - export QTIFW_VERSION="3.0.4"
   - export QTIFW_BASE="QtInstallerFramework-mac-x64"
-  - export QTIFW_URL="https://download.qt.io/official_releases/qt-installer-framework/${QTIFW_VERSION}/${QTIFW_BASE}.dmg"
   - export QTIFW_EXE="/Volumes/${QTIFW_BASE}/${QTIFW_BASE}.app/Contents/MacOS/${QTIFW_BASE}"
-  - export QTIFW_SCRIPT="${TRAVIS_BUILD_DIR}/Scripts/silentinstall.js"
+  - export QTIFW_URL="https://download.qt.io/official_releases/qt-installer-framework/${QTIFW_VERSION}/${QTIFW_BASE}.dmg"
+  - export QTIFW_SCRIPT="${BUILD_DIR}/Scripts/silentinstall.js"
+  - export PATH=$PATH:~/Qt/QtIFW-${QTIFW_VERSION}/bin
   # Installer
   - export INSTALLER_DIR=${RELEASE_DIR}/../Installer
   - export INSTALLER=${INSTALLER_DIR}/${PROJECT_NAME}Installer
   - export INSTALLER_EXE=${INSTALLER}.app
   - export INSTALLER_ZIP=${INSTALLER}-macos64.zip
   # Upload
-  - export REPO=${INSTALLER_DIR}/${TRAVIS_BRANCH}
+  - export REPO=${INSTALLER_DIR}/${BRANCH}
   - export FTP_DOMAIN=sazonov.org
   - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
-  - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${TRAVIS_BRANCH}
+  - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${BRANCH}
   # Print variables
   - sw_vers # macOS version
   - echo ${CONFIGURATION}
   - echo ${BUILD_TYPE}
-  - echo ${TRAVIS_BUILD_DIR}
+  - echo ${BUILD_DIR}
   - echo ${PROJECT_NAME}
   - echo ${LATEST_RELEASE_NAME}
   - echo ${RELEASE_DIR}
@@ -71,34 +74,33 @@ before_install:
 # Install Python, Pip, Qt, QtIFW
 install:
   # Python
-  - brew install python3
   #- brew upgrade python # upgrade to python3
+  - brew install python3
   - python3 --version
   - pip3 --version
+  # Python libs
   - sudo pip3 install ftputil
   - sudo pip3 install yattag
   # 7zip
   - brew install p7zip
   # Qt
   - brew install qt5
+  - brew link --force qt5 # Create the symlinks for Qt
   # QtIFW
   - curl -L -O ${QTIFW_URL}
   - hdiutil attach "${QTIFW_BASE}.dmg"
   - ${QTIFW_EXE} --script ${QTIFW_SCRIPT}
-  - export PATH=$PATH:/Users/travis/Qt/QtIFW-3.0.1/bin # 3.0.1 is actual folder for 3.0.2 in mac
 
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
 
-before_script:
-  # Create the symlinks for Qt
-  - brew link --force qt5
+#before_script:
 
 script:
   # Build
   - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
-  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
+  - python3 ${SCRIPTS_DIR}/makeBuild.py ${BRANCH}
   # Tests
   - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
   - ${RELEASE_DIR}/${PROJECT_NAME}Tests
