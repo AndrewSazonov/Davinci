@@ -24,6 +24,7 @@ configuration:
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
   APPVEYOR_BUILD_FOLDER: pwd
+  LATEST_RELEASE_NAME2: $(git describe --tags --abbrev=0 --match v*.*.*)
   QTDIR: C:\Qt\5.9\mingw53_32
   QTIFWDIR: C:\Qt\QtIFW-3.0.1
   PYTHONDIR: C:\Python36
@@ -61,6 +62,7 @@ init:
 install:
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - echo $LATEST_RELEASE_NAME
+  - echo $LATEST_RELEASE_NAME2
   - echo ${CONFIGURATION}
   - ls -l
 
@@ -76,6 +78,7 @@ before_build:
   - python -V
   - python3 -V
   - pip -V
+  - sudo apt install python3-pip
   - pip3 -V
   #- call "%QTDIR%\bin\qtenv2.bat"
   #- set PATH=%QTIFWDIR%\bin;%PATH%
