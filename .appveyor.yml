@@ -42,6 +42,8 @@ install:
   #- export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   - export BUILD_TYPE=${CONFIGURATION}
   - export BUILD_TYPE2="${CONFIGURATION}"
+  - export BUILD_TYPE3=%CONFIGURATION%
+  - export BUILD_TYPE4="%CONFIGURATION%"
   # Project
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - export SCRIPTS_DIR=${APPVEYOR_BUILD_FOLDER}/Scripts
@@ -72,6 +74,8 @@ install:
   - echo ${CONFIGURATION}
   - echo ${BUILD_TYPE}
   - echo ${BUILD_TYPE2}
+  - echo ${BUILD_TYPE3}
+  - echo ${BUILD_TYPE4}
   - echo ${APPVEYOR_BUILD_FOLDER}
   - echo ${APPVEYOR_PROJECT_NAME}
   - echo ${LATEST_RELEASE_NAME}
@@ -92,7 +96,6 @@ install:
 
 # Set paths, etc.
 before_build:
-  - qmake -v
   - echo $LATEST_RELEASE_NAME
   - echo $FTP_REPOS_DIR
   - echo %LATEST_RELEASE_NAME%
@@ -104,13 +107,23 @@ before_build:
   #- call "%QTDIR%\bin\qtenv2.bat"
   #- set PATH=%QTIFWDIR%\bin;%PATH%
   #- set PATH=%PYTHONDIR%;%PYTHONDIR%\Scripts;%PATH%
-  - pip3 install yattag #--quiet
-  - pip3 install ftputil #--quiet
-  #- python %SCRIPTS_DIR%\makeQtProFiles.py
+#  - sudo pip3 install yattag #--quiet
+#  - sudo pip3 install ftputil #--quiet
+  # Qt
+#  - sudo apt-get --yes install qt59base qt59svg
+#  - source /opt/qt*/bin/qt*-env.sh
+#  - qmake -v
+  # 7zip
+#  - sudo apt-get --yes install p7zip-full
+  # QtIFW
+#  - curl -L ${QTIFW_URL} -O
+#  - chmod a+x ${QTIFW_EXE}
+#  - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
 
 # To run your custom scripts instead of automatic MSBuild
 #build_script:
-#  - python %SCRIPTS_DIR%\makeBuild.py %APPVEYOR_REPO_BRANCH%
+#  - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
+#  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
 
 #after_build:
 
@@ -120,22 +133,30 @@ before_build:
 
 # To run your custom scripts instead of automatic tests
 #test_script:
-#  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Console.exe --help
-#  - %RELEASE_DIR%\%APPVEYOR_PROJECT_NAME%Tests.exe
+#  - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
+#  - ${RELEASE_DIR}/${PROJECT_NAME}Tests
 
 #---------------------------------#
-#           deployment            #
+#   deploy, installer and upload  #
 #---------------------------------#
 
 #after_test:
+  # Deployment, https://github.com/probonopd/linuxdeployqt
+#  - curl -L ${LINUXDEPLOYQT_URL} -o ${LINUXDEPLOYQT_EXE}
+#  - chmod a+x ${LINUXDEPLOYQT_EXE}
+#  - unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
+#  - python3 ${SCRIPTS_DIR}/makeDeploy.py
+  # Installer
+#  - python3 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
+#  - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
+  # Upload
+#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}
+
 #  - python %SCRIPTS_DIR%\makeDeploy.py
 #  - python %SCRIPTS_DIR%\makeInstaller.py %APPVEYOR_REPO_BRANCH%
 #  - 7z a -tzip -bso0 -bsp0 %INSTALLER_ZIP% %INSTALLER_EXE%
 #  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %REPO% %FTP_REPOS_DIR%
 #  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %INSTALLER_ZIP% %FTP_RELEASES_DIR%/%LATEST_RELEASE_NAME%
 
-#---------------------------------#
-#              end                #
-#---------------------------------#
 
-#build: off
