@@ -23,6 +23,7 @@ configuration:
 
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
+  APPVEYOR_BUILD_FOLDER: qwe
   QTDIR: C:\Qt\5.9\mingw53_32
   QTIFWDIR: C:\Qt\QtIFW-3.0.1
   PYTHONDIR: C:\Python36
@@ -48,15 +49,15 @@ environment:
 # Scripts that are called at very beginning, before repo cloning
 init:
   - echo $QTDIR
-  - echo $(QTDIR)
   - echo ${QTDIR}
   - echo %CONFIGURATION%
-  - echo $CONFIGURATION
+  - echo ${CONFIGURATION}
 
 # Scripts that run after cloning repository
 install:
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - echo $LATEST_RELEASE_NAME
+  - echo ${CONFIGURATION}
 
 #---------------------------------#
 #              build              #
@@ -67,6 +68,8 @@ before_build:
   - echo $LATEST_RELEASE_NAME
   - echo $FTP_REPOS_DIR
   - echo %LATEST_RELEASE_NAME%
+  - python -V
+  - python3 -V
   - call "%QTDIR%\bin\qtenv2.bat"
   - set PATH=%QTIFWDIR%\bin;%PATH%
   - set PATH=%PYTHONDIR%;%PYTHONDIR%\Scripts;%PATH%
@@ -104,4 +107,4 @@ build_script:
 #              end                #
 #---------------------------------#
 
-build: off
+#build: off
