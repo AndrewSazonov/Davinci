@@ -15,11 +15,10 @@ def UploadDir(server, username, password, local_path, remote_dir):
         # Create dir
         ftp.mkdir(remote_dir)
         # Go to this dir
-        print(103)
         ftp.chdir(remote_dir)
         # Upload dir, including subdirs, recursively
         def UploadThis(path):
-           # Go via all the file(s) or dir(s)
+            # Go via all the file(s) or dir(s)
             for name in os.listdir(path):
                 full_path = os.path.join(path, name)
                 # Try to upload the file found
@@ -68,3 +67,5 @@ if os.path.isfile(local_path):
     UploadFile(server, username, password, local_path, remote_dir)
 elif os.path.isdir(local_path):
     UploadDir(server, username, password, local_path, remote_dir)
+
+
