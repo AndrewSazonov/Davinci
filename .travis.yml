@@ -3,7 +3,7 @@
 #---------------------------------#
 
 os: osx
-osx_image: xcode7.3 # OS X 10.11, https://docs.travis-ci.com/user/reference/osx/
+#osx_image: xcode7.3 # OS X 10.11, https://docs.travis-ci.com/user/reference/osx/
 #osx_image: xcode8.3 # OS X 10.12, https://docs.travis-ci.com/user/reference/osx/
 
 compiler: clang
@@ -44,7 +44,7 @@ before_install:
   - export SCRIPTS_DIR=${BUILD_DIR}/Scripts
   - export RELEASE_DIR=${BUILD_DIR}/../Build/${BUILD_TYPE}
   # QtIFW
-  - export QTIFW_VERSION="3.0.1"
+  - export QTIFW_VERSION="3.0.4"
   - export QTIFW_BASE="QtInstallerFramework-mac-x64"
   - export QTIFW_EXE="/Volumes/${QTIFW_BASE}/${QTIFW_BASE}.app/Contents/MacOS/${QTIFW_BASE}"
   - export QTIFW_URL="https://download.qt.io/official_releases/qt-installer-framework/${QTIFW_VERSION}/${QTIFW_BASE}.dmg"
