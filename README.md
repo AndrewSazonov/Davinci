@@ -8,7 +8,7 @@ Please, visit [davinci.sazonov.org](http://davinci.sazonov.org) for more details
 
 [![][16]][11] [![][17]][12] [![][27]][22] [![][28]][22] 
 
-[![][31]][30] [![][42]][40] [![][52]][50]
+[![][31]][30] [![][46]][41] [![][52]][50]
 
 <!---Appveyor CI Build Status--->
 [10]: https://ci.appveyor.com/project/AndrewSazonov/davinci
@@ -36,8 +36,9 @@ Please, visit [davinci.sazonov.org](http://davinci.sazonov.org) for more details
 
 <!---User Manual---> 
 [40]: https://andrewsazonov.gitbooks.io/davinci/content/
-[41]: https://img.shields.io/badge/User_Manual-v1.0.0-blue.svg
-[42]: Resources/Shields/User_Manual.svg
+[41]: http://davinci.sazonov.org/umanual.html
+[45]: https://img.shields.io/badge/User_Manual-v1.0.0-blue.svg
+[46]: Resources/Shields/User_Manual.svg
 
 <!---License--->
 [50]: https://github.com/AndrewSazonov/Davinci/blob/master/LICENSE
