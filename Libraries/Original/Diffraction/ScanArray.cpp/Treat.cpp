@@ -266,6 +266,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                                              numLeftSkipPoints, numRightSkipPoints,
                                              scan->m_mcCandlishFactor);
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
+                ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
                 if (ratio > 0 AND ratio < minRatio) {
                     minRatio = ratio;
                     scan->m_numLeftSkipPoints = numLeftSkipPoints;
@@ -291,6 +292,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                                              scan->m_numLeftSkipPoints, scan->m_numRightSkipPoints,
                                              scan->m_mcCandlishFactor);
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
+                ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
                 if (ratio > 0 AND ratio < minRatio) {
                     minRatio = ratio;
                     scan->m_numLeftBkgPoints = numLeftBkgPoints;
@@ -403,6 +405,8 @@ As::RealVector As::ScanArray::IntensityWithSigma(const As::RealVector &intensiti
     const int posRight    = numPoints - numRightBkgPoints - numRightSkipPoints;
     const int lengthRight = numRightBkgPoints;
     intyBkg  = intensities.mid(posLeft, lengthLeft) + intensities.mid(posRight, lengthRight);
+    ADEBUG << "intyBkg" << intyBkg;
+
     sigIntyBkg = sigmas.mid(posLeft, lengthLeft) + sigmas.mid(posRight, lengthRight);
     // Set intensities for the peak points (background is included): 0.4 sec (735 peaks)
     As::RealVector intyPeak, sigIntyPeak;
@@ -412,12 +416,15 @@ As::RealVector As::ScanArray::IntensityWithSigma(const As::RealVector &intensiti
     sigIntyPeak = sigmas.mid(pos, length);
     // Calculate ratio of peak points number to background points number
     const qreal ratioPeakToBkgPoints = (qreal)intyPeak.size() / intyBkg.size();
+    ADEBUG << "ratioPeakToBkgPoints" << ratioPeakToBkgPoints;
     // Calculate peak sum intensity: 0.6 sec (735 peaks)
     qreal intensity = intyPeak.sum() - intyBkg.sum() * ratioPeakToBkgPoints;
+    ADEBUG << "intensity" << intensity;
     // Calculate sigma (standard deviation) for the peak sum intensity: 0.5 sec (735 peaks)
     qreal sigma = qSqrt(sigIntyPeak.sumSqr() +
                   sigIntyBkg.sumSqr() * As::Sqr(ratioPeakToBkgPoints) +
                   As::Sqr(mcCandlishFactor * intensity));
+    ADEBUG << "sigma" << sigma;
     return As::RealVector(QVector<qreal>{intensity, sigma});
 }
 

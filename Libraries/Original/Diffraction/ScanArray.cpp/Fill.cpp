@@ -45,6 +45,11 @@ void As::ScanArray::fillEmptyArrays()
         calcUnpolData("intensities", "Monitor",   scan);
         calcUnpolData("conditions",  "Time/step", scan);
 
+        ///// test
+        ///As::RealVector detector  = (*scan)["intensities"]["Detector"]["data"];
+        ///scan->setData("intensities", "Detector", detector.toQString());
+
+
         // Set some common parameters
         // find a better way to get the size of all the scans!
         // numPoints?
@@ -82,7 +87,11 @@ void As::ScanArray::fillEmptyArrays()
                     QStringList list;
                     for (int i = 0; i < size; ++i) {
                         list.append(data); }
-                    scan->setData(itemKey, subitemKey, list.join(" ")); } } } } }
+                    scan->setData(itemKey, subitemKey, list.join(" ")); } } } }
+
+
+
+}
 
 /*!
 Sets the unpolarised neutron data based on the polarised neutron diffraction
