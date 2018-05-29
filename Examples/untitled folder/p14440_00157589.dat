@@ -1,0 +1,289 @@
+### NICOS data file, created at 2018-05-15 00:20:05
+#                    number : 157589
+#                  filename : p14440_00157589.dat
+#                  filepath : /data/2018/p14440/data/p14440_00157589.dat
+#                      info : contscan(sth, 28, 31, 0.1000, 1)
+### Experiment information
+#          Exp_localcontact : V. Hutanu <vladimir.hutanu@frm2.tum.de>
+#                 Exp_title : title of experiment p14440
+#              Exp_proposal : p14440
+#                 Exp_users : main proposer
+#                Exp_remark : 
+### Sample and alignment
+#           Sample_ubmatrix : ([-0.13232069673177665, 0.12785575059334164, -0.0010523635102473062], [-0.135357532437477, -0.12492973233135993, 0.00298609869434119], [0.002015348320900438, 0.003861219992175574, 0.13146187943898396])
+#               Sample_laue : 1
+#         Sample_samplename : HoFeO3
+#              Sample_alpha : 90.0
+#               Sample_beta : 90.0
+#                  Sample_b : 5.59284116331
+#              Sample_gamma : 90.0
+#                  Sample_c : 7.60456273764
+#                  Sample_a : 5.28262017961
+#            Sample_bravais : P
+### Instrument setup
+#       wavelength_reltheta : False
+#           POLI_instrument : POLI
+#              POLI_website : http://www.mlz-garching.de/poli
+#          wavelength_order : 1
+#                   B_alias : B_jvm2
+#                   T_alias : T_jvm2_vti
+#                  POLI_doi : http://dx.doi.org/10.17815/jlsrf-1-22
+#                  Ts_alias : T_jvm2_stick
+#     wavelength_hfocuspars : 0.0
+#        wavelength_focmode : manual
+#            POLI_operators : RWTH Aachen University
+#         wavelength_mosaic : 0.5 deg
+#          POLI_responsible : V. Hutanu <vladimir.hutanu@frm2.tum.de>
+#     wavelength_vfocuspars : 0.0
+#                 sth_alias : sth_jvm2
+#         wavelength_dvalue : 3.355 A
+#             POLI_facility : MLZ
+### Offsets
+#               chi2_offset : 0.00 deg
+#              omega_offset : 0.00 deg
+#               chi1_offset : 0.00 deg
+#           stz_jvm2_offset : 0.000 mm
+#              gamma_offset : 0.00 deg
+#                sth_offset : -1.320 deg
+#         liftingctr_offset : 0.00 deg
+#             ytrans_offset : 0.00 mm
+#             xtrans_offset : 0.00 mm
+#           sth_jvm2_offset : -1.320 deg
+### Limits
+#            cuv_userlimits : (0.00, 173.00) kstep
+#     T_jvm2_vti_userlimits : (0.000, 320.000) K
+#            x_m_userlimits : (0.00, 100.00) kstep
+#       sth_jvm2_userlimits : (-358.680, 361.320) deg
+#          omega_userlimits : (-180.00, 180.00) deg
+#        theta_m_userlimits : (0.00, 1300.00) kstep
+#            cuh_userlimits : (0.00, 152.00) kstep
+#          chi_m_userlimits : (0.00, 12.70) kstep
+#             Ts_userlimits : (0.000, 320.000) K
+# T_jvm2_vti_heater_userlimits : (0.000, 100.000) %
+#          gamma_userlimits : (2.26, 120.36) deg
+#            bmv_userlimits : (114.50, 188.00) mm
+# T_jvm2_stick_heater_userlimits : (0.000, 100.000) %
+#         xtrans_userlimits : (-15.00, 15.00) mm
+#       cam_temp_userlimits : (-10.000, 30.000) degC
+#     wavelength_userlimits : (0.100, 3.000) A
+#         B_jvm2_userlimits : (-8.000, 8.000) T
+# T_jvm2_htstick_userlimits : (0.000, 800.000) K
+#    jvm2_pdewar_userlimits : (0.000, 1030.000) mbar
+#              T_userlimits : (0.000, 320.000) K
+#            bmh_userlimits : (6.50, 80.00) mm
+#     liftingctr_userlimits : (-4.01, 25.41) deg
+#       stz_jvm2_userlimits : (-24.500, 24.500) mm
+#           chi1_userlimits : (-5.00, 3.00) deg
+#            sth_userlimits : (-358.680, 361.320) deg
+#  T_jvm2_vti_nv_userlimits : (0.000, 100.000) %
+#   T_jvm2_stick_userlimits : (0.000, 320.000) K
+#           chi2_userlimits : (-5.00, 5.00) deg
+#              B_userlimits : (-8.000, 8.000) T
+#      changer_m_userlimits : (0.00, 4000.00) kstep
+#         ytrans_userlimits : (-15.00, 15.00) mm
+### Precisions/tolerances
+#            chi2_precision : 0.01 deg
+#           chi_m_precision : 0.01 kstep
+#        sth_jvm2_precision : 0.005 deg
+#        stz_jvm2_precision : 0.010 mm
+#             x_m_precision : 0.01 kstep
+#             cuv_precision : 0.00 kstep
+#      wavelength_precision : 0.012 A
+#      liftingctr_precision : 0.01 deg
+#               B_precision : 0.010 T
+#     jvm2_pdewar_precision : 0.100 mbar
+#          B_jvm2_precision : 0.010 T
+#        jvm2_LN2_precision : 0.000 %
+#          xtrans_precision : 0.01 mm
+#           gamma_precision : 0.01 deg
+#             bmv_precision : 0.20 mm
+#             sth_precision : 0.005 deg
+#            chi1_precision : 0.01 deg
+#         theta_m_precision : 0.10 kstep
+#        jvm2_LHe_precision : 0.000 %
+#             cuh_precision : 0.00 kstep
+#               T_precision : 0.100 K
+#  jvm2_Tcoldhead_precision : 0.000 K
+#              Ts_precision : 0.100 K
+#      jvm2_Bhall_precision : 0.000 T
+#  T_jvm2_htstick_precision : 0.100 K
+#           omega_precision : 0.01 deg
+#          ytrans_precision : 0.01 mm
+#             bmh_precision : 0.20 mm
+#    T_jvm2_stick_precision : 0.100 K
+#       changer_m_precision : 0.10 kstep
+#       jvm2_Tmag_precision : 0.000 K
+#     jvm2_Urecon_precision : 0.000 V
+#      T_jvm2_vti_precision : 0.100 K
+### Device status
+#     T_jvm2_htstick_status : error: sensor open circuit, heater open circuit
+#                cuh_status : ok: ON [PosOk Sync]
+#                 bm_status : ok: horizontal=ON [PosOk], vertical=ON [PosOk Sync]
+#     jvm2_Tcoldhead_status : ok
+#          jvm2_Tmag_status : ok
+#                cuv_status : ok: ON [PosOk Sync]
+#               chi1_status : ok: ON [PosOk]
+#          changer_m_status : ok: ON [PosOk Sync]
+#         T_jvm2_vti_status : ok: ok
+#        jvm2_Urecon_status : ok
+#       T_jvm2_stick_status : ok: ok
+#                sth_status : busy: enabled, homed, moving
+#                det_status : busy: timer=counting, mon1=counting, mon2=counting, ctr1=counting
+#                  B_status : ok: ok
+#               chi2_status : ok: ON [PosOk]
+#      T_jvm2_vti_nv_status : ok
+#           camimage_status : ok: idle
+#           camtimer_status : ok: idle
+#              chi_m_status : ok: ON [PosOk]
+#               POLI_status : busy: mono=(theta=idle, twotheta=idle), omega=enabled, homed, moving, nu=motor halted, gamma=ON [PosOk]
+#           stz_jvm2_status : ok
+#         liftingctr_status : ok: motor halted
+#                cam_status : ok: camimage=idle, camtimer=idle
+#                 bp_status : ok: left=ON [PosOk], right=ON [PosOk], bottom=ON [PosOk], top=ON [PosOk]
+#             B_jvm2_status : ok: ok
+#                bmh_status : ok: ON [PosOk]
+#  T_jvm2_vti_heater_status : ok
+#                x_m_status : ok: ON [PosOk]
+#           jvm2_LN2_status : ok
+#         jvm2_Bhall_status : ok
+# T_jvm2_stick_heater_status : ok
+#         wavelength_status : ok: theta=idle, twotheta=idle
+#             xtrans_status : ok: ON [PosOk]
+#           jvm2_LHe_status : ok
+#      I_jvm2_supply_status : ok
+#           cam_temp_status : ok: cooling on
+#              Space_status : ok: 1419.81 GiB free
+#                  T_status : ok: ok
+#                bmv_status : ok: ON [PosOk Sync]
+#             Sample_status : ok
+#                 Ts_status : ok: ok
+#              gamma_status : ok: ON [PosOk]
+#            Shutter_status : ok: remote
+#       ReactorPower_status : ok
+#           sth_jvm2_status : busy: enabled, homed, moving
+#             ytrans_status : ok: ON [PosOk]
+#            theta_m_status : ok: ON [PosOk]
+#              omega_status : ok: ON [PosOk Sync]
+#        jvm2_pdewar_status : warn: ok, above user limit (1030.000 mbar)
+### Detector preset information
+#                cam_preset : 5.0 s
+#                  cam_mode : time
+#                det_preset : 3600.0 s
+#                  det_mode : time
+### Device positions and sample environment state
+#          T_jvm2_htstick_p : 20.0
+#       T_jvm2_stick_window : 60.0 s
+#        jvm2_pdewar_window : 60.0 s
+#        ReactorPower_value : 19.9 MW
+#           changer_m_value : 180.00 kstep
+#            T_jvm2_stick_d : 0.0
+#           jvm2_Tmag_value : 4.587 K
+#   T_jvm2_vti_heater_value : 65.437 %
+#            jvm2_LN2_value : 714.286 %
+#      jvm2_Tcoldhead_value : 4.303 K
+#     T_jvm2_htstick_window : 60.0 s
+#                  bm_value : 49.93 159.99 mm
+#                  T_window : 60.0 s
+#                chi2_value : 0.00 deg
+#                 sth_value : 28.075 deg
+#                  Ts_value : 234.948 K
+#               Space_value : 1419.812 GiB
+#              T_jvm2_vti_d : 0.0
+#     T_jvm2_stick_setpoint : 2.0
+#          T_jvm2_vti_value : 233.287 K
+#          wavelength_value : 0.892 A
+#             Shutter_value : open
+#            sth_jvm2_value : 28.075 deg
+#                 bmh_value : 49.93 mm
+#   T_jvm2_vti_heateroutput : 65.4006
+#             jvm2_pdewar_i : 0.3
+#                   T_value : 233.287 K
+#             jvm2_pdewar_p : 0.05
+#          jvm2_Bhall_value : 0.028 T
+#      T_jvm2_htstick_value : 815.000 K
+#            T_jvm2_stick_p : 120.0
+#               omega_value : -90.00 deg
+#       T_jvm2_vti_nv_value : 5.350 %
+#   T_jvm2_htstick_setpoint : 70.0
+#                      Ts_i : 0.3
+#                      Ts_d : 0.0
+#              T_jvm2_vti_i : 1.1
+#              Sample_value : HoFeO3
+# T_jvm2_stick_heater_value : 0.000 %
+#            jvm2_LHe_value : 46.484 %
+#                 bmv_value : 159.99 mm
+#                   B_value : -0.000 T
+#           Ts_heateroutput : 0.0
+#              T_jvm2_vti_p : 5.0
+#               gamma_value : 21.52 deg
+#         jvm2_pdewar_value : 1062.116 mbar
+#  jvm2_pdewar_heateroutput : 0.0
+#       I_jvm2_supply_value : 0.001 A
+#                T_setpoint : 233.29
+#            cam_temp_value : -6.007 degC
+#              ytrans_value : -0.00 mm
+#        T_jvm2_stick_value : 234.948 K
+#      jvm2_pdewar_setpoint : 1027.5
+#                chi1_value : 0.00 deg
+#             jvm2_pdewar_d : 0.0
+#                       T_d : 0.0
+#              xtrans_value : 0.00 mm
+#               Ts_setpoint : 2.0
+#          T_jvm2_htstick_d : 0.6
+#                      Ts_p : 120.0
+#            stz_jvm2_value : 0.000 mm
+#              B_jvm2_value : -0.000 T
+# T_jvm2_htstick_heateroutput : 0.0042
+#                 Ts_window : 60.0 s
+#             theta_m_value : 15.00 kstep
+#                       T_p : 5.0
+#         jvm2_Urecon_value : 0.001 V
+#            T_heateroutput : 65.4006
+#                 cuv_value : 110.00 kstep
+#                 cuh_value : 65.00 kstep
+#          liftingctr_value : 0.39 deg
+#               chi_m_value : 6.20 kstep
+# T_jvm2_stick_heateroutput : 0.0
+#       T_jvm2_vti_setpoint : 233.29
+#                       T_i : 1.1
+#            T_jvm2_stick_i : 0.3
+#          T_jvm2_htstick_i : 1.0
+#                POLI_value : [1.9690, 1.0667, -0.0028] rlu rlu rlu
+#         T_jvm2_vti_window : 60.0 s
+#                 x_m_value : 52.00 kstep
+#                  bp_value : 18.00 0.00 11.00 7.00 mm
+### Scan data
+# sth	Ts	T	B	;	timer	mon1	mon2	ctr1
+# deg	K	K	T	;	s	cts	cts	cts
+28.036	234.935	233.285	-0.000	;	1.02	29232	0	388
+28.124	234.935	233.286	-0.000	;	1.01	28947	0	363
+28.224	234.933	233.287	-0.000	;	1.01	28706	0	411
+28.324	234.933	233.287	-0.000	;	1.00	28883	0	367
+28.424	234.932	233.286	-0.000	;	1.00	28692	0	420
+28.524	234.931	233.286	-0.000	;	1.00	28648	0	408
+28.624	234.928	233.285	-0.000	;	1.01	29211	0	456
+28.724	234.925	233.283	-0.000	;	0.99	28487	0	417
+28.824	234.926	233.283	-0.000	;	1.00	28737	0	563
+28.925	234.926	233.283	-0.000	;	1.00	28608	0	931
+29.025	234.923	233.284	-0.000	;	1.00	28965	0	1360
+29.125	234.922	233.285	-0.000	;	1.01	28806	0	2120
+29.225	234.923	233.284	-0.000	;	1.00	28678	0	2739
+29.325	234.921	233.282	-0.000	;	1.01	29122	0	4428
+29.426	234.917	233.281	-0.000	;	1.00	28891	0	5356
+29.526	234.916	233.282	-0.000	;	1.00	29143	0	6407
+29.627	234.916	233.283	-0.000	;	1.00	28964	0	6172
+29.727	234.916	233.283	-0.000	;	1.01	28789	0	5881
+29.828	234.912	233.284	-0.000	;	1.00	28823	0	4386
+29.928	234.909	233.286	-0.000	;	1.00	28674	0	3555
+30.028	234.909	233.287	-0.000	;	1.00	28870	0	2523
+30.128	234.909	233.286	-0.000	;	1.00	28828	0	1685
+30.228	234.909	233.284	-0.000	;	1.00	29216	0	690
+30.328	234.906	233.282	-0.000	;	1.00	28607	0	438
+30.428	234.904	233.282	-0.000	;	1.00	29068	0	411
+30.529	234.903	233.283	-0.000	;	1.00	29201	0	356
+30.629	234.902	233.281	-0.000	;	1.01	29072	0	391
+30.729	234.901	233.282	-0.000	;	1.00	28983	0	346
+30.829	234.902	233.283	-0.000	;	1.00	28727	0	375
+30.928	234.903	233.285	-0.000	;	1.00	29044	0	333
+30.988	234.900	233.286	-0.000	;	1.00	28874	0	337
+### End of NICOS data file p14440_00157589.dat

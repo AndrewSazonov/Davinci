@@ -78,13 +78,13 @@ As::SaveHeaders::SaveHeaders(QString type,
             m_addHeader = true; } }
 
     else if (type.contains("shelx")) {
-        m_name   << "H"  << "K"  << "L"  << "Sf2"  << "Sf2Err";
-        m_format << "4i" << "4i" << "4i" << "8.2f" << "8.2f"; }
+        m_name   << "H"  << "K"  << "L"  << "Sf2"  << "Sf2Err" << "Batch" << "S0X"  << "S2X"  << "S0Y"  << "S2Y"  << "S0Z"  << "S2Z";
+        m_format << "4i" << "4i" << "4i" << "8.2f" << "8.2f"   << "4i"    << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f"; }
 
     else if (type.contains("tbar")) {
         // theta here instead of 2theta?! AND order omega, theta or theta, omega?!
-        m_name   << "Scan" << "H"  << "K"  << "L"  << "Sf2"   << "Sf2Err" << "2Theta" << "Omega" << "Chi"  << "Phi";
-        m_format << "6i"   << "4i" << "4i" << "4i" << "10.2f" << "10.2f"  << "8.2f"   << "8.2f"  << "8.2f" << "8.2f"; }
+        m_name   << "Scan" << "H"  << "K"  << "L"  << "Sf2"   << "Sf2Err" << "Theta" << "Omega" << "Chi"  << "Phi"  << "Temperature" << "Psi"   << "Fwhm";
+        m_format << "6i"   << "4i" << "4i" << "4i" << "10.2f" << "10.2f"  << "8.2f"  << "8.2f"  << "8.2f" << "8.2f" << "10.2f"       << "12.2f" << "13.4f"; }
 
     else if (type.contains("ccsl")) {
         m_name   << "Scan" << "H"  << "K"  << "L"  << "Omega" << "Gamma" << "Nu"   << "FR"    << "FRerr" << "|FR-1|/FRerr" << "Temperature" << "Magnetic field";

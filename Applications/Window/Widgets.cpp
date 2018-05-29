@@ -158,25 +158,31 @@ QTabWidget *As::Window::createTabsWidget()
     m_tabsWidget->setObjectName("mainTabs");
     m_tabsWidget->setTabsClosable(false);
 
+    // Create single tab by default: inputTextWidget
     m_tabsWidget->addTab(createInputTextWidget(), "Input Text");
 
     /*
     // Create single tab by default: inputTextWidget
     m_inputTextWidget = new As::TextEditor;
     m_inputTextWidget->setObjectName("inputTextWidget");
-
-//    connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChanged_Slot()));
-//    connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine_Slot()));
     m_tabsWidget->addTab(m_inputTextWidget, "Input Text");
+    connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChanged_Slot()));
+    connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine_Slot()));
     */
+
     // Autohide tab-bar if only one tab exists
-////    m_tabsWidget->setTabBarAutoHide(true);
-    //// update currentTab if current tab is changed
-    ////connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(m_tabsWidgetCurrentChanged(int)));
+    //m_tabsWidget->setTabBarAutoHide(true);
+
+    // Update currentTab if current tab is changed
+    //connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(m_tabsWidgetCurrentChanged(int)));
+
     // Show or hide sidebar group boxes depends on the selected tab of m_tabsWidget
-//    connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(showHideSidebarGroups_Slot()));
     connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::showOrHideSidebarBlocks_Slot); // Error in Linux
+    //connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(showHideSidebarGroups_Slot()));
     //connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(showOrHideSidebarBlocks_Slot(int)));
+
+    // Update output table if nesessary
+    connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::createFullOutputTableModel_Slot);
 
     // Return
     return m_tabsWidget;

@@ -55,6 +55,7 @@ As::Console::Console()
     m_scans->extractInputData();
     m_scans->fillEmptyArrays();
     m_scans->indexPeaks();
+    m_scans->calcDirectionCosines();
     m_scans->preTreatData();
     m_scans->treatData();
 

@@ -225,6 +225,8 @@ As::GroupBox *As::Window::create_Common_ChangeCurrentScanGroup()
     excludeScan->setChecked(false);
     connect(excludeScan, &As::CheckBox::toggled, this, &As::Window::excludeScan_Slot);
     connect(this, &As::Window::excludeScanStateChanged_Signal, excludeScan, &As::CheckBox::setCheckedSilently);
+    ///connect(this, &As::Window::excludeScanStateChanged_Signal, this, &As::Window::createFullOutputTableModel_Slot);
+    connect(excludeScan, &As::CheckBox::stateChanged, this, &As::Window::createFullOutputTableModel_Slot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(scanBlock);
@@ -855,38 +857,60 @@ As::GroupBox *As::Window::create_Output_FormatGroup(const QString &objectName,
 }
 
 /*!
+Shows or hide sidebar group boxes depends on the selected tab of mainTabs.
+*/
+/*
+void As::Window::showOrHideSidebarBlocks_Slot333(const int index)
+{
+    ADEBUG << "index:" << index;
+
+    // Show the required blocks only
+    if (index == 3) {
+        m_textControlsBlock->show();
+        m_textSettingsBlock->show();
+    }
+
+}
+*/
+
+/*!
 Returns the table model for the program output.
 */
+// called when switch to any tab in m_tabsWidget. change to m_outputTableWidget only !?
 void As::Window::createFullOutputTableModel_Slot()
 {
     ADEBUG;
 
-    if (m_outputTableWidget) {
+    // Exit if no m_outputTableWidget exist yet
+    if (!m_outputTableWidget)
+        return;
 
-        //ADEBUG << (*currentScan())["number"]["Excluded"]["data"];
+    // Create full output table for every scan
+    m_scans->createFullOutputTable();
 
-        // Number of columns and rows
-        const int columnCount = m_scans->m_outputTableHeaders.size();
-        const int rowCount = m_scans->size();
+    // Number of columns and rows for the required table
+    const int columnCount = m_scans->m_outputTableHeaders.size();
+    const int rowCount = m_scans->size();
 
-        // Create model
-        auto tableModel = new QStandardItemModel;
-        tableModel->setRowCount(qMax(columnCount, 50));
-        tableModel->setColumnCount(qMax(rowCount, 15));
+    // Create model
+    auto tableModel = new QStandardItemModel;
+    tableModel->setRowCount(rowCount);
+    tableModel->setColumnCount(columnCount);
 
-        // Set headers
-        for (int iColumn = 0; iColumn < columnCount; ++iColumn)
-            tableModel->setHorizontalHeaderItem(iColumn, new QStandardItem(m_scans->m_outputTableHeaders[iColumn]));
+    // Set headers
+    for (int iColumn = 0; iColumn < columnCount; ++iColumn)
+        tableModel->setHorizontalHeaderItem(iColumn, new QStandardItem(m_scans->m_outputTableHeaders[iColumn]));
 
-        // Set values
-        for (int iRow = 0; iRow < rowCount; ++iRow) {
-            for (int iColumn = 0; iColumn < columnCount; ++iColumn) {
-                if (iColumn == 0)
-                    ADEBUG << iRow << iColumn << m_scans->m_outputTableData[iRow][iColumn];
-                tableModel->setItem(iRow, iColumn, new QStandardItem(m_scans->m_outputTableData[iRow][iColumn]));
-                tableModel->item(iRow, iColumn)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter); } }
+    // Set values
+    for (int iRow = 0; iRow < rowCount; ++iRow) {
+        for (int iColumn = 0; iColumn < columnCount; ++iColumn) {
+            tableModel->setItem(iRow, iColumn, new QStandardItem(m_scans->m_outputTableData[iRow][iColumn]));
+            tableModel->item(iRow, iColumn)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter); } }
 
-        // Set model
-        m_outputTableWidget->setModel(tableModel); }
+    // Set model
+    m_outputTableWidget->setModel(tableModel);
+
+    // Highlight row with current scan data
+    update_OutputTable_Highlight(currentScanIndex()-1);
 }
 

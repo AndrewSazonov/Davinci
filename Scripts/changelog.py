@@ -4,9 +4,9 @@ from functions import *
 
 # ChangelogArticle
 class ChangelogArticle:
-    
+
     __slots__ = ['version', 'date', 'list']
-    
+
     def __init__(self, version='', date='', list=[]):
         self.version = version
         self.date = date
@@ -24,7 +24,7 @@ class Changelog:
 
     def __iter__(self):
         return self
-    
+
     def __next__(self):
         self.idx += 1
         try:
@@ -50,7 +50,7 @@ class Changelog:
         #self.all_articles.append(self.last_article)
 
     def add_articles(self):
-    
+
         self.add(version="1.0.0",
                  date="2017-12-09",
                  list=[ 'First release'])
@@ -77,6 +77,11 @@ class Changelog:
                         'Adds user manual and report issue links to the Help menu',
                         'Adds a program icon and desktop file for the Linux version'])
 
-
-
-
+        self.add(version="1.0.5",
+                 date="2018-05-??",
+                  list=[ 'Adds calculation of the direction cosines (Issue #3)', # update manual
+                         'Adds reading of Psi angle from the HEiDi instrument data collection files' # update manual
+                         'Adds natural sort order and sort by date and time to the table widgets' # update manual
+                         'Fixes calculation of the Phi angle in the 4-circle geometry',
+                         'Fixes an issue with Tbar/D9 output (theta, temperature, psi, fwhm)',
+                         'Fixes some minor issues'])

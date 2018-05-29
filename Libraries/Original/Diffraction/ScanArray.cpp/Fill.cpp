@@ -87,10 +87,10 @@ void As::ScanArray::fillEmptyArrays()
                     QStringList list;
                     for (int i = 0; i < size; ++i) {
                         list.append(data); }
-                    scan->setData(itemKey, subitemKey, list.join(" ")); } } } }
+                    scan->setData(itemKey, subitemKey, list.join(" ")); } } }
 
-
-
+        // Add batch number. All the reflections are considered to belong to just 1st group...
+        scan->setData("number", "Batch", "1"); }
 }
 
 /*!
@@ -101,7 +101,7 @@ void As::ScanArray::calcUnpolData(const QString &section,
                                   const QString &entry,
                                   As::Scan *scan)
 {
-    ADEBUG << section << entry << scan;
+    //////ADEBUG << section << entry << scan;
 
     bool okUp, okDown;
 

@@ -185,8 +185,8 @@ void As::Window::exportOutputTable_Slot()
                 tr("Save Output"),
                 pathWithName + ".csv", // default extension
                 tr("General comma-separated (*.csv);;"
-                   "ShelX97 (3i4,2f8.2) (*.hkl);;"
-                   "TBAR (*.tb);;"
+                   "ShelX (3i4,2f8.2,i4,6f8.5) (*.hkl);;"
+                   "TBAR/D9 (*.tb);;"
                    "CCSL flipping ratios (*.fli)"),
                 &format); // can be a problem on linux: http://www.qtcentre.org/threads/21019-Determining-selected-filter-on-getSaveFileName
 

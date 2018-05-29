@@ -52,7 +52,9 @@ const QColor As::SELECTION_BACKGROUND("#f8f8f8");
 \variable As::DATA_TIME_FORMAT
 \brief the data and time format.
 */
-const QString As::DATA_TIME_FORMAT("yyyy/MM/dd hh:mm");
+//const QString As::DATA_TIME_FORMAT("yyyy/MM/dd hh:mm");
+//const QString As::DATA_TIME_FORMAT("dd-MM-yyyy hh:mm");
+const QString As::DATA_TIME_FORMAT("yyyy-MM-dd hh:mm");
 
 /*!
 \variable As::COUNT_TYPES

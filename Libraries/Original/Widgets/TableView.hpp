@@ -27,6 +27,8 @@ class QStandardItemModel;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
+class SortFilterProxyModel;
+
 class TableView : public QTableView
 {
 
@@ -37,6 +39,23 @@ public:
 
 public slots:
     void setModel(QAbstractItemModel *model) Q_DECL_OVERRIDE;
+
+protected:
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+
+private:
+    As::SortFilterProxyModel *m_proxyModel;
+
+    const int m_minRowHeight = 26;
+    const int m_minRowHeadersWidth = 50;
+    const int m_minColumnWidth = 100;
+
+    int m_tableWidth;
+    int m_tableHeight;
+
+    void adjustRowColumnCount();
+    void setTableHeight();
+    void setTableWidth();
 
 };
 

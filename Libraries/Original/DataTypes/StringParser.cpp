@@ -56,17 +56,24 @@ Destroys the string parser.
 As::StringParser::~StringParser() {}
 
 /*!
-Returns the index position of the first exact match of \a text in
-the \a list, searching forward from index position \a from. Returns
--1 if no item matched.
+Returns the index position of the first element in the \a list which contains \a text,
+searching forward from index position \a from. Returns -1 if no item matched.
 
-By default, this function is case sensitive.
+This function is case sensitive.
 */
 int As::StringParser::indexOfText(const QString &text,
                                   const QStringList &list,
                                   const int from) const
 {
-    return list.indexOf(QRegExp("(^|.+)" + QRegExp::escape(text) + "($|.+)"), from);
+    // very expensive! 350 files take 7 seconds.
+    //return list.indexOf(QRegExp("(^|.+)" + QRegExp::escape(text) + "($|.+)"), from);
+
+    // less expensive. 350 files take 1.1 second.
+    const int size = list.size();
+    for (int i = from; i < size; ++i)
+        if (list[i].contains(text))
+            return i;
+    return -1;
 }
 
 /*!
@@ -90,6 +97,7 @@ void As::StringParser::setFromList(const int index,
                                    const int skip,
                                    const int grab)
 {
+    //ADEBUG;
     const int indexFrom = index + skip;
     const int indexTo = indexFrom + grab;
     operator=(QString());
@@ -115,7 +123,9 @@ void As::StringParser::setFromList(const QString &text,
 {
     const int indexFrom = indexOfText(text, list) + skip;
     const int indexTo = indexFrom + grab;
+    //return;
     operator=(QString());
+    //return;
     if (indexFrom != -1 AND indexTo <= list.size()) {
         for (int i = indexFrom; i < indexTo; ++i) {
             QString string = list[i];
@@ -136,6 +146,7 @@ void As::StringParser::setFromList(const QString &textFrom,
                                    const QStringList &list,
                                    const int skip)
 {
+    //ADEBUG;
     const int indexFrom = indexOfText(textFrom, list) + skip;
     const int indexTo = indexOfText(textTo, list);
     operator=(QString());
@@ -148,12 +159,24 @@ void As::StringParser::setFromList(const QString &textFrom,
         remove(QRegExp("\n$")); }
 }
 
+void As::StringParser::test() {
+
+}
+
+QString As::StringParser::test2(const QString &type,
+                                const QString &del) {
+    return "";
+    return QString();
+}
+
 /*!
 Returns the parsed string based on the given \a type and \a del.
 */
 QString As::StringParser::parseString(const QString &type,
                                       const QString &del)
 {
+    //ADEBUG;
+
     QRegExp before;
     QString after(" ");
 
@@ -202,6 +225,7 @@ QString As::StringParser::parseString(const int index,
                                       const int skip,
                                       const int grab)
 {
+    //ADEBUG;
     setFromList(index, list, skip, grab);
     return parseString(type);
 }
@@ -218,7 +242,9 @@ QString As::StringParser::parseString(const QString &text,
                                       const int skip,
                                       const int grab)
 {
+    //ADEBUG; //!!!
     setFromList(text, list, skip, grab);
+    //return "";
     return parseString(type, text);
 }
 
@@ -234,6 +260,7 @@ QString As::StringParser::parseString(const QString &textFrom,
                                       const QStringList &list,
                                       const int skip)
 {
+    //ADEBUG;
     setFromList(textFrom, textTo, list, skip);
     return parseString(type);
 }

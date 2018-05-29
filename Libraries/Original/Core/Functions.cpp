@@ -47,19 +47,34 @@ qreal As::Sqr(const qreal v)
 }
 
 /*!
+Returns the sign of a real number \a v.
+
+\sa \link https://en.wikipedia.org/wiki/Sign_function Wiki: Sign function \endlink
+*/
+qreal As::Sign(const qreal v)
+{
+    IF (v > 0)
+      return 1.;
+    EI (v < 0)
+      return -1.;
+    EL
+      return 0.;
+}
+
+/*!
 Returns the angle \a angle converted to the range from -180 to +180 degrees.
 */
 qreal As::ToMainAngularRange(const qreal angle)
 {
     // -180 and 180 cases
-    if (angle == -180. OR angle == 180.)
+    IF (angle == -180. OR angle == 180.)
         return angle;
     // Other cases
-    if (angle > 0.)
+    IF (angle > 0.)
         return std::fmod(angle + 180., 360.) - 180.;
-    else if (angle < 0.)
+    EI (angle < 0.)
         return std::fmod(angle - 180., 360.) + 180.;
-    else /* angle == 0. */
+    EL /* angle == 0. */
         return 0.;
 }
 
@@ -102,6 +117,7 @@ QString As::ToHumanDate(const QString &string)
 /*!
 Returns the QDateTime variable obtained from the given \a string.
 */
+// not in use?!
 QDateTime As::ToDateTime(const QString &string)
 {
     QVector<int> vector;
@@ -189,7 +205,7 @@ const QString As::FormatString(const QString &string,
 }
 
 /*!
-Returns the string formatted to a text based on the given of \a string and \a format.
+Returns the string formatted to a text based on the given \a string and \a format.
 */
 const QString As::FormatStringToText(const QString &string,
                                      const QString &format)
@@ -205,8 +221,14 @@ const QString As::FormatStringToText(const QString &string,
         result = QString("%1").arg(string, format.size()); }
     // string or float (real) number or integer number
     EI (format.contains("s") OR format.contains("f") OR format.contains("i")) {
-        QStringList list = format.split(QRegExp("[^0-9]"), QString::SkipEmptyParts);
-        result = QString("%1").arg(string, QString(list[0]).toInt()); }
+        const QStringList list = format.split(QRegExp("[^0-9]"), QString::SkipEmptyParts);
+        const int fieldWidth = QString(list[0]).toInt(); // list[0] contains the full field width
+        const QString substring = string.left(fieldWidth - 1); // cut name if it >= fieldWidth
+        result = QString("%1").arg(substring, fieldWidth); }
+    // show error message if unknown format
+    EL {
+        const QString message = QString("unknown format '%1'").arg(format);
+        Q_ASSERT_X(false, AFUNC, qPrintable(message)); }
     return result;
 }
 
