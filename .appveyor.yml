@@ -17,21 +17,22 @@ branches:
     - linux_gcc
 
 # Build Configuration, i.e. Debug, Release, etc.
-#configuration:
-#  - release
+configuration:
+  - release
   #- debug
 
 # Set environment configuration, https://www.appveyor.com/docs/environment-variables/
 environment:
-  #APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux? fixed
-  CONF: ${CONFIGURATION}        # CONFIGURATION in 'install' doesn't work for Linux?
-  CONF2: $(APPVEYOR_BUILD_FOLDER)\%CONFIGURATION%
-  CONF3: $(CONFIGURATION)
-  CONF4: release
+  #APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux? fixed!
+  CONFIGURATION: release        # CONFIGURATION is not defined for Linux?
+  FTP_DOMAIN:
+    secure: OazIW1ewjkgXi87M1WwXFw==
+  FTP_RELEASES_DIR: releases
+  FTP_REPOS_DIR: repositories/%APPVEYOR_REPO_BRANCH%
   FTP_USER:
-    secure: Ag6W1J98FaP5sNtcmxvlAg==
+    secure: xm8lk4SVBX+9w7NId+uPbA==
   FTP_PASSWORD:
-    secure: LiqyRhdTXjYm5IgchOLjKA==
+    secure: n2L+FUqlb7Okb9lOxVdXAA==
 
 #---------------------------------#
 #        init and install         #
@@ -43,8 +44,8 @@ environment:
 # Scripts that run after cloning repository
 install:
   # Set variables
-  #- export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
-  - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONF:0:1})${CONF:1}"
+  - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
+  #- export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONF:0:1})${CONF:1}"
   # Project
   - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
   - export SCRIPTS_DIR=${APPVEYOR_BUILD_FOLDER}/Scripts
@@ -72,13 +73,7 @@ install:
   - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
   - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${APPVEYOR_REPO_BRANCH}
   # Print variables
-  - echo ${CONF}
-  - echo ${CONF2}
-  - echo ${CONF3}
-  - echo ${CONF4}
   - echo ${CONFIGURATION}
-  - echo $(CONFIGURATION)
-  - echo %CONFIGURATION%
   - echo ${BUILD_TYPE}
   - echo ${APPVEYOR_BUILD_FOLDER}
   - echo ${APPVEYOR_PROJECT_NAME}
@@ -94,24 +89,12 @@ install:
   #- sudo apt-get --quiet --yes update
 #  - sudo apt-get -qq update
 
-# Build Configuration, i.e. Debug, Release, etc.
-configuration:
-  - release
-  #- debug
-
 #---------------------------------#
 #              build              #
 #---------------------------------#
 
 # Install Python, Pip, Qt, QtIFW, etc.
 before_build:
-  - echo ${CONF}
-  - echo ${CONF2}
-  - echo ${CONF3}
-  - echo ${CONF4}
-  - echo ${CONFIGURATION}
-  - echo $(CONFIGURATION)
-  - echo %CONFIGURATION%
   - fgfvfdrrefdd
   # Python
   - python3 -V
