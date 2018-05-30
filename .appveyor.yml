@@ -52,7 +52,7 @@ install:
   - export LINUXDEPLOYQT_EXE=linuxdeployqt
   - export PATH=$PATH:${APPVEYOR_BUILD_FOLDER}
   # QtIFW
-  - export QTIFW_VERSION="3.0.2"
+  - export QTIFW_VERSION="3.0.4"
   - export QTIFW_BASE="QtInstallerFramework-linux-x64"
   - export QTIFW_EXE="${QTIFW_BASE}.run"
   - export QTIFW_URL="https://download.qt.io/official_releases/qt-installer-framework/${QTIFW_VERSION}/${QTIFW_EXE}"
@@ -148,6 +148,3 @@ after_test:
   #- python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}
 
 #  - if %CONFIGURATION%==release python %SCRIPTS_DIR%/upload.py %FTP_DOMAIN% %FTP_USER% %FTP_PASSWORD% %REPO% %FTP_REPOS_DIR%
-
-
-

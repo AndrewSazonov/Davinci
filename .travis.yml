@@ -23,9 +23,12 @@ branches:
 env:
   # Global variables
   global:
-    # ftp user name, password
-    - secure: "tl+D0sXQAHVRKMu5cavYWxAMnFTa2tY6yCdktLX/qJ9ymRvyGYj3ygYq/8CWh5LREoBKjqE5Yzo10+YviH3LhmV1IGXGR0X+kycEhKgChkG8D+Sv2KFhOqE3N//xf6s4p/SgCbr7Ln8tNPm3LgnYS1MeIqTw5wylCPQIWdbKggbO91U7OOCC4t7PJ74xL7U0gxrUt1BZ2iHfyhRLEfVMfkDGcC779KSg57Tmb56mPwNL+RArnwQiVgfmmuOsL9aJpx4thPZ8Km8xAyjlVTa42CH+tFuKvTcWCd9i5q3RHToLrHEf1lNjZj5ERmuxXmwkbvNbEbQ6fuKatY9hWyv9BOgaWycN/h2y4aNQumCmx9KRn77REXPtgScicLO/qAxwBYzrG4KOo25BrpFIOcGtFjFrbTV92OjA595Q+nBs5OfoaBpCoVyvwC24mTtyoWG8+A2Pq64iO/o68EaE3XY3Mg7bDM4V7otgY0zzZsLjE0mLHMTg5FGLKfXmp8VY0MSQMa7Y2sp1idbU9cQvjGlDsw+ALrCXF0/4cIPrMWxwv4Aexx/1x7/y3OppVVFWOafiXB2EcjjNL85flXeemv1h97fIRktAa7rQmKLrC1lJQ01vKO3vWH0mcqkPn3knugOM6/s65lzGuNJIvYH2K5Hf9M9DmDvSKnR8gUROLLmQ8/0="
-    - secure: "Sx2jwO+oGU5DFhLY2k62hslEBDIkHVna0RVsPRo5Ccy+u9bpZa/Pb4ifY4hzLNe+ggxHpHUrSpXrNOLyp2+rawBWNu09zbrsHzeOH0ib+gZrJaibczc/z0i535p4QAkEWiZcJrc2gcNdc74CT4MB/zcFcsabP2AD4CJjRw36wBJCBN346dPA5EDqI05Yf8ZAhBq3TXkgYF1F2sQrOweF00vJt41dDwqzqpauSjwUGlX+g7IlZ1qYZKnBl+aAVh8XKLhXF07IlXdoS5Z5dz8QeiHNTNTetFTbqDlyhw6mlylXkpCh3ca1booZQwqUhZySG6h4x8VHAm0gJlrHa1HzQyBPMUcMqkK0FHUV6WI9y2E7hgBQ6+6rku1K3UHGYBgyXd2/NYaEsXqBg6GvOatNfyydAvKOzFyzOv7T9RoBwOOIUBAdON1sXh/1gnHb1HxUGFjQGHeV6tqdIWdC+o4h9YbsXENsgxLqevZAM+ekKyv+k+RHpD0uvQbXtW2bd2dBWpoV80+SJHHd/MDtuioGT0enDBbud5NbtljV2qassWVtlO5OWgLchbVZSPZiynDnbwH5jOzqW+7/8smWGfH6z8CpH50z9uvbXepB4ptZLAIlN98cTMUf6bntpVAdWhV6Ehe2OAyQcDcKzoQiZVaOXQYbX9Nn7o0+ssqJtz9Kxgo="
+    # FTP_DOMAIN
+    - secure: "tYxdTxP7Pm5ubhqgoMcBAk0yaq0V9RtpB+C045F814Mp2g9ERRUfChDKCbrwaCewgQNJBPaWKbBetnEIyNNCWfMsL3jLQrzQ4NVkg0yb7lTiBdlrIea3R6I7QMT6V2aK/wHPPCxY3PoStJ+V8OxZs6mD3OoblZo8GgnHTHIjEdaZWIo5Ay5GNqQk7M6BYFS92uVQ+QB7sM9ukGs5dL0hxHZVmiQKeAM6VayWPQjkcgMRa72E7r1wXWr3tpFuUMcCSkoJVDXEDNshc+Jxo40cHNZP7nGTuFXD5yvI48FYJ5W29ghc5Zw+0YQKdbtSWYvaWP6kblq0fXtJWKksS+xOP+1JLB1+H6R+ZNFAcd0tzmQhMvAMn1lBaRKzebXiMAgOAHZ594MqCml6N90uihyHJqWQUHKzgutVM5DJRrwdDtDRZWuWhgGVdcRcD+d93MxHJX28YmqMSZMtiZmvD0t/qRqsJZNBlB8uiaFHaZW3gZmPjsbAX4YEris3fHCtSVORMex2LPJSZ3/HEhy4ZLwvC5dAtcQzVv09KU2RX38VNN7Xx1oYbbKMnvMeIRa5TBBwFCRilrH9wAvoNHS7AOUNIRG0gQW37zVhQx8s1Mw/4zhSPdRnQvHrv5NGkETQimTEhFs+v6jtLY1ZGx7IXC2xTdAfEVa/YRXLY0sTXTcCg+o="
+    # FTP_USER
+    - secure: "MH5Wpl/13VVONs9uWRXaK/3fJx6ndZ4Z+ROsNBYcOSbaAKNo5ZgGNSroLIFMOFMcfKxsYwxeA6wG2sQn77guF2V0hpGi4AcQRKXBzbHpoJ+AyD5XnJPMeGIMP1hSxCbVpQPBSYiOomgxDiHJPu9rcOMa6ODmNpPNZdAZQP3DWCwF1TSb7XFxOpU0PHCnMS7KB+AhyRq4N30d+8TJmrkf6A4d+74p98WmEtJdqRub7iI54Xmdnet1i7KRaeUNAGVmq+sppjySwT+jpTy1SN6YsX5BrvvYv0sOljO5lp9HlhiTKFX4BNYJJIzUOjvjAQ5CqCBc2K50SrvhM004s3QdRAXB4Ku6nQ8zdefsD/QG0GQdt0isagnoYcBP3FOOZJhtV13eEkOuC6q+oiyHcJucfrQCrrw2/xby2rpJR3NdIChyodCPMFHNJhHZUuCHnrtNBrIBrvfG9aF4uZtRM+fWUgn9Dh3eM+iYGjJWI1L72l0nNWqwPHiTAT29CL0GkiazId9bQVvDuOodabyhKMdUAhSIbXCk/NrRGLvvA7/5svnVtlf3s5qdsw41jBNbbYwYZ8hw2e2ybIui9DnyXydj/VuEPAYalqlQxI6o+2qHyLTLfhiuB9R8jLJ8xwdI0lESpzZCn/+yn/6qID4xBERqFpiGirOhNbDM1yvu8WLO2tc="
+    # FTP_PASSWORD
+    - secure: "b75ZnvI4ZNfLgNBE7Btqt2v3tfm6vOTVq/2rkmbkZ2BrfkShPyO7LX8LJqjIIxYIMs7P/PP1DitV6MAZ9HwMjjcjMIkSKG9iOjdk1hCTC+yZfnjKbgQpF9V6B8f2RvqK3u0ta0u5P7RlTJ8OaEKhpoafqp/E0rggZKzPGQKnz7+3hmXAwL/yS51fz+RG7bGPAOwzNI6iR1qqYCJdtjKtweduMNUmUkZYHUUzcp4A1oSCOTpkfBq9BfLQL8OhiX2yxWE0K9msPNARUIjAttNxp00qiF09hX0myjwKfaQIR35SxQK29vdKpfbRDIt0fEQm5eMIrSZDpvQzdu73O6JzML5kaaSFyQtV07wb3afhZ1YcKk3kpFatJVwv8KBNyR7O2X/grCKbOAI3o5umljgX5Dmx7FzH7bv/Te2nMaot9dWDuiKkP8Sr0zJCrLgyNEpXYroTCUvk0IdHxtf1K2lg1csLw3oJfgDNI7xbmkmFs8th878VGWnwu4HYUMEU0fFzcV98gntw3Cc8GbO1jvhf+pDXA6ENP42s/uDEFKvrlRbuzXemrpeX+gNpqeSswicxIw/qnQd5wYdpsxyWRHxczzOvnv+xfGjexu4AsHKM881yE79EjnUPoTYpDTuhqgJh/3kVf8AOwFLU2XaNIjPgVss4ETr/oVx/fxF6ZCOQOu8="
   # Build matrix
   matrix:
     - CONFIGURATION=release
@@ -55,7 +58,7 @@ before_install:
   - export LINUXDEPLOYQT_EXE=linuxdeployqt
   - export PATH=$PATH:${TRAVIS_BUILD_DIR}
   # QtIFW
-  - export QTIFW_VERSION="3.0.2"
+  - export QTIFW_VERSION="3.0.4"
   - export QTIFW_BASE="QtInstallerFramework-linux-x64"
   - export QTIFW_EXE="${QTIFW_BASE}.run"
   - export QTIFW_URL="https://download.qt.io/official_releases/qt-installer-framework/${QTIFW_VERSION}/${QTIFW_EXE}"
@@ -68,9 +71,8 @@ before_install:
   - export INSTALLER_ZIP=${INSTALLER}-linux64.zip
   # Upload
   - export REPO=${INSTALLER_DIR}/${TRAVIS_BRANCH}
-  - export FTP_DOMAIN=sazonov.org
-  - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
-  - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${TRAVIS_BRANCH}
+  - export FTP_RELEASES_DIR=releases
+  - export FTP_REPOS_DIR=repositories/${TRAVIS_BRANCH}
   # Print variables
   - echo ${CONFIGURATION}
   - echo ${BUILD_TYPE}
