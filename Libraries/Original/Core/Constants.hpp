@@ -96,7 +96,8 @@ enum InputFileType
 enum OutputFileType
 {
     GENERAL_CSV,
-    SHELX_HKL,
+    SHELX_INT_HKL,
+    SHELX_REAL_HKL,
     TBAR_TB,
     CCSL_DAT,
 };

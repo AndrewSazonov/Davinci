@@ -72,6 +72,11 @@
 
 #include "Window.hpp"
 
+
+#include "RealMatrix9.hpp"
+#include "RealVector.hpp"
+#include <qmath.h>
+
 /*!
 Constructs the main program window.
 */
@@ -83,11 +88,44 @@ As::Window::Window()
     // Print application info
     printAppInfo_Slot();
 
+    QStringList f;
+    //f << "Arial" << "Helvetica" << "Times " << "Courier";
+    //int i = f.indexOf("Times");
+
+    //ADEBUG << f;
+    //ADEBUG << i;
+
+/*
+    QMap<QString, int> map;
+    map.insert("January", 1);
+    map.insert("February", 2);
+    map.insert("March", 3);
+    map.insert("April", 4);
+    map.insert("December", 12);
+
+    ADEBUG << map;
+
+    for (const auto i : map)
+        ADEBUG << i;
+        //ADEBUG << i.key() << ":" << i.value();
+
+    QMap<QString, int>::iterator i;
+    for (i = map.begin(); i != map.end(); ++i)
+        ADEBUG << i.key() << ":" << i.value();
+
+    AEXIT;
+*/
+
+
     // Set output format for qDebug(), etc. if debug-build mode
     //qInstallMessageHandler(0);
     //qInstallMessageHandler(As::DetailedMessageOutput);
     //SetDebugOutputFormat(1);
     SetDebugOutputFormat(IS_DEBUG);
+
+
+
+
 
     // Set program GUI style
     setStyleSheet(createStyleSheet());

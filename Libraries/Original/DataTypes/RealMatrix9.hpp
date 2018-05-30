@@ -48,6 +48,8 @@ public:
     qreal det() const;
     const RealMatrix9 trans() const;
     const RealMatrix9 inv() const;
+    const RealMatrix9 normRows() const;
+    const RealMatrix9 normColumns() const;
 
 };
 

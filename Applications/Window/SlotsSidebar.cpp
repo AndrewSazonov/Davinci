@@ -59,6 +59,7 @@
 */
 void As::Window::gotoScan_Slot(const int index)
 {
+    ADEBUG1;
     ADEBUG << "index:" << index;
 
     // Update the file if nesessary. Should be at the beginning?
@@ -90,7 +91,7 @@ void As::Window::gotoScan_Slot(const int index)
         /**/
     }
 
-    ADEBUG << "==============" << currentScan()->m_numRightBkgPoints;
+    //ADEBUG << "==============" << currentScan()->m_numRightBkgPoints;
 
     // Treat current scan conditions
     if (genericScan()->plotType() == As::Integrated AND currentScan()->plotType() != As::Excluded)
@@ -124,16 +125,12 @@ void As::Window::gotoScan_Slot(const int index)
         update_Plot_ScanCorrectGroup(scanAt(index));
         update_Plot_PeakIntegrateGroup(scanAt(index)); }
 
-    //ADEBUG << "index:" << index;
-
     // Update the output table
     if (m_outputTableWidget) {
-        m_scans->createFullOutputTable();
-        createFullOutputTableModel_Slot();
+        // next to lines are done when we switch to the output table tab only
+        //m_scans->createFullOutputTable(); // slows down scan change via go to
+        //createFullOutputTableModel_Slot(); // further slows down...
         update_OutputTable_Highlight(index-1); }
-
-    //ADEBUG << "index:" << index;
-    //ADEBUG << "==============" << currentScan()->m_numRightBkgPoints;
 }
 
 /*!
@@ -350,7 +347,7 @@ void As::Window::setFontSize_Slot(const int size)
 */
 void As::Window::highlightCurrentScanLines_Slot(const int fileIndex)
 {
-    ADEBUG;
+    //ADEBUG;
 
     if (currentScan() AND fileIndex == currentScan()->fileIndex())
         highlightScanLines_Slot(currentScanIndex());
@@ -361,8 +358,8 @@ void As::Window::highlightCurrentScanLines_Slot(const int fileIndex)
 */
 void As::Window::highlightScanLines_Slot(const int scanIndex)
 {
-    ADEBUG << "scanIndex:" << scanIndex;
-    ADEBUG << "m_scans->scanIndex()" << m_scans->scanIndex();
+    //ADEBUG << "scanIndex:" << scanIndex;
+    //ADEBUG << "m_scans->scanIndex()" << m_scans->scanIndex();
     //ADEBUG << "currentScan()->fileIndex()" << currentScan()->fileIndex();
     //m_inputTextWidget->clearAllSelections();
 
@@ -395,7 +392,7 @@ void As::Window::highlightScanLines_Slot(const int scanIndex)
     if (lines.size() > 0) {
         bool ok;
         const int lineIndex = lines[0].toInt(&ok);
-        ADEBUG << "???????????????????????????" << lineIndex;
+        ///ADEBUG << "???????????????????????????" << lineIndex;
         if (ok)
             m_inputTextWidget->setCursorPosition(lineIndex); }
 
@@ -507,6 +504,7 @@ void As::Window::visualizePlots_Slot()
 
         // Index
         m_scans->indexPeaks();
+        m_scans->calcDirectionCosines();
 
         // Preliminary Treat
         m_scans->preTreatData();
@@ -682,14 +680,14 @@ void As::Window::showOutput_Slot()
         m_scans->treatData();
 
         // Emit signal(s)
-        const int size = m_scans->size();
-        if (size > 0) {
+        //const int size = m_scans->size();
+        //if (size > 0) {
         //    emit newPeaksIntegrated(1);
-        } }
+        //}
+        }
 
-    //
+    // Create/updadate full output data table
     createFullOutputTableModel_Slot();
-    update_OutputTable_Highlight(currentScanIndex()-1);
 
     // Set focus
     m_tabsWidget->setCurrentWidget(m_outputTableWidget);
