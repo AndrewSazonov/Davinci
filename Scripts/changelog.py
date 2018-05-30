@@ -78,10 +78,11 @@ class Changelog:
                         'Adds a program icon and desktop file for the Linux version'])
 
         self.add(version="1.0.5",
-                 date="2018-05-??",
+                 date="2018-05-30",
                   list=[ 'Adds calculation of the direction cosines (Issue #3)', # update manual
                          'Adds reading of Psi angle from the HEiDi instrument data collection files' # update manual
                          'Adds natural sort order and sort by date and time to the table widgets' # update manual
+                         'Adds ShelX output with real (non-integer) Miller indices hkl',
                          'Fixes calculation of the Phi angle in the 4-circle geometry',
-                         'Fixes an issue with Tbar/D9 output (theta, temperature, psi, fwhm)',
+                         'Fixes an issue with Tbar/D9 output (theta + temperature, psi, fwhm)',
                          'Fixes some minor issues'])
