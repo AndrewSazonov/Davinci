@@ -56,6 +56,7 @@ public:
     int indexOfMin() const;
     bool isZero() const;
     RealVector reverse() const;
+    RealVector normalizeBy(const qreal v) const;
     RealVector normalizeBy(const As::RealVector &other) const;
     const RealVector sqrt() const;
     RealVector simplified() const;

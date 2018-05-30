@@ -218,4 +218,7 @@ void As::Window::update_OutputTable_Highlight(const int index)
 
     if (m_outputTableWidget)
         m_outputTableWidget->selectRow(index);
+
+    ADEBUG;
+
 }
