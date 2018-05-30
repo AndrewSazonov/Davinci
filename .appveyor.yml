@@ -94,6 +94,11 @@ install:
   #- sudo apt-get --quiet --yes update
 #  - sudo apt-get -qq update
 
+# Build Configuration, i.e. Debug, Release, etc.
+configuration:
+  - release
+  #- debug
+
 #---------------------------------#
 #              build              #
 #---------------------------------#
