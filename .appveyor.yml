@@ -38,7 +38,7 @@ environment:
   FTP_USER:
     secure: xm8lk4SVBX+9w7NId+uPbA==
   FTP_PASSWORD:
-    secure: n2L+FUqlb7Okb9lOxVdXAA==
+    secure: arC5N3YkavMUc/IWlEqVIDRpCopJ2S6IZS8ksoPq2ek=
 
 #---------------------------------#
 #       build configuration       #
