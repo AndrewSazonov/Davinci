@@ -139,7 +139,7 @@ Returns the input file type.
 */
 As::InputFileType As::ScanArray::filesType()
 {
-    ADEBUG;
+    /////ADEBUG;
 
     return m_inputFileType;
 }

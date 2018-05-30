@@ -521,13 +521,16 @@ void As::Scan::createExtractedTableModel_Slot()
 
     // Make a list of items to be potentially used in the table
     const QStringList items{"indices", "angles", "intensities", "conditions"};
+    //////ADEBUG << items;
 
     // Go through all their subitems
     for (const QString &item : items) {
         const QStringList subitems = this->operator[](item).keys();
+        /////ADEBUG << item << subitems;
         for (const QString &subitem : subitems) {
             bool ok;
             const QString str = data(item, subitem, &ok);
+            //////ADEBUG << "----------------------" << item << subitem << ok;
             if (ok) {
                 headers << subitem;
                 dataTable << str.split(" ");
@@ -545,8 +548,10 @@ void As::Scan::createExtractedTableModel_Slot()
     //auto m_tableModel = new QAbstractItemModel();
 
     ////scan.setExtractedTablesModels_Slot(new QStandardItemModel);
-    m_tableModel->setRowCount(qMax(rowCount, 50));
-    m_tableModel->setColumnCount(qMax(columnCount, 15));
+    ////m_tableModel->setRowCount(qMax(rowCount, 50));
+    ////m_tableModel->setColumnCount(qMax(columnCount, 15));
+    m_tableModel->setRowCount(rowCount);
+    m_tableModel->setColumnCount(columnCount);
     ///ADEBUG;
     // Fill model
     for (int column = 0; column < columnCount; ++column) {

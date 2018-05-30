@@ -2,10 +2,11 @@
 #      general configuration      #
 #---------------------------------#
 
-# Ubuntu 14.04, https://docs.travis-ci.com/user/reference/overview/
 os: linux
-dist: trusty
+#dist: precise # Ubuntu 12.04, https://docs.travis-ci.com/user/reference/overview/
+dist: trusty # Ubuntu 14.04, https://docs.travis-ci.com/user/reference/overview/
 sudo: required
+#group: deprecated-2017Q4 # https://blog.travis-ci.com/2017-12-12-new-trusty-images-q4-launch
 
 compiler: gcc
 
@@ -23,8 +24,8 @@ env:
   # Global variables
   global:
     # ftp user name, password
-    - secure: "kyKbOs5ELlY35uavuWhw5EZNxMdAPv4Y0PWFFTMb907Q7r2SPfE6fNIxIRJcYqfpbZWxG3zNqbzsAFzkcPii64MqF+1hgULRHVanyuaUMT5FLvQ8nvHO0WW0Pil4yrqmOkiKMd1lJkizl/7g9jI9+ZHYGjdFsMeJAm5gaW1F8mjenVL7Hfi1IbPZm+NlVLHq2hFULL+SGQlzo2Nq2BAovqbf0y6ntZmnlWywadV1sfLYSB2ebEDE1u+Aro888FLV8qQwyj026wvLNP9QtdBgT0tnGIMw2g/3M7jJDJ51jUIQ93W4iKCFnjQTx0ttgFh1VIa9sC+SOMDH33ep5BXykQRCrvhCBLzkDet02r84bwZ1V7y4LWqN3q9kZ+gnj0/IsoyopfC8bZrvMuy/3NTAcbmm5BHK9DbeKN58ooD5Jaq7tadHxUY/7uymF3XQa0KSL+w3AOigZsvPUb1AP7+fnvETBERCQjxZp5SiGhgABFnv43HhlMUg9xkDT3WhUdht+hJ+rzpLm/A0LEMk3ytOkaKIvikMBZ3XlL07JsVG2baHKPovBfoSqSI9E2f6clE9CqR6IkJFvqqcrPrbcB+vv5n7gZ2wQn580aMoCF9UmxkNQHokN13GYuYAIxeAdsOLjEypgsimYA67MUCY28VACzuHWzWmT9zEECw52oAtSyE="
-    - secure: "iHdoJjqfYRURWbVxDcM9I2y4JNMVlc7fKn+V1iFjmLfotkcEQoWdLfCiXI44vY9vKEMTylHEMcIru+VAsC/ZZGzUgnP3BZ722PGCWzEUntHXcvajku8Ef2r5tItD4TZHnG/A/VHAaZYLKoMRbm52+uzlVrQGEHxioG5nYy1Dx7N/arlw1sZeDh4zNEncZOkmoGK+F8zA+HhSWraTeeMEoVnsksJTowHFRWsGm/eNDx6ojhszHmlz3T37Zog4fjs8TWyFOjAgQw1fNiBldiPwNigiZqj4nd4wC9rpt475JIAfGzBtsduINud9mTpA+Uam75KQ2G6vsnhPzgUiUXDQJr6WCO8iYUJQfaRx9j08czEr3qEmmyUglXJP0u9H6Syw48KB2GCUiwRk7vp8OpZsGgZ2/V3inlCQlKEEAGuBGD8J6ctFjvwyqRJxdxnXXv6ow5xU7E4kRJDWWtyzIBE1nUbL42XLtbISioMWgfjSamDMU7t3I8F8G9K3uOe2OKNlLipklP/5pGNvCquF7nE7vU7V9280Un626kY5k+Alkr3PhnVHTMcEoZ3vk947rHV95gWHHsYdUqRofGwyguBCc6pyoh7fsJ/iMEEjtWNOiRnUPv4e6lcc82diB9PUpVdD18syhuSxrWsbvtOtqUvz1Iy9geyN/07NQfotpPMRrRA="
+    - secure: "tl+D0sXQAHVRKMu5cavYWxAMnFTa2tY6yCdktLX/qJ9ymRvyGYj3ygYq/8CWh5LREoBKjqE5Yzo10+YviH3LhmV1IGXGR0X+kycEhKgChkG8D+Sv2KFhOqE3N//xf6s4p/SgCbr7Ln8tNPm3LgnYS1MeIqTw5wylCPQIWdbKggbO91U7OOCC4t7PJ74xL7U0gxrUt1BZ2iHfyhRLEfVMfkDGcC779KSg57Tmb56mPwNL+RArnwQiVgfmmuOsL9aJpx4thPZ8Km8xAyjlVTa42CH+tFuKvTcWCd9i5q3RHToLrHEf1lNjZj5ERmuxXmwkbvNbEbQ6fuKatY9hWyv9BOgaWycN/h2y4aNQumCmx9KRn77REXPtgScicLO/qAxwBYzrG4KOo25BrpFIOcGtFjFrbTV92OjA595Q+nBs5OfoaBpCoVyvwC24mTtyoWG8+A2Pq64iO/o68EaE3XY3Mg7bDM4V7otgY0zzZsLjE0mLHMTg5FGLKfXmp8VY0MSQMa7Y2sp1idbU9cQvjGlDsw+ALrCXF0/4cIPrMWxwv4Aexx/1x7/y3OppVVFWOafiXB2EcjjNL85flXeemv1h97fIRktAa7rQmKLrC1lJQ01vKO3vWH0mcqkPn3knugOM6/s65lzGuNJIvYH2K5Hf9M9DmDvSKnR8gUROLLmQ8/0="
+    - secure: "Sx2jwO+oGU5DFhLY2k62hslEBDIkHVna0RVsPRo5Ccy+u9bpZa/Pb4ifY4hzLNe+ggxHpHUrSpXrNOLyp2+rawBWNu09zbrsHzeOH0ib+gZrJaibczc/z0i535p4QAkEWiZcJrc2gcNdc74CT4MB/zcFcsabP2AD4CJjRw36wBJCBN346dPA5EDqI05Yf8ZAhBq3TXkgYF1F2sQrOweF00vJt41dDwqzqpauSjwUGlX+g7IlZ1qYZKnBl+aAVh8XKLhXF07IlXdoS5Z5dz8QeiHNTNTetFTbqDlyhw6mlylXkpCh3ca1booZQwqUhZySG6h4x8VHAm0gJlrHa1HzQyBPMUcMqkK0FHUV6WI9y2E7hgBQ6+6rku1K3UHGYBgyXd2/NYaEsXqBg6GvOatNfyydAvKOzFyzOv7T9RoBwOOIUBAdON1sXh/1gnHb1HxUGFjQGHeV6tqdIWdC+o4h9YbsXENsgxLqevZAM+ekKyv+k+RHpD0uvQbXtW2bd2dBWpoV80+SJHHd/MDtuioGT0enDBbud5NbtljV2qassWVtlO5OWgLchbVZSPZiynDnbwH5jOzqW+7/8smWGfH6z8CpH50z9uvbXepB4ptZLAIlN98cTMUf6bntpVAdWhV6Ehe2OAyQcDcKzoQiZVaOXQYbX9Nn7o0+ssqJtz9Kxgo="
   # Build matrix
   matrix:
     - CONFIGURATION=release
@@ -39,7 +40,13 @@ before_install:
   - export BUILD_TYPE="$(tr '[:lower:]' '[:upper:]' <<< ${CONFIGURATION:0:1})${CONFIGURATION:1}"
   # Project
   - export PROJECT_NAME=$(basename ${TRAVIS_REPO_SLUG})
-  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
+  #- git describe --abbrev=0 --tags
+  #- export LATEST_RELEASE_NAME=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
+  #- export LATEST_RELEASE_NAME=$(git describe --tags $(git rev-list --tags --max-count=1))
+  #- export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
+  #- export LATEST_RELEASE_NAME=$(git describe --tags $(git rev-list --tags='v[0-9].[0-9]*' --max-count=1))
+  - git fetch -t
+  - export LATEST_RELEASE_NAME=$(git tag -l v[0-9].* | tail -n1)
   - export SCRIPTS_DIR=${TRAVIS_BUILD_DIR}/Scripts
   - export RELEASE_DIR=${TRAVIS_BUILD_DIR}/../Build/${BUILD_TYPE}
   # Deploy
@@ -72,29 +79,38 @@ before_install:
   - echo ${LATEST_RELEASE_NAME}
   - echo ${RELEASE_DIR}
   - echo ${SCRIPTS_DIR}
+  - echo ${TRAVIS_BRANCH}
   # Add repositories, update...
+  - sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
   - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
-  - sudo apt-add-repository --yes ppa:beineri/opt-qt592-trusty
-  - sudo apt-get -qq update
+  - sudo apt-get --quiet --yes update
+  #- sudo apt-get -qq update
 
-# Install Python, Pip, Qt, QtIFW
+# Install Python, Pip, Qt, QtIFW, etc.
 install:
+  # Python
   - sudo apt-get --yes install python3.6
-  - curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
-  #- sudo rm /usr/bin/python3
-  #- sudo ln -s /usr/bin/python3.6 /usr/bin/python3 doesn't really help when run python3
+  - sudo ln -s /usr/bin/python3.6 /usr/local/bin/python3
+  #- sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
+  - python3 --version
+  # Pip
+  - wget https://bootstrap.pypa.io/get-pip.py
+  - sudo python3 get-pip.py
+  #- curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
+  - pip3 --version
+  # Misc
   - sudo pip3 install yattag
   - sudo pip3 install ftputil
-  #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
+  # Qt
   - sudo apt-get --yes install qt59base qt59svg
+  #- sudo apt-get --yes install qt59base qt59svg qt59translations qt59webengine
+  # 7zip
   - sudo apt-get --yes install p7zip-full
+  # QtIFW
   - curl -L ${QTIFW_URL} -O
   - chmod a+x ${QTIFW_EXE}
   - QT_QPA_PLATFORM=minimal ${QTIFW_EXE} --script ${QTIFW_SCRIPT} --no-force-installations
-  - echo ${LATEST_RELEASE_NAME}
-  - export LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
-  - echo ${LATEST_RELEASE_NAME}
 
 #---------------------------------#
 #       build configuration       #
@@ -102,29 +118,28 @@ install:
 
 before_script:
   - source /opt/qt*/bin/qt*-env.sh
+  - qmake -v
 
 script:
   # Build
-  - python3.6 ${SCRIPTS_DIR}/makeQtProFiles.py
-  - python3.6 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
-  - ls ${RELEASE_DIR}
+  - python3 ${SCRIPTS_DIR}/makeQtProFiles.py
+  - python3 ${SCRIPTS_DIR}/makeBuild.py ${TRAVIS_BRANCH}
   # Tests
   - ${RELEASE_DIR}/${PROJECT_NAME}Console --help
   - ${RELEASE_DIR}/${PROJECT_NAME}Tests
   # Deployment, https://github.com/probonopd/linuxdeployqt
   - curl -L ${LINUXDEPLOYQT_URL} -o ${LINUXDEPLOYQT_EXE}
   - chmod a+x ${LINUXDEPLOYQT_EXE}
-  - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
-  - python3.6 ${SCRIPTS_DIR}/makeDeploy.py
-  - ls ${DEPLOY_DIR}
+  - unset QTDIR; unset QT_PLUGIN_PATH; unset LD_LIBRARY_PATH
+  - python3 ${SCRIPTS_DIR}/makeDeploy.py
   # Installer
-  - python3.6 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
-  - ls ${INSTALLER_DIR}
+  - python3 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
   - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
 
 #---------------------------------#
 #      upload configuration       #
 #---------------------------------#
-after_success:
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR};
-  - python3.6 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME};
+#after_success:
+#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
+#  #- curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${INSTALLER_ZIP} ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/
+#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}

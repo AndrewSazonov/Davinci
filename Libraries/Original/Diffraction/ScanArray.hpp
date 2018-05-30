@@ -77,6 +77,7 @@ public:
 
     // Indexing methods: ScanArray.cpp/Index.cpp
     void indexPeaks();
+    void calcDirectionCosines();
 
     // Treating methods: ScanArray.cpp/Treat.cpp
     void preTreatData();
@@ -161,7 +162,19 @@ public: // to check qdoc!
     const As::RealVector xyzToAngles(const qreal wavelength,
                                      const qreal x,
                                      const qreal y,
-                                     const qreal z) const;
+                                     const qreal z,
+                                     qreal psi) const;
+    void correctForAzimuthAnglePsi(qreal &omega,
+                                   qreal &chi,
+                                   qreal &phi,
+                                   qreal psi,
+                                   const qreal q2xyz,
+                                   const qreal z) const;
+    const As::RealVector directionCosines(const As::RealMatrix9 &ub,
+                                          qreal twotheta,
+                                          qreal omega,
+                                          qreal chi,
+                                          qreal phi) const;
 
     // Treating methods: ScanArray.cpp/Treat.cpp
     void definePolarisationCrossSection(As::Scan *scan);
