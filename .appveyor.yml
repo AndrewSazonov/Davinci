@@ -21,9 +21,9 @@ configuration:
   - release
   #- debug
 
-# Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
+# Set environment configuration, https://www.appveyor.com/docs/environment-variables/
 environment:
-  APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux?
+  #APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux?
   CONF: ${CONFIGURATION}        # CONFIGURATION in 'install' doesn't work for Linux?
   CONF2: release
   FTP_USER:
