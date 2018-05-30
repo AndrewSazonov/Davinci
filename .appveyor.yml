@@ -2,7 +2,7 @@
 #          configuration          #
 #---------------------------------#
 
-# Image to load
+# Image to load. Default is 16.04? https://www.appveyor.com/docs/getting-started-with-appveyor-for-linux/
 image: ubuntu
 
 # Appveyor build version format
@@ -32,7 +32,7 @@ environment:
   FTP_USER:
     secure: xm8lk4SVBX+9w7NId+uPbA==
   FTP_PASSWORD:
-    secure: n2L+FUqlb7Okb9lOxVdXAA==
+    secure: arC5N3YkavMUc/IWlEqVIDRpCopJ2S6IZS8ksoPq2ek=
 
 #---------------------------------#
 #        init and install         #
