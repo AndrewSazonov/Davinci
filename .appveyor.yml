@@ -25,6 +25,7 @@ configuration:
 environment:
   APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux?
   CONF: ${CONFIGURATION}        # CONFIGURATION in 'install' doesn't work for Linux?
+  CONF2: release
   FTP_USER:
     secure: Ag6W1J98FaP5sNtcmxvlAg==
   FTP_PASSWORD:
@@ -70,6 +71,9 @@ install:
   - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${APPVEYOR_REPO_BRANCH}
   # Print variables
   - echo ${CONF}
+  - echo ${CONF2}
+  - echo ${CONFIGURATION}
+  - echo %CONFIGURATION%
   - echo ${BUILD_TYPE}
   - echo ${APPVEYOR_BUILD_FOLDER}
   - echo ${APPVEYOR_PROJECT_NAME}
@@ -77,6 +81,7 @@ install:
   - echo ${RELEASE_DIR}
   - echo ${SCRIPTS_DIR}
   - echo ${APPVEYOR_REPO_BRANCH}
+  - fgfvfdrrefdd
   # Add repositories, update...
   #- sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
   - sudo add-apt-repository --yes ppa:beineri/opt-qt594-xenial
