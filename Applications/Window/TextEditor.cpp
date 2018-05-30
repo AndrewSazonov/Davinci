@@ -96,7 +96,7 @@ bool equalSelections(const QList<QTextEdit::ExtraSelection> &first,
 */
 void As::TextEditor::setCurrentLineSelections(const QList<QTextEdit::ExtraSelection> &selections)
 {
-    ADEBUG << "selections.size():" << selections.size();
+    //ADEBUG << "selections.size():" << selections.size();
 
     if (selections.size() < 1)
         return;
@@ -121,7 +121,7 @@ QList<QTextEdit::ExtraSelection> As::TextEditor::currentLineSelections() const
 */
 void As::TextEditor::setCurrentScanSelections(const QList<QTextEdit::ExtraSelection> &selections)
 {
-    ADEBUG << "selections.size():" << selections.size();
+    //ADEBUG << "selections.size():" << selections.size();
 
     if (selections.size() < 1)
         return;
@@ -147,7 +147,7 @@ QList<QTextEdit::ExtraSelection> As::TextEditor::currentScanSelections() const
 */
 void As::TextEditor::setFoundTextSelections(const QList<QTextEdit::ExtraSelection> &selections)
 {
-    ADEBUG << "selections.size():" << selections.size();
+    //ADEBUG << "selections.size():" << selections.size();
 
     if (equalSelections(selections, m_foundTextSelections))
         return;
@@ -169,7 +169,7 @@ QList<QTextEdit::ExtraSelection> As::TextEditor::foundTextSelections() const
 */
 void As::TextEditor::setAllExtraSelections()
 {
-    ADEBUG;
+    //ADEBUG;
 
     setExtraSelections(m_currentLineSelections + m_currentScanSelections + m_foundTextSelections);
 }
@@ -179,7 +179,7 @@ void As::TextEditor::setAllExtraSelections()
 */
 void As::TextEditor::getCursorPosition()
 {
-    ADEBUG;
+    //ADEBUG;
 
     const int lineIndex = textCursor().blockNumber() + 1;
     emit cursorPositionChanged(lineIndex);
@@ -190,7 +190,7 @@ void As::TextEditor::getCursorPosition()
 */
 void As::TextEditor::setCursorPosition(int lineIndex)
 {
-    ADEBUG << "lineIndex:" << lineIndex;
+    //ADEBUG << "lineIndex:" << lineIndex;
 
     const int cursorPos = document()->findBlockByLineNumber(lineIndex-1).position();
 
@@ -205,7 +205,7 @@ void As::TextEditor::setCursorPosition(int lineIndex)
 */
 void As::TextEditor::highlightCurrentLine()
 {
-    ADEBUG;
+    //ADEBUG;
 
     QTextEdit::ExtraSelection selection;
     selection.format.setBackground(As::Color(As::blueLightTransparent));

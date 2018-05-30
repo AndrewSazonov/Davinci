@@ -37,6 +37,7 @@ namespace As { //AS_BEGIN_NAMESPACE
 //void Delete(QObject *parent);
 
 qreal Sqr(const qreal v);
+qreal Sign(const qreal v);
 qreal ToMainAngularRange(const qreal angle);
 
 QVector<qreal> ToRealVector(const QString &string);

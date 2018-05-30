@@ -6,19 +6,21 @@ Please, visit [davinci.sazonov.org](http://davinci.sazonov.org) for more details
 
 <!---https://github.com/dwyl/repo-badges--->
 
-[![][16]][11] [![][17]][12] [![][27]][21] [![][28]][22] 
+[![][16]][11] [![][17]][12] [![][27]][22] [![][28]][22] 
 
-[![][31]][30] [![][42]][40] [![][52]][50]
+[![][31]][30] [![][46]][41] [![][52]][50]
 
-<!---Windows Build Status--->
+<!---Appveyor CI Build Status--->
 [10]: https://ci.appveyor.com/project/AndrewSazonov/davinci
 [11]: https://ci.appveyor.com/project/AndrewSazonov/davinci?branch=windows_mingw
 [12]: https://ci.appveyor.com/project/AndrewSazonov/davinci?branch=windows_msvc
+[13]: https://ci.appveyor.com/project/AndrewSazonov/davinci?branch=linux_gcc
 [15]: https://ci.appveyor.com/api/projects/status/605mg4m6l3qfoe6f/branch/master?svg=true
 [16]: https://img.shields.io/appveyor/ci/AndrewSazonov/Davinci/windows_mingw.svg?label=Windows%20MinGW
 [17]: https://img.shields.io/appveyor/ci/AndrewSazonov/Davinci/windows_msvc.svg?label=Windows%20MSVC
+[18]: https://img.shields.io/appveyor/ci/AndrewSazonov/Davinci/linux_gcc.svg?label=Linux%20GCC
 
-<!---Mac/Linux Build Status--->
+<!---Travis CI Build Status--->
 [20]: https://travis-ci.org/AndrewSazonov/Davinci
 [21]: https://travis-ci.org/AndrewSazonov/Davinci/branches
 [22]: https://travis-ci.org/AndrewSazonov/Davinci/branches
@@ -34,8 +36,9 @@ Please, visit [davinci.sazonov.org](http://davinci.sazonov.org) for more details
 
 <!---User Manual---> 
 [40]: https://andrewsazonov.gitbooks.io/davinci/content/
-[41]: https://img.shields.io/badge/User_Manual-v1.0.0-blue.svg
-[42]: Resources/Shields/User_Manual.svg
+[41]: http://davinci.sazonov.org/umanual.html
+[45]: https://img.shields.io/badge/User_Manual-v1.0.0-blue.svg
+[46]: Resources/Shields/User_Manual.svg
 
 <!---License--->
 [50]: https://github.com/AndrewSazonov/Davinci/blob/master/LICENSE

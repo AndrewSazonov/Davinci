@@ -120,13 +120,13 @@ void As::Window::export_Slot()
 
     auto currentTab = m_tabsWidget->currentWidget();
 
-    if (currentTab == m_inputTextWidget)
-        ;
+    //if (currentTab == m_inputTextWidget)
+    //    ;
 
-    else if (currentTab == m_visualizedPlotsWidget)
+    if (currentTab == m_visualizedPlotsWidget)
         exportImage_Slot();
 
-    else if (currentTab == m_outputTableWidget)
+    if (currentTab == m_outputTableWidget)
         exportOutputTable_Slot();
 }
 
@@ -166,6 +166,9 @@ void As::Window::exportOutputTable_Slot()
 {
     ADEBUG;
 
+    // Update output table
+    createFullOutputTableModel_Slot();
+
     // Define the path of the file to be exported.
     // Repetition of console.cpp part!!!!!!!!! fix
     const auto firstScan = m_scans->at(0);
@@ -184,10 +187,11 @@ void As::Window::exportOutputTable_Slot()
                 this,
                 tr("Save Output"),
                 pathWithName + ".csv", // default extension
-                tr("General comma-separated (*.csv);;"
-                   "ShelX97 (3i4,2f8.2) (*.hkl);;"
-                   "TBAR (*.tb);;"
-                   "CCSL flipping ratios (*.fli)"),
+                tr("General comma-separated, real (*.csv);;"
+                   "ShelX with direction cosines, integer (*.hkl);;"
+                   "ShelX with direction cosines, real (*.hkl);;"
+                   "TBAR/D9, integer (*.tb);;"
+                   "CCSL flipping ratios, integer (*.fli)"),
                 &format); // can be a problem on linux: http://www.qtcentre.org/threads/21019-Determining-selected-filter-on-getSaveFileName
 
     // Save selected columns

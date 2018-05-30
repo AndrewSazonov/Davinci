@@ -18,47 +18,26 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AS_WIDGETS_TABLEVIEW_HPP
-#define AS_WIDGETS_TABLEVIEW_HPP
+#ifndef AS_WIDGETS_SORTFILTERPROXYMODEL_HPP
+#define AS_WIDGETS_SORTFILTERPROXYMODEL_HPP
 
-#include <QTableView>
-
-class QStandardItemModel;
+#include <QDate>
+#include <QSortFilterProxyModel>
 
 namespace As { //AS_BEGIN_NAMESPACE
 
-class SortFilterProxyModel;
-
-class TableView : public QTableView
+class SortFilterProxyModel : public QSortFilterProxyModel
 {
+    Q_OBJECT
 
 public:
-    TableView(QWidget *parent = Q_NULLPTR);
-
-    virtual ~TableView();
-
-public slots:
-    void setModel(QAbstractItemModel *model) Q_DECL_OVERRIDE;
+    SortFilterProxyModel(QObject *parent = 0);
 
 protected:
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
-
-private:
-    As::SortFilterProxyModel *m_proxyModel;
-
-    const int m_minRowHeight = 26;
-    const int m_minRowHeadersWidth = 50;
-    const int m_minColumnWidth = 100;
-
-    int m_tableWidth;
-    int m_tableHeight;
-
-    void adjustRowColumnCount();
-    void setTableHeight();
-    void setTableWidth();
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 
 };
 
 } //AS_END_NAMESPACE
 
-#endif // AS_WIDGETS_TABLEVIEW_HPP
+#endif // AS_WIDGETS_SORTFILTERPROXYMODEL_HPP

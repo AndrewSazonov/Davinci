@@ -52,7 +52,9 @@ const QColor As::SELECTION_BACKGROUND("#f8f8f8");
 \variable As::DATA_TIME_FORMAT
 \brief the data and time format.
 */
-const QString As::DATA_TIME_FORMAT("yyyy/MM/dd hh:mm");
+//const QString As::DATA_TIME_FORMAT("yyyy/MM/dd hh:mm");
+//const QString As::DATA_TIME_FORMAT("dd-MM-yyyy hh:mm");
+const QString As::DATA_TIME_FORMAT("yyyy-MM-dd hh:mm");
 
 /*!
 \variable As::COUNT_TYPES
@@ -120,7 +122,8 @@ This enum type describes types of the input files.
 This enum type describes types of the output files.
 
 \value GENERAL_CSV      General comma separated
-\value SHELX_HKL        ShelX
+\value SHELX_INT_HKL    ShelX with direction cosines. Integer HKLs. Format: 3i4, 2f8.2, i4, 6f8.5
+\value SHELX_REAL_HKL   ShelX with direction cosines. Real HKLs. Format: 3f8.3, 2f8.2, i4, 6f8.5
 \value TBAR_TB          Tbar
 \value CCSL_DAT         CCSL
 */
