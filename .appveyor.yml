@@ -23,9 +23,10 @@ configuration:
 
 # Set environment configuration, https://www.appveyor.com/docs/environment-variables/
 environment:
-  #APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux?
+  #APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux? fixed
   CONF: ${CONFIGURATION}        # CONFIGURATION in 'install' doesn't work for Linux?
-  CONF2: release
+  CONF2: %CONFIGURATION%
+  CONF3: release
   FTP_USER:
     secure: Ag6W1J98FaP5sNtcmxvlAg==
   FTP_PASSWORD:
@@ -72,6 +73,7 @@ install:
   # Print variables
   - echo ${CONF}
   - echo ${CONF2}
+  - echo ${CONF3}
   - echo ${CONFIGURATION}
   - echo %CONFIGURATION%
   - echo ${BUILD_TYPE}
@@ -81,14 +83,13 @@ install:
   - echo ${RELEASE_DIR}
   - echo ${SCRIPTS_DIR}
   - echo ${APPVEYOR_REPO_BRANCH}
-  - fgfvfdrrefdd
   # Add repositories, update...
   #- sudo apt-add-repository --yes ppa:beineri/opt-qt593-trusty
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt594-xenial
-  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
+#  - sudo add-apt-repository --yes ppa:beineri/opt-qt594-xenial
+#  - sudo add-apt-repository --yes ppa:jonathonf/python-3.6
   #- sudo add-apt-repository --yes ppa:deadsnakes/ppa
   #- sudo apt-get --quiet --yes update
-  - sudo apt-get -qq update
+#  - sudo apt-get -qq update
 
 #---------------------------------#
 #              build              #
@@ -96,6 +97,12 @@ install:
 
 # Install Python, Pip, Qt, QtIFW, etc.
 before_build:
+  - echo ${CONF}
+  - echo ${CONF2}
+  - echo ${CONF3}
+  - echo ${CONFIGURATION}
+  - echo %CONFIGURATION%
+  - fgfvfdrrefdd
   # Python
   - python3 -V
   # Pip
