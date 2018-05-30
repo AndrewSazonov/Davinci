@@ -17,7 +17,7 @@ install:
   - ps: $env:LATEST_RELEASE_NAME=$(git describe --tags --abbrev=0 --match v*.*.*)
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x86 # 32-bit 
+platform: x86 # 32-bit
 
 # Set environment configuration, https://www.appveyor.com/docs/build-environment/#python
 environment:
@@ -31,13 +31,14 @@ environment:
   INSTALLER_ZIP: $(INSTALLER)-windows32.zip
   REPO: $(INSTALLER_DIR)\%APPVEYOR_REPO_BRANCH%
   SCRIPTS_DIR: $(APPVEYOR_BUILD_FOLDER)\Scripts
-  FTP_DOMAIN: sazonov.org
-  FTP_RELEASES_DIR: davinci.sazonov.org/releases
-  FTP_REPOS_DIR: davinci.sazonov.org/repositories/%APPVEYOR_REPO_BRANCH%
+  FTP_DOMAIN:
+    secure: OazIW1ewjkgXi87M1WwXFw==
+  FTP_RELEASES_DIR: releases
+  FTP_REPOS_DIR: repositories/%APPVEYOR_REPO_BRANCH%
   FTP_USER:
-    secure: Ag6W1J98FaP5sNtcmxvlAg==
+    secure: xm8lk4SVBX+9w7NId+uPbA==
   FTP_PASSWORD:
-    secure: LiqyRhdTXjYm5IgchOLjKA==
+    secure: n2L+FUqlb7Okb9lOxVdXAA==
 
 #---------------------------------#
 #       build configuration       #
