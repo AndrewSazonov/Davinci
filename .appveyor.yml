@@ -25,7 +25,7 @@ configuration:
 environment:
   #APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux? fixed
   CONF: ${CONFIGURATION}        # CONFIGURATION in 'install' doesn't work for Linux?
-  CONF2: %CONFIGURATION%
+  CONF2: $(APPVEYOR_BUILD_FOLDER)\%CONFIGURATION%
   CONF3: $(CONFIGURATION)
   CONF4: release
   FTP_USER:
