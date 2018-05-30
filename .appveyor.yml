@@ -17,8 +17,8 @@ branches:
     - linux_gcc
 
 # Build Configuration, i.e. Debug, Release, etc.
-configuration:
-  - release
+#configuration:
+#  - release
   #- debug
 
 # Set environment configuration, https://www.appveyor.com/docs/environment-variables/
