@@ -26,7 +26,8 @@ environment:
   #APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux? fixed
   CONF: ${CONFIGURATION}        # CONFIGURATION in 'install' doesn't work for Linux?
   CONF2: %CONFIGURATION%
-  CONF3: release
+  CONF3: $(CONFIGURATION)
+  CONF4: release
   FTP_USER:
     secure: Ag6W1J98FaP5sNtcmxvlAg==
   FTP_PASSWORD:
@@ -74,7 +75,9 @@ install:
   - echo ${CONF}
   - echo ${CONF2}
   - echo ${CONF3}
+  - echo ${CONF4}
   - echo ${CONFIGURATION}
+  - echo $(CONFIGURATION)
   - echo %CONFIGURATION%
   - echo ${BUILD_TYPE}
   - echo ${APPVEYOR_BUILD_FOLDER}
@@ -100,7 +103,9 @@ before_build:
   - echo ${CONF}
   - echo ${CONF2}
   - echo ${CONF3}
+  - echo ${CONF4}
   - echo ${CONFIGURATION}
+  - echo $(CONFIGURATION)
   - echo %CONFIGURATION%
   - fgfvfdrrefdd
   # Python
