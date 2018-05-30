@@ -18,6 +18,8 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QtMath>
+
 #include "Functions.hpp"
 #include "Macros.hpp"
 
@@ -167,6 +169,60 @@ const As::RealMatrix9 As::RealMatrix9::inv() const
     const qreal c2 = (m[6] * m[1] - m[0] * m[7]) / det();
     const qreal c3 = (m[0] * m[4] - m[3] * m[1]) / det();
     return RealMatrix9{a1, a2, a3, b1, b2, b3, c1, c2, c3};
+}
+
+/*!
+Returns a matrix with columns normalized to a length of 1.
+*/
+const As::RealMatrix9 As::RealMatrix9::normColumns() const
+{
+    As::RealArray m(*this);
+
+    // Normalization coefficients for every row
+    const qreal k1 = qSqrt(As::Sqr(m[0]) + As::Sqr(m[3]) + As::Sqr(m[6]));
+    const qreal k2 = qSqrt(As::Sqr(m[1]) + As::Sqr(m[4]) + As::Sqr(m[7]));
+    const qreal k3 = qSqrt(As::Sqr(m[2]) + As::Sqr(m[5]) + As::Sqr(m[8]));
+
+    Q_ASSERT_X(k1 != 0, AFUNC, "normalization of 1st matrix column fails (all elements are zeros)");
+    Q_ASSERT_X(k2 != 0, AFUNC, "normalization of 2nd matrix column fails (all elements are zeros)");
+    Q_ASSERT_X(k3 != 0, AFUNC, "normalization of 3rd matrix column fails (all elements are zeros)");
+
+    return RealMatrix9 {m[0]/k1, m[1]/k2, m[2]/k3,
+                        m[3]/k1, m[4]/k2, m[5]/k3,
+                        m[6]/k1, m[7]/k2, m[8]/k3};
+
+}
+
+/*!
+Returns a matrix with rows normalized to a length of 1.
+
+Example:
+\code
+// matrix: (1., 2., 0.)
+//         (3., 4., 0.)
+//         (1., 1., 1.)
+// matrix.normRows(): (0.4472, 0.8944, 0.0000)
+//                    (0.6000, 0.8000, 0.0000)
+//                    (0.5774, 0.5774, 0.5774)
+\endcode
+*/
+const As::RealMatrix9 As::RealMatrix9::normRows() const
+{
+    As::RealArray m(*this);
+
+    // Normalization coefficients for every row
+    const qreal k1 = qSqrt(As::Sqr(m[0]) + As::Sqr(m[1]) + As::Sqr(m[2]));
+    const qreal k2 = qSqrt(As::Sqr(m[3]) + As::Sqr(m[4]) + As::Sqr(m[5]));
+    const qreal k3 = qSqrt(As::Sqr(m[6]) + As::Sqr(m[7]) + As::Sqr(m[8]));
+
+    Q_ASSERT_X(k1 != 0, AFUNC, "normalization of 1st matrix row fails (all elements are zeros)");
+    Q_ASSERT_X(k2 != 0, AFUNC, "normalization of 2nd matrix row fails (all elements are zeros)");
+    Q_ASSERT_X(k3 != 0, AFUNC, "normalization of 3rd matrix row fails (all elements are zeros)");
+
+    return RealMatrix9 {m[0]/k1, m[1]/k1, m[2]/k1,
+                        m[3]/k2, m[4]/k2, m[5]/k2,
+                        m[6]/k3, m[7]/k3, m[8]/k3};
+
 }
 
 /**

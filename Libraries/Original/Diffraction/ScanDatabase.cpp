@@ -46,6 +46,7 @@ As::ScanDatabase::ScanDatabase()
     //  --------------------------------------------------------------------------------------
     set("number", "Scan",      "i",    "",       "Relative index number of the experimental scan");
     set("number", "Excluded",  "i",    "",       "Is current scan excluded (1) or correctly measured (0)");
+    set("number", "Batch",     "i",    "",       "A batch number to distinguish between groups of reflections with separate scale factors");
     //set("number", "file",  "File num",  "g",     "",       "Index number of the file");
 
     //  --------------------------------------------------------------------------------------
@@ -54,6 +55,7 @@ As::ScanDatabase::ScanDatabase()
     //  section   name      format  units     tooltip
     //  --------------------------------------------------------------------------------------
     set("angles", "2Theta", "0.2f", "\u00B0", "two-theta detector angle");
+    set("angles", "Theta",  "0.2f", "\u00B0", "theta detector angle"); // for convenience (tbar, ...)
     set("angles", "Gamma",  "0.2f", "\u00B0", "gamma detector angle");
     set("angles", "Omega",  "0.2f", "\u00B0", "omega instrument angle");
     set("angles", "Nu",     "0.2f", "\u00B0", "nu detector angle");
@@ -61,6 +63,29 @@ As::ScanDatabase::ScanDatabase()
     set("angles", "Chi1",   "0.2f", "\u00B0", "chi1 instrument angle");
     set("angles", "Chi2",   "0.2f", "\u00B0", "chi2 instrument angle");
     set("angles", "Phi",    "0.2f", "\u00B0", "phi instrument angle");
+    set("angles", "Psi",    "0.2f", "\u00B0", "psi instrument angle");
+
+    //  --------------------------------------------------------------------------------------
+    //  Holds the arrays of the direction cosines of incident (s0) and diffracted (s2) beams
+    //  --------------------------------------------------------------------------------------
+    //  section    name   format   units  tooltip
+    //  ---------------- -------------------------------------------------------------
+    set("cosines", "S0X", "0.5f",  "",    "...");
+    set("cosines", "S0Y", "0.5f",  "",    "...");
+    set("cosines", "S0Z", "0.5f",  "",    "...");
+    set("cosines", "S2X", "0.5f",  "",    "...");
+    set("cosines", "S2Y", "0.5f",  "",    "...");
+    set("cosines", "S2Z", "0.5f",  "",    "...");
+
+    //  --------------------------------------------------------------------------------------
+    //  Holds the arrays of the Miller indicies \a h, \a k and \l.
+    //  --------------------------------------------------------------------------------------
+    //  section    name  format   units  tooltip
+    //  --------------------------------------------------------------------------------------
+    set("indices", "H",  "0.3f",  "",    "h Miller index");
+    set("indices", "K",  "0.3f",  "",    "k Miller index");
+    set("indices", "L",  "0.3f",  "",    "l Miller index");
+    //set("indices", "mean", "HKL",  "",    "(hkl) Miller indices");
 
     //  --------------------------------------------------------------------------------------
     //  Holds the experimental conditions.
@@ -97,16 +122,6 @@ As::ScanDatabase::ScanDatabase()
     //set("dateTime", "dateTime", "Date&Time", "dd/MM/yyyy hh:mm", "",    "Date and time of the measurements");
     //set("dateTime", "date",     "Date",      "dd/MM/yyyy",       "",    "Date of the measurements");
     //set("dateTime", "time",     "Time",      "hh:mm",            "",    "Time of the measurements");
-
-    //  --------------------------------------------------------------------------------------
-    //  Holds the arrays of the Miller indicies \a h, \a k and \l.
-    //  --------------------------------------------------------------------------------------
-    //  section    name  format   units  tooltip
-    //  ---------------- -------------------------------------------------------------
-    set("indices", "H",  "0.3f",  "",    "h Miller index");
-    set("indices", "K",  "0.3f",  "",    "k Miller index");
-    set("indices", "L",  "0.3f",  "",    "l Miller index");
-    //set("indices", "mean", "HKL",  "",    "(hkl) Miller indices");
 
     //  --------------------------------------------------------------------------------------
     //  Holds the major measured intensities.

@@ -1,8 +1,18 @@
 # Davinci Version History
 
+## Version 1.0.5 (30 May 2018)
+* Adds calculation of the direction cosines (Issue #3)
+* Adds reading of Psi angle from the HEiDi instrument data collection files
+* Adds natural sort order and sort by date and time to the table widgets
+* Adds ShelX output with real (non-integer) Miller indices hkl
+* Fixes calculation of the Phi angle in the 4-circle geometry
+* Fixes an issue with Tbar/D9 output (theta + temperature, psi, fwhm)
+* Fixes some minor issues
+
 ## Version 1.0.4 (28 Mar 2018)
 * Adds support of the new input format for POLI: polarized NICOS data with adet
 * Adds user manual and report issue links to the Help menu
+* Adds a program icon and desktop file for the Linux version
 
 ## Version 1.0.3 (13 Mar 2018)
 * Fixes issue #2, Not reading new files with Oxford magnet on POLI

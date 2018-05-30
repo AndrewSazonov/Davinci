@@ -274,6 +274,27 @@ As::RealVector As::RealVector::reverse() const
 }
 
 /*!
+Returns a vector with elements divided by the real value \a v.
+
+Example:
+\code
+// vector: [4.0, 9.0, 100.0]
+// v:  2.0
+// vector.normalizeBy(v): [2.0, 4.5, 50.0]
+\endcode
+*/
+As::RealVector As::RealVector::normalizeBy(const qreal v) const
+{
+    Q_ASSERT_X(v != 0., AFUNC, "dividing by zero");
+    if (v == 1.0)
+        return *this;
+    As::RealVector out;
+    for (int i = 0; i < size(); ++i)
+        out.append(this->operator[](i) / v);
+    return out;
+}
+
+/*!
 Returns a vector with elements divided by the respective elements of the \a other vector.
 
 Example:

@@ -45,6 +45,11 @@ void As::ScanArray::fillEmptyArrays()
         calcUnpolData("intensities", "Monitor",   scan);
         calcUnpolData("conditions",  "Time/step", scan);
 
+        ///// test
+        ///As::RealVector detector  = (*scan)["intensities"]["Detector"]["data"];
+        ///scan->setData("intensities", "Detector", detector.toQString());
+
+
         // Set some common parameters
         // find a better way to get the size of all the scans!
         // numPoints?
@@ -82,7 +87,11 @@ void As::ScanArray::fillEmptyArrays()
                     QStringList list;
                     for (int i = 0; i < size; ++i) {
                         list.append(data); }
-                    scan->setData(itemKey, subitemKey, list.join(" ")); } } } } }
+                    scan->setData(itemKey, subitemKey, list.join(" ")); } } }
+
+        // Add batch number. All the reflections are considered to belong to just 1st group...
+        scan->setData("number", "Batch", "1"); }
+}
 
 /*!
 Sets the unpolarised neutron data based on the polarised neutron diffraction
@@ -92,7 +101,7 @@ void As::ScanArray::calcUnpolData(const QString &section,
                                   const QString &entry,
                                   As::Scan *scan)
 {
-    ADEBUG << section << entry << scan;
+    //////ADEBUG << section << entry << scan;
 
     bool okUp, okDown;
 

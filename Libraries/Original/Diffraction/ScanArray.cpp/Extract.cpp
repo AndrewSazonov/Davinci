@@ -107,22 +107,25 @@ void As::ScanArray::extractHeidiData()
                 // Set individual data for every scan in the scan array
 
                 // Indices group
-                int iH = 0; scan->setData("indices", "H", list[iH]);
-                int iK = 1; scan->setData("indices", "K", list[iK]);
-                int iL = 2; scan->setData("indices", "L", list[iL]);
+                const int iH = 0; scan->setData("indices", "H", list[iH]);
+                const int iK = 1; scan->setData("indices", "K", list[iK]);
+                const int iL = 2; scan->setData("indices", "L", list[iL]);
+
+                // Psi angle
+                const int iPsi = 6; scan->setData("angles", "Psi", list[iPsi]);
 
                 // Conditions group
-                int iTimePerStep = 8; scan->setData("conditions", "Time/step", QString::number(list[iTimePerStep].toDouble() / 10));
-                int iTemperature = 10; scan->setData("conditions", "Temperature", list[iTemperature]);
+                const int iTimePerStep = 8; scan->setData("conditions", "Time/step", QString::number(list[iTimePerStep].toDouble() / 10));
+                const int iTemperature = 10; scan->setData("conditions", "Temperature", list[iTemperature]);
 
                 // Supplementary data
-                int iValuesPerBlock = 7;
-                int nValuesPerBlock = list[iValuesPerBlock].toInt();
+                const int iValuesPerBlock = 7;
+                const int nValuesPerBlock = list[iValuesPerBlock].toInt();
 
                 // Read scan step size
                 if (i + 1 < file.size()) {
                     list = file[i + 1].split(" ", QString::SkipEmptyParts);
-                    int iScanStep = 3;
+                    const int iScanStep = 3;
                     if (list.size() > iScanStep) {
                         bool ok;
                         scan->setScanStep(list[iScanStep].toDouble(&ok)); } }
@@ -139,12 +142,12 @@ void As::ScanArray::extractHeidiData()
                 headerMap.append({"intensities", "Monitor",  "Monitor"});
 
                 // Define position of the data to be read
-                int nValuesPerLine = 16;
-                int nCharsPerValue = 5;
-                int nBlocksPerData = 2;
-                int nLinesPerData = qCeil((qreal)nValuesPerBlock / nValuesPerLine * nBlocksPerData);
-                int nLinesToSkip = 2;
-                int iEnd = i + nLinesToSkip + nLinesPerData - 1;
+                const int nValuesPerLine = 16;
+                const int nCharsPerValue = 5;
+                const int nBlocksPerData = 2;
+                const int nLinesPerData = qCeil((qreal)nValuesPerBlock / nValuesPerLine * nBlocksPerData);
+                const int nLinesToSkip = 2;
+                const int iEnd = i + nLinesToSkip + nLinesPerData - 1;
                 if (iEnd < file.size()) {
                     scan->setData("scandata", "data", string.parseString(i, "raw", file, nLinesToSkip, nLinesPerData));
                     scan->setData("scandata", "data", string.splitText(nCharsPerValue, nBlocksPerData));
@@ -327,6 +330,8 @@ void As::ScanArray::extractNicosData()
     // Go through every open file
     for (const QString &fileAsString : m_inputFilesContents.second) {
 
+        //ADEBUG;
+
         // Variables
         const QStringList file = fileAsString.split("\n"); // every file content as a list of strings
         auto scan = new As::Scan; // scan to be added to the scan array
@@ -340,11 +345,18 @@ void As::ScanArray::extractNicosData()
         scan->setAbsoluteFilePath(m_inputFilesContents.first[index]);
 
         // Read (single numbers if any) and set data for the NICOS variables according to the map created above
+        // slow. 30 headerMap lines x 350 files = 10000 iterations
         for (const QStringList &row : headerMap) {
+            //ADEBUG << row;
             for (const QString &name : row[2].split("|")) {
+                //ADEBUG << name << row;
                 const QString value = string.parseString(" " + name + "_value :", "txt", file).split(" ")[0];
-                scan->setData(row[0], row[1], value); } }
-
+                //string.test2("txt", "qwe");
+                //const QString value = string.parseString(QString(" %1_value :").arg(name), "txt", file).split(" ")[0];
+                //QString value = "";
+                scan->setData(row[0], row[1], value);
+            } }
+/**/
         // Read and set other data (both single and not single numbers)
         scan->setData("conditions",  "Date & Time",    string.parseString("### NICOS data file",      "date", file));
         scan->setData("conditions",  "Absolute index", string.parseString("number",                   "num",  file));
@@ -353,12 +365,12 @@ void As::ScanArray::extractNicosData()
         scan->setData("scandata",    "data",           string.parseString("### Scan data", "### End", "mult", file, 3));
         scan->setData("scandata",    "headers",        string.parseString("### Scan data",            "txt",  file, 1));
 
-        ADEBUG;
+        //ADEBUG;
 
         // Read and set data from the scan table created above according to the header map
         extractDataFromTable(scan, headerMap);
 
-        ADEBUG;
+        //ADEBUG;
 
         // Select appropriate data for the monitor
         As::RealVector monitor1 = (*scan)["intensities"]["Monitor1"]["data"];
@@ -387,9 +399,11 @@ void As::ScanArray::extractNicosData()
 
         // Define scan angle name
         findScanAngle(scan);
-
+/**/
         // Append single scan to the scan array
         appendScan(scan); }
+
+    ADEBUG;
 }
 
 
@@ -403,6 +417,7 @@ void As::ScanArray::extractPoliLog()
 /*!
 Extracts the scans from the 6T2 xml data file.
 */
+// UB matrix is also present in the 6T2/5C2 file! Add reading routine!
 void As::ScanArray::extract6t2Data()
 {
     ADEBUG;
