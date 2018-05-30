@@ -28,7 +28,7 @@ env:
     # FTP_USER
     - secure: "MH5Wpl/13VVONs9uWRXaK/3fJx6ndZ4Z+ROsNBYcOSbaAKNo5ZgGNSroLIFMOFMcfKxsYwxeA6wG2sQn77guF2V0hpGi4AcQRKXBzbHpoJ+AyD5XnJPMeGIMP1hSxCbVpQPBSYiOomgxDiHJPu9rcOMa6ODmNpPNZdAZQP3DWCwF1TSb7XFxOpU0PHCnMS7KB+AhyRq4N30d+8TJmrkf6A4d+74p98WmEtJdqRub7iI54Xmdnet1i7KRaeUNAGVmq+sppjySwT+jpTy1SN6YsX5BrvvYv0sOljO5lp9HlhiTKFX4BNYJJIzUOjvjAQ5CqCBc2K50SrvhM004s3QdRAXB4Ku6nQ8zdefsD/QG0GQdt0isagnoYcBP3FOOZJhtV13eEkOuC6q+oiyHcJucfrQCrrw2/xby2rpJR3NdIChyodCPMFHNJhHZUuCHnrtNBrIBrvfG9aF4uZtRM+fWUgn9Dh3eM+iYGjJWI1L72l0nNWqwPHiTAT29CL0GkiazId9bQVvDuOodabyhKMdUAhSIbXCk/NrRGLvvA7/5svnVtlf3s5qdsw41jBNbbYwYZ8hw2e2ybIui9DnyXydj/VuEPAYalqlQxI6o+2qHyLTLfhiuB9R8jLJ8xwdI0lESpzZCn/+yn/6qID4xBERqFpiGirOhNbDM1yvu8WLO2tc="
     # FTP_PASSWORD
-    - secure: "b75ZnvI4ZNfLgNBE7Btqt2v3tfm6vOTVq/2rkmbkZ2BrfkShPyO7LX8LJqjIIxYIMs7P/PP1DitV6MAZ9HwMjjcjMIkSKG9iOjdk1hCTC+yZfnjKbgQpF9V6B8f2RvqK3u0ta0u5P7RlTJ8OaEKhpoafqp/E0rggZKzPGQKnz7+3hmXAwL/yS51fz+RG7bGPAOwzNI6iR1qqYCJdtjKtweduMNUmUkZYHUUzcp4A1oSCOTpkfBq9BfLQL8OhiX2yxWE0K9msPNARUIjAttNxp00qiF09hX0myjwKfaQIR35SxQK29vdKpfbRDIt0fEQm5eMIrSZDpvQzdu73O6JzML5kaaSFyQtV07wb3afhZ1YcKk3kpFatJVwv8KBNyR7O2X/grCKbOAI3o5umljgX5Dmx7FzH7bv/Te2nMaot9dWDuiKkP8Sr0zJCrLgyNEpXYroTCUvk0IdHxtf1K2lg1csLw3oJfgDNI7xbmkmFs8th878VGWnwu4HYUMEU0fFzcV98gntw3Cc8GbO1jvhf+pDXA6ENP42s/uDEFKvrlRbuzXemrpeX+gNpqeSswicxIw/qnQd5wYdpsxyWRHxczzOvnv+xfGjexu4AsHKM881yE79EjnUPoTYpDTuhqgJh/3kVf8AOwFLU2XaNIjPgVss4ETr/oVx/fxF6ZCOQOu8="
+    - secure: "kZ+TL5AdG4IsYqBRqsMsDx0rY8+b5P0GqvKavt36mF0UCgI14QT7X19aolPXQvsmAzxN0jdDPXEme+vXwzCGwoaSGxe57A0tO6KhzGmMzyE6JPvS8TTbG/EWkr770gVup8dWufoDlgTu3D6TkPPtvPOSExjBhb9XFvNThDMGrk6vpR27CNJPPEonpYUAAG2hTUOcCYoPhwKFRqQLG/toKAj2AgwUteT3G6qkBdLZQCMMK7mrIjmMurmUIFDnrQJQ3hSpyC6dumF/t5RKKqYHc2lBjI9ReVgB+qTTlGjHK3NFXk5Jf0hr/LXiIBZb1rKPNpoVZHCRvBS42vM9/Ywj0kH2E8E5bhBogXLFy+Ch1oxczlyFNdoPsQlThR80bu47bDXU92431yL2NdF87Om7u2SI++vRiIMk/zofbjGn5D2i6t6aCo15eV1VITQ2oLPwtKtQWLBGTR6aSBYZEtQf6tfhYOnSMlHUZEZX8M9cLrbK5pl8VmK47PEts8S9JPJcjm+aiOjl9GX0Bnj/QaDsYj3fDIjn/cyBMeGqYxws9ISdBUpG7LeNCJLPFSpCuPXPj3pg65+5/pBTXzueVuq71TWRLaMmpYhCMtacs0Lb9jKYgPYZHANkBY46SfWVvJD2COpoRwq1BSjuOGU8d8R9AC60OTb3vd9R/yJxHvrLNj0="
   # Build matrix
   matrix:
     - CONFIGURATION=release
@@ -136,12 +136,12 @@ script:
   - python3 ${SCRIPTS_DIR}/makeDeploy.py
   # Installer
   - python3 ${SCRIPTS_DIR}/makeInstaller.py ${TRAVIS_BRANCH}
+  # Artifacts
   - 7z a -tzip ${INSTALLER_ZIP} ${INSTALLER_EXE}
 
 #---------------------------------#
 #      upload configuration       #
 #---------------------------------#
-#after_success:
-#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
-#  #- curl --user ${FTP_USER}:${FTP_PASSWORD} --ftp-create-dirs --upload-file ${INSTALLER_ZIP} ftp://sazonov.org/${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}/
-#  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}
+after_success:
+  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${REPO} ${FTP_REPOS_DIR}
+  - python3 ${SCRIPTS_DIR}/upload.py ${FTP_DOMAIN} ${FTP_USER} ${FTP_PASSWORD} ${INSTALLER_ZIP} ${FTP_RELEASES_DIR}/${LATEST_RELEASE_NAME}
