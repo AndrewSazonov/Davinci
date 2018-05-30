@@ -27,8 +27,6 @@ environment:
   CONFIGURATION: release        # CONFIGURATION is not defined for Linux?
   FTP_DOMAIN:
     secure: OazIW1ewjkgXi87M1WwXFw==
-  FTP_RELEASES_DIR: releases
-  FTP_REPOS_DIR: repositories/%APPVEYOR_REPO_BRANCH%
   FTP_USER:
     secure: xm8lk4SVBX+9w7NId+uPbA==
   FTP_PASSWORD:
@@ -70,8 +68,8 @@ install:
   # Upload
   - export REPO=${INSTALLER_DIR}/${APPVEYOR_REPO_BRANCH}
   - export FTP_DOMAIN=sazonov.org
-  - export FTP_RELEASES_DIR=davinci.sazonov.org/releases
-  - export FTP_REPOS_DIR=davinci.sazonov.org/repositories/${APPVEYOR_REPO_BRANCH}
+  - export FTP_RELEASES_DIR=releases
+  - export FTP_REPOS_DIR=repositories/${APPVEYOR_REPO_BRANCH}
   # Print variables
   - echo ${CONFIGURATION}
   - echo ${BUILD_TYPE}
