@@ -56,9 +56,6 @@ public:
                      const QString &textTo,
                      const QStringList &list,
                      const int skip = 0);
-    void test();
-    QString test2(const QString &type,
-                  const QString &del);
     QString parseString(const QString &type,
                         const QString &del = QString());
     QString parseString(const int index,

@@ -181,8 +181,8 @@ QTabWidget *As::Window::createTabsWidget()
     //connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(showHideSidebarGroups_Slot()));
     //connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(showOrHideSidebarBlocks_Slot(int)));
 
-    // Update output table if nesessary
-    connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::createFullOutputTableModel_Slot);
+    // Update output table if nesessary. Change: update only by show-output-button...
+    //connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::createFullOutputTableModel_Slot);
 
     // Return
     return m_tabsWidget;

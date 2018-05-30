@@ -159,16 +159,6 @@ void As::StringParser::setFromList(const QString &textFrom,
         remove(QRegExp("\n$")); }
 }
 
-void As::StringParser::test() {
-
-}
-
-QString As::StringParser::test2(const QString &type,
-                                const QString &del) {
-    return "";
-    return QString();
-}
-
 /*!
 Returns the parsed string based on the given \a type and \a del.
 */
