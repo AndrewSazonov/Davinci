@@ -100,7 +100,7 @@ QString As::Console::outputFileExt() const
 {
     ADEBUG;
 
-    // sync with GUI types???
+    // sync with GUI types?!
 
     const QString format = outputFileFormat().toLower();
     QString ext;
@@ -249,7 +249,7 @@ void As::Console::loadFiles(const QStringList &filePathList)
         // Read file content to QStringList using QTextStream
         QTextStream textStream(&file);
         textStream.setAutoDetectUnicode(true);
-        textStream.setCodec("MacRoman"); // "ISO 8859-1", "UTF-8", "UTF-16", "MacRoman" (POLI)
+        textStream.setCodec("MacRoman"); // "ISO 8859-1", "UTF-8", "UTF-16", "MacRoman" (POLI)?!
 
         // Add file path and content to the global variable
         m_scans->m_inputFilesContents.first  << path;
