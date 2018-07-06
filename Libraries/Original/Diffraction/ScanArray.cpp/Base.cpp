@@ -255,13 +255,7 @@ void As::ScanArray::setSelectedOutputColumns(As::SaveHeaders &saveHeaders,
             if (m_outputTableHeaders.contains(header))
                 stringNum = row[m_outputTableHeaders.indexOf(header)];
             const QString format = saveHeaders.m_format[saveHeaders.m_name.indexOf(header)];
-            table.append(As::FormatString(stringNum, format));
-            /*if (m_outputTableHeaders.contains(header)) {
-                const int k = m_outputTableHeaders.indexOf(header);
-                const int i = saveHeaders.m_name.indexOf(header);
-                table.append(As::FormatString(row[k], saveHeaders.m_format[i])); } */
-
-        }
+            table.append(As::FormatString(stringNum, format)); }
 
         // Go to the new line
         table.append("\n");
