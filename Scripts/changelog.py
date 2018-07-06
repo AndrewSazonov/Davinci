@@ -89,5 +89,5 @@ class Changelog:
 
         self.add(version="1.0.6",
                  date="2018-07-07",
-                  list=[ 'Adds reading of Psi angle from the NICOS instrument data collection files', # update manual
+                  list=[ 'Adds reading of Psi angle from the NICOS instrument data collection files (Issue #5)', # update manual
                          'Adds UMWEG output for the calculation of multiple-diffraction patterns']) # update manual
