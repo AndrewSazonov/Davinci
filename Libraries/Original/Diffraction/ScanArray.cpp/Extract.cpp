@@ -302,6 +302,7 @@ void As::ScanArray::extractNicosData()
     headerMap.append({"angles",        "2Theta",        "twotheta"});
     headerMap.append({"angles",        "Nu",            "liftingctr"});
     headerMap.append({"angles",        "Omega",         "omega|sth"});
+    headerMap.append({"angles",        "Psi",           "psi_virtual"});
     headerMap.append({"indices",       "H",             "h"});
     headerMap.append({"indices",       "K",             "k"});
     headerMap.append({"indices",       "L",             "l"});
