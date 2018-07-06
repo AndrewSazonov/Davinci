@@ -251,10 +251,17 @@ void As::ScanArray::setSelectedOutputColumns(As::SaveHeaders &saveHeaders,
         // Add data cell by cell
         // What if empty cell?
         for (const QString &header : saveHeaders.m_name) {
-            if (m_outputTableHeaders.contains(header)) {
+            QString stringNum = "0"; // default value, if header is not found
+            if (m_outputTableHeaders.contains(header))
+                stringNum = row[m_outputTableHeaders.indexOf(header)];
+            const QString format = saveHeaders.m_format[saveHeaders.m_name.indexOf(header)];
+            table.append(As::FormatString(stringNum, format));
+            /*if (m_outputTableHeaders.contains(header)) {
                 const int k = m_outputTableHeaders.indexOf(header);
                 const int i = saveHeaders.m_name.indexOf(header);
-                table.append(As::FormatString(row[k], saveHeaders.m_format[i])); } }
+                table.append(As::FormatString(row[k], saveHeaders.m_format[i])); } */
+
+        }
 
         // Go to the new line
         table.append("\n");

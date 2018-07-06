@@ -111,6 +111,9 @@ QString As::Console::outputFileExt() const
     EI (format.contains("tbar"))
         ext = "tb";
 
+    EI (format.contains("umweg"))
+        ext = "obs";
+
     EI (format.contains("ccsl"))
         ext = "fli";
 
@@ -177,7 +180,7 @@ void As::Console::createCommandLineParser(QCoreApplication *app)
     m_parser.addOptions({{{"d", "debug"},  "Enable debug output."},
                          {{"p", "path"},   "File/dir to open.", "file/dir"},
                          {{"o", "output"}, "File to save output data.", "file"},
-                         {{"f", "format"}, "Output file format <type>: general, shelx, tbar, ccsl.", "type"},
+                         {{"f", "format"}, "Output file format <type>: general, shelx, tbar, umweg, ccsl.", "type"},
                         });
 
     // Add arguments

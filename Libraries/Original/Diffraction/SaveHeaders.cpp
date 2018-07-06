@@ -86,9 +86,12 @@ As::SaveHeaders::SaveHeaders(QString type,
         m_format << "8.3f" << "8.3f" << "8.3f" << "8.2f" << "8.2f"   << "4i"    << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f"; }
 
     EI (type.contains("tbar")) {
-        // theta here instead of 2theta?! AND order omega, theta or theta, omega?!
         m_name   << "Scan" << "H"  << "K"  << "L"  << "Sf2"   << "Sf2Err" << "Theta" << "Omega" << "Chi"  << "Phi"  << "Temperature" << "Psi"   << "Fwhm";
         m_format << "6i"   << "4i" << "4i" << "4i" << "10.2f" << "10.2f"  << "8.2f"  << "8.2f"  << "8.2f" << "8.2f" << "10.2f"       << "12.2f" << "13.4f"; }
+
+    EI (type.contains("umweg")) { // https://www.xray.cz/ecm-cd/soft/xray/general/umweg/umweg-98.htm
+        m_name   << "H"  << "K"  << "L"  << "Theta" << "Psi"   << "Sf2";
+        m_format << "4i" << "4i" << "4i" << "8.2f"  << "8.2f"  << "10.2f"; }
 
     EI (type.contains("ccsl")) {
         m_name   << "Scan" << "H"  << "K"  << "L"  << "Omega" << "Gamma" << "Nu"   << "FR"    << "FRerr" << "|FR-1|/FRerr" << "Temperature" << "Magnetic field";
