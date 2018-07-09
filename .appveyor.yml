@@ -25,8 +25,6 @@ configuration:
 environment:
   #APPVEYOR_BUILD_FOLDER: ${pwd} # APPVEYOR_BUILD_FOLDER is not defined for Linux? fixed!
   CONFIGURATION: release        # CONFIGURATION is not defined for Linux?
-  FTP_DOMAIN:
-    secure: OazIW1ewjkgXi87M1WwXFw==
   FTP_USER:
     secure: xm8lk4SVBX+9w7NId+uPbA==
   FTP_PASSWORD:
