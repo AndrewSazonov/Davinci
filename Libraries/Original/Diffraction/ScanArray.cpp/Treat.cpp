@@ -1,3 +1,4 @@
+#include <QtConcurrent>
 #include <QDateTime>
 #include <QtMath>
 
@@ -61,13 +62,24 @@ void As::ScanArray::treatSingle(const int index,
 /*!
 Treats all the non-treated scans in the scan array.
 */
+
 void As::ScanArray::treatData()
 {
     ADEBUG2;
 
+    // Futures for multi-threaded for-loop, to check later when the tasks are completed
+    QList<QFuture<void> > futures;
+
+    // Treat data for all the scans
     for (int i = 0; i < size(); ++i) {
         if (at(i)->plotType() == As::PlotType(As::Raw)) {
-           treatSingle(i); } }
+            // Schedule task to the global thread pool
+            auto future = QtConcurrent::run(this, &As::ScanArray::treatSingle, i, true);
+            futures.append(future); } }
+
+    // Wait for all the tasks to be completed
+    for (auto future : futures)
+        future.waitForFinished();
 
     //createFullOutputTable();
 }
