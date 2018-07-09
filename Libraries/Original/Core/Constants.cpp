@@ -28,7 +28,21 @@
 
 #include "Constants.hpp"
 
-// Externally defined constants or variables
+// Alias names
+
+/*!
+\typedef As::ScanSectionMap
+
+Synonym for QMap<QString, QMap<QString, QString> >.
+*/
+
+/*!
+\typedef As::ScanMap
+
+Synonym for QMap<QString, QMap<QString, QMap<QString, QString> > >.
+*/
+
+// Externally defined variables
 
 /*!
 \variable As::elapsedTimer
@@ -41,6 +55,8 @@ QElapsedTimer As::elapsedTimer;
 \brief the index of the debug message.
 */
 int As::debugCount = 0;
+
+// Externally defined constants
 
 /*!
 \variable As::SELECTION_BACKGROUND
@@ -82,26 +98,14 @@ const QHash<int, double> As::MC_CANDLISH_FACTOR
 */
 const As::ScanDatabase As::SCAN_DATABASE;
 
-// Alias names
-
-/*!
-\typedef As::ScanSectionMap
-
-Synonym for QMap<QString, QMap<QString, QString> >.
-*/
-
-/*!
-\typedef As::ScanMap
-
-Synonym for QMap<QString, QMap<QString, QMap<QString, QString> > >.
-*/
-
-// Internally defined constants or enums
+// Internally defined constants
 
 /*!
 \variable As::MONITOR_NORM
 \brief the monitor used for the normsalisation.
 */
+
+// Internally defined enums
 
 /*!
 \enum As::InputFileType

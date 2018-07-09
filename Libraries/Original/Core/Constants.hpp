@@ -33,10 +33,17 @@ namespace As { //AS_BEGIN_NAMESPACE
 
 class ScanDatabase;
 
-// Externally defined constants or variables
+// Alias names
+
+typedef QMap<QString, QMap<QString, QString> > ScanSectionMap;
+typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap;
+
+// Externally defined variables
 
 extern QElapsedTimer elapsedTimer;
 extern int debugCount;
+
+// Externally defined constants
 
 extern const QColor SELECTION_BACKGROUND;
 extern const QString DATA_TIME_FORMAT;
@@ -46,21 +53,16 @@ extern const QHash<int, double> MC_CANDLISH_FACTOR;
 
 extern const ScanDatabase SCAN_DATABASE;
 
-// Alias names
+// Internally defined constants
 
-typedef QMap<QString, QMap<QString, QString> > ScanSectionMap;
-typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap;
-
-// Internally defined constants or enums
-
-const int DEBUG_INDEX_WIDTH = 5;
-const int DEBUG_FILE_WIDTH = 10;
-const int DEBUG_LINE_WIDTH = 4;
-const int DEBUG_FUNCTION_WIDTH = 25;
-const int DEBUG_TIME_WIDTH = 5;
-const int DEBUG_MESSAGE_WIDTH = 90;
-const int DEBUG_SPACE = 3;
-const int DEBUG_WIDTH =
+constexpr int DEBUG_INDEX_WIDTH = 5;
+constexpr int DEBUG_FILE_WIDTH = 10;
+constexpr int DEBUG_LINE_WIDTH = 4;
+constexpr int DEBUG_FUNCTION_WIDTH = 25;
+constexpr int DEBUG_TIME_WIDTH = 5;
+constexpr int DEBUG_MESSAGE_WIDTH = 90;
+constexpr int DEBUG_SPACE = 3;
+constexpr int DEBUG_WIDTH =
         DEBUG_INDEX_WIDTH + DEBUG_SPACE +
         DEBUG_FILE_WIDTH + DEBUG_SPACE +
         DEBUG_LINE_WIDTH + DEBUG_SPACE +
@@ -68,19 +70,21 @@ const int DEBUG_WIDTH =
         DEBUG_TIME_WIDTH + DEBUG_SPACE +
         DEBUG_MESSAGE_WIDTH;
 
-const int APP_WINDOW_WIDTH  = 900;
-const int APP_WINDOW_HEIGHT = 600;
+constexpr int APP_WINDOW_WIDTH  = 900;
+constexpr int APP_WINDOW_HEIGHT = 600;
 
-const int UI_VERTICAL_SPACE_ROWS = 7;
+constexpr int UI_VERTICAL_SPACE_ROWS = 7;
 
-const int MIN_NUM_SCAN = 3;
-const int MIN_NUM_SKIP = 0;
-const int MIN_NUM_BKG  = 1;
-const int ADD_NUM_PEAK = 1; //1
+constexpr int MIN_NUM_SCAN = 3;
+constexpr int MIN_NUM_SKIP = 0;
+constexpr int MIN_NUM_BKG  = 1;
+constexpr int ADD_NUM_PEAK = 1; //1
 
-const double MONITOR_NORM = 10000.;
+constexpr int SIDEBAR_WIDTH = 300; //settings.value("Sidebar/width", 300).toInt();
 
-const int SIDEBAR_WIDTH = 300; //settings.value("Sidebar/width", 300).toInt();
+constexpr double MONITOR_NORM = 10000.;
+
+// Internally defined enums
 
 enum InputFileType
 {
@@ -112,6 +116,8 @@ enum PlotType
     Excluded
 };
 //Q_ENUM_NS(PlotType)
+
+// Internally defined enums
 
 enum GlobalColor
 {
