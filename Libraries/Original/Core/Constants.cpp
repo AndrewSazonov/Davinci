@@ -126,6 +126,7 @@ This enum type describes types of the output files.
 \value SHELX_REAL_HKL   ShelX with direction cosines. Real HKLs. Format: 3f8.3, 2f8.2, i4, 6f8.5
 \value TBAR_TB          Tbar
 \value CCSL_DAT         CCSL
+\value UMWEG_OBS        Umweg
 */
 
 /*!
