@@ -40,8 +40,7 @@ environment:
   INSTALLER_ZIP: $(INSTALLER)-windows64.zip
   REPO: $(INSTALLER_DIR)\%APPVEYOR_REPO_BRANCH%
   SCRIPTS_DIR: $(APPVEYOR_BUILD_FOLDER)\Scripts
-  FTP_DOMAIN:
-    secure: OazIW1ewjkgXi87M1WwXFw==
+  FTP_DOMAIN: sazonov.org
   FTP_RELEASES_DIR: releases
   FTP_REPOS_DIR: repositories/%APPVEYOR_REPO_BRANCH%
   FTP_USER:
