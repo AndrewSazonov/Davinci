@@ -1,8 +1,9 @@
 # Davinci Version History
 
-## Version 1.0.6 (07 Jul 2018)
+## Version 1.0.6 (09 Jul 2018)
 * Adds reading of Psi angle from the NICOS instrument data collection files (Issue #5)
 * Adds UMWEG output for the calculation of multiple-diffraction patterns
+* Adds some multi-threading features in order to spead up the data treatment
 
 ## Version 1.0.5 (30 May 2018)
 * Adds calculation of the direction cosines (Issue #3)
