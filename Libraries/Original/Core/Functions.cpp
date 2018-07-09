@@ -43,7 +43,7 @@ Returns the square of \a v.
 */
 qreal As::Sqr(const qreal v)
 {
-    return qPow(v, 2);
+    return qPow(v, 2); // qPow(v, 2) is faster compared to v*v !?
 }
 
 /*!
