@@ -86,3 +86,12 @@ class Changelog:
                          'Fixes calculation of the Phi angle in the 4-circle geometry',
                          'Fixes an issue with Tbar/D9 output (theta + temperature, psi, fwhm)',
                          'Fixes some minor issues'])
+
+        self.add(version="1.0.6",
+                 date="2018-07-09",
+                  list=[ 'Adds reading of Psi angle from the NICOS instrument data collection files (Issue #5)', # update manual
+                         'Adds UMWEG output for the calculation of multiple-diffraction patterns',
+                         'Adds some multi-threading features in order to spead up the data treatment']
+                         
+                         
+                         ) # update manual

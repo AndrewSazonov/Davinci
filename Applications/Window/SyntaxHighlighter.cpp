@@ -59,7 +59,7 @@ void As::SyntaxHighlighter::load(const QString &type)
         append(As::redDark,  "^###[^\n]*"); // doesn't color 1st line in the multiple opened files
         append(As::blueDark, "(filename|Exp_proposal|Exp_users|Sample_ubmatrix|Sample_rmat)[^\n]*");
         append(As::blueDark, "(fug_value|Pin_value|Pout_value|Fin_value|Fout_value|Ts_value|wavelength_value)[^\n]*");
-        append(As::blueDark, "(chi1_value|chi2_value|omega_value|sth_value|twotheta_value|gamma_value|liftingctr_value)[^\n]*"); }
+        append(As::blueDark, "(chi1_value|chi2_value|omega_value|sth_value|twotheta_value|gamma_value|liftingctr_value|psi_virtual_value)[^\n]*"); }
 
     if (type == "POLI IgorPro log") {
         append(As::gray,     "^  =>[^\n]*");

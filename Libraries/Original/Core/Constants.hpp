@@ -100,6 +100,7 @@ enum OutputFileType
     SHELX_REAL_HKL,
     TBAR_TB,
     CCSL_DAT,
+    UMWEG_OBS
 };
 //Q_ENUM_NS(OutputFileType)
 

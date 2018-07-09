@@ -100,7 +100,7 @@ QString As::Console::outputFileExt() const
 {
     ADEBUG;
 
-    // sync with GUI types???
+    // sync with GUI types?!
 
     const QString format = outputFileFormat().toLower();
     QString ext;
@@ -110,6 +110,9 @@ QString As::Console::outputFileExt() const
 
     EI (format.contains("tbar"))
         ext = "tb";
+
+    EI (format.contains("umweg"))
+        ext = "obs";
 
     EI (format.contains("ccsl"))
         ext = "fli";
@@ -177,7 +180,7 @@ void As::Console::createCommandLineParser(QCoreApplication *app)
     m_parser.addOptions({{{"d", "debug"},  "Enable debug output."},
                          {{"p", "path"},   "File/dir to open.", "file/dir"},
                          {{"o", "output"}, "File to save output data.", "file"},
-                         {{"f", "format"}, "Output file format <type>: general, shelx, tbar, ccsl.", "type"},
+                         {{"f", "format"}, "Output file format <type>: general, shelx, tbar, umweg, ccsl.", "type"},
                         });
 
     // Add arguments
@@ -249,7 +252,7 @@ void As::Console::loadFiles(const QStringList &filePathList)
         // Read file content to QStringList using QTextStream
         QTextStream textStream(&file);
         textStream.setAutoDetectUnicode(true);
-        textStream.setCodec("MacRoman"); // "ISO 8859-1", "UTF-8", "UTF-16", "MacRoman" (POLI)
+        textStream.setCodec("MacRoman"); // "ISO 8859-1", "UTF-8", "UTF-16", "MacRoman" (POLI)?!
 
         // Add file path and content to the global variable
         m_scans->m_inputFilesContents.first  << path;

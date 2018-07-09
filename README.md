@@ -1,14 +1,14 @@
 <img src="http://davinci.sazonov.org/images/davinci-logo.svg" width="300">
- 
+
 **Davinci** is a scientific software for the visualization and processing of single-crystal diffraction data measured with a point detector.
 
 Please, visit [davinci.sazonov.org](http://davinci.sazonov.org) for more details.
 
 <!---https://github.com/dwyl/repo-badges--->
 
-[![][16]][11] [![][17]][12] [![][27]][22] [![][28]][22] 
+[![][16]][11] [![][17]][12] [![][18]][13] [![][28]][22]
 
-[![][31]][30] [![][46]][41] [![][52]][50]
+[![][31]][30] [![][45]][41] [![][52]][50]
 
 <!---Appveyor CI Build Status--->
 [10]: https://ci.appveyor.com/project/AndrewSazonov/davinci
@@ -34,10 +34,10 @@ Please, visit [davinci.sazonov.org](http://davinci.sazonov.org) for more details
 [31]: https://img.shields.io/github/release/AndrewSazonov/Davinci.svg?label=Release
 [32]: https://img.shields.io/badge/Release-v1.0.0-blue.svg
 
-<!---User Manual---> 
+<!---User Manual--->
 [40]: https://andrewsazonov.gitbooks.io/davinci/content/
 [41]: http://davinci.sazonov.org/umanual.html
-[45]: https://img.shields.io/badge/User_Manual-v1.0.0-blue.svg
+[45]: https://img.shields.io/badge/User_Manual-30.05.2018-blue.svg
 [46]: Resources/Shields/User_Manual.svg
 
 <!---License--->
@@ -57,7 +57,7 @@ https://www.gitbook.com/book/0xax/linux-insides/details
 http://showdownjs.com/
 https://github.com/saucelabs-ansible/pip/edit/master/README.md
 https://github.com/standard/standard
- 
+
 https://guides.github.com/features/mastering-markdown/
 https://github.com/TimothyYe/skm/edit/master/README.md
 https://github.com/buildkite/dynamic-build-badges
@@ -69,8 +69,6 @@ https://github.com/apache/storm
 https://github.com/JedWatson/sydjs-site
 https://github.com/spring-io/sagan
 
-Build all branches in travis or set up a cron (available in travis) to build the master branch daily. 
+Build all branches in travis or set up a cron (available in travis) to build the master branch daily.
 
----> 
-
-
+--->
