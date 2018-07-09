@@ -191,6 +191,7 @@ void As::Window::exportOutputTable_Slot()
                    "ShelX with direction cosines, integer (*.hkl);;"
                    "ShelX with direction cosines, real (*.hkl);;"
                    "TBAR/D9, integer (*.tb);;"
+                   "UMWEG, integer (*.obs);;"
                    "CCSL flipping ratios, integer (*.fli)"),
                 &format); // can be a problem on linux: http://www.qtcentre.org/threads/21019-Determining-selected-filter-on-getSaveFileName
 

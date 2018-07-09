@@ -225,8 +225,10 @@ for lib in MY_LIBS_NAMES:
     pro = QtProFile()
     SetCommonForAll(pro)
     SetCommonForLibs(pro)
+    if lib == 'Diffraction':
+        pro.addQt('concurrent') # move to variables.py!?
     if lib == 'Widgets':
-        pro.addQt('widgets')
+        pro.addQt('widgets') # move to variables.py!?
     pro.addTarget(MY_LIBS_PREFIX + lib)
     pro.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [LIBS_DIR_NAME] + [MY_LIBS_DIR_NAME] + [lib])
     pro.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [LIBS_DIR_NAME] + [MY_LIBS_DIR_NAME] + [lib])
