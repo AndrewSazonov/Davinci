@@ -30,13 +30,13 @@
 // Alias names
 
 /*!
-\typedef As::ScanSectionMap
+\typedef As::ScanSectionMap_t
 
 Synonym for QMap<QString, QMap<QString, QString> >.
 */
 
 /*!
-\typedef As::ScanMap
+\typedef As::ScanMap_t
 
 Synonym for QMap<QString, QMap<QString, QMap<QString, QString> > >.
 */

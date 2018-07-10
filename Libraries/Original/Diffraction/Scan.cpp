@@ -291,7 +291,7 @@ const QStringList As::Scan::keys() const
 /*!
 Returns the value associated with the \a key.
 */
-const As::ScanSectionMap As::Scan::operator[](const QString &key) const
+const As::ScanSectionMap_t As::Scan::operator[](const QString &key) const
 {
     return m_scan[key];
 }
@@ -302,7 +302,7 @@ const As::ScanSectionMap As::Scan::operator[](const QString &key) const
 /*!
 Returns the scan as a QMap.
 */
-const As::ScanMap As::Scan::toQMap() const
+const As::ScanMap_t As::Scan::toQMap() const
 {
     return m_scan;
 }

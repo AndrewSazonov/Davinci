@@ -34,8 +34,10 @@ class ScanDatabase;
 
 // Alias names
 
-typedef QMap<QString, QMap<QString, QString> > ScanSectionMap;
-typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap;
+//typedef QMap<QString, QMap<QString, QString> > ScanSectionMap_t;
+//typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap_t;
+using ScanSectionMap_t = QMap<QString, QMap<QString, QString> >;
+using ScanMap_t = QMap<QString, QMap<QString, QMap<QString, QString> > >;
 
 // Internally defined constants
 
@@ -81,7 +83,7 @@ enum InputFileType
 };
 //Q_ENUM_NS(InputFileType)
 
-enum class OutputFileType
+enum class OutputFileType // Currently not in use
 {
     GENERAL_CSV,
     SHELX_INT_HKL,

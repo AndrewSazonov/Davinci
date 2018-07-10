@@ -225,7 +225,7 @@ As::ScanDatabase::~ScanDatabase() {}
 /*!
 Returns the value associated with the key \a section.
 */
-const As::ScanSectionMap As::ScanDatabase::operator[](const QString &section) const
+const As::ScanSectionMap_t As::ScanDatabase::operator[](const QString &section) const
 {
     return m_scanDatabase[section];
 }

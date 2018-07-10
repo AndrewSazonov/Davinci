@@ -74,8 +74,8 @@ public:
 
     const QStringList keys() const;
 
-    const As::ScanSectionMap operator[](const QString &key) const;
-    const As::ScanMap toQMap() const;
+    const As::ScanSectionMap_t operator[](const QString &key) const;
+    const As::ScanMap_t toQMap() const;
 
     void setScanAngle(const QString &name);
     const QString scanAngle() const;
@@ -150,7 +150,7 @@ signals:
     // void sizeChanged(const int size);
 
 private:
-    As::ScanMap m_scan;
+    As::ScanMap_t m_scan;
     QString m_scanAngle;
     QString m_absoluteFilePath; // currently used!!! absoluteFilePath
     int m_fileIndex;
