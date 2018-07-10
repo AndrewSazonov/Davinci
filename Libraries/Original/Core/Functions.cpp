@@ -335,10 +335,10 @@ void As::DetailedMessageOutput(QtMsgType type,
 {
     // Index of the debug message as integer
     // Local variable which persist between the function calls
-    static int debugCount = 0;
+    static int s_debugCount = 0;
 
     // Index of the debug message as string
-    const QString index = QString::number(++debugCount).
+    const QString index = QString::number(++s_debugCount).
             rightJustified(As::DEBUG_INDEX_WIDTH).
             right(As::DEBUG_INDEX_WIDTH);
 
@@ -361,10 +361,10 @@ void As::DetailedMessageOutput(QtMsgType type,
 
     // The timer (stopwatch) with elapsed time since the previous debug message
     // Local variable which persist between the function calls
-    static QElapsedTimer timer;
-    if (!timer.isValid()) timer.start(); // start timer just once, after the first function call
-    qreal elapsedTime = (qreal)timer.elapsed()/1000;
-    timer.restart();
+    static QElapsedTimer s_timer;
+    if (!s_timer.isValid()) s_timer.start(); // start timer just once, after the first function call
+    qreal elapsedTime = (qreal)s_timer.elapsed()/1000;
+    s_timer.restart();
 
     // Add time units
     QString units;
