@@ -105,8 +105,9 @@ BUILD_DIR                   = PROJECT_DIR + ['..', BUILD_DIR_NAME]
 BUILD_TYPE                  = '$${BUILD_TYPE}'
 BUILD_TYPE_DIR              = BUILD_DIR + [BUILD_TYPE]
 
-# Debug, Release
+# Profile, Debug, Release
 DEBUG_DIR_NAME              = 'Debug'
+PROFILE_DIR_NAME            = 'Profile'
 RELEASE_DIR_NAME            = 'Release'
 RELEASE_DIR                 = BUILD_DIR + [RELEASE_DIR_NAME]
 RELEASE_NAMES_TO_DEPLOY     = [APP_FILE, APP_CONSOLE_FILE, TESTS_FILE]

@@ -101,10 +101,14 @@ class QtProFile:
     def addCppVersion(self, ver): 
         self.addConfig(ver)
 
-    def addBuildType(self, debug_dir_name, release_dir_name):
-        string  = 'CONFIG(debug, debug|release) {{ BUILD_TYPE = {} }}\n'
-        string += 'CONFIG(release, debug|release) {{ BUILD_TYPE = {} }}\n'
-        self.s += string.format(debug_dir_name, release_dir_name)
+    def addBuildType(self, debug_dir_name, profile_dir_name, release_dir_name):
+        #string  = 'CONFIG(debug, debug|release) {{ BUILD_TYPE = {} }}\n'
+        #string += 'CONFIG(force_debug_info) {{ BUILD_TYPE = {} }}\n'
+        #string += 'CONFIG(release, debug|release) {{ BUILD_TYPE = {} }}\n'
+        string  = 'CONFIG(debug, debug|release)  {{ BUILD_TYPE = {} }}\n'
+        string += 'else:CONFIG(force_debug_info) {{ BUILD_TYPE = {} }}\n'
+        string += 'else                          {{ BUILD_TYPE = {} }}\n'
+        self.s += string.format(debug_dir_name, profile_dir_name, release_dir_name)
 
     def addDepends(self, app, lib):
         self.s += '{}.depends = {}\n'.format(app, lib)

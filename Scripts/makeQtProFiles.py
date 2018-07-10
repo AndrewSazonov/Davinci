@@ -11,7 +11,7 @@ from qtprofile import *
 def SetCommonForAll(pro):
 
     # Build type (as directory name)
-    pro.addBuildType(DEBUG_DIR_NAME, RELEASE_DIR_NAME)
+    pro.addBuildType(DEBUG_DIR_NAME, PROFILE_DIR_NAME, RELEASE_DIR_NAME)
 
     # Destination
     pro.addDestDir(BUILD_TYPE_DIR)
