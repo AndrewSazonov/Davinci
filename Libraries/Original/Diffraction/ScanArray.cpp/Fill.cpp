@@ -35,7 +35,7 @@ Fills the array with single element.
 */
 void As::ScanArray::fillEmptyArrays()
 {
-    ADEBUG2;
+    ADEBUG_H2;
 
     // For every scan in the scan array
     for (auto scan : m_scanArray) {

@@ -34,7 +34,7 @@ Index the reflection based on the scattering angles.
 */
 void As::ScanArray::indexPeaks()
 {
-    ADEBUG2;
+    ADEBUG_H2;
 
     // For every scan in the scan array
     for (auto scan : m_scanArray) {

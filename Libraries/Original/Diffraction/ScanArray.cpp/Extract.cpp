@@ -38,7 +38,7 @@ Extracts the scans from the input data file.
 */
 void As::ScanArray::extractInputData()
 {
-    ADEBUG2;
+    ADEBUG_H2;
 
     QStringList filesAsListOfStrings = m_inputFilesContents.second;
 

@@ -59,7 +59,7 @@
 */
 void As::Window::gotoScan_Slot(const int index)
 {
-    ADEBUG1;
+    ADEBUG_H1;
     ADEBUG << "index:" << index;
 
     // Update the file if nesessary. Should be at the beginning?
@@ -229,7 +229,7 @@ void As::Window::gotoMatch_Slot(const int index)
 */
 void As::Window::extractScans_Slot()
 {
-    ADEBUG3;
+    ADEBUG_H3;
 
     // Extract data from raw input
     m_scans->extractInputData();
@@ -495,7 +495,7 @@ void As::Window::highlightFoundText_Slot()
 */
 void As::Window::visualizePlots_Slot()
 {
-    ADEBUG3;
+    ADEBUG_H3;
 
     // Create widget if not yet created
     if (m_visualizedPlotsWidget == Q_NULLPTR) {
@@ -657,7 +657,7 @@ void As::Window::setRightBkgCount_Slot(const int count)
 */
 void As::Window::calcStructureFactor_Slot()
 {
-    ADEBUG3;
+    ADEBUG_H3;
 
     genericScan()->setPlotType(As::Integrated);
 
@@ -669,7 +669,7 @@ void As::Window::calcStructureFactor_Slot()
 */
 void As::Window::showOutput_Slot()
 {
-    ADEBUG3;
+    ADEBUG_H3;
 
     // Create widget if not yet created
     if (m_outputTableWidget == Q_NULLPTR) {

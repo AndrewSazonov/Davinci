@@ -17,7 +17,7 @@ Treats the data preliminary.
 */
 void As::ScanArray::preTreatData()
 {
-    ADEBUG2;
+    ADEBUG_H2;
 
     // For every scan in the scan array
     for (auto scan : m_scanArray) {
@@ -65,7 +65,7 @@ Treats all the non-treated scans in the scan array.
 
 void As::ScanArray::treatData()
 {
-    ADEBUG2;
+    ADEBUG_H2;
 
     // Futures for multi-threaded for-loop, to check later when the tasks are completed
     QList<QFuture<void> > futures;

@@ -29,14 +29,11 @@
 #   define IS_DEBUG 0
 #endif
 
-#define H1_DEBUG qDebug() << qUtf8Printable(As::DebugHeader(0, '-'))
-#define H2_DEBUG qDebug() << qUtf8Printable(As::DebugHeader(0, '='))
-#define H3_DEBUG qDebug() << qUtf8Printable(As::DebugHeader(0, '#'))
-
 #define ADEBUG qDebug()
-#define ADEBUG1 H1_DEBUG;
-#define ADEBUG2 H2_DEBUG;
-#define ADEBUG3 H3_DEBUG;
+
+#define ADEBUG_H1 qDebug() << qUtf8Printable(As::DebugHeader(0, '-'))
+#define ADEBUG_H2 qDebug() << qUtf8Printable(As::DebugHeader(0, '='))
+#define ADEBUG_H3 qDebug() << qUtf8Printable(As::DebugHeader(0, '#'))
 
 #define ADESTROYED qDebug() << "Destroyed:" << this
 
