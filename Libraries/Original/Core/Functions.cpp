@@ -334,7 +334,7 @@ void As::DetailedMessageOutput(QtMsgType type,
                                const QString &msg) // qInstallMessageHandler
 {
     // Index of the debug message
-    const QString index = QString::number(++As::debugCount).
+    const QString index = QString::number(++As::g_debugCount).
             rightJustified(As::DEBUG_INDEX_WIDTH).
             right(As::DEBUG_INDEX_WIDTH);
 
@@ -356,7 +356,7 @@ void As::DetailedMessageOutput(QtMsgType type,
             left(As::DEBUG_FUNCTION_WIDTH);
 
     // Time since the previous debug message
-    qreal elapsedTime = (qreal)As::elapsedTimer.elapsed()/1000;
+    qreal elapsedTime = (qreal)As::g_elapsedTimer.elapsed()/1000;
     QString units;
     IF (elapsedTime < 0.1) {
         units = ""; }
@@ -373,7 +373,7 @@ void As::DetailedMessageOutput(QtMsgType type,
             append(units).
             rightJustified(As::DEBUG_TIME_WIDTH).
             right(As::DEBUG_TIME_WIDTH);
-    As::elapsedTimer.restart();
+    As::g_elapsedTimer.restart();
 
     // Actual message
     const QByteArray localMsg = msg.toLocal8Bit();

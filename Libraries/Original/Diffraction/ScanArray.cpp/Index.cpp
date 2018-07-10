@@ -161,7 +161,7 @@ const As::RealVector As::ScanArray::anglesToXyz(const qreal wavelength,
                                                 qreal phi) const
 {
     twotheta = qDegreesToRadians(twotheta);
-    omega = qDegreesToRadians(omega); // not used?
+    omega = qDegreesToRadians(omega); // not used?!
     chi = qDegreesToRadians(chi);
     phi = qDegreesToRadians(phi);
 

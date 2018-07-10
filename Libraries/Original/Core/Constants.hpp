@@ -40,8 +40,8 @@ typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap;
 
 // Externally defined variables
 
-extern QElapsedTimer elapsedTimer;
-extern int debugCount;
+extern QElapsedTimer g_elapsedTimer;
+extern int g_debugCount;
 
 // Externally defined constants
 

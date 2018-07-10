@@ -83,7 +83,7 @@ Constructs the main program window.
 As::Window::Window()
 {
     // Start program timer
-    As::elapsedTimer.start();
+    As::g_elapsedTimer.start();
 
     // Print application info
     printAppInfo_Slot();
