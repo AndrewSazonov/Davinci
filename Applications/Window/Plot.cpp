@@ -88,13 +88,13 @@ void As::Plot::setPlotColors(const As::PlotType plotType,
                              const QString &countType)
 {
     // Individual
-    if (plotType == As::Raw)
+    if (plotType == As::PlotType::Raw)
         m_color = As::Color(As::green);
-    else if (plotType == As::Integrated)
+    else if (plotType == As::PlotType::Integrated)
         m_color = As::Color(As::blue);
-    else if (plotType == As::Fitted)
+    else if (plotType == As::PlotType::Fitted)
         m_color = As::Color(As::red);
-    else if (plotType == As::Excluded)
+    else if (plotType == As::PlotType::Excluded)
         m_color = As::Color(As::grayLight);
     // Adjust for Up and Down polarisation data
     if (countType == "+")
@@ -211,10 +211,10 @@ void As::Plot::updateInfoLabels(const As::Scan *scan)
     As::RealVector y = (*scan)["intensities"]["DetectorNorm"]["data"];
     appendArrowInfoLabel(scan->plotType(), x[y.indexOfMax()], y.max());
     appendArrowInfoLabel(scan->plotType(), x[y.indexOfMin()], y.min());
-    if (scan->plotType() == As::Integrated) {
+    if (scan->plotType() == As::PlotType::Integrated) {
         const int l = scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
         const int r = scan->m_numPoints - scan->m_numRightBkgPoints - scan->m_numRightSkipPoints - 1;
-        appendCentralInfoLabel(As::Raw, (x[l] + x[r]) / 2, scan->m_normMeanBkg); }
+        appendCentralInfoLabel(As::PlotType::Raw, (x[l] + x[r]) / 2, scan->m_normMeanBkg); }
 }
 
 /*!
@@ -283,7 +283,7 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
     QString text = "";
     // Add information to be shown
     text += formatForInfoBox("HKL", scan->m_meanIndexH, scan->m_meanIndexK, scan->m_meanIndexL);
-    if (scan->plotType() != As::Excluded) {
+    if (scan->plotType() != As::PlotType::Excluded) {
         for (const QString &countType : As::COUNT_TYPES) {
             if (!qIsNaN(scan->m_normPeakArea[countType])) {
                 text += formatForInfoBox("Area" + countType, scan->m_normPeakArea[countType], scan->m_normPeakAreaErr[countType]); } }
@@ -324,7 +324,7 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
 // Not updated after zoom!?
 void As::Plot::addXMiddleArrows(const As::Scan *scan)
 {
-    if (scan->plotType() == As::Integrated) {
+    if (scan->plotType() == As::PlotType::Integrated) {
         int arrowLength = 8;
         int arrowWidth = 10;
         int yShift = 2;
@@ -411,7 +411,7 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
     // Create graphs depends on plotType
     switch (scan->plotType()) {
 
-    case As::Raw: {
+    case As::PlotType::Raw: {
         ranges.first.clear();
         ranges.second.clear();
         ranges.first << scan->m_numLeftSkipPoints;
@@ -430,7 +430,7 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
                 graph()->setName(tr(qPrintable("Scan" + countType))); } }
         break; }
 
-    case As::Integrated: {
+    case As::PlotType::Integrated: {
         // Peak marks, line and fill
         ranges.first.clear();
         ranges.second.clear();
@@ -463,7 +463,7 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
             ranges.second << scan->m_numPoints;
             data.clear();
             data << x.toQVector() << y.toQVector() << sy.toQVector();
-            addCustomGraph(As::Excluded, "",
+            addCustomGraph(As::PlotType::Excluded, "",
                            QCPScatterStyle::ssCircle, Qt::NoPen,
                            Qt::NoBrush, QCPGraph::etValue);
             updateGraphOnPlot(ranges, data);
@@ -477,7 +477,7 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
         ranges.second << scan->m_numPoints - scan->m_numRightSkipPoints;
         data.clear();
         data << x.toQVector() << y.toQVector() << sy.toQVector();
-        addCustomGraph(As::Raw, "",
+        addCustomGraph(As::PlotType::Raw, "",
                        QCPScatterStyle::ssCircle, Qt::NoPen,
                        Qt::NoBrush, QCPGraph::etValue);
         updateGraphOnPlot(ranges, data);
@@ -489,18 +489,18 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
         ranges.second << scan->m_numPoints - scan->m_numRightSkipPoints;
         data.clear();
         data << x.toQVector() << QVector<qreal>(x.toQVector().size(), scan->m_normMeanBkg);
-        addCustomGraph(As::Raw, "",
+        addCustomGraph(As::PlotType::Raw, "",
                        QCPScatterStyle::ssNone, Qt::DotLine,
                        Qt::SolidPattern, QCPGraph::etNone);
         updateGraphOnPlot(ranges, data);
         graph()->setName(tr("Background mean"));
         break; }
 
-    case As::Fitted: {
+    case As::PlotType::Fitted: {
         ADEBUG;
         break; }
 
-    case As::Excluded: {
+    case As::PlotType::Excluded: {
         ranges.first.clear();
         ranges.second.clear();
         ranges.first << scan->m_numLeftSkipPoints;

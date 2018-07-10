@@ -77,7 +77,7 @@ void As::ScanArray::indexPeaks()
 
                     // Define omega angle considering the scan step
                     qreal center = angles[1];
-                    qreal shift = (i + 1 - qCeil((qreal)scan->size() / 2)) * scan->scanStep();
+                    qreal shift = (i + 1 - qCeil(static_cast<qreal>(scan->size()) / 2)) * scan->scanStep();
                     omega.append(center + shift); }
 
                 // Set angle arrays to the scan

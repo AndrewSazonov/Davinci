@@ -52,8 +52,8 @@ void As::ScanArray::treatSingle(const int index,
     calcFullWidthHalfMax(scan);
     calcFlippingRatio(scan);
 
-    if (scan->plotType() != As::Excluded)
-        scan->setPlotType(As::Integrated); // what is better?!
+    if (scan->plotType() != As::PlotType::Excluded)
+        scan->setPlotType(As::PlotType::Integrated); // what is better?!
 
     //scan.setData("number", "xcluded", scan.plotType() == As::Scan::Excluded ? "0" : "1"); // it's modified then in excludeScanSlot
     //scan.m_isAlreadyTreated = true; // what is better?
@@ -72,7 +72,7 @@ void As::ScanArray::treatData()
 
     // Treat data for all the scans
     for (int i = 0; i < size(); ++i) {
-        if (at(i)->plotType() == As::PlotType(As::Raw)) {
+        if (at(i)->plotType() == As::PlotType(As::PlotType::Raw)) {
             // Schedule task to the global thread pool
             auto future = QtConcurrent::run(this, &As::ScanArray::treatSingle, i, true);
             futures.append(future); } }
@@ -449,7 +449,7 @@ As::RealVector As::ScanArray::IntensityWithSigma(const As::RealVector &intensiti
     intyPeak  = intensities.mid(pos, length);
     sigIntyPeak = sigmas.mid(pos, length);
     // Calculate ratio of peak points number to background points number
-    const qreal ratioPeakToBkgPoints = (qreal)intyPeak.size() / intyBkg.size();
+    const qreal ratioPeakToBkgPoints = static_cast<qreal>(intyPeak.size()) / intyBkg.size();
     /////ADEBUG << "ratioPeakToBkgPoints" << ratioPeakToBkgPoints;
     // Calculate peak sum intensity: 0.6 sec (735 peaks)
     qreal intensity = intyPeak.sum() - intyBkg.sum() * ratioPeakToBkgPoints;

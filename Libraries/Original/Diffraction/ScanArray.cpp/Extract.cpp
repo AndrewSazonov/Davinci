@@ -145,7 +145,7 @@ void As::ScanArray::extractHeidiData()
                 const int nValuesPerLine = 16;
                 const int nCharsPerValue = 5;
                 const int nBlocksPerData = 2;
-                const int nLinesPerData = qCeil((qreal)nValuesPerBlock / nValuesPerLine * nBlocksPerData);
+                const int nLinesPerData = qCeil(static_cast<qreal>(nValuesPerBlock) / nValuesPerLine * nBlocksPerData);
                 const int nLinesToSkip = 2;
                 const int iEnd = i + nLinesToSkip + nLinesPerData - 1;
                 if (iEnd < file.size()) {

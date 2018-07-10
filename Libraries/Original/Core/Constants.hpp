@@ -37,16 +37,6 @@ class ScanDatabase;
 typedef QMap<QString, QMap<QString, QString> > ScanSectionMap;
 typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap;
 
-// Externally defined constants
-
-extern const QColor SELECTION_BACKGROUND;
-extern const QString DATA_TIME_FORMAT;
-extern const QStringList COUNT_TYPES;
-
-extern const QHash<int, double> MC_CANDLISH_FACTOR;
-
-extern const ScanDatabase SCAN_DATABASE;
-
 // Internally defined constants
 
 constexpr int DEBUG_INDEX_WIDTH = 5;
@@ -91,7 +81,7 @@ enum InputFileType
 };
 //Q_ENUM_NS(InputFileType)
 
-enum OutputFileType
+enum class OutputFileType
 {
     GENERAL_CSV,
     SHELX_INT_HKL,
@@ -102,7 +92,7 @@ enum OutputFileType
 };
 //Q_ENUM_NS(OutputFileType)
 
-enum PlotType
+enum class PlotType
 {
     Raw,
     Integrated,
@@ -110,8 +100,6 @@ enum PlotType
     Excluded
 };
 //Q_ENUM_NS(PlotType)
-
-// Internally defined enums
 
 enum GlobalColor
 {
@@ -169,6 +157,16 @@ enum GlobalColor
     orangeLight
 };
 //Q_ENUM_NS(GlobalColor)
+
+// Externally defined constants
+
+extern const QColor SELECTION_BACKGROUND;
+extern const QString DATA_TIME_FORMAT;
+extern const QStringList COUNT_TYPES;
+
+extern const QHash<int, double> MC_CANDLISH_FACTOR;
+
+extern const ScanDatabase SCAN_DATABASE;
 
 } //AS_END_NAMESPACE
 

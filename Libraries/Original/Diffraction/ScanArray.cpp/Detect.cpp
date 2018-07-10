@@ -45,19 +45,19 @@ bool As::ScanArray::detectInputFileType()
 
             // Check the file content line by line
             if (str.startsWith("### NICOS data file")) {
-                type = NICOS_DAT; break; }
+                type = As::InputFileType::NICOS_DAT; break; }
 
             else if (str.endsWith("4-CIRCLE DIFFRACTOMETER CONTROL PROGRAM") || str.endsWith("Protocol ON")) {
-                type = HEIDI_LOG; break; }
+                type = As::InputFileType::HEIDI_LOG; break; }
 
             else if (str.endsWith("Rev HEIDI/FRM2")) {
-                type = HEIDI_DAT; break; }
+                type = As::InputFileType::HEIDI_DAT; break; }
 
             else if (str.startsWith("  => Now executing the cmd GEO")) {
-                type = POLI_LOG; break; }
+                type = As::InputFileType::POLI_LOG; break; }
 
             else if (str.contains("<manip>6T2</manip>")) {
-                type = S6T2_DAT; break; } }
+                type = As::InputFileType::S6T2_DAT; break; } }
 
         detectedTypes << type; }
 
@@ -83,7 +83,7 @@ Sets the input file type to be \a type.
 */
 void As::ScanArray::setInputFileType(const As::InputFileType type)
 {
-    ADEBUG << "type:" << type;
+////////////    ADEBUG << "type:" << type;
 
     if (m_inputFileType == type)
         return;
@@ -92,37 +92,37 @@ void As::ScanArray::setInputFileType(const As::InputFileType type)
 
     switch(m_inputFileType) {
 
-    case UNKNOWN_FILE:
+    case As::InputFileType::UNKNOWN_FILE:
         m_facilityType = "Unknown";
         m_instrumentType = "Unknown";
         m_dataType = "Unknown";
         break;
 
-    case HEIDI_DAT:
+    case As::InputFileType::HEIDI_DAT:
         m_facilityType = "MLZ/FRMII";
         m_instrumentType = "HEiDi";
         m_dataType = "DIF4 dat";
         break;
 
-    case HEIDI_LOG:
+    case As::InputFileType::HEIDI_LOG:
         m_facilityType = "MLZ/FRMII";
         m_instrumentType = "HEiDi";
         m_dataType = "DIF4 log";
         break;
 
-    case NICOS_DAT:
+    case As::InputFileType::NICOS_DAT:
         m_facilityType = "MLZ/FRMII";
         m_instrumentType = "POLI";
         m_dataType = "NICOS dat";
         break;
 
-    case POLI_LOG:
+    case As::InputFileType::POLI_LOG:
         m_facilityType = "MLZ/FRMII";
         m_instrumentType = "POLI";
         m_dataType = "IgorPro log";
         break;
 
-    case S6T2_DAT:
+    case As::InputFileType::S6T2_DAT:
         m_facilityType = "LLB";
         m_instrumentType = "6T2";
         m_dataType = "NEW xml";

@@ -363,7 +363,7 @@ void As::DetailedMessageOutput(QtMsgType type,
     // Local variable which persist between the function calls
     static QElapsedTimer s_timer;
     if (!s_timer.isValid()) s_timer.start(); // start timer just once, after the first function call
-    qreal elapsedTime = (qreal)s_timer.elapsed()/1000;
+    qreal elapsedTime = static_cast<qreal>(s_timer.elapsed()) / 1000; // convert from milliseconds qint64 to seconds qreal
     s_timer.restart();
 
     // Add time units

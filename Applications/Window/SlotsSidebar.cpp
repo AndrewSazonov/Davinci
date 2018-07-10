@@ -94,7 +94,7 @@ void As::Window::gotoScan_Slot(const int index)
     //ADEBUG << "==============" << currentScan()->m_numRightBkgPoints;
 
     // Treat current scan conditions
-    if (genericScan()->plotType() == As::Integrated AND currentScan()->plotType() != As::Excluded)
+    if (genericScan()->plotType() == As::PlotType::Integrated AND currentScan()->plotType() != As::PlotType::Excluded)
         m_scans->treatSingle(index-1);
 
     //
@@ -103,7 +103,10 @@ void As::Window::gotoScan_Slot(const int index)
     //ADEBUG << "index:" << index;
 
     // Update the common widgets
-    emit excludeScanStateChanged_Signal(!(scanAt(index)->plotType() - As::Excluded));
+    if (scanAt(index)->plotType() == As::PlotType::Excluded)
+        emit excludeScanStateChanged_Signal(true);
+    else
+        emit excludeScanStateChanged_Signal(false);
 
     //ADEBUG << "index:" << index;
 
@@ -150,7 +153,7 @@ void As::Window::excludeScan_Slot(const bool exclude)
 {
     ADEBUG << "exclude:" << exclude;
 
-    currentScan()->setPlotType(exclude ? As::Excluded : genericScan()->plotType());
+    currentScan()->setPlotType(exclude ? As::PlotType::Excluded : genericScan()->plotType());
     currentScan()->setData("number", "Excluded", exclude ? "1" : "0"); // init in preTreatData()
 
     updateScan_Slot();
@@ -659,7 +662,7 @@ void As::Window::calcStructureFactor_Slot()
 {
     ADEBUG_H3;
 
-    genericScan()->setPlotType(As::Integrated);
+    genericScan()->setPlotType(As::PlotType::Integrated);
 
     updateScan_Slot();
 }

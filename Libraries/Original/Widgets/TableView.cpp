@@ -100,8 +100,8 @@ void As::TableView::adjustRowColumnCount() {
 
     // Calc number of rows and columns to be added to the table
     const QRect cr = contentsRect();
-    const int rowsCount = qCeil(((qreal)cr.height() - m_tableHeight) / m_minRowHeight);
-    const int columnsCount = qCeil(((qreal)cr.width() - m_tableWidth) / m_minColumnWidth);
+    const int rowsCount = qCeil((static_cast<qreal>(cr.height()) - m_tableHeight) / m_minRowHeight);
+    const int columnsCount = qCeil((static_cast<qreal>(cr.width()) - m_tableWidth) / m_minColumnWidth);
 
     // Add the required number of rows (to the bottom) and columns (to the right)
     if (rowsCount > 0)
