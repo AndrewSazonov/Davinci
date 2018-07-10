@@ -22,7 +22,6 @@
 #define AS_CONSTANTS_HPP
 
 class QColor;
-class QElapsedTimer;
 class QString;
 class QStringList;
 template <class Key, class T> class QHash;
@@ -37,11 +36,6 @@ class ScanDatabase;
 
 typedef QMap<QString, QMap<QString, QString> > ScanSectionMap;
 typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap;
-
-// Externally defined variables
-
-extern QElapsedTimer g_elapsedTimer;
-extern int g_debugCount;
 
 // Externally defined constants
 

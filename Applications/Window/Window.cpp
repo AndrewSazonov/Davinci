@@ -24,7 +24,6 @@
 #include <QDesktopWidget>
 #include <QDragEnterEvent>
 #include <QDropEvent>
-#include <QElapsedTimer>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QFontComboBox>
@@ -82,9 +81,6 @@ Constructs the main program window.
 */
 As::Window::Window()
 {
-    // Start program timer
-    As::g_elapsedTimer.start();
-
     // Print application info
     printAppInfo_Slot();
 

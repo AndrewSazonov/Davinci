@@ -333,8 +333,12 @@ void As::DetailedMessageOutput(QtMsgType type,
                                const QMessageLogContext &context,
                                const QString &msg) // qInstallMessageHandler
 {
-    // Index of the debug message
-    const QString index = QString::number(++As::g_debugCount).
+    // Index of the debug message as integer
+    // Local variable which persist between the function calls
+    static int debugCount = 0;
+
+    // Index of the debug message as string
+    const QString index = QString::number(++debugCount).
             rightJustified(As::DEBUG_INDEX_WIDTH).
             right(As::DEBUG_INDEX_WIDTH);
 
@@ -355,8 +359,14 @@ void As::DetailedMessageOutput(QtMsgType type,
             leftJustified(As::DEBUG_FUNCTION_WIDTH).
             left(As::DEBUG_FUNCTION_WIDTH);
 
-    // Time since the previous debug message
-    qreal elapsedTime = (qreal)As::g_elapsedTimer.elapsed()/1000;
+    // The timer (stopwatch) with elapsed time since the previous debug message
+    // Local variable which persist between the function calls
+    static QElapsedTimer timer;
+    if (!timer.isValid()) timer.start(); // start timer just once, after the first function call
+    qreal elapsedTime = (qreal)timer.elapsed()/1000;
+    timer.restart();
+
+    // Add time units
     QString units;
     IF (elapsedTime < 0.1) {
         units = ""; }
@@ -373,7 +383,6 @@ void As::DetailedMessageOutput(QtMsgType type,
             append(units).
             rightJustified(As::DEBUG_TIME_WIDTH).
             right(As::DEBUG_TIME_WIDTH);
-    As::g_elapsedTimer.restart();
 
     // Actual message
     const QByteArray localMsg = msg.toLocal8Bit();

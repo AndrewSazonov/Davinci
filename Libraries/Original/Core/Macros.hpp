@@ -29,18 +29,11 @@
 #   define IS_DEBUG 0
 #endif
 
-//#define DETAIL_DEBUG qInstallMessageHandler(As::DetailedMessageOutput)
-//#define EMPTY_DEBUG qInstallMessageHandler(As::EmptyMessageOutput)
-
 #define H1_DEBUG qDebug() << qUtf8Printable(As::DebugHeader(0, '-'))
 #define H2_DEBUG qDebug() << qUtf8Printable(As::DebugHeader(0, '='))
 #define H3_DEBUG qDebug() << qUtf8Printable(As::DebugHeader(0, '#'))
 
 #define ADEBUG qDebug()
-//#define ADEBUG1 EMPTY_DEBUG; H1_DEBUG; DETAIL_DEBUG; ADEBUG; EMPTY_DEBUG; H1_DEBUG; DETAIL_DEBUG
-//#define ADEBUG2 EMPTY_DEBUG; H2_DEBUG; DETAIL_DEBUG; ADEBUG; EMPTY_DEBUG; H2_DEBUG; DETAIL_DEBUG
-//#define ADEBUG3 EMPTY_DEBUG; H3_DEBUG; DETAIL_DEBUG; ADEBUG; EMPTY_DEBUG; H3_DEBUG; DETAIL_DEBUG
-
 #define ADEBUG1 H1_DEBUG;
 #define ADEBUG2 H2_DEBUG;
 #define ADEBUG3 H3_DEBUG;

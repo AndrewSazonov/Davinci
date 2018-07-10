@@ -19,7 +19,6 @@
  */
 
 #include <QColor>
-#include <QElapsedTimer>
 #include <QHash>
 #include <QString>
 #include <QStringList>
@@ -41,20 +40,6 @@ Synonym for QMap<QString, QMap<QString, QString> >.
 
 Synonym for QMap<QString, QMap<QString, QMap<QString, QString> > >.
 */
-
-// Externally defined variables
-
-/*!
-\variable As::g_elapsedTimer
-\brief the stopwatch displaying the elapsed time.
-*/
-QElapsedTimer As::g_elapsedTimer;
-
-/*!
-\variable As::g_debugCount
-\brief the index of the debug message.
-*/
-int As::g_debugCount = 0;
 
 // Externally defined constants
 
