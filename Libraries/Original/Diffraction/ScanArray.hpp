@@ -108,6 +108,8 @@ signals:
 private:
 public: // to check qdoc!
 
+    // test1
+
     // Array of pointers to the individual scans
     QVector<As::Scan*> m_scanArray;
 
