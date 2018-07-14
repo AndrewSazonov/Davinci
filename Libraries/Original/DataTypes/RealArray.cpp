@@ -18,6 +18,7 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Macros.hpp"
 #include "Functions.hpp"
 
 #include "RealArray.hpp"
@@ -81,7 +82,7 @@ Example:
 */
 qreal &As::RealArray::operator[](const int i)
 {
-    //Q_ASSERT_X(i >= 0 AND i < size(), "As::RealArray::operator[]", "index out of range");
+    ///AASSERT(i >= 0 AND i < size(), "index out of range");
     return m_array[i];
 }
 
@@ -90,7 +91,7 @@ qreal &As::RealArray::operator[](const int i)
 */
 const qreal &As::RealArray::operator[](const int i) const
 {
-    //Q_ASSERT_X(i >= 0 AND i < size(), "As::RealArray::operator[]", "index out of range");
+    ///AASSERT(i >= 0 AND i < size(), "index out of range");
     return m_array.begin()[i];
 }
 
@@ -104,10 +105,13 @@ QVector<qreal> &As::RealArray::operator=(const QVector<qreal> &other)
 }
 
 /*!
-Returns an array that contains sum of the items from this array and the \a other array.
+Returns an array that contains elements, calculated as sum of the respective elements from
+this array and the \a other array. Two arrays must be of equal length.
 */
 As::RealArray As::RealArray::operator+(const As::RealArray &other) const
 {
+    AASSERT(m_array.size() == other.size(), QString("vector lengths mismatch, %1 vs. %2")
+            .arg(m_array.size()).arg(other.size()) );
     As::RealArray out = m_array;
     for (int i = 0; i < out.size(); ++i)
         out[i] += other[i];
@@ -239,9 +243,9 @@ QVector<qreal> As::RealArray::mid(const int pos, const int length) const
 /**
 Overloads operator<< for QDebug to accept the RealArray output.
 */
-QDebug operator<<(QDebug debug, const As::RealArray &other)
+QDebug operator<<(QDebug debug, const As::RealArray &array)
 {
     //QDebugStateSaver saver(debug);
-    return QtPrivate::printSequentialContainer(debug, "As::RealArray", other.toQVector());
+    return QtPrivate::printSequentialContainer(debug, "As::RealArray", array.toQVector());
 }
 

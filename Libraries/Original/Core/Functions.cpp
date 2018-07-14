@@ -227,8 +227,7 @@ const QString As::FormatStringToText(const QString &string,
         result = QString("%1").arg(substring, fieldWidth); }
     // show error message if unknown format
     EL {
-        const QString message = QString("unknown format '%1'").arg(format);
-        Q_ASSERT_X(false, AFUNC, qPrintable(message)); }
+        AASSERT(false, QString("unknown format '%1'").arg(format)); }
     return result;
 }
 
@@ -275,24 +274,14 @@ int As::SidebarWidth(const QFont &font)
 /*!
 Sets the debug output if \a isDebugMode is \c true.
 */
-void As::SetDebugOutputFormat(const bool isDebugMode)
+void As::SetDebugOutputFormat(const bool showDebugInfo)
 {
     // Changes the output of the default message handler (qDebug() = ADEBUG, etc.)
     // http://stackoverflow.com/questions/24012108/qdebug-not-showing-file-line
-    if (isDebugMode)
+    if (showDebugInfo)
         qInstallMessageHandler(As::DetailedMessageOutput);
     else
         qInstallMessageHandler(As::NoMessageOutput);
-}
-
-/*!
-Sets the... \a skipLines \a fillChar
-*/
-QString As::DebugHeader(const int skipLines,
-                        const QChar fillChar)
-{
-    const int width = As::DEBUG_WIDTH + skipLines - 3;
-    return QString().fill('\n', skipLines).leftJustified(width, fillChar);
 }
 
 /*!
@@ -307,32 +296,23 @@ void As::NoMessageOutput(QtMsgType type,
 }
 
 /*!
-Prints out the empty debug messages using the given \a type
-and \a msg.
-*/
-void As::EmptyMessageOutput(QtMsgType type,
-                            const QMessageLogContext &,
-                            const QString &msg)
-{
-    const QByteArray localMsg = msg.toLocal8Bit();
-    const QString message = QString(localMsg.constData()).
-            leftJustified(As::DEBUG_WIDTH).
-            left(As::DEBUG_WIDTH);
-
-    fprintf(stderr, "%s\n", qUtf8Printable(message));
-
-    if (type == QtFatalMsg)
-        abort();
-}
-
-/*!
 Prints out the detailed debug messages using the given \a type,
 \a context and \a msg.
 */
 void As::DetailedMessageOutput(QtMsgType type,
                                const QMessageLogContext &context,
-                               const QString &msg) // qInstallMessageHandler
+                               const QString &msg)
 {
+
+
+
+    // Print original message and abort in the case of fatal message
+    if (type == QtFatalMsg) {
+        fprintf(stderr, "\n" "%s\n" "\n", qUtf8Printable(msg));
+        abort(); }
+
+    // Continue, if the message is not QtFatalMsg
+
     // Index of the debug message as integer
     // Local variable which persist between the function calls
     static int s_debugCount = 0;
@@ -341,16 +321,6 @@ void As::DetailedMessageOutput(QtMsgType type,
     const QString index = QString::number(++s_debugCount).
             rightJustified(As::DEBUG_INDEX_WIDTH).
             right(As::DEBUG_INDEX_WIDTH);
-
-    // Name of the cpp file which contains the debug message
-    const QFileInfo fi(context.file);
-    const QString file = fi.baseName().
-            leftJustified(As::DEBUG_FILE_WIDTH).
-            left(As::DEBUG_FILE_WIDTH);
-
-    // Number of line in the file which contains the debug message
-    const QString line = QString::number(context.line).
-            rightJustified(DEBUG_LINE_WIDTH);
 
     // Function name which contains the debug message
     const QString function = QString(context.function).
@@ -362,11 +332,12 @@ void As::DetailedMessageOutput(QtMsgType type,
     // The timer (stopwatch) with elapsed time since the previous debug message
     // Local variable which persist between the function calls
     static QElapsedTimer s_timer;
-    if (!s_timer.isValid()) s_timer.start(); // start timer just once, after the first function call
+    if (!s_timer.isValid())
+        s_timer.start(); // start timer just once, after the first function call
     qreal elapsedTime = static_cast<qreal>(s_timer.elapsed()) / 1000; // convert from milliseconds qint64 to seconds qreal
     s_timer.restart();
 
-    // Add time units
+    // Time units for timer
     QString units;
     IF (elapsedTime < 0.1) {
         units = ""; }
@@ -378,30 +349,43 @@ void As::DetailedMessageOutput(QtMsgType type,
     EL {
         elapsedTime /= 3600;
         units = "h"; }
-    QString time = units.isEmpty() ? "" : QString::number(elapsedTime, 'f', 1);
-    time = time.
-            append(units).
+
+    // Timer info: elapsed time + units
+    QString time = "";
+    if (!units.isEmpty())
+        time = QString::number(elapsedTime, 'f', 1);
+    time = time.append(units).
             rightJustified(As::DEBUG_TIME_WIDTH).
             right(As::DEBUG_TIME_WIDTH);
 
-    // Actual message
-    const QByteArray localMsg = msg.toLocal8Bit();
-    const QString message = QString(localMsg.constData()).
-            leftJustified(As::DEBUG_MESSAGE_WIDTH).
-            left(As::DEBUG_MESSAGE_WIDTH);
+    // Name of the cpp file which contains the debug message
+    const QString file = QFileInfo(context.file).fileName();
 
-    // Print
-    fprintf(stderr, "%s | %s | %s | %s | %s | %s\n",
+    // Number of line in the file which contains the debug message
+    const QString line = QString::number(context.line);
+
+    // Hyperlink to the file and line which contains the debug message
+    // According to Qt Creator source code, the hyperlinks in 'Application Output' console are
+    // only created for lines matching some regular expressions, e.g.
+    // "^(?:\\[Qt Message\\] )?(file:///.+:\\d+(?::\\d+)?):" or
+    // "^   Loc: \\[(.*)\\]"
+    // https://stackoverflow.com/questions/7916267/can-file-and-line-be-made-linkable-when-printed-to-qt-creators-debug-co
+    // https://github.com/qt-creator/qt-creator/blob/master/src/plugins/qtsupport/qtoutputformatter.cpp
+    // It breaks, however, a normal coloring with codes, like "\033[37m", etc.
+    const QString link = QString("file:///%1:%2").arg(file).arg(line).
+            leftJustified(As::DEBUG_HYPERLINK_WIDTH).
+            left(As::DEBUG_HYPERLINK_WIDTH);
+
+    // Actual message
+    const QString message = QString(QByteArray(msg.toLocal8Bit()).constData());
+
+    // Print with coloring. \033[30m - black, \033[0m - reset to default
+    fprintf(stderr, "\033[30m" "%s %s %s %s %s" "\n" "\033[0m",
             qUtf8Printable(index),
-            qUtf8Printable(file),
-            qUtf8Printable(line),
             qUtf8Printable(function),
             qUtf8Printable(time),
+            qUtf8Printable(link),
             qUtf8Printable(message));
-
-    // Abort in the case of fatal message
-    if (type == QtFatalMsg)
-        abort();
 }
 
 /*!

@@ -21,23 +21,27 @@
 #ifndef AS_MACROS_HPP
 #define AS_MACROS_HPP
 
+#include <string.h> // strrchr function for __FILENAME__, temporary solution
+
 #include <QDebug>
 
+#define __AFILENAME__ (strrchr("/" __FILE__, '/') + 1)
+
 #ifdef QT_DEBUG
-#   define IS_DEBUG 1
+    #define IS_DEBUG_OR_PROFILE 1 // Debug or Profile build
+    #define AASSERT(cond, what) ((!(cond)) ? qt_assert_x(__func__, qPrintable(what), __AFILENAME__, __LINE__) : qt_noop())
 #else
-#   define IS_DEBUG 0
+    #define IS_DEBUG_OR_PROFILE 0 // Release build
+    #define AASSERT(cond, what) qt_noop()
 #endif
 
 #define ADEBUG qDebug()
 
-#define ADEBUG_H1 qDebug() << qUtf8Printable(As::DebugHeader(0, '-'))
-#define ADEBUG_H2 qDebug() << qUtf8Printable(As::DebugHeader(0, '='))
-#define ADEBUG_H3 qDebug() << qUtf8Printable(As::DebugHeader(0, '#'))
+#define ADEBUG_H1 qDebug() << qUtf8Printable(QString().leftJustified(50, '-'))
+#define ADEBUG_H2 qDebug() << qUtf8Printable(QString().leftJustified(50, '='))
+#define ADEBUG_H3 qDebug() << qUtf8Printable(QString().leftJustified(50, '#'))
 
 #define ADESTROYED qDebug() << "Destroyed:" << this
-
-#define AFUNC __func__
 
 #define AEXIT exit(0)
 

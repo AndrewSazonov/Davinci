@@ -20,8 +20,8 @@
 
 #include <QtMath>
 
-#include "Functions.hpp"
 #include "Macros.hpp"
+#include "Functions.hpp"
 
 #include "RealVector.hpp"
 
@@ -76,7 +76,7 @@ As::RealVector::RealVector(const QString &string)
     bool ok;
     for (const QString &num : list) {
         append(num.toDouble(&ok));
-        Q_ASSERT_X(ok == true, AFUNC, "conversation of num to double fails"); }
+        AASSERT(ok == true, "conversation of num to double fails"); }
 }
 
 /*!
@@ -95,8 +95,7 @@ Example:
 */
 qreal As::RealVector::min() const
 {
-    const QString message = QString("vector size = '%1', which is too small for this function").arg(size());
-    Q_ASSERT_X(size() > 0, AFUNC, qPrintable(message));
+    AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
     return *std::min_element(begin(), end());
 }
 
@@ -111,8 +110,7 @@ Example:
 */
 qreal As::RealVector::max() const
 {
-    const QString message = QString("vector size = '%1', which is too small for this function").arg(size());
-    Q_ASSERT_X(size() > 0, AFUNC, qPrintable(message));
+    AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
     return *std::max_element(begin(), end());
 }
 
@@ -127,8 +125,7 @@ Example:
 */
 qreal As::RealVector::sum() const
 {
-    const QString message = QString("vector size = '%1', which is too small for this function").arg(size());
-    Q_ASSERT_X(size() > 0, AFUNC, qPrintable(message));
+    AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
     return std::accumulate(begin(), end(), 0.0);
 }
 
@@ -143,8 +140,7 @@ Example:
 */
 qreal As::RealVector::sumSqr() const
 {
-    const QString message = QString("vector size = '%1', which is too small for this function").arg(size());
-    Q_ASSERT_X(size() > 0, AFUNC, qPrintable(message));
+    AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
     qreal out = 0;
     for (const auto v : *this)
         out += v*v;
@@ -164,7 +160,7 @@ qreal As::RealVector::mean() const
 {
     if (this->size() == 0)
         return qQNaN();
-    //Q_ASSERT_X(this->size() > 0, "As::RealVector::mean", "vector size is too small");
+    //AASSERT(this->size() > 0, "vector size is too small");
     return sum() / size();
 }
 
@@ -179,7 +175,7 @@ Example:
 */
 qreal As::RealVector::range() const
 {
-    //Q_ASSERT_X(this->size() > 0, "As::RealVector::range", "vector size is too small");
+    //AASSERT(this->size() > 0, "vector size is too small");
     return max() - min();
 }
 
@@ -194,7 +190,7 @@ Example:
 */
 qreal As::RealVector::middle() const
 {
-    //Q_ASSERT_X(this->size() > 0, "As::RealVector::range", "vector size is too small");
+    //AASSERT(this->size() > 0, "vector size is too small");
     return (max() + min()) / 2.;
 }
 
@@ -209,8 +205,7 @@ Example:
 */
 qreal As::RealVector::step() const
 {
-    const QString message = QString("vector size = '%1', which is too small for this function").arg(size());
-    Q_ASSERT_X(size() > 1, AFUNC, qPrintable(message));
+    AASSERT(size() > 1, QString("vector size = '%1', which is too small for this function").arg(size()));
     return range() / (size() - 1);
 }
 
@@ -220,10 +215,10 @@ searching forward from the beginning.
 */
 int As::RealVector::indexOfMin() const
 {
-    const QString message = QString("vector size = '%1', which is too small for this function").arg(size());
-    Q_ASSERT_X(size() > 0, AFUNC, qPrintable(message));
+    AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
     return indexOf(min());
 }
+
 
 /*!
 Returns the index position of the first occurrence of the max() element in the vector,
@@ -231,8 +226,7 @@ searching forward from the beginning.
 */
 int As::RealVector::indexOfMax() const
 {
-    const QString message = QString("vector size = '%1', which is too small for this function").arg(size());
-    Q_ASSERT_X(size() > 0, AFUNC, qPrintable(message));
+    AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
     return indexOf(max());
 }
 
@@ -247,7 +241,7 @@ Example:
 */
 bool As::RealVector::isZero() const
 {
-    //Q_ASSERT_X(this->size() > 0, "As::RealVector::isZero", "vector size is too small");
+    //AASSERT(this->size() > 0, "vector size is too small");
     if (this->size() == 0)
         return false;
     for (const qreal value : *this)
@@ -285,7 +279,7 @@ Example:
 */
 As::RealVector As::RealVector::normalizeBy(const qreal v) const
 {
-    Q_ASSERT_X(v != 0., AFUNC, "dividing by zero");
+    AASSERT(v != 0., "dividing by zero");
     if (v == 1.0)
         return *this;
     As::RealVector out;
@@ -307,8 +301,7 @@ Example:
 As::RealVector As::RealVector::normalizeBy(const As::RealVector &other) const
 {
     bool isEqSize = (size() == other.size());
-    const QString message = QString("vectors sizes are different: '%1' and '%2'").arg(size()).arg(other.size());
-    Q_ASSERT_X(isEqSize, AFUNC, qPrintable(message));
+    AASSERT(isEqSize, QString("vectors sizes are different: '%1' and '%2'").arg(size()).arg(other.size()));
     if (!isEqSize)
         return *this;
     As::RealVector out;
@@ -330,8 +323,7 @@ const As::RealVector As::RealVector::sqrt() const
 {
     As::RealVector out;
     for (const auto value : *this) {
-        const QString message = QString("negative vector element '%1' is found for square root").arg(value);
-        Q_ASSERT_X(value >= 0, AFUNC, qPrintable(message));
+        AASSERT(value >= 0, QString("negative vector element '%1' is found for square root").arg(value));
         out.append(qSqrt(value)); }
     return out;
 }
@@ -350,7 +342,7 @@ Example:
 */
 As::RealVector As::RealVector::simplified() const
 {
-    //Q_ASSERT_X(this->size() > 0, "As::RealVector::simplified", "vector size is too small");
+    //AASSERT(this->size() > 0, "vector size is too small");
     for (int i = 0; i < this->size() - 1; ++i) {
         if (this->operator[](i) != this->operator[](i+1))
             return *this; }
@@ -360,10 +352,10 @@ As::RealVector As::RealVector::simplified() const
 /**
 Overloads operator<< for QDebug to accept RealVector output
 */
-QDebug operator<<(QDebug debug, const As::RealVector &other)
+QDebug operator<<(QDebug debug, const As::RealVector &vector)
 {
     //QDebugStateSaver saver(debug);
-    return QtPrivate::printSequentialContainer(debug, "As::RealVector", other.toQVector());
+    return QtPrivate::printSequentialContainer(debug, "As::RealVector", vector.toQVector());
 }
 
 

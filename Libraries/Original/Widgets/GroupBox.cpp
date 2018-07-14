@@ -97,7 +97,7 @@ void As::GroupBox::updateSettings(const QVariant &state)
 {
     // Check if group can be toggled
     if (isCheckable()) {
-        Q_ASSERT_X(!objectName().isEmpty(), "As::GroupBox::updateSettings", "group is not named");
+        AASSERT(!objectName().isEmpty(), "group is not named");
         QSettings().setValue("UnfoldedGroups/" + objectName(), state); }
 }
 

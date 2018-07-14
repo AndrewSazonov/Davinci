@@ -108,11 +108,8 @@ void As::Scan::setData(const QString &section,
                        const QString &entry,
                        const QString &data)
 {
-    QString message;
-
     if (data.isEmpty()) {
-        //message = QString("empty data array [%1][%2] passed to the function").arg(section).arg(entry);
-        //Q_ASSERT_X(false, AFUNC, qPrintable(message));
+        //AASSERT(false, QString("empty data array [%1][%2] passed to the function").arg(section).arg(entry));
         return; }
 
     if (m_scan[section].contains(entry)) {
@@ -123,8 +120,7 @@ void As::Scan::setData(const QString &section,
         m_scan[section][entry].insert("data", data); }
 
     else {
-        message = QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry);
-        Q_ASSERT_X(false, AFUNC, qPrintable(message)); }
+        AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); }
 }
 
 /*!
@@ -137,8 +133,7 @@ void As::Scan::appendData(const QString &section,
     QString message;
 
     if (data.isEmpty()) {
-        message = QString("empty data array passed to the function");
-        Q_ASSERT_X(false, AFUNC, qPrintable(message));
+        AASSERT(false, QString("empty data array passed to the function"));
         return; }
 
     if (m_scan[section].contains(entry)) {
@@ -149,8 +144,7 @@ void As::Scan::appendData(const QString &section,
         m_scan[section][entry].insert("data", data); }
 
     else {
-        message = QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry);
-        Q_ASSERT_X(false, AFUNC, qPrintable(message)); }
+        AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); }
 }
 
 /*!
@@ -163,8 +157,7 @@ void As::Scan::removeData(const QString &section,
         m_scan[section][entry].remove("data"); }
 
     else {
-        QString message = QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry);
-        Q_ASSERT_X(false, AFUNC, qPrintable(message)); }
+        AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); }
 }
 
 /*!
@@ -186,9 +179,8 @@ const QString As::Scan::value(const QString &section,
         *ok = false;
         return QString(); }
 
-    const QString message = QString("no such section '%1', entry '%2', or name '%3' in the current scan")
-            .arg(section).arg(entry).arg(name);
-    Q_ASSERT_X(false, AFUNC, qPrintable(message));
+    AASSERT(false, QString("no such section '%1', entry '%2', or name '%3' in the current scan")
+            .arg(section).arg(entry).arg(name));
 
     return QString();
 }
@@ -229,9 +221,7 @@ const QString As::Scan::printDataSingle(const QString &section,
         const QString string = m_scan[section][entry]["data"];
         return As::FormatString(string, format); }
 
-    const QString message = QString("no such section '%1' or entry '%2' in the current scan")
-            .arg(section).arg(entry);
-    Q_ASSERT_X(false, AFUNC, qPrintable(message));
+    AASSERT(false, QString("no such section '%1' or entry '%2' in the current scan").arg(section).arg(entry));
     return QString();
 }
 
@@ -247,9 +237,7 @@ const QString As::Scan::printDataSingle(const QString &section,
         const QString format = m_scan[section][entry]["format"];
         return printDataSingle(section, entry, format); }
 
-    const QString message = QString("no such section '%1' or entry '%2' in the current scan")
-            .arg(section).arg(entry);
-    Q_ASSERT_X(false, AFUNC, qPrintable(message));
+    AASSERT(false, QString("no such section '%1' or entry '%2' in the current scan").arg(section).arg(entry));
     return QString();
 }
 
@@ -260,9 +248,7 @@ const QString As::Scan::printDataRange(const QString &section,
                                        const QString &entry) const
 {
     if (!m_scan[section].contains(entry)) {
-        const QString message = QString("no such section '%1' or entry '%2' in the current scan")
-                .arg(section).arg(entry);
-        Q_ASSERT_X(false, AFUNC, qPrintable(message));
+        AASSERT(false, QString("no such section '%1' or entry '%2' in the current scan"));
         return QString(); }
 
     const QString format = m_scan[section][entry]["format"];

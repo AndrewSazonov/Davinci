@@ -67,8 +67,7 @@ array As::ScanArray.
 */
 As::Scan *As::ScanArray::at(const int i)
 {
-    const QString message = QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size());
-    Q_ASSERT_X(i >= 0 AND i < size(), AFUNC, qPrintable(message));
+    AASSERT(i >= 0 AND i < size(), QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size()));
     return m_scanArray[i];
 }
 
@@ -77,8 +76,7 @@ As::Scan *As::ScanArray::at(const int i)
 */
 const As::Scan *As::ScanArray::at(const int i) const
 {
-    const QString message = QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size());
-    Q_ASSERT_X(i >= 0 AND i < size(), AFUNC, qPrintable(message));
+    AASSERT(i >= 0 AND i < size(), QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size()));
     return m_scanArray.begin()[i];
 }
 
@@ -89,8 +87,7 @@ Same as at().
 */
 As::Scan *As::ScanArray::operator[](const int i)
 {
-    const QString message = QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size());
-    Q_ASSERT_X(i >= 0 AND i < size(), AFUNC, qPrintable(message));
+    AASSERT(i >= 0 AND i < size(), QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size()));
     return m_scanArray[i];
 }
 
@@ -101,8 +98,7 @@ Same as at().
 */
 const As::Scan *As::ScanArray::operator[](const int i) const
 {
-    const QString message = QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size());
-    Q_ASSERT_X(i >= 0 AND i < size(), AFUNC, qPrintable(message));
+    AASSERT(i >= 0 AND i < size(), QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size()));
     return m_scanArray.begin()[i];
 }
 

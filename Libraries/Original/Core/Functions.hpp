@@ -34,8 +34,6 @@ template <typename T> class QVector;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
-//void Delete(QObject *parent);
-
 qreal Sqr(const qreal v);
 qreal Sign(const qreal v);
 qreal ToMainAngularRange(const qreal angle);
@@ -55,16 +53,11 @@ const QString FormatStringToRange(const QString &string,
 
 int SidebarWidth(const QFont &font);
 
-void SetDebugOutputFormat(const bool isDebugMode);
+void SetDebugOutputFormat(const bool showDebugInfo);
 
-QString DebugHeader(const int skipLines,
-                    const QChar fillChar);
 void NoMessageOutput(QtMsgType type,
                      const QMessageLogContext &,
                      const QString &);
-void EmptyMessageOutput(QtMsgType type,
-                        const QMessageLogContext &,
-                        const QString &msg);
 void DetailedMessageOutput(QtMsgType type,
                            const QMessageLogContext &context,
                            const QString &msg);

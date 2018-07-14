@@ -44,13 +44,6 @@ a pointer to the current function.
 */
 
 /*!
-\macro AFUNC
-\relates As
-
-This macro is a shortcut for \c '__func__', which returns the name of current function.
-*/
-
-/*!
 \macro AEXIT
 \relates As
 

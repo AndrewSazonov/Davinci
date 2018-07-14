@@ -20,8 +20,8 @@
 
 #include <QtMath>
 
-#include "Functions.hpp"
 #include "Macros.hpp"
+#include "Functions.hpp"
 
 #include "RealMatrix9.hpp"
 
@@ -80,7 +80,7 @@ Sets the array with \a other.
 */
 void As::RealMatrix9::set(const QVector<qreal> &other)
 {
-    Q_ASSERT_X(false, AFUNC, "matrix size is not 9");
+    AASSERT(false, "matrix size is not 9");
     As::RealArray::set(other);
 }
 
@@ -96,8 +96,8 @@ void As::RealMatrix9::set(const QString &string)
     bool ok;
     for (const QString &num : list) {
         vector << num.toDouble(&ok);
-        Q_ASSERT_X(ok == true, AFUNC, "conversation of num to double fails"); }
-    Q_ASSERT_X(vector.size() == 9, AFUNC, "vector size is not 9");
+        AASSERT(ok == true, "conversation of num to double fails"); }
+    AASSERT(vector.size() == 9, "vector size is not 9");
     As::RealArray::set(vector);
 }
 
@@ -157,7 +157,7 @@ Returns an inversed matrix if det() is not zero.
 */
 const As::RealMatrix9 As::RealMatrix9::inv() const
 {
-    Q_ASSERT_X(det() != 0., AFUNC, "determinant is zero");
+    AASSERT(det() != 0., "determinant is zero");
     As::RealArray m(*this);
     const qreal a1 = (m[4] * m[8] - m[7] * m[5]) / det();
     const qreal a2 = (m[2] * m[7] - m[1] * m[8]) / det();
@@ -183,9 +183,9 @@ const As::RealMatrix9 As::RealMatrix9::normColumns() const
     const qreal k2 = qSqrt(As::Sqr(m[1]) + As::Sqr(m[4]) + As::Sqr(m[7]));
     const qreal k3 = qSqrt(As::Sqr(m[2]) + As::Sqr(m[5]) + As::Sqr(m[8]));
 
-    Q_ASSERT_X(k1 != 0, AFUNC, "normalization of 1st matrix column fails (all elements are zeros)");
-    Q_ASSERT_X(k2 != 0, AFUNC, "normalization of 2nd matrix column fails (all elements are zeros)");
-    Q_ASSERT_X(k3 != 0, AFUNC, "normalization of 3rd matrix column fails (all elements are zeros)");
+    AASSERT(k1 != 0, "normalization of 1st matrix column fails (all elements are zeros)");
+    AASSERT(k2 != 0, "normalization of 2nd matrix column fails (all elements are zeros)");
+    AASSERT(k3 != 0, "normalization of 3rd matrix column fails (all elements are zeros)");
 
     return RealMatrix9 {m[0]/k1, m[1]/k2, m[2]/k3,
                         m[3]/k1, m[4]/k2, m[5]/k3,
@@ -215,9 +215,9 @@ const As::RealMatrix9 As::RealMatrix9::normRows() const
     const qreal k2 = qSqrt(As::Sqr(m[3]) + As::Sqr(m[4]) + As::Sqr(m[5]));
     const qreal k3 = qSqrt(As::Sqr(m[6]) + As::Sqr(m[7]) + As::Sqr(m[8]));
 
-    Q_ASSERT_X(k1 != 0, AFUNC, "normalization of 1st matrix row fails (all elements are zeros)");
-    Q_ASSERT_X(k2 != 0, AFUNC, "normalization of 2nd matrix row fails (all elements are zeros)");
-    Q_ASSERT_X(k3 != 0, AFUNC, "normalization of 3rd matrix row fails (all elements are zeros)");
+    AASSERT(k1 != 0, "normalization of 1st matrix row fails (all elements are zeros)");
+    AASSERT(k2 != 0, "normalization of 2nd matrix row fails (all elements are zeros)");
+    AASSERT(k3 != 0, "normalization of 3rd matrix row fails (all elements are zeros)");
 
     return RealMatrix9 {m[0]/k1, m[1]/k1, m[2]/k1,
                         m[3]/k2, m[4]/k2, m[5]/k2,
@@ -228,9 +228,9 @@ const As::RealMatrix9 As::RealMatrix9::normRows() const
 /**
 Overloads operator<< for QDebug to accept RealMatrix9 output
 */
-QDebug operator<<(QDebug debug, const As::RealMatrix9 &other)
+QDebug operator<<(QDebug debug, const As::RealMatrix9 &matrix)
 {
     //QDebugStateSaver saver(debug);
-    return QtPrivate::printSequentialContainer(debug, "As::RealMatrix9", other.toQVector());
+    return QtPrivate::printSequentialContainer(debug, "As::RealMatrix9", matrix.toQVector());
 }
 
