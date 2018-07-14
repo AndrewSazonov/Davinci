@@ -62,7 +62,7 @@ void As::ScanArray::treatSingle(const int index,
 /*!
 Treats all the non-treated scans in the scan array.
 */
-
+// Using multi-threading
 void As::ScanArray::treatData()
 {
     ADEBUG_H2;
@@ -82,6 +82,7 @@ void As::ScanArray::treatData()
         future.waitForFinished();
 
     //createFullOutputTable();
+    ADEBUG;
 }
 
 /*!
@@ -138,6 +139,8 @@ void As::ScanArray::createFullOutputTable()
                     dataRow.insert(column, scan->printDataSingle(itemKey, subitemKey));
                 } } }
         dataTable << dataRow; }*/
+
+    ADEBUG;
 }
 
 /*!

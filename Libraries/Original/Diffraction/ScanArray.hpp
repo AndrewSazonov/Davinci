@@ -68,6 +68,7 @@ public:
     void extractInputData();
 
     // Fill methods: ScanArray.cpp/Fill.cpp
+    void fillSingleEmptyArray(As::Scan *scan);
     void fillEmptyArrays();
     void calcUnpolData(const QString &section,
                        const QString &entry,

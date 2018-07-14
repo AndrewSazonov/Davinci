@@ -207,6 +207,8 @@ void As::Window::update_Plot_PeakIntegrateGroup(const Scan *scan)
     m_leftBkgCount->setValueSilently(numLeftBkgPoints);
     m_rightBkgCount->setMaximumSilently(maxNumRightBkgPoints);
     m_rightBkgCount->setValueSilently(numRightBkgPoints);
+
+    ADEBUG;
 }
 
 /*!

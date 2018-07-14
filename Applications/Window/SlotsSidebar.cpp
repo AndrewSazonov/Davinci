@@ -694,6 +694,8 @@ void As::Window::showOutput_Slot()
 
     // Set focus
     m_tabsWidget->setCurrentWidget(m_outputTableWidget);
+
+    ADEBUG;
 }
 
 //================

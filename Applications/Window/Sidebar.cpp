@@ -908,9 +908,13 @@ void As::Window::createFullOutputTableModel_Slot()
             tableModel->item(iRow, iColumn)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter); } }
 
     // Set model
+    ADEBUG;
     m_outputTableWidget->setModel(tableModel);
+    ADEBUG;
 
     // Highlight row with current scan data
     update_OutputTable_Highlight(currentScanIndex()-1);
+
+    ADEBUG;
 }
 

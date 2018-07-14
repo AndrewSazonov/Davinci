@@ -18,6 +18,7 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QtConcurrent>
 #include <QStandardItemModel>
 #include <QString>
 #include <QStringList>
@@ -31,66 +32,84 @@
 #include "ScanArray.hpp"
 
 /*!
-Fills the array with single element.
+Fills single array with single element...
 */
+void As::ScanArray::fillSingleEmptyArray(As::Scan *scan) {
+
+    // Define the total measured intensities and times based on up and down polarized measurements
+    calcUnpolData("intensities", "Detector",  scan);
+    calcUnpolData("intensities", "Monitor",   scan);
+    calcUnpolData("conditions",  "Time/step", scan);
+
+    ///// test
+    ///As::RealVector detector  = (*scan)["intensities"]["Detector"]["data"];
+    ///scan->setData("intensities", "Detector", detector.toQString());
+
+    // Set some common parameters
+    // find a better way to get the size of all the scans!
+    // numPoints?
+    int size = (*scan)["intensities"]["Detector"]["data"].split(" ").size(); // returns 1 for "" !!! fix
+    scan->setData("conditions", "Points count", QString::number(size));
+    // or ???
+    scan->setSize(size);
+
+    // Set McCandlish factor depends on the instrument
+    scan->m_mcCandlishFactor = As::MC_CANDLISH_FACTOR[filesType()];
+
+    // Add zeros to empty but required variables
+
+    // 4-circle geometry...
+    if (!(*scan)["angles"]["2Theta"]["data"].isEmpty()) {
+        QStringList subitemKeys = {"Omega", "Chi", "Phi"};
+        for (const auto &subitemKey : subitemKeys) {
+            if ((*scan)["angles"][subitemKey]["data"].isEmpty())
+                scan->setData("angles", subitemKey, "0"); } }
+
+    // Liffting counter geometry...
+    if (!(*scan)["angles"]["Gamma"]["data"].isEmpty()) {
+        QStringList subitemKeys = {"Nu", "Omega"};
+        for (const auto &subitemKey : subitemKeys) {
+            if ((*scan)["angles"][subitemKey]["data"].isEmpty())
+                scan->setData("angles", subitemKey, "0"); } }
+
+    // Fill arrays with existing single values
+    QStringList itemKeys = {"angles", "conditions", "indices", "intensities"};
+    for (const auto &itemKey : itemKeys) {
+        QStringList subitemKeys = (*scan)[itemKey].keys();
+        for (const auto &subitemKey : subitemKeys) {
+            QString data = (*scan)[itemKey][subitemKey]["data"];
+            if (!data.contains(" ")) {
+                QStringList list;
+                for (int i = 0; i < size; ++i) {
+                    list.append(data); }
+                scan->setData(itemKey, subitemKey, list.join(" ")); } } }
+
+    // Add batch number. All the reflections are considered to belong to just 1st group...
+    scan->setData("number", "Batch", "1");
+}
+
+/*!
+Fills all the arrays with single element...
+*/
+// Using multi-threading: Not needed here!? It was less than 0.1s...
 void As::ScanArray::fillEmptyArrays()
 {
     ADEBUG_H2;
 
+    // Futures for multi-threaded for-loop, to check later when the tasks are completed
+    QList<QFuture<void> > futures;
+
     // For every scan in the scan array
     for (auto scan : m_scanArray) {
+        // Schedule task to the global thread pool
+        auto future = QtConcurrent::run(this, &As::ScanArray::fillSingleEmptyArray, scan);
+        futures.append(future); }
 
-        // Define the total measured intensities and times based on up and down polarized measurements
-        calcUnpolData("intensities", "Detector",  scan);
-        calcUnpolData("intensities", "Monitor",   scan);
-        calcUnpolData("conditions",  "Time/step", scan);
+    // Wait for all the tasks to be completed
+    for (auto future : futures)
+        future.waitForFinished();
 
-        ///// test
-        ///As::RealVector detector  = (*scan)["intensities"]["Detector"]["data"];
-        ///scan->setData("intensities", "Detector", detector.toQString());
-
-
-        // Set some common parameters
-        // find a better way to get the size of all the scans!
-        // numPoints?
-        int size = (*scan)["intensities"]["Detector"]["data"].split(" ").size(); // returns 1 for "" !!! fix
-        scan->setData("conditions", "Points count", QString::number(size));
-        // or ???
-        scan->setSize(size);
-
-        // Set McCandlish factor depends on the instrument
-        scan->m_mcCandlishFactor = As::MC_CANDLISH_FACTOR[filesType()];
-
-        // Add zeros to empty but required variables
-
-        // 4-circle geometry...
-        if (!(*scan)["angles"]["2Theta"]["data"].isEmpty()) {
-            QStringList subitemKeys = {"Omega", "Chi", "Phi"};
-            for (const auto &subitemKey : subitemKeys) {
-                if ((*scan)["angles"][subitemKey]["data"].isEmpty())
-                    scan->setData("angles", subitemKey, "0"); } }
-
-        // Liffting counter geometry...
-        if (!(*scan)["angles"]["Gamma"]["data"].isEmpty()) {
-            QStringList subitemKeys = {"Nu", "Omega"};
-            for (const auto &subitemKey : subitemKeys) {
-                if ((*scan)["angles"][subitemKey]["data"].isEmpty())
-                    scan->setData("angles", subitemKey, "0"); } }
-
-        // Fill arrays with existing single values
-        QStringList itemKeys = {"angles", "conditions", "indices", "intensities"};
-        for (const auto &itemKey : itemKeys) {
-            QStringList subitemKeys = (*scan)[itemKey].keys();
-            for (const auto &subitemKey : subitemKeys) {
-                QString data = (*scan)[itemKey][subitemKey]["data"];
-                if (!data.contains(" ")) {
-                    QStringList list;
-                    for (int i = 0; i < size; ++i) {
-                        list.append(data); }
-                    scan->setData(itemKey, subitemKey, list.join(" ")); } } }
-
-        // Add batch number. All the reflections are considered to belong to just 1st group...
-        scan->setData("number", "Batch", "1"); }
+    ADEBUG;
 }
 
 /*!
@@ -120,10 +139,28 @@ void As::ScanArray::calcUnpolData(const QString &section,
 /*!
 Creates the table models for the extracted scans.
 */
+// Using multi-threading
 void As::ScanArray::createAllExtractedTablesModels()
 {
-    for (auto scan : m_scanArray)
-        scan->createExtractedTableModel_Slot();
+    ADEBUG;
+
+    //for (auto scan : m_scanArray)
+    //    scan->createExtractedTableModel_Slot();
+
+    // Futures for multi-threaded for-loop, to check later when the tasks are completed
+    QList<QFuture<void> > futures;
+
+    // For every scan in the scan array
+    for (auto scan : m_scanArray) {
+        // Schedule task to the global thread pool
+        auto future = QtConcurrent::run(scan, &As::Scan::createExtractedTableModel_Slot);
+        futures.append(future); }
+
+    // Wait for all the tasks to be completed
+    for (auto future : futures)
+        future.waitForFinished();
+
+    ADEBUG;
 }
 
 

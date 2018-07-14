@@ -292,10 +292,6 @@ void As::ScanArray::extractNicosData()
 
     // Make a header map between the possible internal names and NICOS parameter names
     QList<QStringList> headerMap;
-    //headerMap.append({"angles",      "twotheta",    "twotheta"});
-    //headerMap.append({"angles",      "Gamma",       "twotheta"});
-    //headerMap.append({"angles",      "Omega",       "omega"});
-    //headerMap.append({"angles",      "Gamma",       "gamma|twotheta"});
     headerMap.append({"angles",        "Chi1",          "chi1"});
     headerMap.append({"angles",        "Chi2",          "chi2"});
     headerMap.append({"angles",        "Gamma",         "gamma"});
@@ -331,8 +327,6 @@ void As::ScanArray::extractNicosData()
     // Go through every open file
     for (const QString &fileAsString : m_inputFilesContents.second) {
 
-        //ADEBUG;
-
         // Variables
         const QStringList file = fileAsString.split("\n"); // every file content as a list of strings
         auto scan = new As::Scan; // scan to be added to the scan array
@@ -348,16 +342,12 @@ void As::ScanArray::extractNicosData()
         // Read (single numbers if any) and set data for the NICOS variables according to the map created above
         // slow. 30 headerMap lines x 350 files = 10000 iterations
         for (const QStringList &row : headerMap) {
-            //ADEBUG << row;
             for (const QString &name : row[2].split("|")) {
-                //ADEBUG << name << row;
                 const QString value = string.parseString(" " + name + "_value :", "txt", file).split(" ")[0];
-                //string.test2("txt", "qwe");
                 //const QString value = string.parseString(QString(" %1_value :").arg(name), "txt", file).split(" ")[0];
-                //QString value = "";
                 scan->setData(row[0], row[1], value);
             } }
-/**/
+
         // Read and set other data (both single and not single numbers)
         scan->setData("conditions",  "Date & Time",    string.parseString("### NICOS data file",      "date", file));
         scan->setData("conditions",  "Absolute index", string.parseString("number",                   "num",  file));
@@ -366,12 +356,8 @@ void As::ScanArray::extractNicosData()
         scan->setData("scandata",    "data",           string.parseString("### Scan data", "### End", "mult", file, 3));
         scan->setData("scandata",    "headers",        string.parseString("### Scan data",            "txt",  file, 1));
 
-        //ADEBUG;
-
         // Read and set data from the scan table created above according to the header map
         extractDataFromTable(scan, headerMap);
-
-        //ADEBUG;
 
         // Select appropriate data for the monitor
         As::RealVector monitor1 = (*scan)["intensities"]["Monitor1"]["data"];
@@ -400,7 +386,7 @@ void As::ScanArray::extractNicosData()
 
         // Define scan angle name
         findScanAngle(scan);
-/**/
+
         // Append single scan to the scan array
         appendScan(scan); }
 
@@ -538,7 +524,6 @@ provided list of headers \a headerMap.
 void As::ScanArray::extractDataFromTable(As::Scan *scan,
                                          QList<QStringList> &headerMap)
 {
-    //ADEBUG;
 
     // Make 2D map of the actually measured data from the single data string
     const QStringList dataList = (*scan)["scandata"]["data"]["data"].split("\n");
@@ -546,8 +531,6 @@ void As::ScanArray::extractDataFromTable(As::Scan *scan,
     for (const QString &string : dataList)
         dataMap << string.split(QRegExp("\\s"), QString::SkipEmptyParts);
 
-    //ADEBUG << dataMap;
-    //ADEBUG << headerMap;
 
     // Exit from function if no data were found
     if (dataMap.size() == 1 AND dataMap[0].size() == 1)
@@ -555,10 +538,8 @@ void As::ScanArray::extractDataFromTable(As::Scan *scan,
 
     // Check if data measured according to the header, and fill the respective array
     const QStringList headerList = (*scan)["scandata"]["headers"]["data"].split(QRegExp("\\s"), QString::SkipEmptyParts);
-    //ADEBUG << headerList;
     for (int i = 0; i < headerMap.size(); ++i) {
         for (const QString &name : headerMap[i][2].split("|")) {
-            //ADEBUG << name;
             const QRegularExpression re(name + "(_.*){0,1}"); // to catch, e.g., both 'sth' and 'sth_jvm2' cases
             const int row = headerList.indexOf(re);
             if (row != -1) {
@@ -566,7 +547,6 @@ void As::ScanArray::extractDataFromTable(As::Scan *scan,
                 for (const QStringList &dataList : dataMap) {
                     if (dataList.size() > row)
                         data << dataList[row]; }
-                //ADEBUG << headerMap[i][0] << headerMap[i][1] << data.join(" ");
                 scan->setData(headerMap[i][0], headerMap[i][1], data.join(" ")); } } }
 }
 
