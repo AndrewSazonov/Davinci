@@ -28,33 +28,19 @@ template <class Key, class T> class QHash;
 template <class Key, class T> class QMap;
 
 namespace As { //AS_BEGIN_NAMESPACE
-//Q_NAMESPACE
 
 class ScanDatabase;
 
-// Alias names
-
-//typedef QMap<QString, QMap<QString, QString> > ScanSectionMap_t;
-//typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap_t;
+// Alias names (using instead of typedef)
 using ScanSectionMap_t = QMap<QString, QMap<QString, QString> >;
 using ScanMap_t = QMap<QString, QMap<QString, QMap<QString, QString> > >;
 
 // Internally defined constants
 
 constexpr int DEBUG_INDEX_WIDTH = 5;
-constexpr int DEBUG_FILE_WIDTH = 10;
-constexpr int DEBUG_LINE_WIDTH = 4;
 constexpr int DEBUG_FUNCTION_WIDTH = 25;
-constexpr int DEBUG_TIME_WIDTH = 5;
-constexpr int DEBUG_MESSAGE_WIDTH = 90;
-constexpr int DEBUG_SPACE = 3;
-constexpr int DEBUG_WIDTH =
-        DEBUG_INDEX_WIDTH + DEBUG_SPACE +
-        DEBUG_FILE_WIDTH + DEBUG_SPACE +
-        DEBUG_LINE_WIDTH + DEBUG_SPACE +
-        DEBUG_FUNCTION_WIDTH + DEBUG_SPACE +
-        DEBUG_TIME_WIDTH + DEBUG_SPACE +
-        DEBUG_MESSAGE_WIDTH;
+constexpr int DEBUG_TIME_WIDTH = 6;
+constexpr int DEBUG_HYPERLINK_WIDTH = 35;
 
 constexpr int APP_WINDOW_WIDTH  = 900;
 constexpr int APP_WINDOW_HEIGHT = 600;
