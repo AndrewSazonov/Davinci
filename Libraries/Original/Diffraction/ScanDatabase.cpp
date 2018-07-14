@@ -69,7 +69,7 @@ As::ScanDatabase::ScanDatabase()
     //  Holds the arrays of the direction cosines of incident (s0) and diffracted (s2) beams
     //  --------------------------------------------------------------------------------------
     //  section    name   format   units  tooltip
-    //  ---------------- -------------------------------------------------------------
+    //  --------------------------------------------------------------------------------------
     set("cosines", "S0X", "0.5f",  "",    "...");
     set("cosines", "S0Y", "0.5f",  "",    "...");
     set("cosines", "S0Z", "0.5f",  "",    "...");
@@ -113,15 +113,6 @@ As::ScanDatabase::ScanDatabase()
     set("polarisation", "Pout", "s",    "",       "Direction of the output polarization");
     set("polarisation", "Fin",  "s",    "",       "Status of the input flipper");
     set("polarisation", "Fout", "s",    "",       "Status of the output flipper");
-
-    //  --------------------------------------------------------------------------------------
-    //  Holds the date and time of the measurements.
-    //  --------------------------------------------------------------------------------------
-    //  section     name        label        format              units  tooltip
-    //  --------------------------------------------------------------------------------------
-    //set("dateTime", "dateTime", "Date&Time", "dd/MM/yyyy hh:mm", "",    "Date and time of the measurements");
-    //set("dateTime", "date",     "Date",      "dd/MM/yyyy",       "",    "Date of the measurements");
-    //set("dateTime", "time",     "Time",      "hh:mm",            "",    "Time of the measurements");
 
     //  --------------------------------------------------------------------------------------
     //  Holds the major measured intensities.

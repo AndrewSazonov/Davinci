@@ -101,8 +101,6 @@ void As::ScanArray::calcUnpolData(const QString &section,
                                   const QString &entry,
                                   As::Scan *scan)
 {
-    //////ADEBUG << section << entry << scan;
-
     bool okUp, okDown;
 
     const As::RealVector up   = scan->data(section, entry + COUNT_TYPES[1], &okUp);
