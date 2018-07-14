@@ -45,6 +45,9 @@ As::Console::Console()
     // Print program description
     printAppDescription();
 
+    // Set output format for qDebug() depends on the build type
+    SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
+
     // Check if required options are provided by user
     checkRequiredOptions(QStringList{"path"});
 
@@ -177,11 +180,10 @@ void As::Console::createCommandLineParser(QCoreApplication *app)
     m_parser.addHelpOption();
 
     // Add options
-    m_parser.addOptions({{{"d", "debug"},  "Enable debug output."},
-                         {{"p", "path"},   "File/dir to open.", "file/dir"},
+    m_parser.addOptions({{{"p", "path"},   "File/dir to open.", "file/dir"},
                          {{"o", "output"}, "File to save output data.", "file"},
                          {{"f", "format"}, "Output file format <type>: general, shelx, tbar, umweg, ccsl.", "type"},
-                        });
+                        }); // {{"d", "debug"},  "Enable debug output."}
 
     // Add arguments
     //parser->addPositionalArgument("urls", QObject::tr("Files to open."), "[urls...]");
@@ -199,7 +201,7 @@ void As::Console::createCommandLineParser(QCoreApplication *app)
     m_parser.process(*app);
 
     // Debug output format, depends on the option provided by user
-    As::SetDebugOutputFormat(m_parser.isSet("debug"));
+    //As::SetDebugOutputFormat(m_parser.isSet("debug"));
 }
 
 /*!

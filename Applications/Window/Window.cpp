@@ -71,24 +71,16 @@
 
 #include "Window.hpp"
 
-
-#include "RealMatrix9.hpp"
-#include "RealVector.hpp"
-#include <qmath.h>
-
 /*!
 Constructs the main program window.
 */
 As::Window::Window()
 {
     // Print application info
-    printAppInfo_Slot();
+    //printAppInfo_Slot();
 
-    // Set output format for qDebug(), etc. if debug-build mode
-    //qInstallMessageHandler(0);
-    //qInstallMessageHandler(As::DetailedMessageOutput);
-    //SetDebugOutputFormat(1);
-    SetDebugOutputFormat(IS_DEBUG);
+    // Set output format for qDebug() depends on the build type
+    SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
 
     // Set program GUI style
     setStyleSheet(createStyleSheet());
