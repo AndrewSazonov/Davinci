@@ -65,7 +65,7 @@ private:
 
 } //AS_END_NAMESPACE
 
-QDebug operator<<(QDebug debug, const As::RealArray &other);
+QDebug operator<<(QDebug debug, const As::RealArray &array);
 
 Q_DECLARE_METATYPE(As::RealArray) // To use it as a custom type in QVariant.
 

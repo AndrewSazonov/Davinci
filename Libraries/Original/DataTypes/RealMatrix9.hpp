@@ -55,7 +55,7 @@ public:
 
 } //AS_END_NAMESPACE
 
-QDebug operator<<(QDebug debug, const As::RealMatrix9 &other);
+QDebug operator<<(QDebug debug, const As::RealMatrix9 &matrix);
 
 Q_DECLARE_METATYPE(As::RealMatrix9) // To use it as a custom type in QVariant.
 

@@ -49,13 +49,15 @@ As::Line::Line(const qreal x1,
                const qreal esdX1,
                const qreal esdY1,
                const qreal esdX2,
-               const qreal esdY2)
-{
-    m_x1 = x1; m_y1 = y1;
-    m_x2 = x2; m_y2 = y2;
-    m_esdX1 = esdX1; m_esdY1 = esdY1;
-    m_esdX2 = esdX2; m_esdY2 = esdY2;
-}
+               const qreal esdY2) :
+    m_x1(x1),
+    m_y1(y1),
+    m_x2(x2),
+    m_y2(y2),
+    m_esdX1(esdX1),
+    m_esdY1(esdY1),
+    m_esdX2(esdX2),
+    m_esdY2(esdY2) {}
 
 /*!
 Destroys the array.
@@ -67,6 +69,7 @@ Returns the calculated x coordinate for the given \a y coordinate.
 */
 qreal As::Line::xForY(const qreal y) const
 {
+    /// Add assert!
     // y = mx + b;
     // m = (y2 - y1) / (x2 - x1)
     // b = y2 - mx2

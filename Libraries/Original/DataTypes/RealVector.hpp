@@ -65,7 +65,7 @@ public:
 
 } //AS_END_NAMESPACE
 
-QDebug operator<<(QDebug debug, const As::RealVector &other);
+QDebug operator<<(QDebug debug, const As::RealVector &vector);
 
 Q_DECLARE_METATYPE(As::RealVector) // To use it as a custom type in QVariant.
 

@@ -265,4 +265,5 @@ tests.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [APPS_DIR_NAME] + [TESTS_NAME])
 tests.addHeaders(GetSelectedFileList(TESTS_DIR, HEADER_EXT))
 tests.addSources(GetSelectedFileList(TESTS_DIR, SOURCE_EXT))
 
+# Save to files
 tests.save(TESTS_DIR + [TESTS_DIR_NAME])

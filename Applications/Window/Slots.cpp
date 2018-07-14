@@ -368,8 +368,8 @@ void As::Window::checkApplicationUpdateNow_Slot(const bool hideOutput)
     // Read the output
     const QByteArray data = updater.readAllStandardOutput();
     const QByteArray err = updater.readAllStandardError();
-    ADEBUG << "data:\n" << data;
-    ADEBUG << "err:\n" << err;
+    //ADEBUG << "data:\n" << data;
+    //ADEBUG << "err:\n" << err;
 
     // Regular expression for app version in format 1.0.12
     const QRegularExpression re("\\d+\\.\\d+\\.\\d+");
