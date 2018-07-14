@@ -232,17 +232,18 @@ DOC_EXT                     = '.qdoc'
 ##############
 
 # Adding C preprocessor #DEFINE so we can use APP_NAME, etc. in C++ code
-DEFINES_DICT                = {'APP_NAME':          APP_NAME,
-                               'APP_VERSION':       APP_VERSION,
-                               'APP_RELEASE_DATE':  APP_RELEASE_DATE,
-                               'APP_URL':           APP_URL,
-                               'APP_DOMAIN':        APP_DOMAIN,
-                               'APP_OWNER':         APP_OWNER,
-                               'APP_COPYRIGHT':     APP_COPYRIGHT,
-                               'APP_DESCRIPTION':   APP_DESCRIPTION,
-                               'MAINTAINER_NAME':   MAINTAINER_NAME,
-                               'USERMANUAL_URL':    USERMANUAL_URL,
-                               'ISSUETRACKER_URL':  ISSUETRACKER_URL}
+DEFINES_DICT                = {'APP_NAME':              APP_NAME,
+                               'APP_VERSION':           APP_VERSION,
+                               'APP_RELEASE_DATE':      APP_RELEASE_DATE,
+                               'APP_URL':               APP_URL,
+                               'APP_DOMAIN':            APP_DOMAIN,
+                               'APP_OWNER':             APP_OWNER,
+                               'APP_COPYRIGHT':         APP_COPYRIGHT,
+                               'APP_DESCRIPTION':       APP_DESCRIPTION,
+                               'APP_BUILD_TYPE':        BUILD_TYPE,
+                               'MAINTAINER_NAME':       MAINTAINER_NAME,
+                               'USERMANUAL_URL':        USERMANUAL_URL,
+                               'ISSUETRACKER_URL':      ISSUETRACKER_URL}
 
 # Add in release output of such information as %{function}, %{line}, %{message}, etc.
 DEFINES_MISC                = 'QT_MESSAGELOGCONTEXT'
