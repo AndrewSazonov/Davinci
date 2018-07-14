@@ -18,24 +18,12 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//#include <QDate>
-//#include <QDateTime>
-//#include <QDebug>
-//#include <QDir>
-//#include <QFileInfo>
-//#include <QMap>
-//#include <QObject>
 #include <QSettings>
 #include <QString>
 #include <QStringList>
-//#include <QTime>
 #include <QVector>
 
-//#include "Functions.hpp"
 #include "Macros.hpp"
-
-//#include "RealVector.hpp"
-//#include "ScanDatabase.hpp"
 
 #include "SaveHeaders.hpp"
 
