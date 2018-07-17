@@ -300,7 +300,6 @@ void As::Window::openUserManual_Slot()
 {
     ADEBUG;
 
-    //QString link = "http://www.google.com";
     QDesktopServices::openUrl(QUrl(USERMANUAL_URL));
 }
 
@@ -311,7 +310,6 @@ void As::Window::openIssueTracker_Slot()
 {
     ADEBUG;
 
-    //QString link = "http://www.google.com";
     QDesktopServices::openUrl(QUrl(ISSUETRACKER_URL));
 }
 
@@ -363,8 +361,8 @@ void As::Window::checkApplicationUpdateNow_Slot(const bool hideOutput)
     // Read the output
     const QByteArray data = updater.readAllStandardOutput();
     const QByteArray err = updater.readAllStandardError();
-    //ADEBUG << "data:\n" << data;
-    //ADEBUG << "err:\n" << err;
+    ADEBUG << "data:  " << data;
+    ADEBUG << "err:  " << err;
 
     // Regular expression for app version in format 1.0.12
     const QRegularExpression re("\\d+\\.\\d+\\.\\d+");
@@ -418,27 +416,12 @@ void As::Window::installUpdate_Slot()
 {
     ADEBUG;
 
-    //QStringList list = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
-    //QString dir = QDir::toNativeSeparators(QString("%1/%2").arg(list[list.size()-1]).arg(APP_NAME));
-
     // Start the external maintenance tool as detached process
     bool updaterStarted = QProcess::startDetached(As::Window::maintainerPath(), QStringList("--updater"));
 
     // Close application for the update if external updater is started
     if (updaterStarted)
-        exit(0);
+        qApp->quit();
 }
 
-
-/*
-// not in use
-void As::Window::networkReplyFinished_Slot(QNetworkReply *reply)
-{
-    ADEBUG;
-
-    const QVariant redirectUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-    //emit As::Window::applicationUrlReceived_Signal(redirectUrl.toString());
-    compareAppVersions_Slot(redirectUrl.toUrl());
-}
-*/
 

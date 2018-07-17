@@ -63,21 +63,16 @@ void As::Window::gotoScan_Slot(const int index)
     ADEBUG << "index:" << index;
 
     // Update the file if nesessary. Should be at the beginning?
-    ///ADEBUG << scanAt(index)->fileIndex();
     gotoFile_Slot(scanAt(index)->fileIndex());
     //m_scans->setFileIndex(scanAt(index)->fileIndex());
-    ///m_scans->setFileIndexByScanIndex(index);
-    ///emit currentFileIndexChanged_Signal(scanAt(index)->fileIndex());
+    //m_scans->setFileIndexByScanIndex(index);
+    //emit currentFileIndexChanged_Signal(scanAt(index)->fileIndex());
 
     // Set the scan index
     emit currentScanChanged_Signal(index);
-    //m_scans->setScanIndex(index);
-
-    //ADEBUG << "==============" << currentScan()->m_numRightBkgPoints;
 
     //if (!scanAt(index)->m_isIndividuallyTreated) {
     if (!currentScan()->m_isIndividuallyTreated) {
-        /**/
         currentScan()->m_removeNeighborsType = genericScan()->m_removeNeighborsType;
 
         currentScan()->m_numLeftSkipPoints = genericScan()->m_numLeftSkipPoints;
@@ -88,10 +83,7 @@ void As::Window::gotoScan_Slot(const int index)
 
         currentScan()->m_numLeftBkgPoints = genericScan()->m_numLeftBkgPoints;
         currentScan()->m_numRightBkgPoints = genericScan()->m_numRightBkgPoints;
-        /**/
     }
-
-    //ADEBUG << "==============" << currentScan()->m_numRightBkgPoints;
 
     // Treat current scan conditions
     if (genericScan()->plotType() == As::PlotType::Integrated AND currentScan()->plotType() != As::PlotType::Excluded)
@@ -100,20 +92,14 @@ void As::Window::gotoScan_Slot(const int index)
     //
     m_scans->setScanIndex(index);
 
-    //ADEBUG << "index:" << index;
-
     // Update the common widgets
     if (scanAt(index)->plotType() == As::PlotType::Excluded)
         emit excludeScanStateChanged_Signal(true);
     else
         emit excludeScanStateChanged_Signal(false);
 
-    //ADEBUG << "index:" << index;
-
     // Update the extracted tables
     emit extractedTableModelChanged(scanAt(index)->m_tableModel);
-
-    //ADEBUG << "index:" << index;
 
     // Update the text widget
     m_inputTextWidget->setCursorPosition(currentScan()->scanLine());
@@ -121,7 +107,7 @@ void As::Window::gotoScan_Slot(const int index)
     // Update the visualized plot
     if (m_visualizedPlotsWidget) {
         m_visualizedPlotsWidget->updateAllOnPlot(scanAt(index));
-        ///updateChangeScanGroup(scanAt(index));
+        //updateChangeScanGroup(scanAt(index));
         update_Plot_ExpDetailsGroup(scanAt(index));
         update_Plot_ExpAnglesGroup(scanAt(index));
         emit individualTreatStateChanged_Signal(scanAt(index)->m_isIndividuallyTreated);
@@ -180,18 +166,6 @@ void As::Window::gotoFile_Slot(const int index)
     const int size = m_inputTextWidget->blockCount();
     emit linesRangeChanged_Signal(1, size);
     emit linesCountChanged_Signal(QString::number(size));
-
-    //if (m_scans->fileIndex() == index)
-    //    updateScan_Slot();
-
-    //m_inputTextWidget->clearAllSelections();
-
-    //ADEBUG << index;
-    //ADEBUG << m_scans->sca->fileIndex();
-    //if (currentScan() AND index == currentScan()->fileIndex())
-    //    highlightScanLines_Slot(m_scans->scanIndex());
-
-    //new As::SyntaxHighlighter(m_inputTextWidget->document(), "POLI NICOS dat");
 }
 
 /*!
@@ -364,8 +338,6 @@ void As::Window::highlightCurrentScanLines_Slot(const int fileIndex)
 void As::Window::highlightScanLines_Slot(const int scanIndex)
 {
     //ADEBUG << "scanIndex:" << scanIndex;
-    //ADEBUG << "m_scans->scanIndex()" << m_scans->scanIndex();
-    //ADEBUG << "currentScan()->fileIndex()" << currentScan()->fileIndex();
     //m_inputTextWidget->clearAllSelections();
 
     if (scanIndex == 0)
@@ -397,7 +369,7 @@ void As::Window::highlightScanLines_Slot(const int scanIndex)
     if (lines.size() > 0) {
         bool ok;
         const int lineIndex = lines[0].toInt(&ok);
-        ///ADEBUG << "???????????????????????????" << lineIndex;
+        ///ADEBUG << "???" << lineIndex;
         if (ok)
             m_inputTextWidget->setCursorPosition(lineIndex); }
 
@@ -422,8 +394,7 @@ void As::Window::textSearchTimer_Slot()
     // If within 1 second findField text was edited again then
     // previous signal-slot is disconnected and new will be set for 1 second
     //connect(m_delayBeforeSearching, SIGNAL(timeout()), this, SLOT(highlightFoundText_Slot()));
-    //connect(m_delayBeforeSearching, &QTimer::timeout, this, &As::Window::highlightFoundText_Slot);
-    connect(m_delayBeforeSearching, SIGNAL(timeout()), this, SLOT(highlightFoundText_Slot()));
+    connect(m_delayBeforeSearching, &QTimer::timeout, this, &As::Window::highlightFoundText_Slot);
 }
 
 /*!
