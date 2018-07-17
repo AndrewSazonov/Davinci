@@ -150,14 +150,15 @@ void As::Window::createActionsMenusToolBar()
     //---------
     QMenu *viewMenu = menuBar()->addMenu(tr("&View"));
 
-    // Add action
-    auto sidebarIcon = new QIcon;
-    sidebarIcon->addFile(":/Images/Button_Sidebar_On.svg", QSize(), QIcon::Normal, QIcon::On);
-    sidebarIcon->addFile(":/Images/Button_Sidebar_Off.svg", QSize(), QIcon::Normal, QIcon::Off);
+    // Create icon with 2 states
+    QIcon sidebarIcon;
+    sidebarIcon.addFile(":/Images/Button_Sidebar_On.svg", QSize(), QIcon::Normal, QIcon::On);
+    sidebarIcon.addFile(":/Images/Button_Sidebar_Off.svg", QSize(), QIcon::Normal, QIcon::Off);
 
+    // Add action
     QAction *showOrHideSidebar_Act = viewMenu->addAction(tr("&Show Side Bar"));
     showOrHideSidebar_Act->setToolTip(tr("Show or hide the sidebar with options for manual data processing."));
-    showOrHideSidebar_Act->setIcon(*sidebarIcon);
+    showOrHideSidebar_Act->setIcon(sidebarIcon);
     showOrHideSidebar_Act->setCheckable(true);
     showOrHideSidebar_Act->setChecked(false);
     showOrHideSidebar_Act->setEnabled(false);
