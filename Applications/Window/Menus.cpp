@@ -291,37 +291,3 @@ void As::Window::createActionsMenusToolBar()
     setUnifiedTitleAndToolBarOnMac(true);
 #endif
 }
-
-// open recent
-// http://www.walletfox.com/course/qtopenrecentfiles.php
-
-// misc
-//void QIcon::addFile(const QString &fileName, const QSize &size = QSize(), Mode mode = Normal, State state = Off)
-//QT_HIGHDPI_DISABLE_2X_IMAGE_LOADING
-//sidebarIcon->addPixmap(QPixmap(":/Images/Button_Sidebar_On.png"), QIcon::Normal, QIcon::On);
-//sidebarIcon->addPixmap(QPixmap(":/Images/Button_Sidebar_Off.png"), QIcon::Normal, QIcon::Off);
-//sidebarIcon->addFile(":/Images/Button_Sidebar_On.png", QSize(32,32), QIcon::Normal, QIcon::On);
-//sidebarIcon->addFile(":/Images/Button_Sidebar_Off.png", QSize(32,32), QIcon::Normal, QIcon::Off);
-
-/*
-QByteArray sidebarIconByteArray = "<?xml version='1.0' encoding='utf-8'?> <svg viewBox='0 0 16 16' width='16' height='16' xmlns='http://www.w3.org/2000/svg'> <rect style='stroke: #800000; fill: #FF0000;' x='0.5' y='6' width='10' height='8'/> <rect style='stroke: #008000; fill: #00FF00;' x='11.5' y='6' width='4' height='8'/> <rect style='stroke: #000080; fill: #0000FF;' y='2' width='15' height='4' x='0.5'/> </svg>";
-QByteArray sidebarIconByteArrayOn = sidebarIconByteArray.
-        replace("#0000FF", qPrintable(As::Color(As::blueLightUltra).name())).
-        replace("#000080", qPrintable(As::Color(As::blue).name())).
-        replace("#00FF00", qPrintable(As::Color(As::blueLightVery).name())).
-        replace("#008000", qPrintable(As::Color(As::blue).name())).
-        replace("#FF0000", qPrintable(As::Color(As::blueLightUltra).name())).
-        replace("#800000", qPrintable(As::Color(As::blue).name()));
-QByteArray sidebarIconByteArrayOff = sidebarIconByteArray.
-        replace("#0000FF", qPrintable(As::Color(As::grayLightUltra).name())).
-        replace("#000080", qPrintable(As::Color(As::gray).name())).
-        replace("#00FF00", qPrintable(As::Color(As::grayLightVery).name())).
-        replace("#008000", qPrintable(As::Color(As::gray).name())).
-        replace("#FF0000", qPrintable(As::Color(As::grayLightUltra).name())).
-        replace("#800000", qPrintable(As::Color(As::gray).name()));
-QImage sidebarIconImageOn = QImage::fromData(sidebarIconByteArrayOn, "svg"); // QImage sidebarIconImageOn(":/Images/Button_Sidebar.svg");
-QPixmap sidebarIconPixmapOn(QPixmap::fromImage(sidebarIconImageOn));
-QIcon sidebarIcon(sidebarIconPixmapOn);
-ADEBUG << As::Color(As::gray).name() << As::Color(As::grayLightVery).name() << As::Color(As::grayLightUltra).name();
-ADEBUG << As::Color(As::blue).name() << As::Color(As::blueLightVery).name() << As::Color(As::blueLightUltra).name();
-*/

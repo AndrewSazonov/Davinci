@@ -29,10 +29,10 @@ int main(int argc, char *argv[])
 
     // Set application info
     app.setApplicationName(APP_NAME);
+    //app.setApplicationDisplayName(APP_NAME); // by default: the application name
     app.setApplicationVersion(APP_VERSION);
     app.setOrganizationName(APP_OWNER);
     app.setOrganizationDomain(APP_DOMAIN);
-    //app.setApplicationDisplayName(APP_NAME); // by default: the application name
 
     // Enables support for high-dpi images
     //app.setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -42,9 +42,8 @@ int main(int argc, char *argv[])
     app.setAttribute(Qt::AA_DontShowIconsInMenus);
 
     // Create main window
-    As::Window mainWindow;
-    //mainWindow.show();
-    Q_UNUSED(mainWindow)
+    As::Window mainWindow; Q_UNUSED(mainWindow)
+    //mainWindow.show(); // call show in the constructor
 
     // Start event loop
     return app.exec();
