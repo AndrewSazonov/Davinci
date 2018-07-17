@@ -42,7 +42,7 @@ signals:
     void checkUpdateNowClicked_Signal(const bool);
 
 private:
-    As::GroupBox *createGeneralGroup();
+    As::GroupBox *createLanguageGroup();
     As::GroupBox *createUpdateGroup();
 
 private slots:

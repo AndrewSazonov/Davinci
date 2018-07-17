@@ -52,7 +52,7 @@ As::PreferencesDialog::PreferencesDialog(QWidget *parent)
     ADEBUG;
 
     auto layout = new As::VBoxLayout;
-    //layout->addWidget(createGeneralGroup());
+    layout->addWidget(createLanguageGroup());
     layout->addWidget(createUpdateGroup());
 
     setLayout(layout);
@@ -62,23 +62,20 @@ As::PreferencesDialog::PreferencesDialog(QWidget *parent)
 /*!
 ...
 */
-As::GroupBox *As::PreferencesDialog::createGeneralGroup()
+As::GroupBox *As::PreferencesDialog::createLanguageGroup()
 {
     ADEBUG;
-
-    // http://doc.qt.io/qt-5/qtlinguist-hellotr-example.html
-    // http://doc.qt.io/qt-5/internationalization.html
 
     auto languageComboBox = new As::ComboBox;
     languageComboBox->setToolTip(tr("Select program language. Restart is required."));
     languageComboBox->addItem(tr("English"));
-    languageComboBox->addItem(tr("German"));
-    languageComboBox->addItem(tr("Russian"));
+    //languageComboBox->addItem(tr("German"));
+    //languageComboBox->addItem(tr("Russian"));
 
     auto layout = new QVBoxLayout;
     layout->addWidget(languageComboBox);
 
-    auto group = new As::GroupBox("PreferencesGeneralGroup", tr("General"));
+    auto group = new As::GroupBox("PreferencesGeneralGroup", tr("Language"));
     group->setLayout(layout);
 
     return group;
@@ -94,12 +91,12 @@ As::GroupBox *As::PreferencesDialog::createUpdateGroup()
     const bool autoUpdate = QSettings().value("Preferences/autoUpdate", true).toBool();
 
     auto checkAuto = new As::CheckBox(tr("Automatically check for updates"));
-    checkAuto->setToolTip(tr("???"));
+    checkAuto->setToolTip(tr("Automatically check for updates."));
     checkAuto->setChecked(autoUpdate);
     connect(checkAuto, &As::CheckBox::toggled, this, &As::PreferencesDialog::setAutoUpdate_Slot);
 
     auto checkNow = new As::PushButton(tr("Check now"));
-    checkNow->setToolTip(tr("???"));
+    checkNow->setToolTip(tr("Click to check for updates."));
     connect(checkNow, &As::PushButton::clicked, this, &As::PreferencesDialog::checkUpdateNowClicked_Signal);
 
     auto layout = new QVBoxLayout;
