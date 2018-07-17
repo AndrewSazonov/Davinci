@@ -203,6 +203,8 @@ private:
     void createActionsMenusToolBar();
     void createStatusBar();
     QString createStyleSheet() const;
+    void autoRun(const QString &path,
+                 const bool quit = false);
 
     // Misc
     void openFiles(const QStringList &pathList);

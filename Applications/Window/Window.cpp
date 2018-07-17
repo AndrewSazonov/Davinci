@@ -82,10 +82,6 @@ As::Window::Window()
     // Set output format for qDebug() depends on the build type
     SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
 
-    ADEBUG << this;
-    ADEBUG << QApplication::instance(); // = qApp
-    ADEBUG << qApp;
-
     // Set program GUI style
     setStyleSheet(createStyleSheet());
 
@@ -114,26 +110,18 @@ As::Window::Window()
     // Show the main application window
     show(); // moved here from main.cpp to show (1) mainwindow and then (2) autoupdate window
 
-/**/
     // Offer to chose the automatic update, when the program is started for the 1st time
     offerAutoUpdate();
 
     // Check for update, if required
     checkApplicationUpdate();
-/**/
 
     // Update count of application start
     setApplicationStartCount();
 
+    // Auto run test
+    autoRun("/Users/asazonov/tmp/p10533");
 
-    //openFiles(QStringList{"/Users/asazonov/tmp/p10533"});
-
-    //extractScans_Slot();
-    //visualizePlots_Slot();
-    //calcStructureFactor_Slot();
-    //showOutput_Slot();
-
-    //QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection);
 }
 
 /*!
@@ -144,6 +132,22 @@ As::Window::~Window()
     ADEBUG;
 
     writeSettings();
+}
+
+/*!
+Writes application setting to disk.
+*/
+void As::Window::autoRun(const QString &path, const bool quit)
+{
+    openFiles(QStringList{path});
+
+    extractScans_Slot();
+    visualizePlots_Slot();
+    calcStructureFactor_Slot();
+    showOutput_Slot();
+
+    if (quit)
+        QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection); // qApp = QApplication::instance()
 }
 
 /*!
