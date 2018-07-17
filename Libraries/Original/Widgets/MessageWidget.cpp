@@ -61,6 +61,7 @@ As::MessageWidget::MessageWidget(QWidget *parent,
 
     // Message text
     auto message = new QLabel(text);
+    message->setOpenExternalLinks(true);
 
     // Buttons
     auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
