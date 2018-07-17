@@ -45,8 +45,11 @@ Constructs a table view widget with the given \a parent.
 As::TableView::TableView(QWidget *parent)
     : QTableView(parent)
 {
-    const auto font = QSettings().value("TextSettings/font").value<QFont>();
-    setFont(font);
+    //const auto font = QSettings().value("TextSettings/font").value<QFont>();
+    const QString family = QSettings().value("TextSettings/fontFamily").toString();
+    const int size = QSettings().value("TextSettings/fontSize").toInt();
+    if (!family.isEmpty() AND size > 0)
+        setFont(QFont(family, size));
 
     setSortingEnabled(true);
     setAlternatingRowColors(true);

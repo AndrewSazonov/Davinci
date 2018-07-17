@@ -47,8 +47,11 @@ As::TextEditor::TextEditor()
     setTextInteractionFlags(textInteractionFlags() | Qt::TextSelectableByKeyboard);
     setCenterOnScroll(true);
 
-    auto font = QSettings().value("TextSettings/font").value<QFont>();
-    setFont(font);
+    //auto font = QSettings().value("TextSettings/font").value<QFont>();
+    const QString family = QSettings().value("TextSettings/fontFamily").toString();
+    const int size = QSettings().value("TextSettings/fontSize").toInt();
+    if (!family.isEmpty() AND size > 0)
+        setFont(QFont(family, size));
 
     auto isTextWraped = QSettings().value("TextSettings/wrapText", false).toBool();
     setLineWrapMode(QPlainTextEdit::NoWrap);

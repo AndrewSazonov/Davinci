@@ -327,7 +327,8 @@ void As::Window::setFont_Slot(const QFont &font)
 {
     ADEBUG << "font:" << font;
 
-    QSettings().setValue("TextSettings/font", font);
+    QSettings().setValue("TextSettings/fontFamily", font.family());
+    QSettings().setValue("TextSettings/fontSize", font.pointSize());
 
     m_inputTextWidget->setFont(font);
     m_inputTextWidget->updateLineNumberAreaFontSize(font);
@@ -342,6 +343,7 @@ void As::Window::setFontSize_Slot(const int size)
 
     auto font = m_inputTextWidget->font();
     font.setPointSize(size);
+
     setFont_Slot(font);
 }
 

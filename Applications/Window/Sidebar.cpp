@@ -438,31 +438,38 @@ As::GroupBox *As::Window::create_Text_ViewGroup(const QString &objectName,
 Returns the group 'Text - Settings - Font'.
 */
 As::GroupBox *As::Window::create_Text_FontGroup(const QString &objectName,
-                                              const QString &title)
+                                                const QString &title)
 {
     ADEBUG << "objectName and title:" << objectName << title;
 
+    // Default font settings
+    const int defaultSize = 13;
+    QString defaultFamily;
+#ifdef Q_OS_OSX
+    defaultFamily = "Monaco";
+#endif
+    ADEBUG << "default font" << defaultFamily << defaultSize;
+
     // Read previously saved application settings
-    const auto font = QSettings().value("TextSettings/font").value<QFont>();
-    const int size = font.pointSize();
+    const QString family = QSettings().value("TextSettings/fontFamily", defaultFamily).toString();
+    const int size = QSettings().value("TextSettings/fontSize", defaultSize).toInt();
 
-    //auto fontFamily = new As::FontComboBox;
-    auto fontFamily = monospacedFonts;
-    fontFamily->setToolTip(tr("Choose the font family."));
-    fontFamily->setCurrentFont(font);
-    connect(fontFamily, &As::FontComboBox::currentFontChanged, this, &As::Window::setFont_Slot);
+    //auto font = monospacedFonts;
+    auto font = new As::FontComboBox;
+    font->setFontFilters(QFontComboBox::MonospacedFonts); // slow!?
+    font->setToolTip(tr("Choose the font family."));
+    connect(font, &As::FontComboBox::currentFontChanged, this, &As::Window::setFont_Slot);
+    font->setCurrentFont(QFont(family, size)); // after connect!
 
-    auto fontSize   = new As::SpinBox;
+    auto fontSize = new As::SpinBox;
     fontSize->setToolTip(tr("Set the font size."));
     fontSize->setRange(1, 32);
     fontSize->setSuffix(" pt");
     fontSize->setValue(size);
-    //connect(fontSize, QOverload<int>::of(&As::SpinBox::valueChanged), this, &As::Window::setFontSize_Slot);
-    //CONNECT_SBINT(fontSize, &As::SpinBox::valueChanged, this, &As::Window::setFontSize_Slot);
-    connect(fontSize, SB_INT&As::SpinBox::valueChanged, this, &As::Window::setFontSize_Slot);
+    connect(fontSize, qOverload<int>(&As::SpinBox::valueChanged), this, &As::Window::setFontSize_Slot);
 
     auto layout = new QHBoxLayout;
-    layout->addWidget(fontFamily);
+    layout->addWidget(font);
     layout->addWidget(fontSize);
 
     auto group = new As::GroupBox(objectName, title);
