@@ -503,6 +503,8 @@ void As::ScanArray::findScanAngle(As::Scan *scan)
     // Set scan angle, if not yet setted
     if (scan->scanAngle().isEmpty()) {
         QStringList subitemKeys = (*scan)["angles"].keys();
+        // default value
+
         //ADEBUG << subitemKeys;
         for (const QString &subitemKey : subitemKeys) {
             //ADEBUG << subitemKey << (*scan)["angles"][subitemKey]["data"];
@@ -557,9 +559,6 @@ void As::ScanArray::appendScan(As::Scan *scan)
 {
     //ADEBUG << scan;
 
-    if (scan->scanAngle().isEmpty())
-        return;
-
     // Set scan line
     scan->setScanLine(1);
     bool ok = false;
@@ -580,8 +579,8 @@ void As::ScanArray::appendScan(As::Scan *scan)
             QStringList subitemKeys = (*scan)[itemKey].keys();
             for (const auto &subitemKey : subitemKeys) {
 
-                // Check if there is any not-empty angle or hkl
-                if (!(*scan)[itemKey][subitemKey]["data"].isEmpty()) {
+                // Check if there is any not-empty angle or hkl and...
+                if (!(*scan)[itemKey][subitemKey]["data"].isEmpty() AND !scan->scanAngle().isEmpty()) {
 
                     // Set the index to be the next ...
                     scan->setIndex(size());
@@ -590,4 +589,7 @@ void As::ScanArray::appendScan(As::Scan *scan)
 
                     append(scan);
                     return; } } } }
+
+    // not correctly measured scan - deallocate memory
+    delete scan;
 }
