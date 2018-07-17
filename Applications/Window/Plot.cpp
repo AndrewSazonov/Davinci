@@ -38,11 +38,14 @@ As::Plot::Plot()
     // Define global vars
     m_debugLineWidth = 2;
     m_markSize  = 8;
+
     // Configure right and top axes to show ticks
     axisRect()->setupFullAxesBox();
+
     // make left and bottom axes always transfer their ranges to right and top axes:
     connect(xAxis, SIGNAL(rangeChanged(QCPRange)), xAxis2, SLOT(setRange(QCPRange)));
     connect(yAxis, SIGNAL(rangeChanged(QCPRange)), yAxis2, SLOT(setRange(QCPRange)));
+
     // By default the order of layers is: 0: "background", 1: "grid", 2: "main", 3: "axes", 4: "legend"
     // Create new layer for info labels to be on top (z-order) of the plot
     //addLayer("labels");
@@ -50,30 +53,36 @@ As::Plot::Plot()
     //moveLayer(layer("legend"), layer("labels"));
     // Create new layer "labels" for info labels to be just below layer "legend"
     addLayer("labels", layer("legend"), limBelow);
+
     // Axes labels
     setAxesLabels();
     //updateGraphs();
+
     // Enlarge plot margins
     //this->axisRect()->setAutoMargins(QCP::msLeft | QCP::msTop | QCP::msRight | QCP::msBottom);
     //this->axisRect()->setAutoMargins(QCP::msAll);
     //this->axisRect()->setAutoMargins(QCP::msNone);
     //axisRect()->setMinimumMargins(QMargins(16, 16, 16, 16)); // minimum margins
     plotLayout()->setMargins(QMargins(10, 7, 7, 10));
+
     // Axes paddings
     xAxis->setLabelPadding(12);
     yAxis->setLabelPadding(12);
+
     // Get rid of the default zero lines
     xAxis->grid()->setZeroLinePen(Qt::NoPen);
     //yAxis->grid()->setZeroLinePen(Qt::NoPen);
     // Drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking
     //setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
-    // Slots
+
+    // Signals-Slots
     // mouseMove signal that QCustomPlot emits to show point coordinates tooltip
     connect(this, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(showPointCoordinatesToolTip(QMouseEvent*)));
     // Mouse events to zoom part of the plot
     connect(this, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePressToZoom(QMouseEvent*)));
     connect(this, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMoveToZoom(QMouseEvent*)));
     connect(this, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(mouseReleaseToZoom(QMouseEvent*)));
+
     // Settings
     // comma as decimal separator and space as thousand separator
     //this->setLocale(QLocale(QLocale::Russian, QLocale::Russia));
@@ -96,11 +105,13 @@ void As::Plot::setPlotColors(const As::PlotType plotType,
         m_color = As::Color(As::red);
     else if (plotType == As::PlotType::Excluded)
         m_color = As::Color(As::grayLight);
+
     // Adjust for Up and Down polarisation data
     if (countType == "+")
         m_color = m_color.lighter(120);
     else if (countType == "-")
         m_color = m_color.darker(120);
+
     // Common
     m_textColor           = As::Color(As::white);
     m_textBkgColor        = m_color.transparenter(220);
@@ -151,11 +162,13 @@ void As::Plot::appendArrowInfoLabel(const As::PlotType plotType,
 {
     // Set colors
     setPlotColors(plotType);
+
     // Point to attach the text label
     auto point = new QCPItemText(this);
     addItem(point); // allows to clear it when needed
     point->position->setCoords(x, y); // coordinates in the axes rectangle
     point->setVisible(false);
+
     // Text label
     auto label = new QCPItemText(this);
     addItem(label);  // allows to clear it when needed
@@ -174,6 +187,7 @@ void As::Plot::appendArrowInfoLabel(const As::PlotType plotType,
     label->setTextAlignment(Qt::AlignHCenter);
     label->setText(QString::number(y, 'f', getNumberPrecision(y)));
     label->setLayer("labels");
+
     // Add the arrow-like marker
     auto arrow = new QCPItemLine(this);
     addItem(arrow); // allows to clear it when needed
@@ -182,6 +196,7 @@ void As::Plot::appendArrowInfoLabel(const As::PlotType plotType,
     arrow->end->setCoords(0, arrowLength);
     arrow->setPen(QPen(m_textBkgColor));
     //arrow->setClipToAxisRect(true);
+
     // Create arrow head
     //QCPLineEnding head(QCPLineEnding::esFlatArrow, arrowWidth, arrowLength);
     arrow->setHead(QCPLineEnding(QCPLineEnding::esFlatArrow, arrowWidth, arrowLength));
@@ -279,8 +294,10 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
 {
     // Set colors
     setPlotColors(scan->plotType());
+
     // Create string with plot info
-    QString text = "";
+    QString text;
+
     // Add information to be shown
     text += formatForInfoBox("HKL", scan->m_meanIndexH, scan->m_meanIndexK, scan->m_meanIndexL);
     if (scan->plotType() != As::PlotType::Excluded) {
@@ -292,8 +309,10 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
                 text += formatForInfoBox("F2" + countType,   scan->m_structFactor[countType], scan->m_structFactorErr[countType]); } }
         text += formatForInfoBox("Fwhm", scan->m_fullWidthHalfMax, scan->m_fullWidthHalfMaxErr);
         text += formatForInfoBox("FR",   scan->m_flippingRatio,    scan->m_flippingRatioErr); }
+
     // Remove last newline symbol
     text.remove(QRegExp("\n$"));
+
     // Create point in the top right corner of the scanPlot to move the plotInfo by some pixels from this point
     auto point = new QCPItemLine(this);
     addItem(point);
@@ -301,6 +320,7 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
     point->end->setType(QCPItemPosition::ptAxisRectRatio);
     point->start->setCoords(1, 0);
     point->end->setCoords(point->start->coords());
+
     // Show plot info
     auto plotInfo = new QCPItemText(this);
     addItem(plotInfo);
@@ -325,12 +345,14 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
 void As::Plot::addXMiddleArrows(const As::Scan *scan)
 {
     if (scan->plotType() == As::PlotType::Integrated) {
+
         int arrowLength = 8;
         int arrowWidth = 10;
         int yShift = 2;
         As::RealVector x = (*scan)["angles"][scan->scanAngle()]["data"];
         const int l = scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
         const int r = scan->m_numPoints - scan->m_numRightBkgPoints - scan->m_numRightSkipPoints - 1;
+
         // Upper (top) arrow
         auto arrowT = new QCPItemLine(this);
         addItem(arrowT); // allows to clear it when needed
@@ -346,6 +368,7 @@ void As::Plot::addXMiddleArrows(const As::Scan *scan)
         arrowT->setClipToAxisRect(false);
         arrowT->setHead(QCPLineEnding(QCPLineEnding::esFlatArrow, arrowWidth, arrowLength));
         arrowT->setLayer("labels");
+
         // Lower (bottom) arrow
         auto arrowB = new QCPItemLine(this);
         addItem(arrowB); // allows to clear it when needed
@@ -381,14 +404,19 @@ void As::Plot::addCustomGraph(const As::PlotType plotType,
 {
     // Add graph and set its name
     addGraph();
+
     // Set colors
     setPlotColors(plotType, countType);
+
     // Scatter symbols (marks)
     graph()->setScatterStyle(QCPScatterStyle(markType, m_markDrawColor, m_markFillColor, m_markSize));
+
     // Curve line
     graph()->setPen(QPen(m_lineDrawColor, m_debugLineWidth, lineType));
+
     // Filled area
     graph()->setBrush(QBrush(m_areaFillColor, fillType));
+
     // Error bars
     graph()->setErrorType(errType);
     graph()->setErrorPen(QPen(m_errorBarsDrawColor));
@@ -403,11 +431,13 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
     As::RealVector x  = (*scan)["angles"][scan->scanAngle()]["data"];
     As::RealVector y  = (*scan)["intensities"]["DetectorNorm"]["data"];
     As::RealVector sy = (*scan)["intensities"]["sDetectorNorm"]["data"];
+
     // Define local variables
     QPair<QVector<int>, QVector<int> > ranges;
     QVector<QVector<qreal> > data;
     //bool hasSkipPoints = scan->m_numLeftSkipPoints + scan->m_numRightSkipPoints;
     QStringList countTypes{""};
+
     // Create graphs depends on plotType
     switch (scan->plotType()) {
 
@@ -526,18 +556,22 @@ void As::Plot::updateGraphOnPlot(const QPair<QVector<int>, QVector<int> > ranges
                                  const QVector<QVector<qreal> > data)
 {
     QVector<QVector<qreal> > subData(data.size());
+
     // Fill subData arrays
     for (int m = 0; m < ranges.first.size(); ++m) {
         for (int k = ranges.first[m]; k < ranges.second[m]; ++k) {
             for (int i = 0; i < data.size(); ++i) {
                 subData[i] << data[i][k]; } } }
+
+    const int size = subData.size();
+    AASSERT(size == 3 OR size == 2, QString("wrong size of the subData array '%1'").arg(size));
+
     // Select appropriate plot type depends on number of data columns
-    if (subData.size() == 3)
+    IF (subData.size() == 3)
         graph()->setDataValueError(subData[0], subData[1], subData[2]);
-    else if (subData.size() == 2)
+
+    EI (subData.size() == 2)
         graph()->setData(subData[0], subData[1]);
-    else
-        qFatal("%s: wrong size of the subData array", __FUNCTION__);
 }
 
 /*!
@@ -546,36 +580,43 @@ void As::Plot::updateGraphOnPlot(const QPair<QVector<int>, QVector<int> > ranges
 void As::Plot::updateAllOnPlot(const As::Scan *scan)
 {
     //ADEBUG << scan;
+
     // Get data to plot
     As::RealVector x  = (*scan)["angles"][scan->scanAngle()]["data"];
     As::RealVector y  = (*scan)["intensities"]["DetectorNorm"]["data"];
     As::RealVector sy = (*scan)["intensities"]["sDetectorNorm"]["data"];
-    //ADEBUG << x;
-    //ADEBUG << y;
-    //ADEBUG << sy;
+
     // Update axes ranges
     updateAxesRanges(x, y, sy); // Auto by QCustomPlot: rescaleAxes();
+
     // Remove all existing graphs
     clearPlottables();
+
     // Removes all item from the plot (like additional text previously plotted: info labels and box)
     clearItems();
+
     // Set plot colors
     setPlotColors(scan->plotType());
+
     // Create graphs depends on plotType
     addAllGraphs(scan);
-    // Update info labels
+
+    // Update info labels and box
     updateInfoLabels(scan);
-    // Update info box
     updateInfoBox(scan);
+
     // Create Legend
     auto isLegendHidden = QSettings().value("PlotSettings/hideLegend", false).toBool();
     legend->setVisible(!isLegendHidden);
     legend->setBrush(QBrush(QColor(255,255,255,230)));
+
     // By default, the legend is in the inset layout of the main axis rect.
     // So this is how we access it to change legend placement:
     axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop | Qt::AlignLeft);
+
     // Plot arrows to compare the position of the scan center with that of the actual peak center
     addXMiddleArrows(scan);
+
     // Re-plot everything defined above
     replot();
 }
@@ -587,14 +628,19 @@ void As::Plot::showPointCoordinatesToolTip(QMouseEvent *event)
 {
     const qreal x = xAxis->pixelToCoord(event->x());
     const qreal y = yAxis->pixelToCoord(event->y());
+
     const qreal xMin = xAxis->range().lower;
     const qreal xMax = xAxis->range().upper;
     const qreal yMin = yAxis->range().lower;
     const qreal yMax = yAxis->range().upper;
-    const bool isInside = x >= xMin AND x <= xMax AND y >= yMin AND y <= yMax;
+
+    const bool isInside = (x >= xMin) AND (x <= xMax) AND (y >= yMin) AND (y <= yMax);
+
     QString toolTip;
+
     if (isInside)
         toolTip = QString("(%1, %2)").arg(x, 0, 'f', 2).arg(y, 0, 'f', 1);
+
     setToolTip(toolTip);
     /*
     // Coordinates of mouse pointer (in px)
@@ -618,23 +664,30 @@ void As::Plot::mousePressToZoom(QMouseEvent *event)
 {
     m_leftMouseButtonPressed = false;
     m_rightMouseButtonPressed = false;
+
     // Check if the left button is pressed
     if (event->buttons() == Qt::LeftButton) {
         m_leftMouseButtonPressed = true;
+
         // Create zoom rectangle
         m_zoomRectangle = new QCPItemRect(this);
         addItem(m_zoomRectangle);
+
         // Zoom rectangle line and fill colors
         m_zoomRectangle->setPen(As::Color(As::red));
         m_zoomRectangle->setBrush(As::Color(As::redLightTransparent));
+
         // Get coordinates when the left button is pressed
         m_xZoom1 = xAxis->pixelToCoord(event->x());
         m_yZoom1 = yAxis->pixelToCoord(event->y());
+
         // Set axes for top left and bottom right points
         //m_zoomRectangle->topLeft->setAxes(xAxis, yAxis);
         //m_zoomRectangle->bottomRight->setAxes(xAxis, yAxis);
+
         // Set 1st coordinates of the zoom rectangle
         m_zoomRectangle->topLeft->setCoords(m_xZoom1, m_yZoom1); }
+
     // Check if the right button is pressed
     else if (event->buttons() == Qt::RightButton) {
         m_rightMouseButtonPressed = true; }
@@ -647,11 +700,14 @@ void As::Plot::mouseMoveToZoom(QMouseEvent *event)
 {
     // Check if the left button is pressed
     if (event->buttons() == Qt::LeftButton) {
+
         // Get coordinates when the left button is pressed
         m_xZoom2 = xAxis->pixelToCoord(event->x());
         m_yZoom2 = yAxis->pixelToCoord(event->y());
+
         // Set 2nd coordinates of the zoom rectangle
         m_zoomRectangle->bottomRight->setCoords(m_xZoom2, m_yZoom2);
+
         // Replot graph to see the movement of the zoom rectangle
         replot(); }
 }
@@ -663,23 +719,30 @@ void As::Plot::mouseReleaseToZoom(QMouseEvent *event)
 {
     // Check if the left button is released
     if (m_leftMouseButtonPressed) {
+
         m_xZoom2 = xAxis->pixelToCoord(event->x());
         m_yZoom2 = yAxis->pixelToCoord(event->y());
+
         // Calc max and min coordinates of the zoom rectangle, but stay inside the axes rectangle
         qreal xMin = qMax(qMin(m_xZoom1, m_xZoom2), m_xAxisMin);
         qreal xMax = qMin(qMax(m_xZoom1, m_xZoom2), m_xAxisMax);
         qreal yMin = qMax(qMin(m_yZoom1, m_yZoom2), m_yAxisMin);
         qreal yMax = qMin(qMax(m_yZoom1, m_yZoom2), m_yAxisMax);
+
         // Set new ranges to zoom
         xAxis->setRange(xMin, xMax);
         yAxis->setRange(yMin, yMax);
+
         // Remove zoom rectangle
         removeItem(m_zoomRectangle); }
+
     // Check if the right button is released
     else if (m_rightMouseButtonPressed) {
+
         // Reset ranges to restore the graph after zoom
         xAxis->setRange(m_xAxisMin, m_xAxisMax);
         yAxis->setRange(m_yAxisMin, m_yAxisMax); }
+
     // Replot graph with new ranges
     replot();
 }

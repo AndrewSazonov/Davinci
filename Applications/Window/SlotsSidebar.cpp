@@ -404,9 +404,6 @@ void As::Window::highlightFoundText_Slot()
 {
     ADEBUG;
 
-    //if (m_inputTextWidget->isReadOnly())
-    //    return;
-
     // Move cursor to start
     m_inputTextWidget->moveCursor(QTextCursor::Start);
 
