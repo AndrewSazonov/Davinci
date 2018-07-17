@@ -360,7 +360,7 @@ As::GroupBox *As::Window::create_Text_FindGroup(const QString &objectName,
 
     auto findField = new As::LineEdit;
     findField->setObjectName("findField"); // required in the highlightFoundText_Slot()
-    findField->setToolTip(tr("???"));
+    findField->setToolTip(tr("Enter text to search for in the current file."));
     findField->setPlaceholderText(tr("Find"));
     findField->setStyleSheet(QString("color: %1").arg(As::Color(As::gray).name()));
 
@@ -388,7 +388,7 @@ As::GroupBox *As::Window::create_Text_ExtractGroup()
     ADEBUG;
 
     auto button = new As::PushButton(tr("Extract data"));
-    button->setToolTip(tr("???"));
+    button->setToolTip(tr("Click to extract the data from the opened file(s) and switch to the table view tab."));
     connect(button, &As::PushButton::clicked, this, &As::Window::extractScans_Slot);
     connect(button, &As::PushButton::clicked, button, &As::PushButton::setEnabled);
 
@@ -486,7 +486,7 @@ As::GroupBox *As::Window::create_Table_VisualizeGroup()
     ADEBUG;
 
     auto button = new As::PushButton(tr("Visualize extracted data"));
-    button->setToolTip(tr("???"));
+    button->setToolTip(tr("Click to visualize the data and switch to the plot view tab."));
     connect(button, &As::PushButton::clicked, this, &As::Window::visualizePlots_Slot);
     connect(button, &As::PushButton::clicked, button, &As::PushButton::setEnabled);
 
@@ -764,13 +764,13 @@ As::GroupBox *As::Window::create_Plot_ShowOutputGroup()
     ADEBUG;
 
     auto calcButton = new As::PushButton(tr("Calculate structure factors"));
-    calcButton->setToolTip(tr("???"));
+    calcButton->setToolTip(tr("Click to calculate the structure factors and other parameters."));
     connect(calcButton, &As::PushButton::clicked, this, &As::Window::calcStructureFactor_Slot);
     connect(calcButton, &As::PushButton::clicked, calcButton, &As::PushButton::setEnabled);
     connect(calcButton, &As::PushButton::clicked, this, &As::Window::calculateButtonPressed_Signal);
 
     auto outputButton = new As::PushButton(tr("Show output table"));
-    outputButton->setToolTip(tr("???"));
+    outputButton->setToolTip(tr("Click to switch to the output table tab."));
     outputButton->setDisabled(true);
     connect(outputButton, &As::PushButton::clicked, this, &As::Window::showOutput_Slot);
     connect(this, &As::Window::calculateButtonPressed_Signal, outputButton, &As::PushButton::setDisabled);
@@ -818,7 +818,7 @@ As::GroupBox *As::Window::create_Output_ExportGroup()
     ADEBUG;
 
     auto button = new As::PushButton(tr("Export output data"));
-    button->setToolTip(tr("???"));
+    button->setToolTip(tr("Click to open the save output table dialog."));
     connect(button, &As::PushButton::clicked, this, &As::Window::export_Slot);
 
     auto layout = new QVBoxLayout;
