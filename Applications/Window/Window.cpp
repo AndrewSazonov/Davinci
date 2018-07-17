@@ -82,14 +82,17 @@ As::Window::Window()
     // Set output format for qDebug() depends on the build type
     SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
 
+    ADEBUG << this;
+    ADEBUG << QApplication::instance(); // = qApp
+    ADEBUG << qApp;
+
     // Set program GUI style
     setStyleSheet(createStyleSheet());
 
-    // Method setFontFilters(QFontComboBox::MonospacedFonts) takes some time.
-    // Variable monospacedFonts is requred to shift that time delay from the
-    // files opening time to the program opening time.
-    monospacedFonts = new As::FontComboBox;
-    monospacedFonts->setFontFilters(QFontComboBox::MonospacedFonts);
+    // Method setFontFilters(QFontComboBox::MonospacedFonts) takes some time (1-2s),
+    // when called for the 1st time after the program start. So, we do it once here
+    // to shift that time delay from the files opening time to the program opening time.
+    initMonospacedFonts();
 
     // Create action, menues and tool bar
     createActionsMenusToolBar();
@@ -108,17 +111,29 @@ As::Window::Window()
     // Update windows title when needed
     connect(this, &As::Window::currentFilePathChanged_Signal, this, &As::Window::setWindowTitle);
 
-    // Update count of application start
-    setApplicationStartCount();
-
     // Show the main application window
-    show();
+    show(); // moved here from main.cpp to show (1) mainwindow and then (2) autoupdate window
 
-    // Offer to chose the automatic update
+/**/
+    // Offer to chose the automatic update, when the program is started for the 1st time
     offerAutoUpdate();
 
     // Check for update, if required
     checkApplicationUpdate();
+/**/
+
+    // Update count of application start
+    setApplicationStartCount();
+
+
+    openFiles(QStringList{"/Users/asazonov/tmp/p10533"});
+
+    extractScans_Slot();
+    visualizePlots_Slot();
+    calcStructureFactor_Slot();
+    showOutput_Slot();
+
+    //QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection);
 }
 
 /*!
@@ -309,6 +324,28 @@ void As::Window::printAppInfo_Slot()
 }
 
 /*!
+...
+*/
+bool As::Window::isFirstApplicationStart() const
+{
+    ADEBUG;
+
+    return !QSettings().value("Preferences/ApplicationStartCount").toBool();
+}
+
+/*!
+...
+*/
+void As::Window::initMonospacedFonts() const
+{
+    ADEBUG;
+
+    QFontComboBox().setFontFilters(QFontComboBox::MonospacedFonts);
+
+    ADEBUG;
+}
+
+/*!
 Updates the number of the application start.
 */
 void As::Window::setApplicationStartCount()
@@ -320,6 +357,8 @@ void As::Window::setApplicationStartCount()
 
     const int count = QSettings().value(key, defaultValue).toInt();
     QSettings().setValue(key, count + 1);
+
+    ADEBUG << "ApplicationStartCount" << QSettings().value("Preferences/ApplicationStartCount").toInt();
 }
 
 /*!
@@ -327,12 +366,10 @@ Offers to chose an automatic update, when program starts for the first time.
 */
 void As::Window::offerAutoUpdate()
 {
-    ADEBUG;
-
-    const int count = QSettings().value("Preferences/ApplicationStartCount", 0).toInt();
+    ADEBUG << "isFirstApplicationStart()" << isFirstApplicationStart();
 
     // Return if the program run not for the 1st time
-    if (count != 0)
+    if (!isFirstApplicationStart())
         return;
 
     // Opens user dialog window

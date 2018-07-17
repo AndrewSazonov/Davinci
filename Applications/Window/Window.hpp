@@ -194,6 +194,8 @@ private slots:
 
 private:
     // Init
+    bool isFirstApplicationStart() const;
+    void initMonospacedFonts() const;
     void setApplicationStartCount();
     void offerAutoUpdate();
     void checkApplicationUpdate();
@@ -225,7 +227,7 @@ private:
     As::ScanArray *m_scans = Q_NULLPTR;
     As::Scan *m_commonScan = Q_NULLPTR;
     // Misc
-    QFontComboBox *monospacedFonts;
+    //QFontComboBox *monospacedFonts;
     QTimer *m_delayBeforeSearching;
     QList<QTextCursor> m_searchMatches;
     QAction *m_copyTextAct;
