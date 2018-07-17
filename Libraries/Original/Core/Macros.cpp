@@ -93,46 +93,5 @@ This macro is a shortcut for \c 'ToHumanDate(APP_GIT_DATE)', which converts
 a date in the '1979-05-02' format to the '2 May 1979' format.
 */
 
-
-/*!
-\macro SB_INT
-\relates As
-
-This macro is a shortcut for \c '(void(QSpinBox::*)(int))', which is required in the
-Qt5 signal/slot syntax to force the \c int type argument in the QSpinBox::valueChanged
-signal.
-
-Old signal-slot syntax:
-connect(fileChanger, SIGNAL(valueChanged(int)), this, SLOT(gotoFile_Slot(int)));
-
-New signal-slot syntax:
-connect(fileChanger, QOverload<int>::of(&As::SpinBox::valueChanged), this, &As::Window::gotoFile_Slot);
-connect(fileChanger, (void(QSpinBox::*)(int))&As::SpinBox::valueChanged, this, &As::Window::gotoFile_Slot);
-
-With macro:
-connect(fileChanger, SB&As::SpinBox::valueChanged, this, &As::Window::gotoFile_Slot);
-
-OR:!!!
-//QObject::connect<void(QSpinBox::*)(int)>(fileChanger, &As::SpinBox::valueChanged, this, &As::Window::gotoFile_Slot);
-connect<void(QSpinBox::*)(int)>(fileChanger, &As::SpinBox::valueChanged, this, &As::Window::gotoFile_Slot);
-*/
-
-/*!
-\macro TE_INT
-\relates As
-
-This macro is a shortcut for \c '(void(As::TextEdit::*)(int))', which is required in the
-Qt5 signal/slot syntax to force the \c int type argument in the
-As::TextEdit::cursorPositionChanged signal or As::TextEdit::setCursorPosition slot.
-*/
-
-/*/*!
-\macro TE_NO
-\relates As
-
-This macro is a shortcut for \c '(void(As::TextEdit::*)())', which is required in the
-Qt5 signal/slot syntax to force no arguments in the As::TextEdit::setCursorPosition slot.
-*/
-
 // to get rid of 'libAsCore.a(Macros.o) has no symbols'
 int As::macrosObjHasNoSymbols = 0;

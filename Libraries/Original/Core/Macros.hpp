@@ -54,15 +54,9 @@
 
 //#define APP_DATE ToHumanDate(APP_GIT_DATE)
 
-#define SB_INT (void(QSpinBox::*)(int))
-#define TE_INT (void(As::TextEditor::*)(int))
-//#define TE_NO  (void(As::TextEditor::*)())
-//#define SB (void(QSpinBox::*)(int))
-//#define TE (void(As::TextEditor::*)(int))
-//#define CONNECT_SBINT connect<void(QSpinBox::*)(int)>
-
+// The following is not correctly interpreted by qdoc
 //#define AS_BEGIN_NAMESPACE namespace As {
-//#define AS_END_NAMESPACE   }
+//#define AS_END_NAMESPACE }
 
 namespace As { //AS_BEGIN_NAMESPACE
     extern int macrosObjHasNoSymbols;
