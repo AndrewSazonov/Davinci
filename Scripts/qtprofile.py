@@ -96,9 +96,10 @@ class QtProFile:
             self.addData('POST_TARGETDEPS', '+=', string)
 
     def addQmakeCxxFlags(self, vars): # QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra -pedantic
-        self.s += '!msvc { '
-        self.addData('QMAKE_CXXFLAGS', '+=', vars, False)
-        self.s += ' }\n'
+        if vars:
+            self.s += '!msvc { '
+            self.addData('QMAKE_CXXFLAGS', '+=', vars, False)
+            self.s += ' }\n'
 
     def addCppVersion(self, ver): 
         self.addConfig(ver)

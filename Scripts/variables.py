@@ -248,12 +248,12 @@ DEFINES_DICT                = {'APP_NAME':              APP_NAME,
 # Add in release output of such information as %{function}, %{line}, %{message}, etc.
 DEFINES_MISC                = 'QT_MESSAGELOGCONTEXT'
 
-#####
-# C++
-#####
+#############
+# C++ VERSION
+#############
 
-CPP_VERSION                 = 'c++11'
-QMAKE_CXXFLAGS              = '-std=gnu++11 -std=c++11'.split()
+CPP_VERSION                 = 'c++14'   # set automatically via qt. Use c++1z for c++17?
+QMAKE_CXXFLAGS              = ''        # set manually: '-std=gnu++11 -std=c++11'.split()
 
 
 
