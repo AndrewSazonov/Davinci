@@ -51,13 +51,13 @@
 #include "Window.hpp"
 
 /*!
-Open file(s) dialog.
+Opens open file(s) dialog.
 */
 void As::Window::openFile_Slot()
 {
     ADEBUG;
 
-    QString filePathLastOpen = QSettings().value("MainWindow/filePathLastOpen", "").toString();
+    const QString filePathLastOpen = QSettings().value("MainWindow/filePathLastOpen", "").toString();
 
     QStringList filePathList = QFileDialog::getOpenFileNames(
                 this,
@@ -69,7 +69,7 @@ void As::Window::openFile_Slot()
 }
 
 /*!
-Open directory dialog.
+Opens open directory dialog.
 */
 void As::Window::openDir_Slot()
 {
@@ -120,13 +120,10 @@ void As::Window::export_Slot()
 
     auto currentTab = m_tabsWidget->currentWidget();
 
-    //if (currentTab == m_inputTextWidget)
-    //    ;
-
     if (currentTab == m_visualizedPlotsWidget)
         exportImage_Slot();
 
-    if (currentTab == m_outputTableWidget)
+    else if (currentTab == m_outputTableWidget)
         exportOutputTable_Slot();
 }
 
@@ -137,8 +134,7 @@ void As::Window::exportImage_Slot()
 {
     ADEBUG;
 
-    //const QString path = m_scans[m_scans->scanIndex()-1].absolutePathWithBaseNameAndHkl();
-    const QString path = m_scans->at(m_scans->scanIndex()-1)->absolutePathWithBaseNameAndHkl();
+    const QString path = currentScan()->absolutePathWithBaseNameAndHkl();
 
     QString filename = QFileDialog::getSaveFileName(
                 this,
@@ -170,7 +166,7 @@ void As::Window::exportOutputTable_Slot()
     createFullOutputTableModel_Slot();
 
     // Define the path of the file to be exported.
-    // Repetition of console.cpp part!!!!!!!!! fix
+    // Repetition of console.cpp part!?
     const auto firstScan = m_scans->at(0);
     const auto lastScan = m_scans->at(m_scans->size()-1);
 
@@ -221,6 +217,8 @@ void As::Window::aboutApp_Slot()
             .arg(APP_COPYRIGHT);
 
     auto msgBox = new As::MessageWidget(this, title, text);
+    msgBox->setAttribute(Qt::WA_DeleteOnClose);
+
     msgBox->exec();
 }
 
@@ -236,12 +234,7 @@ void As::Window::showPreferences_Slot()
     connect(dialog, &As::PreferencesDialog::checkUpdateNowClicked_Signal,
             this, &As::Window::checkApplicationUpdateNow_Slot);
 
-    //dialog->setWindowModality(Qt::WindowModal);
-    //dialog->setWindowFlags((dialog->windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
-    //dialog->setAttribute(Qt::WA_DeleteOnClose);
-
     dialog->exec();
-    //dialog->show();
 }
 
 /*!
@@ -274,8 +267,10 @@ void As::Window::showOrHideSidebarBlocks_Slot(const int index)
 {
     ADEBUG << "index:" << index;
 
+    AASSERT(index >= 0 AND index <= 3, QString("unknown index '%1'").arg(index));
+
     // Hide all the blocks
-    for (int i = 1; i < m_sidebarControlsLayout->count(); ++i) // besides the common one with index = 0
+    for (int i = 1; i < m_sidebarControlsLayout->count(); ++i) // but the common one with index = 0
         m_sidebarControlsLayout->itemAt(i)->widget()->hide();
     for (int i = 0; i < m_sidebarSettingsLayout->count(); ++i)
         m_sidebarSettingsLayout->itemAt(i)->widget()->hide();

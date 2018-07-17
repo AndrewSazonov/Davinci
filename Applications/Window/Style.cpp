@@ -211,14 +211,6 @@ void As::Style::createStyle()
     add("margin:", "0px");
     add("padding:", "0px");
     add("border-style:", "none");
-    //add("border-top-style:", "solid");
-    //add("border-top-width:", "1px");
-    //add("border-top-color:", As::Color(As::grayLightVery).name());
-    // the following doesn't work... can we add border for selection?!
-    //add("selection-border-style:", "solid");
-    //add("selection-border-width:", "1px");
-    //add("selection-border-color:", As::yellowDark.name());
-    //add("selection-border-radius:", "2px");
 
     //=============
     // QProgressBar
@@ -242,13 +234,10 @@ void As::Style::createStyle()
     add("border-style:", "solid");
     add("border-width:", "1px");
     add("border-radius:", "4px");
-    //add("margin:", "5px");
     add("padding-left:", "14px");
     add("padding-right:", "14px");
     add("padding-top:", "3px");
     add("padding-bottom:", "3px");
-    //add("width:", "100px");
-    //add("height:", "22px");
 
     startBlock("QPushButton:pressed");
     add("background-color:", As::Color(As::blueDark).name());
@@ -370,9 +359,6 @@ void As::Style::createStyle()
     add("border-style:", "none");
     add("margin:", "0px");
     add("padding:", "0px");
-    //add("border-top-style:", "solid");
-    //add("border-top-width:", "1px");
-    //add("border-top-color:", As::Color(As::grayLightVery).name());
 
     startBlock("QTableView QHeaderView");
     add("background-color:", As::Color(As::white).name());
@@ -409,107 +395,12 @@ void As::Style::createStyle()
     //const auto SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
     const auto TAB_WIDTH = QString::number(0.5 * SIDEBAR_WIDTH - 1) + "px";
 
-    /*
     startBlock("QTabWidget::pane");
     add("background-color:", As::Color(As::grayLightUltra).name());
-    add("border:", "none");
-
-    //add("margin-top:", "-1px");
-    //add("margin-bottom:", "-1px");
-
-    startBlock("QTabWidget::tab-bar");
-    add("left:", "0px");
-    //startBlock("QTabBar::tab:disabled");
-    //add("width:", "0px");
-    //add("height:", "0px");
-    //add("margin:", "0px");
-    //add("padding:", "0px");
-    //add("border:", "none");
-
-    startBlock("#mainTabs::pane");
-    add("margin:", "-1px");
-    add("margin-top:", "0px");
-    add("padding:", "0px");
-    add("border:", "1px solid #3233ff");
-    add("background-image:", "url(:/Images/Drag_and_Drop.svg)");
-    add("background-repeat:", "no-repeat");
-    add("background-position:", "center center");
-    //add("background-origin:", "content");
-    //add("border-top: 1px solid", As::Color(As::red).name());
-
-    */
-//    startBlock("QTabBar::tab");
-//    add("min-width:", TAB_WIDTH);
-//    add("max-width:", TAB_WIDTH);
-//    add("margin-left:", "-1px");
-    /*
-    add("min-height:", "26px");
-    add("max-height:", "26px");
-    add("margin-left:", "-1px");
-    add("border: 5px solid ", As::Color(As::red).name());
-
-    startBlock("QTabBar::tab:first");
-    add("margin-left:", "0px"); /// change 0px to -1px to fit with table cells in #mainTabs below
-
-    startBlock("QTabBar::tab:only-one");
-    add("margin-left:", "0px");
-
-    startBlock("QTabBar::tab:!selected");
-    add("color:", As::Color(As::grayDarkVery).name());
-    add("background-color:", As::Color(As::grayLightUltra).name());
-    //add("border: 1px solid", As::Color(As::grayLightUltra).name());
-    //add("border-top-style:", "none");
-    add("border-style:", "none");
-
-    startBlock("QTabBar::tab:selected");
-    add("color:", As::Color(As::white).name());
-    add("background-color:", As::Color(As::blue).name());
-    //add("border: 1px solid", As::Color(As::blue).name());
-    //add("border-top-style:", "none");
-    add("border-style:", "none");
-    */
-
-    startBlock("QTabWidget::pane");
-    add("background-color:", As::Color(As::grayLightUltra).name());
-    //add("border-style:", "none");
     add("border-top: 1px solid", As::Color(As::grayLightVery).name());
-    //add("position:", "absolute");
-    //add("top:", "-1px");
-    //add("padding:", "-1px");
-
-    //startBlock("#mainTabs::pane");
-    //startBlock("#mainWidget");
-    //add("margin:", "0px");
-    //add("margin-top:", "0px");
-    //add("padding:", "0px");
-    //add("border-top:", "1px solid #3233ff");
-    //add("border-style:", "none");
-    //add("background-image:", "url(:/Images/Drag_and_Drop.svg)");
-    //add("background-repeat:", "no-repeat");
-    //add("background-position:", "center center");
-    //add("background-origin:", "content");
-    //add("border-right: 1px solid", As::Color(As::red).name());
-
-    //startBlock("#dataWidget");
-    //add("background-color:", As::Color(As::blue).name());
-    //add("border-right: 1px solid ", As::Color(As::red).name());
-
-    //startBlock("#dragAndDropWidget");
-    //add("background-color:", As::Color(As::red).name());
-    //add("background-image:", "url(:/Images/Drag_and_Drop.svg)");
-    //add("background-repeat:", "no-repeat");
-    //add("background-position:", "center center");
 
     startBlock("QTabWidget::tab-bar");
     add("alignment:", "left");
-    //add("left:", "0px");
-
-    //startBlock("QTabBar::tab:disabled");
-    //add("width:", "0px");
-    //add("height:", "0px");
-    //add("margin:", "0px");
-    //add("padding:", "0px");
-    //add("border:", "none");
 
     startBlock("QTabBar::tab");
     add("min-width:", "149px");
@@ -518,32 +409,18 @@ void As::Style::createStyle()
     add("max-height:", "26px");
     add("margin-left:", "-1px");
     add("border-style:", "none");
-    //add("border-top:", "1px solid #00CC00");
-
-    //startBlock("QTabBar::tab:first");
-    //add("margin-left:", "-1px"); /// change 0px to -1px to fit with table cells in #mainTabs below
-
-    //startBlock("QTabBar::tab:only-one");
-    //add("margin-left:", "-1px");
 
     startBlock("QTabBar::tab:selected");
     add("color:", As::Color(As::white).name());
     add("background-color:", As::Color(As::blue).name());
-    //add("border-right: 1px solid", As::Color(As::blue).name());
-    //add("border-style:", "none");
-    //add("border: 1px solid", As::Color(As::blue).name());
     add("border-left: 1px solid", As::Color(As::blue).name());
     add("border-right: 1px solid", As::Color(As::blue).name());  //add("border-top-style:", "none");
-    //add("border-style:", "none");
 
     startBlock("QTabBar::tab:!selected");
     add("color:", As::Color(As::grayDarkVery).name());
     add("background-color:", As::Color(As::grayLightUltra).name());
     add("border-left: 1px solid", As::Color(As::grayLightVery).name());
     add("border-right: 1px solid", As::Color(As::grayLightVery).name());
-    //add("border-style:", "none");
-    //add("border-top-style:", "none");
-    //add("border-style:", "none");
 
     startBlock("#sidebarTabsWidget QTabBar::tab"); /// How else?!
     add("border-style:", "none");
@@ -560,19 +437,6 @@ void As::Style::createStyle()
     startBlock("QToolBar QLabel:disabled");
     add("color:", As::Color(As::gray).name());
 
-    /* changed to QToolButton
-    startBlock("QToolBar QPushButton");
-    add("background-color:", As::Color(As::white).name());
-    add("border: 1px solid", As::Color(As::grayLightVery).name());
-    add("border-radius:", "4px");
-
-    startBlock("QToolBar QPushButton:pressed");
-    add("background-color:", As::Color(As::grayLightVery).name());
-
-    startBlock("QToolBar QPushButton:disabled");
-    add("background-color:", As::Color(As::grayLightUltra).name());
-    */
-
     startBlock("QToolBar QToolButton");
     add("background-color:", As::Color(As::white).name());
     add("border: 1px solid", As::Color(As::grayLightVery).name());
@@ -587,41 +451,6 @@ void As::Style::createStyle()
     //=========================
     // QWidget (via objectName)
     //=========================
-
-    // Toolbar buttons
-    //startBlock("#openButton");
-    //add("image:", "url(:/Images/Button_Open.svg)");
-
-    //startBlock("#saveButton");
-    //add("image:", "url(:/Images/Button_Save.svg)");
-
-    //startBlock("#sidebarButton");
-    //add("image:", "url(:/Images/Button_Sidebar.png)");
-
-    /*
-    startBlock("#extractedTablesWidget");
-    add("border-style:", "none");
-    add("background-color:", As::Color(As::white).name());
-
-    startBlock("#outputTableWidget");
-    add("border-style:", "none");
-    add("background-color:", As::Color(As::white).name());
-    */
-
-    //startBlock("#findField");
-    //add("color:", As::Color(As::gray).name());
-    //add("padding-left:", "3px");
-
-    /*
-    startBlock("__#mainTabs");
-    add("border: 5px solid", As::Color(As::green).name());
-    add("margin:", "-5px");
-    add("padding:", "-5px");
-
-    startBlock("#mainTabs");
-    add("border: 5px solid", As::Color(As::green).name());
-    add("background-image:", "url(:/Images/Drag_and_Drop.svg)");
-    */
 
     startBlock("#lineNumberArea");
     add("border-right: 1px solid", As::Color(As::grayLightVery).name());

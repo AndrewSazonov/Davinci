@@ -42,8 +42,8 @@ As::SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent,
 */
 void As::SyntaxHighlighter::load(const QString &type)
 {
-    //QStringList major, minor, medium, grayed, hidden;
-    //Use enum InputFileType here and in SyntaxHighlighter?!
+    // Set QStringList major, minor, medium, grayed, hidden?!
+    // Use enum InputFileType here and in SyntaxHighlighter?!
 
     if (type == "HEiDi DIF4 dat") {
         append(As::blueDark, "[A-Za-z]"); }

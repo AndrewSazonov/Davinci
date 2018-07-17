@@ -65,7 +65,9 @@
 #include "Window.hpp"
 
 /*!
-...
+Returns Drag & Drop widget. That's a 1st widget opened after the program start or
+after the opened files are closed. When the new files are opened it is replaced by
+the main widget (== data widget + sidebar).
 */
 QWidget *As::Window::createDragAndDropWidget()
 {
@@ -86,44 +88,26 @@ QWidget *As::Window::createDragAndDropWidget()
 }
 
 /*!
-Central ...
+Returns the main widget, which contains both data widget and sidebar. This widget replaces
+the drag and drop widget and is opened after the new files are opened.
 */
 QWidget *As::Window::createMainWidget()
 {
     ADEBUG;
 
-    // This is the main widget wraped into the QPointer, so no need to manually
-    // set its pointer to Q_NULLPTR after deleting. Moreover, deleating of just
-    // this widget deletes all the other child widgets added via layout
-
     auto layout = new As::HBoxLayout;
     layout->addWidget(createDataWidget());
     layout->addWidget(createSidebarWidget());
-
-
-    ///connect(this, &As::Window::newFilesLoaded_Signal, this, &As::Window::createTabsWidget);
-
     showOrHideSidebarBlocks_Slot(0);
 
-    /*
-    if (m_mainWidget) {
-        ADEBUG  << "1111111111111111111111111111111111111111111111111" << m_mainWidget;
-        delete m_mainWidget;
-        m_mainWidget = Q_NULLPTR; }
-        */
-
-    //auto m_mainWidget = new QWidget;
-    //m_mainWidget->setObjectName("mainWidget");
     auto mainWidget = new QWidget;
-    //ADEBUG  << "22222222222222222222222222222222222222222222222222" << m_mainWidget;
-    //m_cleaner->add(m_mainWidget);
     mainWidget->setLayout(layout);
 
     return mainWidget;
 }
 
 /*!
-Left ...
+Returns the data widget (part of main widget).
 */
 QWidget *As::Window::createDataWidget()
 {
@@ -133,27 +117,18 @@ QWidget *As::Window::createDataWidget()
     layout->addWidget(createTabsWidget());
 
     auto widget = new QWidget;
-    //widget->setObjectName("dataWidget");
     widget->setLayout(layout);
-
-    //dataWidget->hide();
-    //connect(this, &As::Window::newFilesLoaded_Signal, dataWidget, &QWidget::show);
-    //connect(this, &As::Window::oldFilesClosed_Signal, dataWidget, &QWidget::hide);
 
     return widget;
 }
 
 /*!
-Left widget -> Main tabs widget
+Returns main tabs widget of the data widget.
 */
 QTabWidget *As::Window::createTabsWidget()
 {
     ADEBUG;
 
-    //if (m_tabsWidget)
-    //    delete m_tabsWidget;
-
-    // Tabs
     m_tabsWidget = new QTabWidget;
     m_tabsWidget->setObjectName("mainTabs");
     m_tabsWidget->setTabsClosable(false);
@@ -161,70 +136,22 @@ QTabWidget *As::Window::createTabsWidget()
     // Create single tab by default: inputTextWidget
     m_tabsWidget->addTab(createInputTextWidget(), "Input Text");
 
-    /*
-    // Create single tab by default: inputTextWidget
-    m_inputTextWidget = new As::TextEditor;
-    m_inputTextWidget->setObjectName("inputTextWidget");
-    m_tabsWidget->addTab(m_inputTextWidget, "Input Text");
-    connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChanged_Slot()));
-    connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine_Slot()));
-    */
-
-    // Autohide tab-bar if only one tab exists
-    //m_tabsWidget->setTabBarAutoHide(true);
-
-    // Update currentTab if current tab is changed
-    //connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(m_tabsWidgetCurrentChanged(int)));
-
     // Show or hide sidebar group boxes depends on the selected tab of m_tabsWidget
-    connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::showOrHideSidebarBlocks_Slot); // Error in Linux
-    //connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(showHideSidebarGroups_Slot()));
-    //connect(m_tabsWidget, SIGNAL(currentChanged(int)), this, SLOT(showOrHideSidebarBlocks_Slot(int)));
+    connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::showOrHideSidebarBlocks_Slot);
 
-    // Update output table if nesessary. Change: update only by show-output-button...
-    //connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::createFullOutputTableModel_Slot);
-
-    // Return
     return m_tabsWidget;
 }
 
 /*!
-...
+Returns input text widget of the main tabs.
 */
 As::TextEditor *As::Window::createInputTextWidget()
 {
     ADEBUG;
 
-
     m_inputTextWidget = new As::TextEditor;
 
-    //ADEBUG << m_inputTextWidget;
-    //ADEBUG << m_copyTextAct;
-    //ADEBUG << m_copyText_Act->isEnabled();
-    //m_copyText_Act->setEnabled(true);
-
-    //connect(this, &As::Window::currentFileIndexChanged_Signal, m_inputTextWidget, &As::TextEditor::clearAllSelections);
-////    connect(this, &As::Window::currentFileContentChanged_Signal, m_inputTextWidget, &As::TextEditor::clearAllSelections);
-    connect(this, &As::Window::currentFileContentChanged_Signal, m_inputTextWidget, &As::TextEditor::setPlainText); // Error in Linux
-    //connect(this, SIGNAL(currentFileContentChanged_Signal(QString)), m_inputTextWidget, SLOT(setPlainText(QString)));
-
-    //connect(m_copyText_Act, &QAction::triggered, m_inputTextWidget, &As::TextEditor::copy);
-    //connect(m_inputTextWidget, &As::TextEditor::copyAvailable, m_copyText_Act, &QAction::setEnabled);
-    //m_copyText_Act->setEnabled(true);
-
-//    m_inputTextWidget->setObjectName("inputTextWidget");
-
-//    connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChanged_Slot()));
-//    connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine_Slot()));
-    //m_tabsWidget->addTab(m_inputTextWidget, "Input Text");
-
-    //connect(m_inputTextWidget, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChanged_Slot()));
-///    connect(m_inputTextWidget, &As::TextEditor::cursorPositionChanged, this, &As::Window::highlightCurrentLine_Slot);
-
-//    connect(m_inputTextWidget, &As::TextEditor::cursorPositionChanged, this, &As::Window::highlightCurrentLine_Slot);
-//    connect(this, &As::Window::currentLineChanged_Signal, m_inputTextWidget, TE&As::TextEditor::setCursorPosition);
-    //connect(this, SIGNAL(currentScanChanged_Signal(int)), m_inputTextWidget, SLOT(setCursorPosition(int)));
-    ///connect(this, &As::Window::currentScanChanged_Signal, m_inputTextWidget, &As::TextEditor::setCursorPosition);
+    connect(this, &As::Window::currentFileContentChanged_Signal, m_inputTextWidget, &As::TextEditor::setPlainText);
 
     return m_inputTextWidget;
 }

@@ -126,12 +126,12 @@ As::Window::Window()
     setApplicationStartCount();
 
 
-    openFiles(QStringList{"/Users/asazonov/tmp/p10533"});
+    //openFiles(QStringList{"/Users/asazonov/tmp/p10533"});
 
-    extractScans_Slot();
-    visualizePlots_Slot();
-    calcStructureFactor_Slot();
-    showOutput_Slot();
+    //extractScans_Slot();
+    //visualizePlots_Slot();
+    //calcStructureFactor_Slot();
+    //showOutput_Slot();
 
     //QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection);
 }

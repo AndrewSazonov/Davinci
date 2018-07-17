@@ -78,12 +78,12 @@ void As::Window::update_Plot_ExpDetailsGroup(const As::Scan *scan)
 
     const QString itemKey = "conditions";
 
-    // Hide all lines
+    // First, hide all the lines
     for (const auto &subitemKey : SCAN_DATABASE[itemKey].keys()) {
         auto widget = findChild<As::LabelQuatroBlock*>(itemKey + subitemKey + "Widget");
         widget->hide(); }
 
-    // Show only required lines
+    // Now, show only the required lines
     for (const auto &subitemKey : (*scan)[itemKey].keys()) {
         const QString data = (*scan)[itemKey][subitemKey]["data"];
         if (!data.isEmpty()) {
@@ -133,15 +133,6 @@ void As::Window::update_Plot_ExpAnglesGroup(const As::Scan *scan)
             range->setStyleSheet(QString("QLabel {color: %1}").arg(color));
             step->setStyleSheet(QString("QLabel {color: %1}").arg(color)); } }
 }
-
-/*
-void As::Window::update_Plot_ScanTreatGroup(const As::Scan &scan)
-{
-    ADEBUG;
-
-    emit indovidualTreatChanged_Signal(scan.m_isIndividuallyTreated);
-}
-*/
 
 /*!
 Updates the group 'Plot - Scan corrections'
@@ -222,5 +213,4 @@ void As::Window::update_OutputTable_Highlight(const int index)
         m_outputTableWidget->selectRow(index);
 
     ADEBUG;
-
 }
