@@ -40,7 +40,7 @@ public:
 
     virtual ~RealMatrix9();
 
-    void set(const QVector<qreal> &other);
+    virtual void set(const QVector<qreal> &other) Q_DECL_OVERRIDE;
     void set(const QString &string);
     void set(const qreal a1, const qreal a2, const qreal a3,
              const qreal b1, const qreal b2, const qreal b3,

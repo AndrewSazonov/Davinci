@@ -229,7 +229,7 @@ Shows the application preferences window.
 */
 void As::Window::showPreferences_Slot()
 {
-    ADEBUG;
+    ADEBUG << this;
 
     PreferencesDialog *dialog = new PreferencesDialog(this);
 
