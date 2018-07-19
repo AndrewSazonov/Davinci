@@ -18,37 +18,47 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QProgressBar>
+#include <QPushButton>
+#include <QVBoxLayout>
+
 #include "Macros.hpp"
 
-#include "LineEdit.hpp"
+#include "PushButtonWithProgress.hpp"
 
 /*!
-\class As::LineEdit
+\class As::PushButtonWithProgress
 
-\brief The LineEdit widget is a custom class based on the QLineEdit.
+\brief The PushButtonWithProgress widget provides a PushButton with ProgressBar.
 
 \inmodule Widgets
 \ingroup Widgets
 */
 
 /*!
-Constructs a lineedit with the given \a parent.
+Constructs a button with given \a button, \a progress and \a parent.
 */
-As::LineEdit::LineEdit(QWidget *parent)
-    : QLineEdit(parent)
+As::PushButtonWithProgress::PushButtonWithProgress(QPushButton *button,
+                                                   QProgressBar *progress,
+                                                   QWidget *parent)
+    : QWidget(parent)
 {
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
-    setMinimumHeight(24);
-    setTextMargins(6, 0, 6, 0);
+    progress->setMinimum(0);
 
-    // Get rid of the blue focus rectangle around the widget on macOS
-    setAttribute(Qt::WA_MacShowFocusRect, false);
+    auto layout = new QVBoxLayout;
+    layout->addWidget(button);
+    layout->addWidget(progress);
+
+    layout->setMargin(0);
+    layout->setSpacing(2);
+
+    setLayout(layout);
 }
 
 /*!
 Destroys the widget.
 */
-As::LineEdit::~LineEdit()
+As::PushButtonWithProgress::~PushButtonWithProgress()
 {
     ADESTROYED;
 }

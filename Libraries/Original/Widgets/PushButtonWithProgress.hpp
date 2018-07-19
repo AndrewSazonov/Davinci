@@ -18,29 +18,30 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AS_WIDGETS_PROGRESSBAR_HPP
-#define AS_WIDGETS_PROGRESSBAR_HPP
+#ifndef AS_WIDGETS_PUSHBUTTONWITHPROGRESS_HPP
+#define AS_WIDGETS_PUSHBUTTONWITHPROGRESS_HPP
 
-#include <QProgressBar>
+#include <QWidget>
+
+class QPushButton;
+class QProgressBar;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
-class ProgressBar : public QProgressBar
+class PushButtonWithProgress : public QWidget
 {
-    Q_OBJECT
 
 public:
-    ProgressBar(QWidget *parent = Q_NULLPTR);
+    PushButtonWithProgress(QPushButton *button,
+                           QProgressBar *progress,
+                           QWidget *parent = Q_NULLPTR);
 
-    virtual ~ProgressBar();
-
-public slots:
-    void hideOrShow(const int index);
+    virtual ~PushButtonWithProgress();
 
 };
 
 } //AS_END_NAMESPACE
 
-#endif // AS_WIDGETS_PROGRESSBAR_HPP
+#endif // AS_WIDGETS_PUSHBUTTONWITHPROGRESS_HPP
 
 

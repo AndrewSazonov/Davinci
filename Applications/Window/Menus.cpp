@@ -211,10 +211,12 @@ void As::Window::createActionsMenusToolBar()
     // Toolbar additional widgets
     //===========================
 
+    const int height = 28;
     const int width = 100;
 
     auto facilityType = new As::LineEdit;
     facilityType->setToolTip(tr("Neutron facility."));
+    facilityType->setMinimumHeight(height);
     facilityType->setMinimumWidth(width);
     facilityType->setReadOnly(true);
     facilityType->setPlaceholderText(tr("Undefined"));
@@ -230,6 +232,7 @@ void As::Window::createActionsMenusToolBar()
 
     auto instrumentType = new As::LineEdit;
     instrumentType->setToolTip(tr("Instrument name."));
+    instrumentType->setMinimumHeight(height);
     instrumentType->setMinimumWidth(width);
     instrumentType->setReadOnly(true);
     instrumentType->setPlaceholderText(tr("Undefined"));
@@ -245,6 +248,7 @@ void As::Window::createActionsMenusToolBar()
 
     auto dataType = new As::LineEdit;
     dataType->setToolTip(tr("Type of input data."));
+    dataType->setMinimumHeight(height);
     dataType->setMinimumWidth(width);
     dataType->setReadOnly(true);
     dataType->setPlaceholderText(tr("Undefined"));

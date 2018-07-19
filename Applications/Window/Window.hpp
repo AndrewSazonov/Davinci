@@ -46,6 +46,7 @@ class QTextCursor;
 class QTextStream;
 class QTimer;
 class QWidget;
+template <typename T> class QFutureWatcher;
 
 QT_END_NAMESPACE
 
@@ -55,6 +56,7 @@ class ComboBox;
 class GroupBox;
 class TextEditor;
 class Plot;
+class ProgressBar;
 class SpinBox;
 class Label;
 class Sidebar;
@@ -234,6 +236,7 @@ private:
     QList<QTextCursor> m_searchMatches;
     QAction *m_copyTextAct;
     bool m_hideUpdateOutput;
+    QFutureWatcher<void>* m_futureWatcher;
 
     //========
     // Widgets
@@ -255,7 +258,8 @@ private:
     //QPointer<As::TableView> m_extractedTableWidget; //signal-slot description doesn't work with QPointer in linux gcc
     //As::TableView *m_extractedTableWidget;          //with * works in linux gcc, but pointer is not set automatically to 0...
     QPointer<As::Plot> m_visualizedPlotsWidget;
-    QPointer<As::TableView> m_outputTableWidget;
+    //QPointer<As::TableView> m_outputTableWidget;
+    As::TableView* m_outputTableWidget;
 
     // Sidebar widgets
     QWidget *createSidebarWidget();

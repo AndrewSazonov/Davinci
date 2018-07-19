@@ -52,9 +52,12 @@ As::MessageWidget::MessageWidget(QWidget *parent,
                                  const QString &title,
                                  const QString &text,
                                  const QString &okButton,
-                                 const QString &cancelButton)
+                                 const QString &cancelButton,
+                                 const bool showIcon)
     : QDialog(parent)
 {
+    //setWindowModality(Qt::WindowModal);
+
     // Application icon
     auto icon = new QLabel;
     icon->setPixmap(QPixmap(":/Icon/Davinci.svg"));
@@ -64,19 +67,22 @@ As::MessageWidget::MessageWidget(QWidget *parent,
     message->setOpenExternalLinks(true);
 
     // Buttons
-    auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    buttonBox->button(QDialogButtonBox::Ok)->setText(okButton);
-    buttonBox->button(QDialogButtonBox::Cancel)->setText(cancelButton);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    auto buttonBox = new QDialogButtonBox;
+    buttonBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+    if (!okButton.isEmpty()) {
+        buttonBox->addButton(okButton, QDialogButtonBox::AcceptRole);
+        connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept); }
+    if (!cancelButton.isEmpty()) {
+        buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
+        connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject); }
 
     // Check if buttons should be shown (when text for buttons is provided)
-    const bool showButtons = (okButton != QString() AND cancelButton != QString());
+    const bool showButtons = (!okButton.isEmpty() OR !cancelButton.isEmpty());
 
     // Layout
     auto layout = new QVBoxLayout;
-    //layout->setGeometry();
-    layout->addWidget(icon);
+    if (showIcon)
+        layout->addWidget(icon);
     layout->addWidget(message);
     if (showButtons)
         layout->addWidget(buttonBox);

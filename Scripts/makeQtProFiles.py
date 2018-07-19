@@ -117,10 +117,10 @@ SetCommonForApps(window)
 window.addIcon(ICON_DIR + [APP_NAME])
 
 # Qt modules to used in the project
-window.addQt(APP_QT_MODULES)
+window.addQt(WINDOW_APP_QT_MODULES)
 
 # Set name of the executable
-window.addTarget(APP_NAME)
+window.addTarget(WINDOW_APP_NAME)
 
 # Builds paths
 window.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [APPS_DIR_NAME] + [APP_NAME])
@@ -143,18 +143,21 @@ console = QtProFile()
 SetCommonForAll(console)
 SetCommonForApps(console)
 
+# Qt modules to used in the project
+console.addQt(CONSOLE_APP_QT_MODULES)
+
 # Set name of the executable
-console.addTarget(APP_CONSOLE_NAME)
+console.addTarget(CONSOLE_APP_NAME)
 
 # Variable that qmake uses when generating a Makefile
-console.addConfig(APP_CONSOLE_CONFIG)
-console.delConfig(APP_CONSOLE_CONFIG_DEL)
+console.addConfig(CONSOLE_APP_CONFIG)
+console.delConfig(CONSOLE_APP_CONFIG_DEL)
 
 # Builds paths
-console.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [APPS_DIR_NAME] + [APP_CONSOLE_NAME])
-console.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [APPS_DIR_NAME] + [APP_CONSOLE_NAME])
-console.addRccDir(BUILD_TYPE_DIR + [RCC_DIR_NAME] + [APPS_DIR_NAME] + [APP_CONSOLE_NAME])
-console.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [APPS_DIR_NAME] + [APP_CONSOLE_NAME])
+console.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [APPS_DIR_NAME] + [CONSOLE_APP_NAME])
+console.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [APPS_DIR_NAME] + [CONSOLE_APP_NAME])
+console.addRccDir(BUILD_TYPE_DIR + [RCC_DIR_NAME] + [APPS_DIR_NAME] + [CONSOLE_APP_NAME])
+console.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [APPS_DIR_NAME] + [CONSOLE_APP_NAME])
 
 # List of files to be used in the project
 console.addHeaders(GetSelectedFileList(CONSOLE_APP_DIR, HEADER_EXT))
@@ -226,7 +229,7 @@ for lib in MY_LIBS_NAMES:
     SetCommonForAll(pro)
     SetCommonForLibs(pro)
     if lib == 'Diffraction':
-        pro.addQt('concurrent') # move to variables.py!?
+        pro.addQt('widgets concurrent') # move to variables.py!?
     if lib == 'Widgets':
         pro.addQt('widgets') # move to variables.py!?
     pro.addTarget(MY_LIBS_PREFIX + lib)
@@ -252,8 +255,8 @@ SetCommonForApps(tests)
 tests.addTarget(TESTS_NAME)
 
 # Variable that qmake uses when generating a Makefile
-tests.addConfig(APP_CONSOLE_CONFIG)
-tests.delConfig(APP_CONSOLE_CONFIG_DEL)
+tests.addConfig(CONSOLE_APP_CONFIG)
+tests.delConfig(CONSOLE_APP_CONFIG_DEL)
 
 # Builds paths
 tests.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [APPS_DIR_NAME] + [TESTS_NAME])

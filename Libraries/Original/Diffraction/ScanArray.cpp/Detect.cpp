@@ -83,7 +83,7 @@ Sets the input file type to be \a type.
 */
 void As::ScanArray::setInputFileType(const As::InputFileType type)
 {
-////////////    ADEBUG << "type:" << type;
+    ADEBUG << "type:" << type;
 
     if (m_inputFileType == type)
         return;

@@ -19,6 +19,7 @@
  */
 
 #include <QDateTime>
+#include <QPointer>
 #include <QRegularExpression>
 #include <QXmlStreamReader>
 #include <QtMath>
@@ -34,13 +35,14 @@
 #include "ScanArray.hpp"
 
 /*!
-Extracts the scans from the input data file.
+...
 */
-void As::ScanArray::extractInputData()
+void As::ScanArray::extractDataFromFile(const int index)
 {
-    ADEBUG_H2;
+    //ADEBUG_H2 << index;
 
-    QStringList filesAsListOfStrings = m_inputFilesContents.second;
+    const QString &filePath    = m_inputFilesContents.first[index];
+    const QString &fileContent = m_inputFilesContents.second[index];
 
     switch(filesType()) {
 
@@ -48,19 +50,24 @@ void As::ScanArray::extractInputData()
         ADEBUG << "Not implemented yet"; break;
 
     case HEIDI_DAT:
-        extractHeidiData(); break;
+        extractHeidiData(index, filePath, fileContent);
+        break;
 
     case HEIDI_LOG:
-        extractHeidiLog(); break;
+        extractHeidiLog(index, filePath, fileContent);
+        break;
 
     case NICOS_DAT:
-        extractNicosData(); break;
+        extractNicosData(index, filePath, fileContent);
+        break;
 
     case POLI_LOG:
-        extractPoliLog(); break;
+        extractPoliLog(index, filePath, fileContent);
+        break;
 
     case S6T2_DAT:
-        extract6t2Data(); break;
+        extract6t2Data(index, filePath, m_inputFilesContents.second[index]); // as file content to be modified
+        break;
 
     default:
         ADEBUG << "Not implemented yet"; break; }
@@ -68,113 +75,113 @@ void As::ScanArray::extractInputData()
 }
 
 /*!
-Extracts the scans from the HEIDI data file.
+Extracts the scans from the single HEIDI data file.
 */
-void As::ScanArray::extractHeidiData()
+void As::ScanArray::extractHeidiData(const int fileIndex,
+                                     const QString& filePath,
+                                     const QString& fileContent)
 {
     ADEBUG;
 
-    // Go through every open file
-    for (const QString &fileAsString : m_inputFilesContents.second) {
+    // Get file content as a list of strings
+    const QStringList file = fileContent.split("\n");
 
-        // Get every file content as a list of strings
-        const QStringList file = fileAsString.split("\n");
+    // Mixed groups
+    const int nHeaderLines = 7;
+    for (int i = nHeaderLines; i < file.size(); ++i) {
+        if (!file[i].isEmpty()) {
 
-        // Mixed groups
-        int nHeaderLines = 7;
-        for (int i = nHeaderLines; i < file.size(); ++i) {
-            if (!file[i].isEmpty()) {
+            // Variables
 
-                // Variables
+            auto scan = new As::Scan; // scan to be added to the scan array
+            As::StringParser string;  // string parser
+            QStringList list = file[i].split(" ", QString::SkipEmptyParts); // split every line
 
-                auto scan = new As::Scan; // scan to be added to the scan array
-                As::StringParser string; // string parser
-                QStringList list = file[i].split(" ", QString::SkipEmptyParts); // split every line
+            // Set common data for all the scans in the scan array
 
-                // Set common data for all the scans in the scan array
+            // Get the index of the file which contains the current scan
+            scan->setFileIndex(fileIndex + 1);
 
-                // Get the index of the file which contains the current scan
-                const int index = &fileAsString - &m_inputFilesContents.second[0];
-                scan->setFileIndex(index + 1); //!?
+            // Set the absolute file path of the file which contains the scan
+            scan->setAbsoluteFilePath(filePath);
 
-                // Set the absolute file path of the file which contains the scan
-                scan->setAbsoluteFilePath(m_inputFilesContents.first[index]);
+            // Read and set the conditions and orientation groups
+            scan->setData("conditions", "Wavelength", string.parseNumberNearText("Wave=", "txt:num", file));
+            scan->setData("orientation", "matrix", string.parseString("Omat=", "num", file, 0, 3));
 
-                // Read and set the conditions and orientation groups
-                scan->setData("conditions", "Wavelength", string.parseNumberNearText("Wave=", "txt:num", file));
-                scan->setData("orientation", "matrix", string.parseString("Omat=", "num", file, 0, 3));
+            // Set individual data for every scan in the scan array
 
-                // Set individual data for every scan in the scan array
+            // Indices group
+            const int iH = 0; scan->setData("indices", "H", list[iH]);
+            const int iK = 1; scan->setData("indices", "K", list[iK]);
+            const int iL = 2; scan->setData("indices", "L", list[iL]);
 
-                // Indices group
-                const int iH = 0; scan->setData("indices", "H", list[iH]);
-                const int iK = 1; scan->setData("indices", "K", list[iK]);
-                const int iL = 2; scan->setData("indices", "L", list[iL]);
+            // Psi angle
+            const int iPsi = 6; scan->setData("angles", "Psi", list[iPsi]);
 
-                // Psi angle
-                const int iPsi = 6; scan->setData("angles", "Psi", list[iPsi]);
+            // Conditions group
+            const int iTimePerStep = 8; scan->setData("conditions", "Time/step", QString::number(list[iTimePerStep].toDouble() / 10));
+            const int iTemperature = 10; scan->setData("conditions", "Temperature", list[iTemperature]);
 
-                // Conditions group
-                const int iTimePerStep = 8; scan->setData("conditions", "Time/step", QString::number(list[iTimePerStep].toDouble() / 10));
-                const int iTemperature = 10; scan->setData("conditions", "Temperature", list[iTemperature]);
+            // Supplementary data
+            const int iValuesPerBlock = 7;
+            const int nValuesPerBlock = list[iValuesPerBlock].toInt();
 
-                // Supplementary data
-                const int iValuesPerBlock = 7;
-                const int nValuesPerBlock = list[iValuesPerBlock].toInt();
+            // Read scan step size
+            if (i + 1 < file.size()) {
+                list = file[i + 1].split(" ", QString::SkipEmptyParts);
+                const int iScanStep = 3;
+                if (list.size() > iScanStep) {
+                    bool ok;
+                    scan->setScanStep(list[iScanStep].toDouble(&ok)); } }
 
-                // Read scan step size
-                if (i + 1 < file.size()) {
-                    list = file[i + 1].split(" ", QString::SkipEmptyParts);
-                    const int iScanStep = 3;
-                    if (list.size() > iScanStep) {
-                        bool ok;
-                        scan->setScanStep(list[iScanStep].toDouble(&ok)); } }
+            // Define scan angle name
+            scan->setScanAngle("Omega");
 
-                // Define scan angle name
-                scan->setScanAngle("Omega");
+            // Scandata group. Make own headers, as file has no any
+            scan->setData("scandata", "headers", "Detector Monitor");
 
-                // Scandata group. Make own headers, as file has no any
-                scan->setData("scandata", "headers", "Detector Monitor");
+            // Make a header map between the possible internal names and headers created above
+            QList<QStringList> headerMap;
+            headerMap.append({"intensities", "Detector", "Detector"});
+            headerMap.append({"intensities", "Monitor",  "Monitor"});
 
-                // Make a header map between the possible internal names and headers created above
-                QList<QStringList> headerMap;
-                headerMap.append({"intensities", "Detector", "Detector"});
-                headerMap.append({"intensities", "Monitor",  "Monitor"});
+            // Define position of the data to be read
+            const int nValuesPerLine = 16;
+            const int nCharsPerValue = 5;
+            const int nBlocksPerData = 2;
+            const int nLinesPerData = qCeil(static_cast<qreal>(nValuesPerBlock) / nValuesPerLine * nBlocksPerData);
+            const int nLinesToSkip = 2;
+            const int iEnd = i + nLinesToSkip + nLinesPerData - 1;
+            if (iEnd < file.size()) {
+                scan->setData("scandata", "data", string.parseString(i, "raw", file, nLinesToSkip, nLinesPerData));
+                scan->setData("scandata", "data", string.splitText(nCharsPerValue, nBlocksPerData));
 
-                // Define position of the data to be read
-                const int nValuesPerLine = 16;
-                const int nCharsPerValue = 5;
-                const int nBlocksPerData = 2;
-                const int nLinesPerData = qCeil(static_cast<qreal>(nValuesPerBlock) / nValuesPerLine * nBlocksPerData);
-                const int nLinesToSkip = 2;
-                const int iEnd = i + nLinesToSkip + nLinesPerData - 1;
-                if (iEnd < file.size()) {
-                    scan->setData("scandata", "data", string.parseString(i, "raw", file, nLinesToSkip, nLinesPerData));
-                    scan->setData("scandata", "data", string.splitText(nCharsPerValue, nBlocksPerData));
+                // Read and set data from the scan table created above according to the header map
+                extractDataFromTable(scan, headerMap);
 
-                    // Read and set data from the scan table created above according to the header map
-                    extractDataFromTable(scan, headerMap);
+                // Append scan line numbers
+                QStringList lines;
+                for (int k = i + nLinesToSkip; k <= iEnd; ++k)
+                    lines << QString::number(k);
+                scan->setData("misc", "lines", lines.join(" "));
 
-                    // Append scan line numbers
-                    QStringList lines;
-                    for (int k = i + nLinesToSkip; k <= iEnd; ++k)
-                        lines << QString::number(k);
-                    scan->setData("misc", "lines", lines.join(" "));
+                // Append single scan to the scan array
+                appendScan(scan); }
 
-                    // Append single scan to the scan array
-                    appendScan(scan); }
-
-                i = iEnd; } } }
+            i = iEnd; } }
 }
 
 /*!
-Extracts the scans from the HEIDI log file.
+Extracts the scans from the single HEIDI log file.
 */
-void As::ScanArray::extractHeidiLog()
+void As::ScanArray::extractHeidiLog(const int fileIndex,
+                                    const QString& filePath,
+                                    const QString& fileContent)
 {
     ADEBUG;
 
-    // Make a header map between the possible internal names and 6T2 xml parameter names
+    // Make a header map between the possible internal names and HEIDI log parameter names
     QList<QStringList> headerMap;
     headerMap.append({"angles",      "2Theta",          "2Theta"});
     headerMap.append({"angles",      "Omega",           "Omega"});
@@ -191,105 +198,104 @@ void As::ScanArray::extractHeidiLog()
     QString timePerStep = "1";
     QString matrix;
 
-    // Go through every open file
-    for (const QString &fileAsString : m_inputFilesContents.second) {
+    // Get file content as a list of strings
+    const QStringList file = fileContent.split("\n");
 
-        // Get every file content as a list of strings
-        const QStringList file = fileAsString.split("\n");
+    // Go through every line
+    for (int i = 0; i < file.size(); ++i) {
 
-        // Go through every line
-        for (int i = 0; i < file.size(); ++i) {
+        // Read line
+        str = file[i];
 
-            // Read line
-            str = file[i];
+        // Get wavelength
+        // both cases: "Wavelength [0.79350] ?" and "Wavelength [0.79350] ? 1.169"
+        if (str.simplified().startsWith("Wavelength")) {
+            list = str.split(re, QString::SkipEmptyParts);
+            wavelength = list[list.size()-1]; }
 
-            // Get wavelength
-            // both cases: "Wavelength [0.79350] ?" and "Wavelength [0.79350] ? 1.169"
-            if (str.simplified().startsWith("Wavelength")) {
-                list = str.split(re, QString::SkipEmptyParts);
-                wavelength = list[list.size()-1]; }
+        // Get time per step
+        // both cases: "Time/step :   1.00 sec ?" and "Time/step :   1.00 sec ? 2"
+        if (str.simplified().startsWith("Time/step :")) {
+            list = str.split(re, QString::SkipEmptyParts);
+            timePerStep = list[list.size()-1]; }
 
-            // Get time per step
-            // both cases: "Time/step :   1.00 sec ?" and "Time/step :   1.00 sec ? 2"
-            if (str.simplified().startsWith("Time/step :")) {
-                list = str.split(re, QString::SkipEmptyParts);
-                timePerStep = list[list.size()-1]; }
+        // Get orientation matrix: 1st type (after ro, rc, ol, pm commands)
+        if (str.simplified().startsWith("Orienting")) {
+            matrix = str.replace(re, " ");
+            str = file[++i];
+            matrix += str.replace(re, " ");
+            str = file[++i];
+            matrix += str.replace(re, " "); }
 
-            // Get orientation matrix: 1st type (after ro, rc, ol, pm commands)
-            if (str.simplified().startsWith("Orienting")) {
-                matrix = str.replace(re, " ");
-                str = file[++i];
-                matrix += str.replace(re, " ");
-                str = file[++i];
-                matrix += str.replace(re, " "); }
+        // Get orientation matrix: 2nd type (after mr command)
+        if (str.simplified().startsWith("Refined orienting matrix")) {
+            str = file[++i];
+            matrix = str;
+            str = file[++i];
+            matrix += str;
+            str = file[++i];
+            matrix += str; }
 
-            // Get orientation matrix: 2nd type (after mr command)
-            if (str.simplified().startsWith("Refined orienting matrix")) {
-                str = file[++i];
-                matrix = str;
-                str = file[++i];
-                matrix += str;
-                str = file[++i];
-                matrix += str; }
+        // Get scan data (after ss command)
+        if (str.simplified().startsWith("Scan centre =")) {
 
-            // Get scan data (after ss command)
-            if (str.simplified().startsWith("Scan centre =")) {
+            // Variables
+            auto scan = new As::Scan; // scan to be added to the scan array
 
-                // Variables
-                auto scan = new As::Scan; // scan to be added to the scan array
+            // Set parameters of the scan defined extracted above
+            scan->setData("conditions", "Wavelength", wavelength);
+            scan->setData("conditions", "Time/step", timePerStep);
+            scan->setData("orientation", "matrix", matrix);
 
-                // Set parameters of the scan defined extracted above
-                scan->setData("conditions", "Wavelength", wavelength);
-                scan->setData("conditions", "Time/step", timePerStep);
-                scan->setData("orientation", "matrix", matrix);
+            // Set scan angles
+            list = str.split(re, QString::SkipEmptyParts);
+            scan->setData("angles", "2Theta", list[0]);
+            scan->setData("angles", "Omega", list[1]);
+            scan->setData("angles", "Chi", list[2]);
+            scan->setData("angles", "Phi", list[3]);
 
-                // Set scan angles
-                list = str.split(re, QString::SkipEmptyParts);
-                scan->setData("angles", "2Theta", list[0]);
-                scan->setData("angles", "Omega", list[1]);
-                scan->setData("angles", "Chi", list[2]);
-                scan->setData("angles", "Phi", list[3]);
+            // Read data headers
+            str = file[++i];
+            str = file[++i];
+            scan->setData("scandata", "headers", str.section('|', 0, 0));
 
-                // Read data headers
-                str = file[++i];
-                str = file[++i];
-                scan->setData("scandata", "headers", str.section('|', 0, 0));
+            // Read data table
+            str = file[++i];
+            str = file[++i];
+            QString data;
+            QString lines;
+            while (!str.simplified().startsWith("Centre at point") AND !str.simplified().startsWith("#")) {
+                QRegularExpression re("[|+]");
+                if (str.contains(re)) {
+                    data.append(str.section(re, 0, 0) + "\n");
+                    lines.append(QString::number(i) + " "); }
+                str = file[++i]; }
+            scan->setData("scandata", "data", data);
+            scan->setData("misc", "lines", lines);
 
-                // Read data table
-                str = file[++i];
-                str = file[++i];
-                QString data;
-                QString lines;
-                while (!str.simplified().startsWith("Centre at point") AND !str.simplified().startsWith("#")) {
-                    QRegularExpression re("[|+]");
-                    if (str.contains(re)) {
-                        data.append(str.section(re, 0, 0) + "\n");
-                        lines.append(QString::number(i) + " "); }
-                    str = file[++i]; }
-                scan->setData("scandata", "data", data);
-                scan->setData("misc", "lines", lines);
+            // Get the index of the file which contains the current scan
+            scan->setFileIndex(fileIndex + 1);
 
-                // Get the index of the file which contains the current scan
-                const int index = &fileAsString - &m_inputFilesContents.second[0];
-                scan->setFileIndex(index + 1); //!?
+            // Set the absolute file path of the file which contains the scan
+            scan->setAbsoluteFilePath(filePath);
 
-                // Read and set data from the scan table created above according to the header map
-                extractDataFromTable(scan, headerMap);
+            // Read and set data from the scan table created above according to the header map
+            extractDataFromTable(scan, headerMap);
 
-                // Define scan angle name
-                findScanAngle(scan);
+            // Define scan angle name
+            findScanAngle(scan);
 
-                // Append single scan to the scan array
-                appendScan(scan); } } }
+            // Append single scan to the scan array
+            appendScan(scan); } }
 }
 
 /*!
-Extracts the scans from the NICOS data file.
+Extracts the scan from the single NICOS data file.
 */
-void As::ScanArray::extractNicosData()
+void As::ScanArray::extractNicosData(const int fileIndex,
+                                     const QString& filePath,
+                                     const QString& fileContent)
 {
-    ADEBUG;
-
     // Make a header map between the possible internal names and NICOS parameter names
     QList<QStringList> headerMap;
     headerMap.append({"angles",        "Chi1",          "chi1"});
@@ -324,88 +330,84 @@ void As::ScanArray::extractNicosData()
     headerMap.append({"polarisation",  "Fin",           "Fin"});
     headerMap.append({"polarisation",  "Fout",          "Fout"});
 
-    // Go through every open file
-    for (const QString &fileAsString : m_inputFilesContents.second) {
+    // Variables
+    const QStringList file = fileContent.split("\n"); // every file content as a list of strings
+    auto scan = new As::Scan; // scan to be added to the scan array
+    //QPointer<As::Scan> scan = new As::Scan;
+    As::StringParser string; // string parser
 
-        // Variables
-        const QStringList file = fileAsString.split("\n"); // every file content as a list of strings
-        auto scan = new As::Scan; // scan to be added to the scan array
-        As::StringParser string; // string parser
+    // Set the index of the file which contains the current scan
+    scan->setFileIndex(fileIndex + 1);
 
-        // Get the index of the file which contains the current scan
-        const int index = &fileAsString - &m_inputFilesContents.second[0];
-        scan->setFileIndex(index + 1);  //!?
+    // Set the absolute file path of the file which contains the scan
+    scan->setAbsoluteFilePath(filePath);
 
-        // Set the absolute file path of the file which contains the scan
-        scan->setAbsoluteFilePath(m_inputFilesContents.first[index]);
+    // Read (single numbers if any) and set data for the NICOS variables according to the map created above
+    // slow. 30 headerMap lines x 350 files = 10000 iterations
+    for (const QStringList &row : headerMap) {
+        for (const QString &name : row[2].split("|")) {
+            const QString value = string.parseString(" " + name + "_value :", "txt", file).split(" ")[0];
+            scan->setData(row[0], row[1], value); } }
 
-        // Read (single numbers if any) and set data for the NICOS variables according to the map created above
-        // slow. 30 headerMap lines x 350 files = 10000 iterations
-        for (const QStringList &row : headerMap) {
-            for (const QString &name : row[2].split("|")) {
-                const QString value = string.parseString(" " + name + "_value :", "txt", file).split(" ")[0];
-                //const QString value = string.parseString(QString(" %1_value :").arg(name), "txt", file).split(" ")[0];
-                scan->setData(row[0], row[1], value);
-            } }
+    // Read and set other data (both single and not single numbers)
+    scan->setData("conditions",  "Date & Time",    string.parseString("### NICOS data file",      "date", file));
+    scan->setData("conditions",  "Absolute index", string.parseString("number",                   "num",  file));
+    scan->setData("orientation", "matrix",         string.parseString("Sample_rmat",              "num",  file));
+    scan->setData("orientation", "matrix",         string.parseString("Sample_ubmatrix",          "num",  file));
+    scan->setData("scandata",    "data",           string.parseString("### Scan data", "### End", "mult", file, 3));
+    scan->setData("scandata",    "headers",        string.parseString("### Scan data",            "txt",  file, 1));
 
-        // Read and set other data (both single and not single numbers)
-        scan->setData("conditions",  "Date & Time",    string.parseString("### NICOS data file",      "date", file));
-        scan->setData("conditions",  "Absolute index", string.parseString("number",                   "num",  file));
-        scan->setData("orientation", "matrix",         string.parseString("Sample_rmat",              "num",  file));
-        scan->setData("orientation", "matrix",         string.parseString("Sample_ubmatrix",          "num",  file));
-        scan->setData("scandata",    "data",           string.parseString("### Scan data", "### End", "mult", file, 3));
-        scan->setData("scandata",    "headers",        string.parseString("### Scan data",            "txt",  file, 1));
+    // Read and set data from the scan table created above according to the header map
+    extractDataFromTable(scan, headerMap);
 
-        // Read and set data from the scan table created above according to the header map
-        extractDataFromTable(scan, headerMap);
+    // Select appropriate data for the monitor
+    As::RealVector monitor1 = (*scan)["intensities"]["Monitor1"]["data"];
+    As::RealVector monitor2 = (*scan)["intensities"]["Monitor2"]["data"];
+    As::RealVector monitor1up = (*scan)["intensities"]["Monitor1(+)"]["data"];
+    As::RealVector monitor1down = (*scan)["intensities"]["Monitor1(-)"]["data"];
+    As::RealVector monitor2up = (*scan)["intensities"]["Monitor2(+)"]["data"];
+    As::RealVector monitor2down = (*scan)["intensities"]["Monitor2(-)"]["data"];
+    //
+    if (monitor1.isZero())
+        scan->setData("intensities", "Monitor", monitor2.toQString());
+    else
+        scan->setData("intensities", "Monitor", monitor1.toQString());
+    //
+    if (!monitor1up.isZero()) {
+        scan->setData("intensities", "Monitor1(+)", monitor1up.toQString());
+        scan->setData("intensities", "Monitor(+)", monitor1up.toQString()); }
+    if (!monitor1down.isZero()) {
+        scan->setData("intensities", "Monitor1(-)", monitor1down.toQString());
+        scan->setData("intensities", "Monitor(-)", monitor1down.toQString()); }
+    //
+    if (!monitor2up.isZero())
+        scan->setData("intensities", "Monitor2(+)", monitor2up.toQString());
+    if (!monitor2down.isZero())
+        scan->setData("intensities", "Monitor2(-)", monitor2down.toQString());
 
-        // Select appropriate data for the monitor
-        As::RealVector monitor1 = (*scan)["intensities"]["Monitor1"]["data"];
-        As::RealVector monitor2 = (*scan)["intensities"]["Monitor2"]["data"];
-        As::RealVector monitor1up = (*scan)["intensities"]["Monitor1(+)"]["data"];
-        As::RealVector monitor1down = (*scan)["intensities"]["Monitor1(-)"]["data"];
-        As::RealVector monitor2up = (*scan)["intensities"]["Monitor2(+)"]["data"];
-        As::RealVector monitor2down = (*scan)["intensities"]["Monitor2(-)"]["data"];
-        //
-        if (monitor1.isZero())
-            scan->setData("intensities", "Monitor", monitor2.toQString());
-        else
-            scan->setData("intensities", "Monitor", monitor1.toQString());
-        //
-        if (!monitor1up.isZero()) {
-            scan->setData("intensities", "Monitor1(+)", monitor1up.toQString());
-            scan->setData("intensities", "Monitor(+)", monitor1up.toQString()); }
-        if (!monitor1down.isZero()) {
-            scan->setData("intensities", "Monitor1(-)", monitor1down.toQString());
-            scan->setData("intensities", "Monitor(-)", monitor1down.toQString()); }
-        //
-        if (!monitor2up.isZero())
-            scan->setData("intensities", "Monitor2(+)", monitor2up.toQString());
-        if (!monitor2down.isZero())
-            scan->setData("intensities", "Monitor2(-)", monitor2down.toQString());
+    // Define scan angle name
+    findScanAngle(scan);
 
-        // Define scan angle name
-        findScanAngle(scan);
-
-        // Append single scan to the scan array
-        appendScan(scan); }
-
-    ADEBUG;
+    // Append single scan to the scan array
+    appendScan(scan);
 }
-
 
 /*!
 Extracts the scans from the POLI Igor Pro log file using \a filesAsListOfStrings.
 */
-void As::ScanArray::extractPoliLog()
+void As::ScanArray::extractPoliLog(const int,
+                                   const QString&,
+                                   const QString&)
 {
 }
 
 /*!
-Extracts the scans from the 6T2 xml data file.
+Extracts the scans from the single 6T2 xml data file.
 */
 // UB matrix is also present in the 6T2/5C2 file! Add reading routine!
-void As::ScanArray::extract6t2Data()
+void As::ScanArray::extract6t2Data(const int fileIndex,
+                                   const QString& filePath,
+                                   QString& fileContent)
 {
     ADEBUG;
 
@@ -433,64 +435,59 @@ void As::ScanArray::extract6t2Data()
     headerMap.append({"intensities", "Monitor(+)",      "MonitorUpCount"});
     headerMap.append({"intensities", "Monitor(-)",      "MonitorDownCount"});
 
-    // Go through every open file
-    for (QString &fileAsString : m_inputFilesContents.second) {
+    // Variables
+    auto scan = new As::Scan; // scan to be added to the scan array
 
-        // Variables
-        auto scan = new As::Scan; // scan to be added to the scan array
+    // Get the index of the file which contains the current scan
+    scan->setFileIndex(fileIndex);  //!?
 
-        // Get the index of the file which contains the current scan
-        const int index = &fileAsString - &m_inputFilesContents.second[0];
-        scan->setFileIndex(index + 1);  //!?
+    // Set the absolute file path of the file which contains the scan
+    scan->setAbsoluteFilePath(filePath);
 
-        // Set the absolute file path of the file which contains the scan
-        scan->setAbsoluteFilePath(m_inputFilesContents.first[index]);
+    // Feed file content to the xml reader
+    QXmlStreamReader xmlReader(fileContent);
 
-        // Feed file content to the xml reader
-        QXmlStreamReader xmlReader(fileAsString);
+    // Check every tag
+    while (!xmlReader.atEnd()) {
+        QXmlStreamReader::TokenType token = xmlReader.readNext();
+        if (token == QXmlStreamReader::StartElement) {
 
-        // Check every tag
-        while (!xmlReader.atEnd()) {
-            QXmlStreamReader::TokenType token = xmlReader.readNext();
-            if (token == QXmlStreamReader::StartElement) {
+            // Compare tag content with list of possible names
+            for (const QStringList &row : headerMap) {
+                if (xmlReader.name() == row[2]) {
+                    xmlReader.readNext();
 
-                // Compare tag content with list of possible names
-                for (const QStringList &row : headerMap) {
-                    if (xmlReader.name() == row[2]) {
-                        xmlReader.readNext();
+                    // Append the tag content to the respective scan component
+                    bool ok;
+                    qreal d = xmlReader.text().toDouble(&ok);
+                    if (!ok)
+                        d = qQNaN();
+                    const QString s = QString("%1").arg(d, 0, 'f', 3);
+                    scan->appendData(row[0], row[1], s); } } } }
 
-                        // Append the tag content to the respective scan component
-                        bool ok;
-                        qreal d = xmlReader.text().toDouble(&ok);
-                        if (!ok)
-                            d = qQNaN();
-                        const QString s = QString("%1").arg(d, 0, 'f', 3);
-                        scan->appendData(row[0], row[1], s); } } } }
+    // Re-init xml reader
+    xmlReader.clear();
+    xmlReader.addData(fileContent);
 
-        // Re-init xml reader
-        xmlReader.clear();
-        xmlReader.addData(fileAsString);
+    // Create xml writer to format the input text
+    QString formattedFile;
+    QXmlStreamWriter xmlWriter(&formattedFile);
+    xmlWriter.setAutoFormatting(true);
+    xmlWriter.setAutoFormattingIndent(1);
 
-        // Create xml writer to format the input text
-        QString formattedFile;
-        QXmlStreamWriter xmlWriter(&formattedFile);
-        xmlWriter.setAutoFormatting(true);
-        xmlWriter.setAutoFormattingIndent(1);
+    // Write every tag to xml writer
+    while (!xmlReader.atEnd()) {
+        xmlReader.readNext();
+        if (!xmlReader.isWhitespace()) {
+            xmlWriter.writeCurrentToken(xmlReader); } }
+    fileContent = formattedFile;
 
-        // Write every tag to xml writer
-        while (!xmlReader.atEnd()) {
-            xmlReader.readNext();
-            if (!xmlReader.isWhitespace()) {
-                xmlWriter.writeCurrentToken(xmlReader); } }
-        fileAsString = formattedFile;
+    // Define scan angle name
+    //scan->setScanAngle("Omega");
+    findScanAngle(scan);
 
-        // Define scan angle name
-        //scan->setScanAngle("Omega");
-        findScanAngle(scan);
-
-        // Append single scan to the scan array
-        appendScan(scan);
-    }
+    // Append single scan to the scan array
+    appendScan(scan);
 }
 
 /*!
@@ -504,17 +501,12 @@ void As::ScanArray::findScanAngle(As::Scan *scan)
     if (scan->scanAngle().isEmpty()) {
         QStringList subitemKeys = (*scan)["angles"].keys();
         // default value
-
-        //ADEBUG << subitemKeys;
         for (const QString &subitemKey : subitemKeys) {
-            //ADEBUG << subitemKey << (*scan)["angles"][subitemKey]["data"];
             const As::RealVector data = (*scan)["angles"][subitemKey]["data"];
             /// add all the angles with non-zero range to the list of scan angles!?
             /// and allow user to chose the axis in the plot
             if (data.simplified().size() > 1 AND data.range() > 0.1) {
                 scan->setScanAngle(subitemKey);
-                //ADEBUG << scan->scanAngle();
-                //AEXIT;
                 return; } } }
 }
 
@@ -582,11 +574,7 @@ void As::ScanArray::appendScan(As::Scan *scan)
                 // Check if there is any not-empty angle or hkl and...
                 if (!(*scan)[itemKey][subitemKey]["data"].isEmpty() AND !scan->scanAngle().isEmpty()) {
 
-                    // Set the index to be the next ...
-                    scan->setIndex(size());
-                    scan->setData("number", "Scan", QString::number(scan->index() + 1)); // make signal-slot here!?
                     scan->m_numPoints = numPointsMax;
-
                     append(scan);
                     return; } } } }
 

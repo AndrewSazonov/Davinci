@@ -42,7 +42,9 @@ Constructs the class depends on the given \a type and \a headers list.
 As::SaveHeaders::SaveHeaders(QString type,
                              const QStringList &headers)
 {
-    ADEBUG;
+    ADEBUG_H1;
+    ADEBUG << type;
+    ADEBUG << headers;
 
     // make enum for simplicity!
     // and add format to the name of the output file, before extension
@@ -65,13 +67,14 @@ As::SaveHeaders::SaveHeaders(QString type,
             m_format << "csv";
             m_addHeader = true; } }
 
-    EI (type.contains("shelx") AND type.contains("integer")) {
-        m_name   << "H"  << "K"  << "L"  << "Sf2"  << "Sf2Err" << "Batch" << "S0X"  << "S2X"  << "S0Y"  << "S2Y"  << "S0Z"  << "S2Z";
-        m_format << "4i" << "4i" << "4i" << "8.2f" << "8.2f"   << "4i"    << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f"; }
-
     EI (type.contains("shelx") AND type.contains("real")) {
         m_name   << "H"    << "K"    << "L"    << "Sf2"  << "Sf2Err" << "Batch" << "S0X"  << "S2X"  << "S0Y"  << "S2Y"  << "S0Z"  << "S2Z";
         m_format << "8.3f" << "8.3f" << "8.3f" << "8.2f" << "8.2f"   << "4i"    << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f"; }
+
+    //EI (type.contains("shelx") AND type.contains("integer")) {
+    EI (type.contains("shelx")) {
+        m_name   << "H"  << "K"  << "L"  << "Sf2"  << "Sf2Err" << "Batch" << "S0X"  << "S2X"  << "S0Y"  << "S2Y"  << "S0Z"  << "S2Z";
+        m_format << "4i" << "4i" << "4i" << "8.2f" << "8.2f"   << "4i"    << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f"; }
 
     EI (type.contains("tbar")) {
         m_name   << "Scan" << "H"  << "K"  << "L"  << "Sf2"   << "Sf2Err" << "Theta" << "Omega" << "Chi"  << "Phi"  << "Temperature" << "Psi"   << "Fwhm";

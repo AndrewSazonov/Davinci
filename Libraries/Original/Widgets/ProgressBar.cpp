@@ -40,10 +40,7 @@ Constructs a progress bar with the given \a parent.
 As::ProgressBar::ProgressBar(QWidget *parent)
     : QProgressBar(parent)
 {
-    setMinimum(0);
-    setMaximum(100);
-    setMinimumHeight(2);
-    setMaximumHeight(2);
+    setFixedHeight(3);
     setTextVisible(false);
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 }

@@ -18,29 +18,29 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AS_WIDGETS_PROGRESSBAR_HPP
-#define AS_WIDGETS_PROGRESSBAR_HPP
+#ifndef AS_DIFFRACTION_CONCURRENTWATCHER_HPP
+#define AS_DIFFRACTION_CONCURRENTWATCHER_HPP
 
-#include <QProgressBar>
+#include <QtConcurrent>
+
+class QString;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
-class ProgressBar : public QProgressBar
+class ScanArray;
+
+class ConcurrentWatcher : public QFutureWatcher<void>
 {
     Q_OBJECT
 
 public:
-    ProgressBar(QWidget *parent = Q_NULLPTR);
+    ConcurrentWatcher(const QString &type,
+                      As::ScanArray *scans,
+                      QWidget *parent = Q_NULLPTR);
 
-    virtual ~ProgressBar();
-
-public slots:
-    void hideOrShow(const int index);
-
+    virtual ~ConcurrentWatcher();
 };
 
 } //AS_END_NAMESPACE
 
-#endif // AS_WIDGETS_PROGRESSBAR_HPP
-
-
+#endif // AS_DIFFRACTION_CONCURRENTWATCHER_HPP

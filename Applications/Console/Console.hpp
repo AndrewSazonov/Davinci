@@ -34,6 +34,7 @@ class QCoreApplication;
 class QString;
 class QStringList;
 class QTextStream;
+template <typename T> class QFutureWatcher;
 
 QT_END_NAMESPACE
 
@@ -69,6 +70,8 @@ private:
 
     QCommandLineParser m_parser;
     As::ScanArray *m_scans;
+
+    QFutureWatcher<void>* m_futureWatcher;
 };
 
 } //AS_END_NAMESPACE

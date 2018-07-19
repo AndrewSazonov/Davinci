@@ -31,12 +31,16 @@
 #include <QTextStream>
 #include <QTextEdit>
 #include <QVariant>
+#include <QVector>
 #include <QXmlStreamWriter>
+
+#include <QtConcurrent>
 
 #include "Constants.hpp"
 #include "Functions.hpp"
 #include "Macros.hpp"
 
+#include "ConcurrentWatcher.hpp"
 #include "LineEdit.hpp"
 #include "MessageWidget.hpp"
 #include "TextEditor.hpp"
@@ -45,6 +49,7 @@
 #include "SyntaxHighlighter.hpp"
 #include "Plot.hpp"
 #include "PreferencesDialog.hpp"
+#include "ProgressDialog.hpp"
 #include "TableView.hpp"
 #include "VBoxLayout.hpp"
 
@@ -87,7 +92,7 @@ void As::Window::gotoScan_Slot(const int index)
 
     // Treat current scan conditions
     if (genericScan()->plotType() == As::PlotType::Integrated AND currentScan()->plotType() != As::PlotType::Excluded)
-        m_scans->treatSingle(index-1);
+        m_scans->treatSingleScan(index-1);
 
     //
     m_scans->setScanIndex(index);
@@ -208,31 +213,27 @@ void As::Window::extractScans_Slot()
 {
     ADEBUG_H3;
 
-    // Extract data from raw input
-    m_scans->extractInputData();
+    // Extract data from raw input using multi-threading
+    //m_scans->extractInputData();
+    As::ConcurrentWatcher ("extract", m_scans, this);
 
     // Exit from function if no scans were found
     if (m_scans->size() == 0) {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText("No scans are found");
-        msgBox.exec();
+        As::MessageWidget(this, "", "Warning: No detectable scans were found.", "   OK   ", "", false).exec();
         return; }
 
     // Create widget if not yet created
     //if (m_extractedTableWidget == Q_NULLPTR) {}
+
+    // Fill missing data using multi-threading
+    //m_scans->fillEmptyArrays();
+    As::ConcurrentWatcher ("fill", m_scans, this);
 
     // Create table widget
     auto extractedTableWidget = new As::TableView;
 
     // Add widget to the tabs
     m_tabsWidget->addTab(extractedTableWidget, "Extracted Tables");
-
-    // Fill data
-    m_scans->fillEmptyArrays();
-
-    // Ceate extracted data table
-    m_scans->createAllExtractedTablesModels();
 
     // Update the table model conditions
     connect(this, &As::Window::extractedTableModelChanged, extractedTableWidget, &As::TableView::setModel);
@@ -473,20 +474,22 @@ void As::Window::visualizePlots_Slot()
     // Create widget if not yet created
     if (m_visualizedPlotsWidget == Q_NULLPTR) {
         m_visualizedPlotsWidget = new As::Plot();
-        m_tabsWidget->addTab(m_visualizedPlotsWidget, "Visualized Plots");
 
-        // Index
-        m_scans->indexPeaks();
-        m_scans->calcDirectionCosines();
+        // Peak indexing using multi-threading
+        //m_scans->indexPeaks();
+        As::ConcurrentWatcher("index", m_scans, this);
 
-        // Preliminary Treat
-        m_scans->preTreatData();
+        // Preliminary treatment using multi-threading
+        // Included in "index"!
+        //m_scans->preTreatData();
+        //As::ConcurrentWatcher("pretreat", m_scans, this);
 
         // Emit signal(s)
         ///const int size = m_scans->size();
         ///if (size > 0) {
         ///    emit newScansPlotted_Signal(currentScanIndex()-1); }
-        }
+
+        m_tabsWidget->addTab(m_visualizedPlotsWidget, "Visualized Plots"); }
 
     // ...
     //updateCurrentScan();
@@ -644,20 +647,13 @@ void As::Window::showOutput_Slot()
 {
     ADEBUG_H3;
 
+    // Run data treatment using multi-threading
+    As::ConcurrentWatcher("treat", m_scans, this);
+
     // Create widget if not yet created
     if (m_outputTableWidget == Q_NULLPTR) {
         m_outputTableWidget = new As::TableView();
-        m_tabsWidget->addTab(m_outputTableWidget, "Output Table");
-
-        // Treat all scans
-        m_scans->treatData();
-
-        // Emit signal(s)
-        //const int size = m_scans->size();
-        //if (size > 0) {
-        //    emit newPeaksIntegrated(1);
-        //}
-        }
+        m_tabsWidget->addTab(m_outputTableWidget, "Output Table"); }
 
     // Create/updadate full output data table
     createFullOutputTableModel_Slot();

@@ -26,9 +26,12 @@
 #include <QStringList>
 #include <QTextStream>
 
+#include <QtConcurrent>
+
 #include "Functions.hpp"
 #include "Macros.hpp"
 
+#include "ConcurrentWatcher.hpp"
 #include "Scan.hpp"
 #include "ScanArray.hpp"
 
@@ -54,13 +57,15 @@ As::Console::Console()
     // Open file or dir based on the path provided in 'path' option
     openFiles(m_parser.value("path"));
 
-    // Process the measured data
-    m_scans->extractInputData();
-    m_scans->fillEmptyArrays();
-    m_scans->indexPeaks();
-    m_scans->calcDirectionCosines();
-    m_scans->preTreatData();
-    m_scans->treatData();
+    // Process the measured data using Multi-Thread
+    As::ConcurrentWatcher("extract", m_scans);
+    printMessage(QString("Number of treated files:  %1").arg(m_scans->m_inputFilesContents.first.size()));
+
+    As::ConcurrentWatcher("fill", m_scans);
+    As::ConcurrentWatcher("index", m_scans);
+    //As::ConcurrentWatcher("pretreat", m_scans); // included in "index"
+    As::ConcurrentWatcher("treat", m_scans);
+    printMessage(QString("Number of treated reflections:  %1").arg(m_scans->size()));
 
     // Output
     exportOutputTable();
@@ -238,6 +243,9 @@ void As::Console::loadFiles(const QStringList &filePathList)
 {
     ADEBUG << filePathList;
 
+    // Create the future watcher
+    m_futureWatcher = new QFutureWatcher<void>;
+
     // Create the scan array
     m_scans = new As::ScanArray;
 
@@ -273,7 +281,7 @@ Exports the output table to disk.
 */
 void As::Console::exportOutputTable() const
 {
-    ADEBUG;
+    m_scans->createFullOutputTable();
 
     m_scans->saveSelectedOutputColumns(outputFileNameWithExt(), outputFileFormat());
 }
@@ -300,7 +308,7 @@ Prints the console \a message. If optional argument \a arg is provided, then
 void As::Console::printMessage(const QString &message,
                                const QString &arg) const
 {
-    ADEBUG << message;
+    ADEBUG;
 
     IF (arg.isEmpty())
         fprintf(stderr, "%s\n", qUtf8Printable(message));
@@ -313,7 +321,7 @@ Prints the list of messages \a messageList.
 */
 void As::Console::printMessageList(const QStringList &messageList) const
 {
-    ADEBUG << messageList;
+    ADEBUG;
 
     for (const QString &message : messageList)
         printMessage(message);
@@ -337,7 +345,8 @@ void As::Console::printProgramOutput() const
     ADEBUG;
 
     const QStringList messageList = {
-        QString("Number of treated reflections:  %1").arg(m_scans->size()),
+        //QString("Number of treated files:  %1").arg(m_scans->m_inputFilesContents.first.size()),
+        //QString("Number of treated reflections:  %1").arg(m_scans->size()),
         QString("Output file:  %1").arg(outputFileNameWithExt()),
         "",
         "The program is finished successfully." };

@@ -34,16 +34,14 @@
 /*!
 Fills single array with single element...
 */
-void As::ScanArray::fillSingleEmptyArray(As::Scan *scan) {
+void As::ScanArray::fillMissingDataArray(const int index)
+{
+    auto scan = at(index);
 
     // Define the total measured intensities and times based on up and down polarized measurements
     calcUnpolData("intensities", "Detector",  scan);
     calcUnpolData("intensities", "Monitor",   scan);
     calcUnpolData("conditions",  "Time/step", scan);
-
-    ///// test
-    ///As::RealVector detector  = (*scan)["intensities"]["Detector"]["data"];
-    ///scan->setData("intensities", "Detector", detector.toQString());
 
     // Set some common parameters
     // find a better way to get the size of all the scans!
@@ -86,30 +84,9 @@ void As::ScanArray::fillSingleEmptyArray(As::Scan *scan) {
 
     // Add batch number. All the reflections are considered to belong to just 1st group...
     scan->setData("number", "Batch", "1");
-}
 
-/*!
-Fills all the arrays with single element...
-*/
-// Using multi-threading: Not needed here!? It was less than 0.1s...
-void As::ScanArray::fillEmptyArrays()
-{
-    ADEBUG_H2;
-
-    // Futures for multi-threaded for-loop, to check later when the tasks are completed
-    QList<QFuture<void> > futures;
-
-    // For every scan in the scan array
-    for (auto scan : m_scanArray) {
-        // Schedule task to the global thread pool
-        auto future = QtConcurrent::run(this, &As::ScanArray::fillSingleEmptyArray, scan);
-        futures.append(future); }
-
-    // Wait for all the tasks to be completed
-    for (auto future : futures)
-        future.waitForFinished();
-
-    ADEBUG;
+    // Creates the table model for the scan
+    scan->createExtractedTableModel_Slot();
 }
 
 /*!
@@ -135,32 +112,3 @@ void As::ScanArray::calcUnpolData(const QString &section,
 
     scan->setData(section, entry, sum.toQString());
 }
-
-/*!
-Creates the table models for the extracted scans.
-*/
-// Using multi-threading
-void As::ScanArray::createAllExtractedTablesModels()
-{
-    ADEBUG;
-
-    //for (auto scan : m_scanArray)
-    //    scan->createExtractedTableModel_Slot();
-
-    // Futures for multi-threaded for-loop, to check later when the tasks are completed
-    QList<QFuture<void> > futures;
-
-    // For every scan in the scan array
-    for (auto scan : m_scanArray) {
-        // Schedule task to the global thread pool
-        auto future = QtConcurrent::run(scan, &As::Scan::createExtractedTableModel_Slot);
-        futures.append(future); }
-
-    // Wait for all the tasks to be completed
-    for (auto future : futures)
-        future.waitForFinished();
-
-    ADEBUG;
-}
-
-

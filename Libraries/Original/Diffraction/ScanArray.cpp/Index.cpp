@@ -30,95 +30,94 @@
 #include "ScanArray.hpp"
 
 /*!
-Index the reflection based on the scattering angles.
+Index single reflection based on the scattering angles.
 */
-void As::ScanArray::indexPeaks()
+void As::ScanArray::indexSinglePeak(const int index)
 {
-    ADEBUG_H2;
 
-    // For every scan in the scan array
-    for (auto scan : m_scanArray) {
+    auto scan = at(index);
 
-        // Get data
-        As::RealVector wavelength = (*scan)["conditions"]["Wavelength"]["data"];
-        As::RealVector twotheta = (*scan)["angles"]["2Theta"]["data"];
-        As::RealVector omega = (*scan)["angles"]["Omega"]["data"];
-        As::RealVector chi = (*scan)["angles"]["Chi"]["data"];
-        As::RealVector phi = (*scan)["angles"]["Phi"]["data"];
-        As::RealVector gamma = (*scan)["angles"]["Gamma"]["data"];
-        As::RealVector nu = (*scan)["angles"]["Nu"]["data"];
-        As::RealVector psi = (*scan)["angles"]["Psi"]["data"];
-        As::RealVector h = (*scan)["indices"]["H"]["data"];
-        As::RealVector k = (*scan)["indices"]["K"]["data"];
-        As::RealVector l = (*scan)["indices"]["L"]["data"];
+    // Get data
+    As::RealVector wavelength = (*scan)["conditions"]["Wavelength"]["data"];
+    As::RealVector twotheta = (*scan)["angles"]["2Theta"]["data"];
+    As::RealVector omega = (*scan)["angles"]["Omega"]["data"];
+    As::RealVector chi = (*scan)["angles"]["Chi"]["data"];
+    As::RealVector phi = (*scan)["angles"]["Phi"]["data"];
+    As::RealVector gamma = (*scan)["angles"]["Gamma"]["data"];
+    As::RealVector nu = (*scan)["angles"]["Nu"]["data"];
+    As::RealVector psi = (*scan)["angles"]["Psi"]["data"];
+    As::RealVector h = (*scan)["indices"]["H"]["data"];
+    As::RealVector k = (*scan)["indices"]["K"]["data"];
+    As::RealVector l = (*scan)["indices"]["L"]["data"];
 
-        //ADEBUG << "föermrkmfelkmlerk 1" << psi;
-        //ADEBUG << "föermrkmfelkmlerk 2" << psi.mean();
-        As::RealVector psi2(QString(""));
+    //As::RealVector psi2(QString(""));
 
-        // Check if ub matrix is read
-        if (!(*scan)["orientation"]["matrix"]["data"].isEmpty()) {
+    // Check if ub matrix is read
+    if (!(*scan)["orientation"]["matrix"]["data"].isEmpty()) {
 
-            As::RealMatrix9 ub = (*scan)["orientation"]["matrix"]["data"]; // make variable m_ubMatrix?!
-            //int size = scan["misc"]["nPoints"]["data"].toInt();
+        As::RealMatrix9 ub = (*scan)["orientation"]["matrix"]["data"]; // make variable m_ubMatrix?!
+        //int size = scan["misc"]["nPoints"]["data"].toInt();
 
-            // Set angles
-            if (!h.isEmpty() AND !k.isEmpty() AND !l.isEmpty() AND gamma.isEmpty()) {
+        // Set angles
+        if (!h.isEmpty() AND !k.isEmpty() AND !l.isEmpty() AND gamma.isEmpty()) {
 
-                // Define angles of the scan center
-                As::RealVector xyz = hklToXyz(ub, h.mean(), k.mean(), l.mean());
-                As::RealVector angles = xyzToAngles(wavelength.mean(), xyz[0], xyz[1], xyz[2], psi.mean());
+            // Define angles of the scan center
+            As::RealVector xyz = hklToXyz(ub, h.mean(), k.mean(), l.mean());
+            As::RealVector angles = xyzToAngles(wavelength.mean(), xyz[0], xyz[1], xyz[2], psi.mean());
 
-                // Fill arrays with the found angles
+            // Fill arrays with the found angles
+            for (int i = 0; i < scan->size(); ++i) {
+                twotheta.append(angles[0]);
+                chi.append(angles[2]);
+                phi.append(angles[3]);
+
+                // Define omega angle considering the scan step
+                qreal center = angles[1];
+                qreal shift = (i + 1 - qCeil(static_cast<qreal>(scan->size()) / 2)) * scan->scanStep();
+                omega.append(center + shift); }
+
+            // Set angle arrays to the scan
+            scan->setData("angles", "2Theta", twotheta.toQString());
+            scan->setData("angles", "Theta",  twotheta.normalizeBy(2.0).toQString());
+            scan->setData("angles", "Omega",  omega.toQString());
+            scan->setData("angles", "Chi",    chi.toQString());
+            scan->setData("angles", "Phi",    phi.toQString()); }
+
+        // Set hkl
+        else {
+            // Lifting counter geometry /// not very good !!!
+            if (!gamma.isEmpty()) {
+            //if (nu.size() > 0) {
+                //if (gamma.size() == 0) // if name twotheta is wrongly used instead of gamma ?!
+                //    gamma = twotheta;
                 for (int i = 0; i < scan->size(); ++i) {
-                    twotheta.append(angles[0]);
-                    chi.append(angles[2]);
-                    phi.append(angles[3]);
+                    As::RealVector xyz = anglesToXyz(wavelength[i], gamma[i], nu[i], omega[i]);
+                    As::RealVector hkl = xyzToHkl(ub, xyz[0], xyz[1], xyz[2]);
+                    h.append(hkl[0]);
+                    k.append(hkl[1]);
+                    l.append(hkl[2]); } }
 
-                    // Define omega angle considering the scan step
-                    qreal center = angles[1];
-                    qreal shift = (i + 1 - qCeil(static_cast<qreal>(scan->size()) / 2)) * scan->scanStep();
-                    omega.append(center + shift); }
-
-                // Set angle arrays to the scan
-                scan->setData("angles", "2Theta", twotheta.toQString());
-                scan->setData("angles", "Theta",  twotheta.normalizeBy(2.0).toQString());
-                scan->setData("angles", "Omega",  omega.toQString());
-                scan->setData("angles", "Chi",    chi.toQString());
-                scan->setData("angles", "Phi",    phi.toQString()); }
-
-            // Set hkl
+            // 4-circle geometry
             else {
-                // Lifting counter geometry /// not very good !!!
-                if (!gamma.isEmpty()) {
-                //if (nu.size() > 0) {
-                    //if (gamma.size() == 0) // if name twotheta is wrongly used instead of gamma ?!
-                    //    gamma = twotheta;
-                    for (int i = 0; i < scan->size(); ++i) {
-                        As::RealVector xyz = anglesToXyz(wavelength[i], gamma[i], nu[i], omega[i]);
-                        As::RealVector hkl = xyzToHkl(ub, xyz[0], xyz[1], xyz[2]);
-                        h.append(hkl[0]);
-                        k.append(hkl[1]);
-                        l.append(hkl[2]); } }
+                for (int i = 0; i < scan->size(); ++i) {
+                    As::RealVector xyz = anglesToXyz(wavelength[i], twotheta[i], omega[i], chi[i], phi[i]);
+                    As::RealVector hkl = xyzToHkl(ub, xyz[0], xyz[1], xyz[2]);
+                    h.append(hkl[0]);
+                    k.append(hkl[1]);
+                    l.append(hkl[2]); } }
 
-                // 4-circle geometry
-                else {
-                    for (int i = 0; i < scan->size(); ++i) {
-                        As::RealVector xyz = anglesToXyz(wavelength[i], twotheta[i], omega[i], chi[i], phi[i]);
-                        As::RealVector hkl = xyzToHkl(ub, xyz[0], xyz[1], xyz[2]);
-                        h.append(hkl[0]);
-                        k.append(hkl[1]);
-                        l.append(hkl[2]); } }
+            // Set indices to scan
+            scan->setData("indices", "H", h.toQString());
+            scan->setData("indices", "K", k.toQString());
+            scan->setData("indices", "L", l.toQString()); } }
 
-                // Set indices to scan
-                scan->setData("indices", "H", h.toQString());
-                scan->setData("indices", "K", k.toQString());
-                scan->setData("indices", "L", l.toQString()); } }
+    // Define mean indices
+    scan->m_meanIndexH = h.mean();
+    scan->m_meanIndexK = k.mean();
+    scan->m_meanIndexL = l.mean();
 
-        // Define mean indices
-        scan->m_meanIndexH = h.mean();
-        scan->m_meanIndexK = k.mean();
-        scan->m_meanIndexL = l.mean(); }
+    // Calc direction cosines
+    calcDirectionCosines(scan);
 }
 
 /*!
@@ -297,53 +296,50 @@ Calculates the direction cosines of incident (s0) and diffracted (s2) beams.
 // Check all cases including lifting counter!
 // Heidi orient matrix = ub.trans!
 // make m_meanS0X, as m_meanIndexH?
-void As::ScanArray::calcDirectionCosines()
+void As::ScanArray::calcDirectionCosines(As::Scan *scan)
 {
-    // For every scan in the scan array
-    for (auto scan : m_scanArray) {
+    // Check if ub matrix is read
+    if ((*scan)["orientation"]["matrix"]["data"].isEmpty())
+        return;
 
-        // Check if ub matrix is read
-        if ((*scan)["orientation"]["matrix"]["data"].isEmpty())
-            break;
+    // Get data
+    const As::RealMatrix9 ub = (*scan)["orientation"]["matrix"]["data"];
+    const As::RealVector twotheta = (*scan)["angles"]["2Theta"]["data"];
+    const As::RealVector omega = (*scan)["angles"]["Omega"]["data"];
+    const As::RealVector chi = (*scan)["angles"]["Chi"]["data"];
+    const As::RealVector phi = (*scan)["angles"]["Phi"]["data"];
+    const As::RealVector psi = (*scan)["angles"]["Phi"]["data"];
 
-        // Get data
-        const As::RealMatrix9 ub = (*scan)["orientation"]["matrix"]["data"];
-        const As::RealVector twotheta = (*scan)["angles"]["2Theta"]["data"];
-        const As::RealVector omega = (*scan)["angles"]["Omega"]["data"];
-        const As::RealVector chi = (*scan)["angles"]["Chi"]["data"];
-        const As::RealVector phi = (*scan)["angles"]["Phi"]["data"];
-        const As::RealVector psi = (*scan)["angles"]["Phi"]["data"];
+    // Calculate or re-calculate angles which correspond to the 4-circle geometry
+    qreal twothetaMean, omegaMean, chiMean, phiMean;
+    IF (twotheta.isEmpty() OR omega.isEmpty() OR chi.isEmpty() OR phi.isEmpty()) {
+        const As::RealVector wavelength = (*scan)["conditions"]["Wavelength"]["data"];
+        const As::RealVector h = (*scan)["indices"]["H"]["data"];
+        const As::RealVector k = (*scan)["indices"]["K"]["data"];
+        const As::RealVector l = (*scan)["indices"]["L"]["data"];
+        const As::RealVector xyz = hklToXyz(ub, h.mean(), k.mean(), l.mean());
+        const As::RealVector angles = xyzToAngles(wavelength.mean(), xyz[0], xyz[1], xyz[2], psi.mean());
+        twothetaMean = angles[0];
+        omegaMean = angles[1];
+        chiMean = angles[2];
+        phiMean = angles[3]; }
+    EL {
+        twothetaMean = twotheta.mean();
+        omegaMean = omega.mean();
+        chiMean = chi.mean();
+        phiMean = phi.mean();
+    }
 
-        // Calculate or re-calculate angles which correspond to the 4-circle geometry
-        qreal twothetaMean, omegaMean, chiMean, phiMean;
-        IF (twotheta.isEmpty() OR omega.isEmpty() OR chi.isEmpty() OR phi.isEmpty()) {
-            const As::RealVector wavelength = (*scan)["conditions"]["Wavelength"]["data"];
-            const As::RealVector h = (*scan)["indices"]["H"]["data"];
-            const As::RealVector k = (*scan)["indices"]["K"]["data"];
-            const As::RealVector l = (*scan)["indices"]["L"]["data"];
-            const As::RealVector xyz = hklToXyz(ub, h.mean(), k.mean(), l.mean());
-            const As::RealVector angles = xyzToAngles(wavelength.mean(), xyz[0], xyz[1], xyz[2], psi.mean());
-            twothetaMean = angles[0];
-            omegaMean = angles[1];
-            chiMean = angles[2];
-            phiMean = angles[3]; }
-        EL {
-            twothetaMean = twotheta.mean();
-            omegaMean = omega.mean();
-            chiMean = chi.mean();
-            phiMean = phi.mean();
-        }
+    // Get direction cosines for the selected scan
+    const As::RealVector dc = directionCosines(ub, twothetaMean, omegaMean, chiMean, phiMean);
 
-        // Get direction cosines for the selected scan
-        const As::RealVector dc = directionCosines(ub, twothetaMean, omegaMean, chiMean, phiMean);
-
-        // Save calculated direction cosines
-        scan->setData("cosines", "S0X", QString::number(dc[0]));
-        scan->setData("cosines", "S2X", QString::number(dc[1]));
-        scan->setData("cosines", "S0Y", QString::number(dc[2]));
-        scan->setData("cosines", "S2Y", QString::number(dc[3]));
-        scan->setData("cosines", "S0Z", QString::number(dc[4]));
-        scan->setData("cosines", "S2Z", QString::number(dc[5])); }
+    // Save calculated direction cosines
+    scan->setData("cosines", "S0X", QString::number(dc[0]));
+    scan->setData("cosines", "S2X", QString::number(dc[1]));
+    scan->setData("cosines", "S0Y", QString::number(dc[2]));
+    scan->setData("cosines", "S2Y", QString::number(dc[3]));
+    scan->setData("cosines", "S0Z", QString::number(dc[4]));
+    scan->setData("cosines", "S2Z", QString::number(dc[5]));
 }
 
 /*!

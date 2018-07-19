@@ -106,16 +106,6 @@ void As::Style::createStyle()
     startBlock("QGroupBox[isLast=true]");
     add("border-bottom-style:", "none");
 
-    startBlock("QGroupBox[isJustAboveProgressBar=true]");
-    add("border-bottom-style:", "none");
-    add("padding-top:", "0px");//-10
-    add("padding-bottom:", "0px");//-10
-
-    startBlock("QGroupBox[isProgressBar=true]");
-    add("border-bottom-style:", "none");
-    add("padding-top:", "0px");//-24
-    add("padding-bottom:", "0px");//-12
-
     startBlock("QGroupBox::indicator:unchecked");
     add("image:", "url(:/Images/TriangleArrow-Right.svg)");
 
@@ -216,12 +206,22 @@ void As::Style::createStyle()
     // QProgressBar
     //=============
 
-    startBlock("QProgressBar");
+    startBlock("QProgressBar:horizontal");
     add("background-color:", As::Color(As::grayLightUltra).name());
+    add("border-color:", As::Color(As::grayLight).name());
     add("border-style:", "none");
+    //add("border-style:", "solid");
+    //add("border-width:", "1px");
+    //add("border-radius:", "2px");
+    add("padding:", "0px");
+    add("margin:", "0px");
 
-    startBlock("QProgressBar::chunk");
+    startBlock("QProgressBar::chunk:horizontal");
     add("background-color:", As::Color(As::blue).name());
+
+    //============================================================
+    // QProgressDialog is defined via QMessageBox and QProgressBar
+    //============================================================
 
     //============
     // QPushButton

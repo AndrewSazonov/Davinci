@@ -18,29 +18,35 @@
  * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AS_WIDGETS_PROGRESSBAR_HPP
-#define AS_WIDGETS_PROGRESSBAR_HPP
+#ifndef AS_WIDGETS_PROGRESSDIALOG_HPP
+#define AS_WIDGETS_PROGRESSDIALOG_HPP
 
-#include <QProgressBar>
+#include <QDialog>
 
 namespace As { //AS_BEGIN_NAMESPACE
 
-class ProgressBar : public QProgressBar
+class ProgressBar;
+
+class ProgressDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    ProgressBar(QWidget *parent = Q_NULLPTR);
+    ProgressDialog(QWidget *parent = Q_NULLPTR);
 
-    virtual ~ProgressBar();
+    virtual ~ProgressDialog();
 
-public slots:
-    void hideOrShow(const int index);
+    void setRange(const int minimum, const int maximum);
+    void setValue(const int progress);
+    void reset();
+
+private:
+    As::ProgressBar* m_bar;
 
 };
 
 } //AS_END_NAMESPACE
 
-#endif // AS_WIDGETS_PROGRESSBAR_HPP
+#endif // AS_WIDGETS_PROGRESSDIALOG_HPP
 
 

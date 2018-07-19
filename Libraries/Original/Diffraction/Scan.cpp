@@ -40,6 +40,8 @@
 
 #include "ScanArray.hpp"
 
+#include <QtConcurrent>
+
 
 /*!
 \class As::Scan
@@ -425,7 +427,9 @@ Sets the \a index of the scan.
 */
 void As::Scan::setIndex(const int index)
 {
-    m_index = index;
+    //m_index = index;
+    //static int i = -1;
+    //m_index = ++i;
 }
 
 /*!
@@ -529,6 +533,10 @@ void As::Scan::createExtractedTableModel_Slot()
     ///ADEBUG << columnCount;
     int rowCount = dataTable[0].size();
     ///ADEBUG << rowCount;
+    ///
+
+    //ADEBUG << dataTable;
+
     // Model
     m_tableModel = new QStandardItemModel;
     //auto m_tableModel = new QAbstractItemModel();

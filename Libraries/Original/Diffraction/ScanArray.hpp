@@ -26,9 +26,12 @@
 
 #include "Constants.hpp"
 
+//class QFutureWatcher<void>;
 class QString;
 class QStringList;
+template <typename T> class QFutureWatcher;
 template <typename T> class QVector;
+
 
 namespace As { //AS_BEGIN_NAMESPACE
 
@@ -65,25 +68,21 @@ public:
     As::InputFileType filesType();
 
     // Extract methods: ScanArray.cpp/Extract.cpp
-    void extractInputData();
+    void extractDataFromFile(const int index);
 
     // Fill methods: ScanArray.cpp/Fill.cpp
-    void fillSingleEmptyArray(As::Scan *scan);
-    void fillEmptyArrays();
+    void fillMissingDataArray(const int index);
     void calcUnpolData(const QString &section,
                        const QString &entry,
                        As::Scan *scan);
-    void createAllExtractedTablesModels();
-    //QStandardItemModel *tableModel();
 
     // Indexing methods: ScanArray.cpp/Index.cpp
-    void indexPeaks();
-    void calcDirectionCosines();
+    void indexSinglePeak(const int index);
+    void calcDirectionCosines(As::Scan *scan);
 
     // Treating methods: ScanArray.cpp/Treat.cpp
-    void preTreatData();
-    void treatSingle(const int index, const bool sure = true);
-    void treatData();
+    void preTreatSingleScan(const int index);
+    void treatSingleScan(const int index);
     void createFullOutputTable();
 
     //
@@ -105,6 +104,20 @@ signals:
 
     void scanIndexChanged(const int index);
     void fileIndexChanged(const int index);
+
+    void scanCountChanged(const int size);
+
+    // treat
+    //void signalTreatRangeChanged(const int min, const int max);
+    //void signalTreatSingleFinished(const int index);
+    //void signalTreatDataFinished();
+
+
+    // processing
+    //void signalProcessRangeChanged(const int min, const int max);
+    //void signalPSingleFinished(const int index);
+    //void signalProcessFinished();
+
 
 private:
 public: // to check qdoc!
@@ -131,11 +144,21 @@ public: // to check qdoc!
 
     // Extract methods: ScanArray.cpp/Extract.cpp
     // Instrument specific methods
-    void extractHeidiLog();
-    void extractHeidiData();
-    void extractNicosData();
-    void extractPoliLog();
-    void extract6t2Data();
+    void extractHeidiData(const int fileIndex,
+                          const QString& filePath,
+                          const QString& fileContent);
+    void extractHeidiLog(const int fileIndex,
+                         const QString& filePath,
+                         const QString& fileContent);
+    void extractNicosData(const int fileIndex,
+                          const QString& filePath,
+                          const QString& fileContent);
+    void extractPoliLog(const int,
+                        const QString&,
+                        const QString&);
+    void extract6t2Data(const int fileIndex,
+                        const QString& filePath,
+                        QString& fileContent);
     // Common methods
     void findScanAngle(As::Scan *scan);
     void extractDataFromTable(As::Scan *scan,

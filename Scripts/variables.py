@@ -19,13 +19,14 @@ from functions import *
 
 # Apps
 APP_NAME                    = 'Davinci'
-APP_CONSOLE_SUFFIX          = 'Console'
+WINDOW_APP_NAME             = APP_NAME
+CONSOLE_APP_SUFFIX          = 'Console'
+CONSOLE_APP_NAME            = APP_NAME + CONSOLE_APP_SUFFIX
 TESTS_SUFFIX                = 'Tests'
-APP_CONSOLE_NAME            = APP_NAME + APP_CONSOLE_SUFFIX
 TESTS_NAME                  = APP_NAME + TESTS_SUFFIX
 
-APP_FILE                    = OsSpecificGui(APP_NAME)
-APP_CONSOLE_FILE            = OsSpecificCli(APP_CONSOLE_NAME)
+WINDOW_APP_FILE             = OsSpecificGui(WINDOW_APP_NAME)
+CONSOLE_APP_FILE            = OsSpecificCli(CONSOLE_APP_NAME)
 TESTS_FILE                  = OsSpecificCli(TESTS_NAME)
 
 APP_VERSION                 = Changelog().version()
@@ -64,16 +65,17 @@ WINDOW_APP_DIR              = APPS_DIR + [WINDOW_APP_DIR_NAME]
 APPS_SUBDIRS                = [CONSOLE_APP_DIR_NAME, WINDOW_APP_DIR_NAME]
 
 # Modules and config
-APP_QT_MODULES              = 'core gui xml svg network widgets printsupport'.split()
-APP_CONSOLE_CONFIG          = 'console'.split()
-APP_CONSOLE_CONFIG_DEL      = 'app_bundle'.split()
+WINDOW_APP_QT_MODULES       = 'core gui xml svg network widgets printsupport concurrent'.split()
+CONSOLE_APP_QT_MODULES      = 'concurrent'.split()
+CONSOLE_APP_CONFIG          = 'console'.split()
+CONSOLE_APP_CONFIG_DEL      = 'app_bundle'.split()
 LIBS_CONFIG                 = 'staticlib'
 
 # Libs
 LIBS_DIR_NAME               = 'Libraries'
 MY_LIBS_PREFIX              = 'As'
 MY_LIBS_DIR_NAME            = 'Original'
-MY_LIBS_NAMES               = 'Core Diffraction DataTypes Widgets'.split() # order is important!
+MY_LIBS_NAMES               = 'Core Widgets Diffraction DataTypes'.split() # order is important!
 OTHER_LIBS_DIR_NAME         = '3rdParty'
 OTHER_LIBS_NAMES            = 'QCodeEditor QCustomPlot'.split()
 LIBS_DIR                    = PROJECT_DIR + [LIBS_DIR_NAME]
@@ -110,7 +112,7 @@ DEBUG_DIR_NAME              = 'Debug'
 PROFILE_DIR_NAME            = 'Profile'
 RELEASE_DIR_NAME            = 'Release'
 RELEASE_DIR                 = BUILD_DIR + [RELEASE_DIR_NAME]
-RELEASE_NAMES_TO_DEPLOY     = [APP_FILE, APP_CONSOLE_FILE, TESTS_FILE]
+RELEASE_NAMES_TO_DEPLOY     = [WINDOW_APP_FILE, CONSOLE_APP_FILE, TESTS_FILE]
 RELEASE_PATHS_TO_DEPLOY     = []
 for item in RELEASE_NAMES_TO_DEPLOY:
     item = RELEASE_DIR + [item]
@@ -119,7 +121,7 @@ for item in RELEASE_NAMES_TO_DEPLOY:
 # Deploy
 DEPLOY_DIR_NAME             = 'Deploy'
 DEPLOY_DIR                  = BUILD_DIR + [DEPLOY_DIR_NAME]
-DEPLOY_NAMES                = [APP_FILE, APP_CONSOLE_FILE, TESTS_FILE]
+DEPLOY_NAMES                = [WINDOW_APP_FILE, CONSOLE_APP_FILE, TESTS_FILE]
 DEPLOY_PATHS                = []
 for item in RELEASE_NAMES_TO_DEPLOY:
     item = DEPLOY_DIR + [item]

@@ -1,5 +1,5 @@
-#include <QtConcurrent>
 #include <QDateTime>
+#include <QtConcurrent>
 #include <QtMath>
 
 #include "Constants.hpp"
@@ -13,33 +13,24 @@
 #include "ScanArray.hpp"
 
 /*!
-Treats the data preliminary.
+Treats the data preliminary for the single scan at \a index in the scan array.
 */
-void As::ScanArray::preTreatData()
+void As::ScanArray::preTreatSingleScan(const int index)
 {
-    ADEBUG_H2;
+    auto scan = at(index);
 
-    // For every scan in the scan array
-    for (auto scan : m_scanArray) {
-        scan->setData("number", "Excluded", "0"); // Init. It's modified then in excludeScanSlot
-        definePolarisationCrossSection(scan);
-        calcEsd(scan);
-        normalizeByTime(scan); }
+    scan->setData("number", "Excluded", "0"); // Init. It's modified then in excludeScanSlot
+    definePolarisationCrossSection(scan);
+    calcEsd(scan);
+    normalizeByTime(scan);
 }
 
 /*!
-Treats the single As::Scan with the given \a index in the scan array
-if \a sure is \c true.
+Treats the data for the single scan at \a index in the scan array.
 */
-void As::ScanArray::treatSingle(const int index,
-                                const bool sure)
+void As::ScanArray::treatSingleScan(const int index)
 {
-    //////ADEBUG << "index:" << index << ", sure:" << sure;
-
-    if (!sure)
-        return;
-
-    auto scan = m_scanArray.at(index);
+    auto scan = at(index);
 
     findNonPeakPoints(scan);
     adjustBkgPoints(scan);
@@ -57,36 +48,12 @@ void As::ScanArray::treatSingle(const int index,
 
     //scan.setData("number", "xcluded", scan.plotType() == As::Scan::Excluded ? "0" : "1"); // it's modified then in excludeScanSlot
     //scan.m_isAlreadyTreated = true; // what is better?
+
+    //emit signalTreatSingleFinished(index);
 }
 
 /*!
-Treats all the non-treated scans in the scan array.
-*/
-// Using multi-threading
-void As::ScanArray::treatData()
-{
-    ADEBUG_H2;
-
-    // Futures for multi-threaded for-loop, to check later when the tasks are completed
-    QList<QFuture<void> > futures;
-
-    // Treat data for all the scans
-    for (int i = 0; i < size(); ++i) {
-        if (at(i)->plotType() == As::PlotType(As::PlotType::Raw)) {
-            // Schedule task to the global thread pool
-            auto future = QtConcurrent::run(this, &As::ScanArray::treatSingle, i, true);
-            futures.append(future); } }
-
-    // Wait for all the tasks to be completed
-    for (auto future : futures)
-        future.waitForFinished();
-
-    //createFullOutputTable();
-    ADEBUG;
-}
-
-/*!
-Creates the output table with all the processed parameters.
+Creates the full output table with all the processed parameters.
 */
 void As::ScanArray::createFullOutputTable()
 {
@@ -106,17 +73,6 @@ void As::ScanArray::createFullOutputTable()
         const QStringList subitemKeys = (*m_scanArray.at(0))[itemKey].keys();
         m_outputTableHeaders.append(subitemKeys);
         headerMap.insert(itemKey, subitemKeys); }
-    //m_outputTableHeaders = QStringList();
-    //for (const auto &itemKey : itemKeys)
-    //    m_outputTableHeaders.append(headerMap[itemKey]);
-    /*QStringList headerRow;
-    for (const auto &itemKey : itemKeys) {
-        auto scan = m_scanArray.at(0);
-        const QStringList subitemKeys = (*scan)[itemKey].keys();
-        headerMap.insert(itemKey, subitemKeys);
-        for (const auto &subitemKey : subitemKeys) {
-            if (!subitemKey.isEmpty())
-                headerRow << subitemKey; } } */
 
     // Make a table of the calculated values according to the headerMap for all the peaks
     m_outputTableData = QList<QStringList>();
@@ -127,18 +83,6 @@ void As::ScanArray::createFullOutputTable()
             for (const auto &subitemKey : headerMap[itemKey])
                     dataRow.insert(j++, scan->printDataSingle(itemKey, subitemKey));
         m_outputTableData << dataRow; }
-    /*QList<QStringList> dataTable;
-    for (auto scan : m_scanArray) {
-        QStringList dataRow;
-        for (const auto &itemKey : itemKeys) {
-            const QStringList subitemKeys = (*scan)[itemKey].keys();
-            for (const auto &subitemKey : subitemKeys) {
-                ADEBUG << scan << itemKey << subitemKey;
-                if (headerRow.contains(subitemKey)) {
-                    const int column = headerRow.indexOf(subitemKey);
-                    dataRow.insert(column, scan->printDataSingle(itemKey, subitemKey));
-                } } }
-        dataTable << dataRow; }*/
 
     ADEBUG;
 }
@@ -148,7 +92,7 @@ Defines the polarisation cross-section for the given \a scan.
 */
 void As::ScanArray::definePolarisationCrossSection(As::Scan *scan)
 {
-    //////ADEBUG;
+    //ADEBUG;
 
     // Read polarisation an flipper parameters
     QString fin  = (*scan)["polarisation"]["Fin" ]["data"].split(" ")[0];
@@ -179,7 +123,7 @@ monitor data arrays of the given \a scan.
 */
 void As::ScanArray::calcEsd(As::Scan *scan)
 {
-    //////ADEBUG;
+    //ADEBUG;
 
     for (const QString &countType : As::COUNT_TYPES) {
         const As::RealVector detector = (*scan)["intensities"]["Detector" + countType]["data"];
@@ -195,7 +139,7 @@ Normalizes the measured detector and monitor data arrays of the given \a scan by
 */
 void As::ScanArray::normalizeByTime(As::Scan *scan)
 {
-    //////ADEBUG;
+    //ADEBUG;
 
     for (const QString &countType : As::COUNT_TYPES) {
         const As::RealVector detector  = (*scan)["intensities"]["Detector" + countType]["data"];
@@ -257,7 +201,7 @@ the given \a scan.
 */
 void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 {
-    //////ADEBUG << scan;
+    //ADEBUG;
 
     const As::RealVector detector  = (*scan)["intensities"]["DetectorNorm"]["data"];
     const As::RealVector sdetector = (*scan)["intensities"]["sDetectorNorm"]["data"];
@@ -266,8 +210,6 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 
     const bool autoSkip = scan->m_removeNeighborsType.contains("Automatically");
     const bool autoBkg = scan->m_integrationSubType.contains("Automatically");
-
-    /////ADEBUG << "scan->m_mcCandlishFactor" << scan->m_mcCandlishFactor;
 
     // Automatically detect background and skip points
     if (autoBkg AND autoSkip) {
@@ -303,7 +245,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                                              numLeftSkipPoints, numRightSkipPoints,
                                              scan->m_mcCandlishFactor);
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
-                ///////ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
+                //ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
                 if (ratio > 0 AND ratio < minRatio) {
                     minRatio = ratio;
                     scan->m_numLeftSkipPoints = numLeftSkipPoints;
@@ -329,7 +271,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                                              scan->m_numLeftSkipPoints, scan->m_numRightSkipPoints,
                                              scan->m_mcCandlishFactor);
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
-                /////ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
+                //ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
                 if (ratio > 0 AND ratio < minRatio) {
                     minRatio = ratio;
                     scan->m_numLeftBkgPoints = numLeftBkgPoints;
@@ -371,7 +313,7 @@ Adjusts the background points of the given \a scan.
 */
 void As::ScanArray::adjustBkgPoints(As::Scan *scan)
 {
-    //////ADEBUG;
+    //ADEBUG;
 
     if (scan->m_integrationSubType == "Automatically detect background") {
         for (int i = 0; i < ADD_NUM_PEAK; ++i) {
@@ -388,36 +330,43 @@ Calculates the average background of the given \a scan.
 */
 void As::ScanArray::calcBkg(As::Scan *scan)
 {
-    /////ADEBUG;
+    //ADEBUG;
 
     const As::RealVector detector = (*scan)["intensities"]["DetectorNorm"]["data"];
     const As::RealVector time = (*scan)["conditions"]["Time/step"]["data"];
     if (!detector.isEmpty()) {
         int from, to;
         qreal bkg = 0.;
+
         // Calculate the sum of the left background intensities
         from = scan->m_numLeftSkipPoints;
         to   = from + scan->m_numLeftBkgPoints;
         for (int i = from; i < to; ++i)
             bkg += detector[i];
+
         // Calculate the sum of the right background intensities
         to   = scan->m_numPoints - scan->m_numRightSkipPoints;
         from = to - scan->m_numRightBkgPoints;
         for (int i = from; i < to; ++i)
             bkg += detector[i];
+
         // Calculate the mean background
         scan->m_normMeanBkg = bkg / (scan->m_numLeftBkgPoints + scan->m_numRightBkgPoints);
+
         // Create a background array and array with background estimated standard deviations (ESD)
         As::RealVector vectorBkg;
         for (int i = 0; i < time.size(); ++i) {
             vectorBkg.append(scan->m_normMeanBkg * time[i]); }
         As::RealVector vectorBkgErr(vectorBkg.sqrt());
+
         // Normalize background and ESD arrays by time
         As::RealVector vectorBkgNorm(vectorBkg.normalizeBy(time));
         As::RealVector vectorBkgErrNorm(vectorBkgErr.normalizeBy(time));
+
         // Set data for the auto appearance in the output table
         scan->setData("calculations", "BkgNorm",  vectorBkgNorm.toQString());
-        scan->setData("calculations", "BkgNormErr", vectorBkgErrNorm.toQString()); } }
+        scan->setData("calculations", "BkgNormErr", vectorBkgErrNorm.toQString()); }
+}
 
 /*!
 Returns the ratio of standard deviation to integrated intensity according
@@ -432,9 +381,9 @@ As::RealVector As::ScanArray::IntensityWithSigma(const As::RealVector &intensiti
                                                  const int numRightSkipPoints,
                                                  const qreal mcCandlishFactor)
 {
-    // BKG - Background : http://www.acronymfinder.com/BKG.html
     // Calculate number of points
     const int numPoints = intensities.size();
+
     // Set intensities for the left + right background points: 0.8 sec (735 peaks)
     As::RealVector intyBkg, sigIntyBkg;
     const int posLeft     = numLeftSkipPoints;
@@ -442,26 +391,30 @@ As::RealVector As::ScanArray::IntensityWithSigma(const As::RealVector &intensiti
     const int posRight    = numPoints - numRightBkgPoints - numRightSkipPoints;
     const int lengthRight = numRightBkgPoints;
     intyBkg  = intensities.mid(posLeft, lengthLeft) + intensities.mid(posRight, lengthRight);
-    //////ADEBUG << "intyBkg" << intyBkg;
-
+    //ADEBUG << "intyBkg" << intyBkg;
     sigIntyBkg = sigmas.mid(posLeft, lengthLeft) + sigmas.mid(posRight, lengthRight);
+
     // Set intensities for the peak points (background is included): 0.4 sec (735 peaks)
     As::RealVector intyPeak, sigIntyPeak;
     const int pos     = numLeftSkipPoints + numLeftBkgPoints;
     const int length  = numPoints - numLeftSkipPoints - numLeftBkgPoints - numRightSkipPoints - numRightBkgPoints;
     intyPeak  = intensities.mid(pos, length);
     sigIntyPeak = sigmas.mid(pos, length);
+
     // Calculate ratio of peak points number to background points number
     const qreal ratioPeakToBkgPoints = static_cast<qreal>(intyPeak.size()) / intyBkg.size();
-    /////ADEBUG << "ratioPeakToBkgPoints" << ratioPeakToBkgPoints;
+    //ADEBUG << "ratioPeakToBkgPoints" << ratioPeakToBkgPoints;
+
     // Calculate peak sum intensity: 0.6 sec (735 peaks)
     qreal intensity = intyPeak.sum() - intyBkg.sum() * ratioPeakToBkgPoints;
-    /////ADEBUG << "intensity" << intensity;
+    //ADEBUG << "intensity" << intensity;
+
     // Calculate sigma (standard deviation) for the peak sum intensity: 0.5 sec (735 peaks)
     qreal sigma = qSqrt(sigIntyPeak.sumSqr() +
                   sigIntyBkg.sumSqr() * As::Sqr(ratioPeakToBkgPoints) +
                   As::Sqr(mcCandlishFactor * intensity));
-    /////ADEBUG << "sigma" << sigma;
+    //ADEBUG << "sigma" << sigma;
+
     return As::RealVector(QVector<qreal>{intensity, sigma});
 }
 
@@ -539,7 +492,8 @@ void As::ScanArray::calcNormPeakArea(As::Scan *scan)
                 // Set data for the auto appearance in the output table
                 scan->setData("calculations", "AreaNorm" + countType, QString::number(scan->m_normPeakArea[countType]));
                 scan->setData("calculations", "AreaNormErr" + countType, QString::number(scan->m_normPeakAreaErr[countType])); } }
-} //}
+    //}
+}
 
 /*!
 Returns the Lorentz correction coefficient calculated from the given
@@ -565,8 +519,8 @@ void As::ScanArray::calcStructFactor(As::Scan *scan)
         correction = lorentzCorrectionFactor(gamma.mean());
     else if (!gamma.isEmpty() AND !nu.isEmpty())
         correction = lorentzCorrectionFactor(gamma.mean(), nu.mean());
-    else
-        qFatal("%s: unknown Lorentz correction input", __FUNCTION__);
+    //else
+    //    qFatal("%s: unknown Lorentz correction input", __FUNCTION__);
     for (const QString &countType : As::COUNT_TYPES) {
         if (!qIsNaN(scan->m_normPeakArea[countType])) {
             scan->m_structFactor[countType]    = scan->m_normPeakArea[countType]    * correction;
@@ -587,22 +541,27 @@ void As::ScanArray::calcFullWidthHalfMax(As::Scan *scan)
     const As::RealVector sInty = (*scan)["intensities"]["sDetectorNorm"]["data"];
     const As::RealVector bkg   = (*scan)["calculations"]["BkgNorm"]["data"];
     const As::RealVector sBkg  = (*scan)["calculations"]["BkgNormErr"]["data"];
+
     // Calc intensity and its standard deviation substracting background from total measured detector intensity
     As::RealVector y, sy;
     for (int i = 0; i < inty.size(); ++i) {
         y.append(inty[i] - bkg[i]);
         sy.append(qSqrt(As::Sqr(sInty[i]) + As::Sqr(sBkg[i]))); }
+
     // Define local variables
     const qreal yHM            = 0.5 * y.max();    // intensity at half maximum (HM)
     const qreal iLast          = scan->m_numPoints - 1;
     const int iLeftPeakBorder  = scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
     const int iRightPeakBorder = scan->m_numPoints - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints - 1;
+
     // Find position of maximum within the peak range
     As::RealVector yPeak;
     for (int i = iLeftPeakBorder; i <= iRightPeakBorder; ++i) {
         yPeak.append(y[i]); }
     const int iMaxOfPeak  = iLeftPeakBorder + yPeak.indexOfMax();
+
     // Find indices of two points: one is just before half max and one is just after half max
+
     // (for left part of the peak)
     int iAfterLeftHalfMax = iMaxOfPeak;
     for (int i = iLeftPeakBorder; i < iMaxOfPeak; ++i) {
@@ -610,6 +569,7 @@ void As::ScanArray::calcFullWidthHalfMax(As::Scan *scan)
             iAfterLeftHalfMax = i;
             break; } }
     const int iBeforeLeftHalfMax = (iAfterLeftHalfMax == 0) ? 0 : (iAfterLeftHalfMax - 1);
+
     // (for right part of the peak)
     int iBeforeRightHalfMax = iMaxOfPeak;
     for (int i = iRightPeakBorder; i > iMaxOfPeak; --i) {
@@ -617,25 +577,31 @@ void As::ScanArray::calcFullWidthHalfMax(As::Scan *scan)
             iBeforeRightHalfMax = i;
             break; } }
     const int iAfterRightHalfMax = (iBeforeRightHalfMax == iLast) ? iLast : (iBeforeRightHalfMax + 1);
+
     // Error in the instrumental angle positioning in degrees
     const qreal sx = 0.01;
+
     // Create line connecting to points: one is just before half max and one is just after half max
+
     // (for left part of the peak)
     const qreal xL1 = x[iBeforeLeftHalfMax]; const qreal sxL1 = sx;
     const qreal yL1 = y[iBeforeLeftHalfMax]; const qreal syL1 = sy[iBeforeLeftHalfMax];
     const qreal xL2 = x[iAfterLeftHalfMax];  const qreal sxL2 = sx;
     const qreal yL2 = y[iAfterLeftHalfMax];  const qreal syL2 = sy[iAfterLeftHalfMax];
     const As::Line left(xL1, yL1, xL2, yL2, sxL1, syL1, sxL2, syL2);
+
     // (for right part of the peak)
     const qreal xR1 = x[iBeforeRightHalfMax]; const qreal sxR1 = sx;
     const qreal yR1 = y[iBeforeRightHalfMax]; const qreal syR1 = sy[iBeforeRightHalfMax];
     const qreal xR2 = x[iAfterRightHalfMax];  const qreal sxR2 = sx;
     const qreal yR2 = y[iAfterRightHalfMax];  const qreal syR2 = sy[iAfterRightHalfMax];
     const As::Line right(xR1, yR1, xR2, yR2, sxR1, syR1, sxR2, syR2);
+
     // Full width at half maximum (Fwhm) and its estimated standard deviation
     scan->m_fullWidthHalfMax    = qAbs(right.xForY(yHM) - left.xForY(yHM));
     scan->m_fullWidthHalfMaxErr = qSqrt(As::Sqr(left.esdXForY(yHM, left.esdYForY(yHM))) +
                                         As::Sqr(right.esdXForY(yHM, right.esdYForY(yHM))));
+
     // Set data for the auto appearance in the output table
     scan->setData("calculations", "Fwhm",  QString::number(scan->m_fullWidthHalfMax));
     scan->setData("calculations", "FwhmErr", QString::number(scan->m_fullWidthHalfMaxErr));
@@ -650,11 +616,13 @@ void As::ScanArray::calcFlippingRatio(As::Scan *scan)
     for (const QString &countType : As::COUNT_TYPES)
         if (qIsNaN(scan->m_structFactor[countType]))
             return;
+
     // Get structure factors of the up(-) and down(-) polarised data
     const qreal plus     = scan->m_structFactor[As::COUNT_TYPES[1]];
     const qreal minus    = scan->m_structFactor[As::COUNT_TYPES[2]];
     const qreal sigPlus  = scan->m_structFactorErr[As::COUNT_TYPES[1]];
     const qreal sigMinus = scan->m_structFactorErr[As::COUNT_TYPES[2]];
+
     // Calc flipping ratio
     scan->m_flippingRatio    = plus / minus;
     scan->m_flippingRatioErr = qSqrt(As::Sqr(1 / minus * sigPlus) +
@@ -662,6 +630,7 @@ void As::ScanArray::calcFlippingRatio(As::Scan *scan)
     qreal significance = qAbs(scan->m_flippingRatio - 1) / scan->m_flippingRatioErr;
     if (scan->m_flippingRatio < 0)
         significance *= -1;
+
     // Set data for the auto appearance in the output table
     scan->setData("calculations", "FR",           QString::number(scan->m_flippingRatio));
     scan->setData("calculations", "FRerr",        QString::number(scan->m_flippingRatioErr));

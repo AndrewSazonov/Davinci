@@ -35,7 +35,8 @@ public:
                   const QString &title = QString(),
                   const QString &text = QString(),
                   const QString &okButton = QString(),
-                  const QString &cancelButton = QString());
+                  const QString &cancelButton = QString(),
+                  const bool showIcon = true);
 
     virtual ~MessageWidget();
 

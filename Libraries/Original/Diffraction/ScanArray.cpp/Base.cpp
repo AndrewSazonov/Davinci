@@ -34,11 +34,12 @@
 
 #include "ScanArray.hpp"
 
+#include <QtConcurrent>
+
 /*!
 \class As::ScanArray
 
-\brief The ScanArray is a class that provides an array of the
-measured scans.
+\brief The ScanArray is a class that provides an array of the measured scans.
 
 \inmodule Diffraction
 */
@@ -47,7 +48,9 @@ measured scans.
 Constructs an empty array of the scans with the given \a parent.
 */
 As::ScanArray::ScanArray(QObject *parent)
-    : QObject(parent) {}
+    : QObject(parent)
+{
+}
 
 /*!
 Destroys the array.
@@ -89,6 +92,12 @@ As::Scan *As::ScanArray::operator[](const int i)
 {
     AASSERT(i >= 0 AND i < size(), QString("index out of range (index: '%1', size: '%2')").arg(i).arg(size()));
     return m_scanArray[i];
+
+    float x[] = {1.3f, 2.5f, 4.6f};
+    QFuture<void> f = QtConcurrent::map(x, x+3, [](float & a) { a = 2*a; });
+    f.waitForFinished();
+    qDebug() << x[0] << x[1] << x[2];
+
 }
 
 /*!
@@ -131,7 +140,12 @@ Inserts \a scan at the end of the array.
 */
 void As::ScanArray::append(As::Scan *scan)
 {
+    //static int i = -1;
+    //++i;
     m_scanArray.QVector::append(scan);
+    const int i = m_scanArray.size();
+    //scan->setIndex(i); // not used?!
+    scan->setData("number", "Scan", QString::number(i));
 }
 
 /*!
@@ -155,18 +169,6 @@ void As::ScanArray::setScanIndex(const int index)
     m_scanIndex = index;
 
     emit scanIndexChanged(m_scanIndex);
-
-    /*
-    if (m_scanIndex != index) {
-        m_scanIndex = index;
-
-        const int chunkInPercent = 5;
-        const int chunkInNumber = qMax(1, size() * chunkInPercent / 100);
-
-        if (index % chunkInNumber == 0 OR index + 1 == size()) {
-            const int chunk = (index + 1) * 100 / size();
-            emit scanIndexChanged(chunk); } }
-    */
 }
 
 /*!
@@ -201,7 +203,7 @@ void As::ScanArray::setFileIndexByScanIndex(const int index)
 {
     ADEBUG << "index" << index;
 
-    setFileIndex(m_scanArray.at(index)->fileIndex());
+    setFileIndex(at(index)->fileIndex());
 }
 
 /*!
@@ -256,49 +258,6 @@ void As::ScanArray::setSelectedOutputColumns(As::SaveHeaders &saveHeaders,
         // Go to the new line
         table.append("\n");
         nextrow: continue; }
-
-    // Remove extra ';' at the end of each line (if any) (after csv format)
-    //text.replace(";\n", "\n"); /// select ';' or ',' depends on the localisation? move it to setSelectedOutputColumns?
-
-    // Replace empty lines (if any) (after skipping of excluded scans)
-    //text.replace("\n\n", "\n");
-
-    /*
-    // Index of the exclude current scan column
-    int columnIndexOfExcluded = outputTableHeaders.indexOf("Excluded");
-
-    // Determine the headers' indices
-    for (const auto header : saveHeaders.m_name) {
-        int index = outputTableHeaders.indexOf(header);
-        if (index > -1) {
-            saveHeaders.m_index << index; } }
-
-    // Write down the table data
-    for (int rowIndex = 0; rowIndex < outputTableData->rowCount(); ++rowIndex) {
-        for (int i = 0; i < saveHeaders.m_index.size(); ++i) {
-
-            // Read the cell's content
-            int columnIndex = saveHeaders.m_index[i];
-            const QModelIndex index = outputTableData->index(rowIndex, columnIndex);
-            const QString cell = outputTableData->data(index).toString();
-
-            // Read the exclude current scan flag
-            const QModelIndex indexOfExcluded = outputTableData->index(rowIndex, columnIndexOfExcluded);
-            const bool isCurrentScanExcluded = outputTableData->data(indexOfExcluded).toBool();
-
-            // Conditions to jump to the next row in the output table
-            if (!exportExcluded AND isCurrentScanExcluded)
-                goto nextrow;
-            if (cell.isEmpty()) /// what if an empty cell is in the middle of the row?
-                goto nextrow;
-
-            // Save the formatted cell to the row, if above conditions are satisfied
-            textStream << As::FormatString(cell, saveHeaders.m_format[i]); }
-
-        // Go to the new line
-        textStream << endl;
-        nextrow: continue; }
-    */
 }
 
 /*!
@@ -310,19 +269,21 @@ void As::ScanArray::saveSelectedOutputColumns(const QString &fileName,
 {
     ADEBUG;
 
-    // Open file for writing
     QFile file(fileName);
     file.open(QIODevice::WriteOnly);
+
     // Define structure for the columns to be saved
     As::SaveHeaders saveHeaders(filter, m_outputTableHeaders);
+
     // Define a text variable to append the required info via text stream
-    QString table;
     // Write down the table data to the text variable
+    QString table;
     setSelectedOutputColumns(saveHeaders, table);
+
     // Save the text to file
     QTextStream stream(&file);
     stream << table;
-    // Close file
+
     file.close();
 }
 

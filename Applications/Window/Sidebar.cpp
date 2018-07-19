@@ -21,6 +21,7 @@
 #include <QAction>
 #include <QDebug>
 #include <QFontComboBox>
+#include <QFutureWatcher>
 #include <QListView>
 #include <QSettings>
 #include <QStandardItemModel>
@@ -34,6 +35,7 @@
 #include "ComboBox.hpp"
 #include "FontComboBox.hpp"
 #include "CheckBox.hpp"
+#include "ConcurrentWatcher.hpp"
 #include "GroupBox.hpp"
 #include "HBoxLayout.hpp"
 #include "Label.hpp"
@@ -41,6 +43,9 @@
 #include "LabelTripleBlock.hpp"
 #include "LineEdit.hpp"
 #include "PushButton.hpp"
+#include "PushButtonWithProgress.hpp"
+#include "ProgressBar.hpp"
+#include "ProgressDialog.hpp"
 #include "Scan.hpp"
 #include "ScanDatabase.hpp"
 #include "SpinBox.hpp"
@@ -136,6 +141,7 @@ QWidget *As::Window::createSidebarTabsControlsWidget()
     m_sidebarControlsLayout->addWidget(m_tableControlsBlock);
     m_sidebarControlsLayout->addWidget(m_plotControlsBlock);
     m_sidebarControlsLayout->addWidget(m_outputControlsBlock);
+    m_sidebarControlsLayout->addWidget(new As::ProgressDialog);
 
     auto widget = new QWidget;
     widget->setLayout(m_sidebarControlsLayout);
@@ -666,14 +672,22 @@ As::GroupBox *As::Window::create_Plot_ShowOutputGroup()
 {
     ADEBUG;
 
-    auto calcButton = new As::PushButton(tr("Calculate structure factors"));
-    calcButton->setToolTip(tr("Click to calculate the structure factors and other parameters."));
+    auto calcButton = new As::PushButton(tr("Show processed scans"));
+    calcButton->setToolTip(tr("Click to show the processed scans with some calculated parameters."));
     connect(calcButton, &As::PushButton::clicked, this, &As::Window::calcStructureFactor_Slot);
     connect(calcButton, &As::PushButton::clicked, calcButton, &As::PushButton::setEnabled);
     connect(calcButton, &As::PushButton::clicked, this, &As::Window::calculateButtonPressed_Signal);
 
+    /*
     auto outputButton = new As::PushButton(tr("Show output table"));
     outputButton->setToolTip(tr("Click to switch to the output table tab."));
+    outputButton->setDisabled(true);
+    connect(outputButton, &As::PushButton::clicked, this, &As::Window::showOutput_Slot);
+    connect(this, &As::Window::calculateButtonPressed_Signal, outputButton, &As::PushButton::setDisabled);
+    */
+
+    auto outputButton = new As::PushButton(tr("(Re)process all scans"));
+    outputButton->setToolTip(tr("Click to process (reprocess) all the scans and generate (update) the output table tab."));
     outputButton->setDisabled(true);
     connect(outputButton, &As::PushButton::clicked, this, &As::Window::showOutput_Slot);
     connect(this, &As::Window::calculateButtonPressed_Signal, outputButton, &As::PushButton::setDisabled);
@@ -778,7 +792,7 @@ void As::Window::createFullOutputTableModel_Slot()
     if (!m_outputTableWidget)
         return;
 
-    // Create full output table for every scan
+    // Create full output table for every scan using multi-thread
     m_scans->createFullOutputTable();
 
     // Number of columns and rows for the required table
@@ -802,7 +816,7 @@ void As::Window::createFullOutputTableModel_Slot()
 
     // Set model
     ADEBUG;
-    m_outputTableWidget->setModel(tableModel);
+    m_outputTableWidget->setModel(tableModel); // slow!?
     ADEBUG;
 
     // Highlight row with current scan data

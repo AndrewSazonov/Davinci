@@ -49,6 +49,8 @@
 #include <QVariant>
 #include <QUrl>
 
+#include <QtConcurrent>
+
 #include "Colors.hpp"
 #include "Constants.hpp"
 #include "Functions.hpp"
@@ -70,6 +72,10 @@
 #include "ScanDatabase.hpp"
 
 #include "Window.hpp"
+
+#include "VBoxLayout.hpp"
+#include <QProgressBar>
+#include "ProgressDialog.hpp"
 
 /*!
 Constructs the main program window.
@@ -120,8 +126,7 @@ As::Window::Window()
     setApplicationStartCount();
 
     // Auto run test
-    autoRun("/Users/asazonov/tmp/p10533");
-
+    //autoRun("/Users/asazonov/tmp/p10533");
 }
 
 /*!
@@ -139,12 +144,14 @@ Writes application setting to disk.
 */
 void As::Window::autoRun(const QString &path, const bool quit)
 {
+
     openFiles(QStringList{path});
 
     extractScans_Slot();
     visualizePlots_Slot();
     calcStructureFactor_Slot();
     showOutput_Slot();
+    exportOutputTable_Slot();
 
     if (quit)
         QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection); // qApp = QApplication::instance()
@@ -175,6 +182,12 @@ void As::Window::loadFiles(const QStringList &filePathList)
 
     // Save settings
     QSettings().setValue("MainWindow/filePathLastOpen", fileLastOpen.absolutePath());
+
+    // Create or re-create the future watcher
+    if (m_futureWatcher != Q_NULLPTR) {
+        delete m_futureWatcher;
+        m_futureWatcher = Q_NULLPTR; }
+    m_futureWatcher = new QFutureWatcher<void>;
 
     // Create or re-create the scan array
     if (m_scans != Q_NULLPTR) {

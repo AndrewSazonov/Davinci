@@ -80,7 +80,7 @@ enum class OutputFileType // Currently not in use
 };
 //Q_ENUM_NS(OutputFileType)
 
-enum class PlotType
+enum PlotType
 {
     Raw,
     Integrated,

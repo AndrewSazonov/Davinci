@@ -45,6 +45,7 @@
 #include "SyntaxHighlighter.hpp"
 #include "Plot.hpp"
 #include "PreferencesDialog.hpp"
+#include "ProgressBar.hpp"
 #include "TableView.hpp"
 #include "VBoxLayout.hpp"
 
