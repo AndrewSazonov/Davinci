@@ -95,6 +95,7 @@ class Changelog:
 
         #self.add(version="1.0.7",
         #         date="2018-??-??",
-        #          list=[ '',
-        #                 '',
+        #          list=[ 'Fixes an issue with ShelX output format in the console version of the program',
+        #                 'Fixes multiple other issues',
+        #                 'Adds progress bar to give an indication of how long the data processing is going to take',
         #                 'Adds more multi-threading features in order to spead up the data processing']) # update manual
