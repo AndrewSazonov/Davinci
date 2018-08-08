@@ -54,14 +54,14 @@ namespace As { //AS_BEGIN_NAMESPACE
 
 class ComboBox;
 class GroupBox;
-class TextEditor;
-class Plot;
-class ProgressBar;
-class SpinBox;
 class Label;
+class Plot;
+class ProgressDialog;
+class SpinBox;
 class Sidebar;
 class SaveHeaders;
 class TableView;
+class TextEditor;
 class VBoxLayout;
 
 class Window : public QMainWindow
@@ -221,6 +221,10 @@ private:
     void update_Plot_PeakIntegrateGroup(const As::Scan *scan);
     void update_OutputTable_Highlight(const int index);
 
+    // Process
+    void concurrentRun(const QString &type,
+                       As::ScanArray *scans) const;
+
     //==========
     // Variables
     //==========
@@ -236,7 +240,7 @@ private:
     QList<QTextCursor> m_searchMatches;
     QAction *m_copyTextAct;
     bool m_hideUpdateOutput;
-    QFutureWatcher<void>* m_futureWatcher;
+    //QFutureWatcher<void>* m_futureWatcher;
 
     //========
     // Widgets
@@ -267,6 +271,8 @@ private:
     QTabWidget *createSidebarTabsWidget();
     QWidget *createSidebarTabsControlsWidget();
     QWidget *createSidebarTabsSettingsWidget();
+    As::ProgressDialog* m_progressDialog;
+
 
     //===============
     // Sidebar Groups

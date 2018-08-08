@@ -56,6 +56,7 @@
 #include "Functions.hpp"
 #include "Macros.hpp"
 
+#include "ConcurrentWatcher.hpp"
 #include "FontComboBox.hpp"
 #include "LineEdit.hpp"
 #include "MessageWidget.hpp"
@@ -184,10 +185,10 @@ void As::Window::loadFiles(const QStringList &filePathList)
     QSettings().setValue("MainWindow/filePathLastOpen", fileLastOpen.absolutePath());
 
     // Create or re-create the future watcher
-    if (m_futureWatcher != Q_NULLPTR) {
-        delete m_futureWatcher;
-        m_futureWatcher = Q_NULLPTR; }
-    m_futureWatcher = new QFutureWatcher<void>;
+    //if (m_futureWatcher != Q_NULLPTR) {
+    //    delete m_futureWatcher;
+    //    m_futureWatcher = Q_NULLPTR; }
+    //m_futureWatcher = new QFutureWatcher<void>;
 
     // Create or re-create the scan array
     if (m_scans != Q_NULLPTR) {
@@ -542,3 +543,17 @@ QString As::Window::maintainerPath()
     const QRegularExpression appName(QString("%1(?![/\\\\])").arg(APP_NAME)); // match 'APP_NAME' which is not followed by '/' or '\'
     return appPath.replace(appName, MAINTAINER_NAME);
 }
+
+
+void As::Window::concurrentRun(const QString &type,
+                               As::ScanArray *scans) const
+{
+    As::ConcurrentWatcher watcher;
+
+    connect(&watcher, &As::ConcurrentWatcher::progressRangeChanged, m_progressDialog, &As::ProgressDialog::setRange);
+    connect(&watcher, &As::ConcurrentWatcher::progressValueChanged, m_progressDialog, &As::ProgressDialog::setValue);
+    connect(&watcher, &As::ConcurrentWatcher::started, m_progressDialog, &As::ProgressDialog::exec);
+
+    watcher.startComputation(type, scans);
+}
+

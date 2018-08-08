@@ -34,11 +34,18 @@ class ConcurrentWatcher : public QFutureWatcher<void>
     Q_OBJECT
 
 public:
+    ConcurrentWatcher();
     ConcurrentWatcher(const QString &type,
                       As::ScanArray *scans,
                       QWidget *parent = Q_NULLPTR);
 
+    void startComputation(const QString &type,
+                          As::ScanArray *scans);
+
     virtual ~ConcurrentWatcher();
+
+signals:
+    void startedX();
 };
 
 } //AS_END_NAMESPACE

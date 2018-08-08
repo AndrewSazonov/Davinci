@@ -68,10 +68,13 @@ private:
     void printMessageList(const QStringList &messageList) const;
     void printAppDescription() const;
 
+    void concurrentRun(const QString &type,
+                       As::ScanArray *scans) const;
+
     QCommandLineParser m_parser;
     As::ScanArray *m_scans;
 
-    QFutureWatcher<void>* m_futureWatcher;
+    //QFutureWatcher<void>* m_futureWatcher;
 };
 
 } //AS_END_NAMESPACE

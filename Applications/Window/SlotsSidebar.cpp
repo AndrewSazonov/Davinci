@@ -215,7 +215,8 @@ void As::Window::extractScans_Slot()
 
     // Extract data from raw input using multi-threading
     //m_scans->extractInputData();
-    As::ConcurrentWatcher ("extract", m_scans, this);
+    concurrentRun("extract", m_scans);
+
 
     // Exit from function if no scans were found
     if (m_scans->size() == 0) {
@@ -226,8 +227,7 @@ void As::Window::extractScans_Slot()
     //if (m_extractedTableWidget == Q_NULLPTR) {}
 
     // Fill missing data using multi-threading
-    //m_scans->fillEmptyArrays();
-    As::ConcurrentWatcher ("fill", m_scans, this);
+    concurrentRun("fill", m_scans);
 
     // Create table widget
     auto extractedTableWidget = new As::TableView;
@@ -477,10 +477,11 @@ void As::Window::visualizePlots_Slot()
 
         // Peak indexing using multi-threading
         //m_scans->indexPeaks();
-        As::ConcurrentWatcher("index", m_scans, this);
+        concurrentRun("index", m_scans);
+
 
         // Preliminary treatment using multi-threading
-        // Included in "index"!
+        // Included in "index" above!
         //m_scans->preTreatData();
         //As::ConcurrentWatcher("pretreat", m_scans, this);
 
@@ -648,7 +649,7 @@ void As::Window::showOutput_Slot()
     ADEBUG_H3;
 
     // Run data treatment using multi-threading
-    As::ConcurrentWatcher("treat", m_scans, this);
+    concurrentRun("treat", m_scans);
 
     // Create widget if not yet created
     if (m_outputTableWidget == Q_NULLPTR) {

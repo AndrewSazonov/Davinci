@@ -134,6 +134,7 @@ QWidget *As::Window::createSidebarTabsControlsWidget()
     outputLayout->addWidget(create_Output_ExportGroup());
     m_outputControlsBlock = new QWidget;
     m_outputControlsBlock->setLayout(outputLayout);
+    m_progressDialog = new As::ProgressDialog;
 
     m_sidebarControlsLayout = new As::VBoxLayout;
     m_sidebarControlsLayout->addWidget(m_commonControlsBlock);
@@ -141,7 +142,7 @@ QWidget *As::Window::createSidebarTabsControlsWidget()
     m_sidebarControlsLayout->addWidget(m_tableControlsBlock);
     m_sidebarControlsLayout->addWidget(m_plotControlsBlock);
     m_sidebarControlsLayout->addWidget(m_outputControlsBlock);
-    m_sidebarControlsLayout->addWidget(new As::ProgressDialog);
+    m_sidebarControlsLayout->addWidget(m_progressDialog);
 
     auto widget = new QWidget;
     widget->setLayout(m_sidebarControlsLayout);

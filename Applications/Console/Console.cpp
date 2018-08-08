@@ -58,13 +58,13 @@ As::Console::Console()
     openFiles(m_parser.value("path"));
 
     // Process the measured data using Multi-Thread
-    As::ConcurrentWatcher("extract", m_scans);
+    concurrentRun("extract", m_scans);
     printMessage(QString("Number of treated files:  %1").arg(m_scans->m_inputFilesContents.first.size()));
 
-    As::ConcurrentWatcher("fill", m_scans);
-    As::ConcurrentWatcher("index", m_scans);
-    //As::ConcurrentWatcher("pretreat", m_scans); // included in "index"
-    As::ConcurrentWatcher("treat", m_scans);
+    concurrentRun("fill", m_scans);
+    concurrentRun("index", m_scans);
+    concurrentRun("pretreat", m_scans); // included in "index" above!
+    concurrentRun("treat", m_scans);
     printMessage(QString("Number of treated reflections:  %1").arg(m_scans->size()));
 
     // Output
@@ -244,7 +244,7 @@ void As::Console::loadFiles(const QStringList &filePathList)
     ADEBUG << filePathList;
 
     // Create the future watcher
-    m_futureWatcher = new QFutureWatcher<void>;
+    //m_futureWatcher = new QFutureWatcher<void>;
 
     // Create the scan array
     m_scans = new As::ScanArray;
@@ -352,4 +352,11 @@ void As::Console::printProgramOutput() const
         "The program is finished successfully." };
 
     printMessageList(messageList);
+}
+
+void As::Console::concurrentRun(const QString &type,
+                               As::ScanArray *scans) const
+{
+    As::ConcurrentWatcher watcher;
+    watcher.startComputation(type, scans);
 }
