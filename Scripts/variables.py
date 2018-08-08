@@ -51,9 +51,12 @@ APPS_TEMPLATE               = 'app'
 LIBS_TEMPLATE               = 'lib'
 SUBDIRS_TEMPLATE            = 'subdirs'
 SCRIPT_DIR                  = os.path.dirname(os.path.abspath(__file__))
+
+# Project
 PROJECT_NAME                = 'Project'
 PROJECT_DIR                 = [SCRIPT_DIR, '..']
 PROJECT_FILE                = PROJECT_DIR + [PROJECT_NAME + '.pro']
+PROJECT_OTHER_FILES_DIRS    = ['Beautifiers']
 
 # Apps
 APPS_DIR_NAME               = 'Applications'
@@ -228,6 +231,7 @@ HEADER_EXT                  = '.hpp .h'
 SOURCE_EXT                  = '.cpp'
 RESOURCE_EXT                = '.qrc'
 DOC_EXT                     = '.qdoc'
+ANY_EXT                     = '.*'
 
 ##############
 # DEFINE MACRO
@@ -264,4 +268,3 @@ QMAKE_CXXFLAGS              = ''        # set manually: '-std=gnu++11 -std=c++11
 #release_date_config = ConvertDate(changelog.date(), '%d.%m.%Y', '%Y-%m-%d')
 #update_text = 'This changed compared to the last release'
 #script_name = 'installscript.js'
-

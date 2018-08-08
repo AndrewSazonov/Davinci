@@ -88,6 +88,10 @@ project.addDepends(TESTS_DIR_NAME, LIBS_DIR_NAME)
 
 # Other files which are part of a Qt project
 #OTHER_FILES += README.md LICENSE Project.qdocconf .gitignore .travis.yml .appveyor.yml
+for dirName in PROJECT_OTHER_FILES_DIRS:
+    dirPath = PROJECT_DIR + [dirName]
+    files = [os.path.join(dirName, fileName) for fileName in GetSelectedFileList(dirPath, ANY_EXT)]
+    project.addOtherFiles(files)
 
 project.save(PROJECT_DIR + [PROJECT_NAME])
 
