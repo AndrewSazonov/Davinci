@@ -249,7 +249,7 @@ int As::Plot::getNumberPrecision(const qreal value)
 {
     if (value < 1)
         return 2;
-    if (value < 10)
+    else if (value < 10)
         return 1;
     return 0;
 }

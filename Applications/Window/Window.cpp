@@ -542,19 +542,3 @@ QString As::Window::maintainerPath()
     const QRegularExpression appName(QString("%1(?![/\\\\])").arg(APP_NAME)); // match 'APP_NAME' which is not followed by '/' or '\'
     return appPath.replace(appName, MAINTAINER_NAME);
 }
-
-
-// you don't need to use Q_DECLARE_METATYPE for classes derived from QObject.
-// http://lists.qt-project.org/pipermail/interest/2016-March/021132.html
-// http://lists.qt-project.org/pipermail/interest/2016-March/021137.html
-
-/*
-https://stackoverflow.com/questions/4954140/how-to-redirect-qdebug-qwarning-qcritical-etc-output
-http://www.qtcentre.org/threads/19534-redirect-qDebug()-to-file
-https://forum.qt.io/topic/50936/qt-5-4-sending-qdebug-to-a-file-40-aka-logging-41-solved/19
-https://gist.github.com/ajithbh/9383850
-http://clauandr.sdf-eu.org/blog/2013/03/19/how-to-redirect-qdebug-qwarning-qcritical-output/
-https://www.ics.com/blog/whats-new-qt-560-logging-syslog-and-journald
-*/
-
-
