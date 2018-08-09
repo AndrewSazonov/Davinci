@@ -33,9 +33,11 @@ class RealVector : public RealArray
 
 public:
     RealVector();
+
     RealVector(const As::RealVector &other);
     RealVector(const As::RealArray &other);
     RealVector(const QVector<qreal> &other);
+
     RealVector(const int size, const qreal defaultValue);
     RealVector(const QString &string);
 

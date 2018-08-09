@@ -36,11 +36,12 @@ which is extended with additional functions.
 */
 
 /*!
-Constructs a matrix of 9 elements (3x3 array) and initialize it with zeros.
+Constructs a matrix of 9 elements, which corresponds to the 3x3 identity matrix.
 */
 As::RealMatrix9::RealMatrix9()
 {
-    resize(9);
+    //resize(9);
+    set(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
 }
 
 /*!
@@ -53,7 +54,7 @@ As::RealMatrix9::RealMatrix9(const qreal a1, const qreal a2, const qreal a3,
                              const qreal b1, const qreal b2, const qreal b3,
                              const qreal c1, const qreal c2, const qreal c3)
 {
-    resize(9);
+    //resize(9);
     set(a1, a2, a3, b1, b2, b3, c1, c2, c3);
 }
 
@@ -64,7 +65,7 @@ Constructs a matrix and initialize it with elements stored in \a string.
 */
 As::RealMatrix9::RealMatrix9(const QString &string)
 {
-    resize(9);
+    //resize(9);
     set(string);
 }
 
@@ -80,8 +81,9 @@ Sets the array with \a other.
 */
 void As::RealMatrix9::set(const QVector<qreal> &other)
 {
-    AASSERT(false, "matrix size is not 9");
+    //AASSERT(false, "matrix size is not 9");
     As::RealArray::set(other);
+    resize(9);
 }
 
 /*!
@@ -99,6 +101,7 @@ void As::RealMatrix9::set(const QString &string)
         AASSERT(ok == true, "conversation of num to double fails"); }
     AASSERT(vector.size() == 9, "vector size is not 9");
     As::RealArray::set(vector);
+    resize(9);
 }
 
 /*!

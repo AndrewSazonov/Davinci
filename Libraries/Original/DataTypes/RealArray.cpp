@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include "Macros.hpp"
 #include "Functions.hpp"
@@ -24,228 +24,197 @@
 #include "RealArray.hpp"
 
 /*!
-\class As::RealArray
+    \class As::RealArray
 
-\brief The RealArray class is a base class that provides an array of the
-QVector<qreal> type, which takes just the required functions of QVector.
+    \brief The RealArray class is a base class that provides an array of the
+    QVector<qreal> type, which takes just the required functions of QVector.
 
-\inmodule DataTypes
+    \inmodule DataTypes
 */
 
 /*!
-Constructs an empty array.
+    Constructs an empty array.
 */
 As::RealArray::RealArray() {}
 
 /*!
-Constructs a copy of \a other.
+    Constructs a copy of \a other.
 */
-As::RealArray::RealArray(const As::RealArray &other) :
+As::RealArray::RealArray(const As::RealArray& other) :
     m_array(other.m_array) {}
 
 /*!
-Constructs a copy of \a other.
+    Constructs a copy of \a other.
 */
-As::RealArray::RealArray(const QVector<qreal> &other) :
+As::RealArray::RealArray(const QVector<qreal>& other) :
     m_array(other) {}
 
 /*!
-Constructs an array with an initial size of \a size elements.
-Each element is initialized with \a defaultValue.
+    Constructs an array with an initial size of \a size elements.
+    Each element is initialized with \a defaultValue.
 */
-As::RealArray::RealArray(const int size, const qreal defaultValue) :
+As::RealArray::RealArray(const int size,
+                         const qreal defaultValue) :
     m_array(size, defaultValue) {}
 
 /*!
-Destroys the array.
+    Destroys the array.
 */
 As::RealArray::~RealArray() {}
 
 /*!
-Sets the array with \a other.
+    Sets the array with \a other.
 */
-void As::RealArray::set(const QVector<qreal> &other)
-{
-    m_array = other;
-}
+void As::RealArray::set(const QVector<qreal>& other) {
+    m_array = other; }
 
 /*!
-Returns the element at index position \a i in the base array.
+    Returns the element at index position \a i in the base array.
 
-\a i must be a valid index position in the array (i.e., 0 <= \a i < size()).
+    \a i must be a valid index position in the array (i.e., 0 <= \a i < size()).
 
-Example:
-\code
-// array: [3.0, 5.0, 1.0]
-// array[0]: 3.0
-\endcode
+    Example:
+    \code
+    // array: [3.0, 5.0, 1.0]
+    // array[0]: 3.0
+    \endcode
 */
-qreal &As::RealArray::operator[](const int i)
-{
+qreal& As::RealArray::operator[](const int i) {
     ///AASSERT(i >= 0 AND i < size(), "index out of range");
-    return m_array[i];
-}
+    return m_array[i]; }
 
 /*!
-\overload
+    \overload
 */
-const qreal &As::RealArray::operator[](const int i) const
-{
+const qreal& As::RealArray::operator[](const int i) const {
     ///AASSERT(i >= 0 AND i < size(), "index out of range");
-    return m_array.begin()[i];
-}
+    //return m_array.at(i);
+    return m_array[i]; }
 
 /*!
-Assigns \a other to this array and returns a reference to this array.
+    Assigns \a other to this array and returns a reference to this array.
 */
-QVector<qreal> &As::RealArray::operator=(const QVector<qreal> &other)
-{
+QVector<qreal>& As::RealArray::operator=(const QVector<qreal>& other) {
     m_array = other;
-    return m_array;
-}
+    return m_array; }
 
 /*!
-Returns an array that contains elements, calculated as sum of the respective elements from
-this array and the \a other array. Two arrays must be of equal length.
+    Assigns \a other to this array and returns a reference to this array.
 */
-As::RealArray As::RealArray::operator+(const As::RealArray &other) const
-{
+As::RealArray& As::RealArray::operator=(const As::RealArray& other) {
+    if (this != &other)
+        m_array = other.m_array;
+    return *this; }
+
+/*!
+    Returns an array that contains elements, calculated as sum of the respective elements from
+    this array and the \a other array. Two arrays must be of equal length.
+*/
+As::RealArray As::RealArray::operator+(const As::RealArray& other) const {
     AASSERT(m_array.size() == other.size(), QString("vector lengths mismatch, %1 vs. %2")
             .arg(m_array.size()).arg(other.size()) );
     As::RealArray out = m_array;
-    for (int i = 0; i < out.size(); ++i)
-        out[i] += other[i];
-    return out;
-}
+
+    //As::RealArray out(m_array);
+    for (int i = 0; i < out.size(); ++i) {
+        out[i] += other[i]; }
+
+    return out; }
 
 /*!
-Returns \c true if \a other is equal to this array; otherwise returns \c false.
-Two arrays are considered equal if they contain the same values in the same order.
+    Returns \c true if \a other is equal to this array; otherwise returns \c false.
+    Two arrays are considered equal if they contain the same values in the same order.
 */
-bool As::RealArray::operator==(const As::RealArray &other) const
-{
-    return m_array == other.m_array;
-}
+bool As::RealArray::operator==(const As::RealArray& other) const {
+    return (m_array == other.m_array); }
 
 /*!
-Returns the number of elements in the array.
+    Returns the number of elements in the array.
 
-Example:
-\code
-// array: [3.0, 5.0, 1.0]
-// array.size(): 3
-\endcode
+    Example:
+    \code
+    // array: [3.0, 5.0, 1.0]
+    // array.size(): 3
+    \endcode
 */
-int As::RealArray::size() const
-{
-    return m_array.size();
-}
+int As::RealArray::size() const {
+    return m_array.size(); }
 
 /*!
-Returns the index position of the first occurrence of \a value in the vector.
-Returns -1 if no item matched.
+    Returns the index position of the first occurrence of \a value in the vector.
+    Returns -1 if no item matched.
 */
-int As::RealArray::indexOf(const qreal value) const
-{
-    return m_array.indexOf(value);
-}
+int As::RealArray::indexOf(const qreal value) const {
+    return m_array.indexOf(value); }
 
 /*!
-Inserts \a value at the end of the array.
+    Inserts \a value at the end of the array.
 */
-void As::RealArray::append(const qreal value)
-{
-    m_array.append(value);
-}
+void As::RealArray::append(const qreal value) {
+    m_array.append(value); }
 
 /*!
-Inserts \a value at the beginning of the array.
+    Inserts \a value at the beginning of the array.
 */
-void As::RealArray::prepend(const qreal value)
-{
-    m_array.prepend(value);
-}
+void As::RealArray::prepend(const qreal value) {
+    m_array.prepend(value); }
 
 /*!
-Returns \c true if the base array is empty; otherwise returns \c false.
+    Returns \c true if the base array is empty; otherwise returns \c false.
 */
-bool As::RealArray::isEmpty() const
-{
-    return m_array.isEmpty();
-}
+bool As::RealArray::isEmpty() const {
+    return m_array.isEmpty(); }
 
 /*!
-Returns the base array as QString with single spaces between the numbers.
+    Returns the base array as QString with single spaces between the array elements.
 */
-QString As::RealArray::toQString()
-{
+QString As::RealArray::toQString() const {
     QStringList list;
-    for (const qreal value : m_array)
-        list.append(QString::number(value));
-    return list.join(" ");
-}
+
+    for (const qreal value : m_array) {
+        list.append(QString::number(value)); }
+
+    return list.join(" "); }
 
 /*!
-\overload
+    Returns the base array as QVector<qreal>.
 */
-const QString As::RealArray::toQString() const
-{
-    QStringList list;
-    for (const qreal value : m_array)
-        list.append(QString::number(value));
-    return list.join(" ");
-}
+QVector<qreal> As::RealArray::toQVector() const {
+    return m_array; }
 
 /*!
-Returns the base array as QVector<qreal>.
+    Sets the size of the array to \a size. If \a size is greater than the current size, elements
+    are added to the end; the new elements are initialized with a default-constructed value. If
+    size is less than the current size, elements are removed from the end.
 */
-const QVector<qreal> As::RealArray::toQVector() const
-{
-    return m_array;
-}
+void As::RealArray::resize(const int size) {
+    m_array.resize(size); }
 
 /*!
-Sets the size of the array to \a size. If \a size is greater than the current size, elements
-are added to the end; the new elements are initialized with a default-constructed value. If
-size is less than the current size, elements are removed from the end.
+    Returns a const pointer to the first item in the array.
 */
-void As::RealArray::resize(const int size)
-{
-    m_array.resize(size);
-}
+const qreal* As::RealArray::begin() const {
+    return m_array.begin(); }
 
 /*!
-Returns a const pointer to the first item in the array.
+    Returns a const pointer to the imaginary item after the last item in the array.
 */
-const qreal *As::RealArray::begin() const
-{
-    return m_array.begin();
-}
+const qreal* As::RealArray::end() const {
+    return m_array.end(); }
 
 /*!
-Returns a const pointer to the imaginary item after the last item in the array.
+    Returns a sub-vector which contains elements from this vector, starting at position \a pos.
+    If \a length is -1 (the default), all elements after \a pos are included; otherwise \a length
+    elements (or all remaining elements if there are less than \a length elements) are included.
 */
-const qreal *As::RealArray::end() const
-{
-    return m_array.end();
-}
-
-/*!
-Returns a sub-vector which contains elements from this vector, starting at position \a pos.
-If \a length is -1 (the default), all elements after \a pos are included; otherwise \a length
-elements (or all remaining elements if there are less than \a length elements) are included.
- */
-QVector<qreal> As::RealArray::mid(const int pos, const int length) const
-{
-    return m_array.mid(pos, length);
-}
+QVector<qreal> As::RealArray::mid(const int pos,
+                                  const int length) const {
+    return m_array.mid(pos, length); }
 
 /**
-Overloads operator<< for QDebug to accept the RealArray output.
+    Overloads operator<< for QDebug to accept the RealArray output.
 */
-QDebug operator<<(QDebug debug, const As::RealArray &array)
-{
+QDebug operator<<(QDebug debug, const As::RealArray& array) {
     //QDebugStateSaver saver(debug);
-    return QtPrivate::printSequentialContainer(debug, "As::RealArray", array.toQVector());
-}
+    return QtPrivate::printSequentialContainer(debug, "As::RealArray", array.toQVector()); }
 

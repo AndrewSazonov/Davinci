@@ -33,6 +33,7 @@ class RealMatrix9 : public RealArray
 
 public:
     RealMatrix9();
+
     RealMatrix9(const qreal a1, const qreal a2, const qreal a3,
                 const qreal b1, const qreal b2, const qreal b3,
                 const qreal c1, const qreal c2, const qreal c3);
