@@ -16,86 +16,28 @@
 
     You should have received a copy of the GNU General Public License
     along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 #include "Macros.hpp"
 
 #include "Label.hpp"
 
 /*!
-   \class As::Label
+    \class As::Label
 
-   \brief The Label widget is a custom class based on the QLabel.
+    \brief The Label widget is a custom class based on the QLabel.
 
-   \inmodule Widgets
-   \ingroup Widgets
- */
+    \inmodule Widgets
+    \ingroup Widgets
+*/
 
 /*!
     Constructs a label with the given \a parent.
- */
+*/
 As::Label::Label(QWidget* parent)
-  : QLabel(parent) {
-}
+    : QLabel(parent) {}
 
 /*!
     Destroys the widget.
- */
-As::Label::~Label  ( )   {
-}
-
-//fff
-
-/// ggg
-///
-
-//      m
-
-/* comment line 1
-   comment line 2 */
-
-/*!
-    comment line 1
-    comment line 2
- */
-
-/*
- * comment line 1
- * comment line 2
- */
-
-int Foo(bool isBar) {
-  char* foo1;
-  char& foo2;
-  string^ s1;
-
-  if (a) {
-    b;
-    c;
-  }
-
-  // hrthr
-  if (isBar) {
-    char* a = &b;
-    // gfbgbg
-    bar()
-
-
-    return 1;
-  }
-  else {
-    return 0;
-  }
-}
-
-class Foo {
-public:
-Foo();
-virtual ~Foo();
-};
-
-class Foo {
-public:
-Foo();
-virtual ~Foo();
-};
+*/
+As::Label::~Label() {}
