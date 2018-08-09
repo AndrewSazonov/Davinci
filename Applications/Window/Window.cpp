@@ -78,6 +78,9 @@
 #include <QProgressBar>
 #include "ProgressDialog.hpp"
 
+#include "RealVector.hpp"
+#include "RealMatrix9.hpp"
+
 /*!
 Constructs the main program window.
 */
@@ -88,6 +91,26 @@ As::Window::Window()
 
     // Set output format for qDebug() depends on the build type
     SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
+
+
+
+    QVector<qreal> qv{1.0,2,3,4,5,6,7,8,9,0};
+    QVector<qreal> qv2{3,5,8};
+    As::RealVector v(qv);
+    As::RealVector v2(qv2);
+    As::RealMatrix9 m;
+    ADEBUG << v;
+    ADEBUG << v2;
+    ADEBUG << m;
+    m.set(qv);
+    ADEBUG << m;
+    ADEBUG;
+
+    v2 = v;
+    ADEBUG << v2;
+
+
+    AEXIT;
 
     // Set program GUI style
     setStyleSheet(createStyleSheet());
@@ -125,6 +148,8 @@ As::Window::Window()
 
     // Update count of application start
     setApplicationStartCount();
+
+
 
     // Auto run test
     //autoRun("/Users/asazonov/tmp/p10533");
