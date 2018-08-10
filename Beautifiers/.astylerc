@@ -67,10 +67,10 @@
 --min-conditional-indent=0
 
 # Indent statements to be aligned up to 80 cols. Deprecated?
-#--max-instatement-indent=80
+--max-instatement-indent=120
 
 # Set the  maximum of # spaces to indent a continuation line.
---max-continuation-indent=80
+--max-continuation-indent=120
 
 # Pad empty lines around header blocks (e.g. 'if', 'for', 'while'...). Treat closing header blocks (e.g. 'else', 'catch') as stand-alone blocks.
 --break-blocks=all

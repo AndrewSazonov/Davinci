@@ -65,8 +65,8 @@ As::RealArray::~RealArray() {}
 /*!
     Sets the array with \a other.
 */
-void As::RealArray::set(const QVector<qreal>& other) {
-    m_array = other; }
+//void As::RealArray::set(const QVector<qreal>& other) {
+//  m_array = other; }
 
 /*!
     Returns the element at index position \a i in the base array.
@@ -94,16 +94,17 @@ const qreal& As::RealArray::operator[](const int i) const {
 /*!
     Assigns \a other to this array and returns a reference to this array.
 */
-QVector<qreal>& As::RealArray::operator=(const QVector<qreal>& other) {
-    m_array = other;
-    return m_array; }
+//QVector<qreal>& As::RealArray::operator=(const QVector<qreal>& other) {
+//    m_array = other;
+//    return m_array; }
 
 /*!
     Assigns \a other to this array and returns a reference to this array.
 */
 As::RealArray& As::RealArray::operator=(const As::RealArray& other) {
-    if (this != &other)
-        m_array = other.m_array;
+    if (this != &other) {
+        m_array = other.m_array; }
+
     return *this; }
 
 /*!
@@ -113,11 +114,12 @@ As::RealArray& As::RealArray::operator=(const As::RealArray& other) {
 As::RealArray As::RealArray::operator+(const As::RealArray& other) const {
     AASSERT(m_array.size() == other.size(), QString("vector lengths mismatch, %1 vs. %2")
             .arg(m_array.size()).arg(other.size()) );
-    As::RealArray out = m_array;
 
-    //As::RealArray out(m_array);
-    for (int i = 0; i < out.size(); ++i) {
-        out[i] += other[i]; }
+    const int minSize = qMin(m_array.size(), other.size());
+    As::RealArray out(minSize);
+
+    for (int i = 0; i < minSize; ++i) {
+        out[i] = m_array[i] + other.m_array[i]; }
 
     return out; }
 
@@ -207,9 +209,9 @@ const qreal* As::RealArray::end() const {
     If \a length is -1 (the default), all elements after \a pos are included; otherwise \a length
     elements (or all remaining elements if there are less than \a length elements) are included.
 */
-QVector<qreal> As::RealArray::mid(const int pos,
-                                  const int length) const {
-    return m_array.mid(pos, length); }
+As::RealArray As::RealArray::mid(const int pos,
+                                 const int length) const {
+    return As::RealArray(m_array.mid(pos, length)); }
 
 /**
     Overloads operator<< for QDebug to accept the RealArray output.

@@ -29,48 +29,44 @@ namespace As { //AS_BEGIN_NAMESPACE
 class RealArray {
 
   public:
-    RealArray(); // + default constructor
-
-    RealArray(const As::RealArray& other); // + copy constructor
-    RealArray(const QVector<qreal>& other);
-
+    // contructors and destructor
+    RealArray();                                // default constructor
+    RealArray(const As::RealArray& other);      // copy constructor
+    RealArray(const QVector<qreal>& other);     // parameterized constructor
     RealArray(const int size,
-              const qreal defaultValue = 0.0);
+              const qreal defaultValue = 0.0);  // parameterized constructor
+    virtual ~RealArray();                       // virtual destructor
 
-    virtual ~RealArray(); // + virtual destructor
+    // operators
+    const qreal& operator[](const int i) const;             // subscript operator, without modification
+    qreal& operator[](const int i);                         // subscript operator, with modification
+    RealArray& operator=(const RealArray& other);           // copy assignment operator
+    RealArray operator+(const As::RealArray& other) const;  // binary operator +
+    bool operator==(const As::RealArray& other) const;      // equality operator
 
-    virtual void set(const QVector<qreal>& other);
+    // set methods
+    //virtual void set(const QVector<qreal>& other);
 
-    qreal& operator[](const int i); // + subscript operator, modification allowed
-    const qreal& operator[](const int i) const; // + subscript operator, modification not allowed
+    // other methods
+    bool isEmpty() const;
+    int size() const;
+    int indexOf(const qreal value) const;
+    void append(const qreal value);
+    void prepend(const qreal value);
+    RealArray mid(const int pos,
+                  const int length = -1) const;
 
-    QVector<qreal>& operator=(const QVector<qreal>& other);
-    RealArray& operator=(const RealArray& other); // ? copy assignment operator
-
-    RealArray operator+(const As::RealArray& other) const;
-
-    bool operator==(const As::RealArray& other) const; // + equality operator
-
-    bool isEmpty() const; // +
-    int size() const; // +
-    int indexOf(const qreal value) const; // +
-    void append(const qreal value);//+
-    void prepend(const qreal value);//+
-
-    QVector<qreal> mid(const int pos,
-                       const int length = -1) const; // +
-
-    QVector<qreal> toQVector() const; // +
-    QString toQString() const; // +
-
+    // conversion methods
+    QVector<qreal> toQVector() const;
+    QString toQString() const;
 
   protected:
-    void resize(const int size); // + used by RealMatrix9
-    const qreal* begin() const; // + for iterator
-    const qreal* end() const; // + for iterator
+    void resize(const int size);    // used by derived class RealMatrix9
+    const qreal* begin() const;     // allows to use the range-based for loop
+    const qreal* end() const;       // allows to use the range-based for loop
 
   private:
-    QVector<qreal> m_array; // make protected to access by subclasses? no
+    QVector<qreal> m_array;
 
 };
 
@@ -78,6 +74,6 @@ class RealArray {
 
 QDebug operator<<(QDebug debug, const As::RealArray& array);
 
-Q_DECLARE_METATYPE(As::RealArray) // To use it as a custom type in QVariant.
+Q_DECLARE_METATYPE(As::RealArray)
 
 #endif // AS_DATATYPES_REALARRAY_HPP
