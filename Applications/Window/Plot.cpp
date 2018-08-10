@@ -299,7 +299,7 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
     QString text;
 
     // Add information to be shown
-    text += formatForInfoBox("HKL", scan->m_meanIndexH, scan->m_meanIndexK, scan->m_meanIndexL);
+    text += formatForInfoBox("HKL", scan->millerIndex("H"), scan->millerIndex("K"), scan->millerIndex("L"));
     if (scan->plotType() != As::PlotType::Excluded) {
         for (const QString &countType : As::COUNT_TYPES) {
             if (!qIsNaN(scan->m_normPeakArea[countType])) {

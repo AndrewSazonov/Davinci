@@ -111,11 +111,6 @@ void As::ScanArray::indexSinglePeak(const int index)
             scan->setData("indices", "K", k.toQString());
             scan->setData("indices", "L", l.toQString()); } }
 
-    // Define mean indices
-    scan->m_meanIndexH = h.mean();
-    scan->m_meanIndexK = k.mean();
-    scan->m_meanIndexL = l.mean();
-
     // Calc direction cosines
     calcDirectionCosines(scan);
 }

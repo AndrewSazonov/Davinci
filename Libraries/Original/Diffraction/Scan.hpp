@@ -105,9 +105,11 @@ public:
     void setPlotType(const As::PlotType plotType);
     As::PlotType plotType() const;
 
-    qreal m_meanIndexH;
-    qreal m_meanIndexK;
-    qreal m_meanIndexL;
+    // Return Miller index based on its string name
+    qreal millerIndex(const QString& index) const;
+
+//protected:
+
 
     int m_numPoints;
     int m_numLeftSkipPoints;

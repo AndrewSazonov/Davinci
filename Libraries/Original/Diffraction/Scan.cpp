@@ -89,9 +89,6 @@ void As::Scan::init()
     m_fullWidthHalfMax   = qQNaN(); m_fullWidthHalfMaxErr = qQNaN();
     m_flippingRatio      = qQNaN(); m_flippingRatioErr    = qQNaN();
     m_peakPosition       = qQNaN(); // Is it used? Calc esd?
-    m_meanIndexH         = qQNaN();
-    m_meanIndexK         = qQNaN();
-    m_meanIndexL         = qQNaN();
     m_plotType           = As::PlotType(0);
 
     // Multi calculated values (depend on polarisation).
@@ -401,9 +398,9 @@ const QString As::Scan::absolutePathWithBaseNameAndHkl() const
 {
     return QString("%1_hkl(%2,%3,%4)").
             arg(absolutePathWithBaseName()).
-            arg(m_meanIndexH, 0, 'f', 3).
-            arg(m_meanIndexK, 0, 'f', 3).
-            arg(m_meanIndexL, 0, 'f', 3);
+            arg(millerIndex("H"), 0, 'f', 3).
+            arg(millerIndex("K"), 0, 'f', 3).
+            arg(millerIndex("L"), 0, 'f', 3);
 }
 
 /*!
@@ -474,6 +471,23 @@ As::PlotType As::Scan::plotType() const
 {
     return m_plotType;
 }
+
+
+
+
+
+qreal As::Scan::millerIndex(const QString& index) const {
+    if (index == "H" OR index == "K" OR index == "L")
+        return As::RealVector(m_scan["indices"][index]["data"]).mean();
+    return qQNaN();
+}
+
+
+
+
+
+
+
 
 /*!
 \variable As::Scan::BKG_TYPES
