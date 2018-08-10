@@ -483,6 +483,20 @@ qreal As::Scan::millerIndex(const QString& index) const {
 }
 
 
+qreal As::Scan::numPoints() {
+
+    // if not all the COUNT_TYPES were measured...
+    static int numPointsMax = 0;
+
+   if (numPointsMax == 0) {
+        for (const QString &countType : As::COUNT_TYPES) {
+            const QString string = (*this)["intensities"]["Detector" + countType]["data"];
+            const int numPoints = string.split(" ", QString::SkipEmptyParts).size();
+            numPointsMax = qMax(numPoints, numPointsMax); } }
+
+    return numPointsMax;
+}
+
 
 
 
@@ -586,5 +600,5 @@ Overloads operator<< for QDebug to accept the Scan output.
 */
 QDebug operator<<(QDebug debug, const As::Scan &scan)
 {
-    return QtPrivate::printSequentialContainer(debug, "Scan", scan.toQMap());
+    return QtPrivate::printSequentialContainer(debug, "As::Scan", scan.toQMap());
 }

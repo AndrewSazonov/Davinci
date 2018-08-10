@@ -108,6 +108,9 @@ public:
     // Return Miller index based on its string name
     qreal millerIndex(const QString& index) const;
 
+    // Scan parameters
+    qreal numPoints();
+
 //protected:
 
 
