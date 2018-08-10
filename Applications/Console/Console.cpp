@@ -113,19 +113,19 @@ QString As::Console::outputFileExt() const
     const QString format = outputFileFormat().toLower();
     QString ext;
 
-    IF (format.contains("shelx"))
+    if (format.contains("shelx"))
         ext = "hkl";
 
-    EI (format.contains("tbar"))
+    else if (format.contains("tbar"))
         ext = "tb";
 
-    EI (format.contains("umweg"))
+    else if (format.contains("umweg"))
         ext = "obs";
 
-    EI (format.contains("ccsl"))
+    else if (format.contains("ccsl"))
         ext = "fli";
 
-    EL // default
+    else // default
         ext = "csv";
 
     return ext;
@@ -220,15 +220,15 @@ void As::Console::openFiles(const QString &path)
 
     QFileInfo fileInfo(path);
 
-    IF (fileInfo.isFile()) {
+    if (fileInfo.isFile()) {
         filePathList << path; }
 
-    EI (fileInfo.isDir()) {
+    else if (fileInfo.isDir()) {
         QDir dir(path);
         for (const QFileInfo &fileInfo : dir.entryInfoList(QDir::Files)) {
             filePathList << fileInfo.absoluteFilePath(); } }
 
-    IF (filePathList.isEmpty()) {
+    if (filePathList.isEmpty()) {
         printMessage(QString("Cannot find file/dir '%1'.")
                      .arg(QDir::toNativeSeparators(path)));
         AEXIT; }
@@ -310,9 +310,9 @@ void As::Console::printMessage(const QString &message,
 {
     ADEBUG;
 
-    IF (arg.isEmpty())
+    if (arg.isEmpty())
         fprintf(stderr, "%s\n", qUtf8Printable(message));
-    EL
+    else
         fprintf(stderr, qUtf8Printable(message), qUtf8Printable(arg));
 }
 

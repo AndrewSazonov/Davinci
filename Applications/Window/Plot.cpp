@@ -567,10 +567,10 @@ void As::Plot::updateGraphOnPlot(const QPair<QVector<int>, QVector<int> > ranges
     AASSERT(size == 3 OR size == 2, QString("wrong size of the subData array '%1'").arg(size));
 
     // Select appropriate plot type depends on number of data columns
-    IF (subData.size() == 3)
+    if (subData.size() == 3)
         graph()->setDataValueError(subData[0], subData[1], subData[2]);
 
-    EI (subData.size() == 2)
+    else if (subData.size() == 2)
         graph()->setData(subData[0], subData[1]);
 }
 

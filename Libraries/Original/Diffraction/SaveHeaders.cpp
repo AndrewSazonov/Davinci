@@ -61,30 +61,30 @@ As::SaveHeaders::SaveHeaders(QString type,
     m_addHeader = isAlwaysSaveHeaders;
 
     // Choose the output (save) type
-    IF (type.contains("general")) { // General comma separated
+    if (type.contains("general")) { // General comma separated
         for (const QString &header : headers) {
             m_name   << header;
             m_format << "csv";
             m_addHeader = true; } }
 
-    EI (type.contains("shelx") AND type.contains("real")) {
+    else if (type.contains("shelx") AND type.contains("real")) {
         m_name   << "H"    << "K"    << "L"    << "Sf2"  << "Sf2Err" << "Batch" << "S0X"  << "S2X"  << "S0Y"  << "S2Y"  << "S0Z"  << "S2Z";
         m_format << "8.3f" << "8.3f" << "8.3f" << "8.2f" << "8.2f"   << "4i"    << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f"; }
 
-    //EI (type.contains("shelx") AND type.contains("integer")) {
-    EI (type.contains("shelx")) {
+    //else if (type.contains("shelx") AND type.contains("integer")) {
+    else if (type.contains("shelx")) {
         m_name   << "H"  << "K"  << "L"  << "Sf2"  << "Sf2Err" << "Batch" << "S0X"  << "S2X"  << "S0Y"  << "S2Y"  << "S0Z"  << "S2Z";
         m_format << "4i" << "4i" << "4i" << "8.2f" << "8.2f"   << "4i"    << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f" << "8.5f"; }
 
-    EI (type.contains("tbar")) {
+    else if (type.contains("tbar")) {
         m_name   << "Scan" << "H"  << "K"  << "L"  << "Sf2"   << "Sf2Err" << "Theta" << "Omega" << "Chi"  << "Phi"  << "Temperature" << "Psi"   << "Fwhm";
         m_format << "6i"   << "4i" << "4i" << "4i" << "10.2f" << "10.2f"  << "8.2f"  << "8.2f"  << "8.2f" << "8.2f" << "10.2f"       << "12.2f" << "13.4f"; }
 
-    EI (type.contains("umweg")) { // https://www.xray.cz/ecm-cd/soft/xray/general/umweg/umweg-98.htm
+    else if (type.contains("umweg")) { // https://www.xray.cz/ecm-cd/soft/xray/general/umweg/umweg-98.htm
         m_name   << "H"  << "K"  << "L"  << "Theta" << "Psi"   << "Sf2";
         m_format << "4i" << "4i" << "4i" << "8.2f"  << "8.2f"  << "10.2f"; }
 
-    EI (type.contains("ccsl")) {
+    else if (type.contains("ccsl")) {
         m_name   << "Scan" << "H"  << "K"  << "L"  << "Omega" << "Gamma" << "Nu"   << "FR"    << "FRerr" << "|FR-1|/FRerr" << "Temperature" << "Magnetic field";
         m_format << "5i"   << "5i" << "5i" << "5i" << "8.2f"  << "8.2f"  << "8.2f" << "10.6f" << "10.6f" << "8.2f"         << "7.1f"        << "5.1f"; }
 }

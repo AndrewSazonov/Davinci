@@ -53,11 +53,11 @@ Returns the sign of a real number \a v.
 */
 qreal As::Sign(const qreal v)
 {
-    IF (v > 0)
+    if (v > 0)
       return 1.;
-    EI (v < 0)
+    else if (v < 0)
       return -1.;
-    EL
+    else
       return 0.;
 }
 
@@ -67,14 +67,14 @@ Returns the angle \a angle converted to the range from -180 to +180 degrees.
 qreal As::ToMainAngularRange(const qreal angle)
 {
     // -180 and 180 cases
-    IF (angle == -180. OR angle == 180.)
+    if (angle == -180. OR angle == 180.)
         return angle;
     // Other cases
-    IF (angle > 0.)
+    if (angle > 0.)
         return std::fmod(angle + 180., 360.) - 180.;
-    EI (angle < 0.)
+    else if (angle < 0.)
         return std::fmod(angle - 180., 360.) + 180.;
-    EL /* angle == 0. */
+    else /* angle == 0. */
         return 0.;
 }
 
@@ -214,19 +214,19 @@ const QString As::FormatStringToText(const QString &string,
         return string;
     QString result;
     // comma separated values
-    IF (format.contains("csv")) {
+    if (format.contains("csv")) {
         result = QString("%1%2").arg(string).arg(";"); }/// select ';' or ',' depends on the localisation?
     // date and time
-    EI (format.contains("dd")) {
+    else if (format.contains("dd")) {
         result = QString("%1").arg(string, format.size()); }
     // string or float (real) number or integer number
-    EI (format.contains("s") OR format.contains("f") OR format.contains("i")) {
+    else if (format.contains("s") OR format.contains("f") OR format.contains("i")) {
         const QStringList list = format.split(QRegExp("[^0-9]"), QString::SkipEmptyParts);
         const int fieldWidth = QString(list[0]).toInt(); // list[0] contains the full field width
         const QString substring = string.left(fieldWidth - 1); // cut name if it >= fieldWidth
         result = QString("%1").arg(substring, fieldWidth); }
     // show error message if unknown format
-    EL {
+    else {
         AASSERT(false, QString("unknown format '%1'").arg(format)); }
     return result;
 }
@@ -339,14 +339,14 @@ void As::DetailedMessageOutput(QtMsgType type,
 
     // Time units for timer
     QString units;
-    IF (elapsedTime < 0.1) {
+    if (elapsedTime < 0.1) {
         units = ""; }
-    EI (elapsedTime < 60) {
+    else if (elapsedTime < 60) {
         units = "s"; }
-    EI (elapsedTime < 3600) {
+    else if (elapsedTime < 3600) {
         elapsedTime /= 60;
         units = "m"; }
-    EL {
+    else {
         elapsedTime /= 3600;
         units = "h"; }
 

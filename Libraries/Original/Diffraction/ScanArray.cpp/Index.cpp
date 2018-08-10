@@ -265,24 +265,24 @@ void As::ScanArray::correctForAzimuthAnglePsi(qreal &omega,
                                               const qreal z) const
 {
     // Return if psi is not defined or zero
-    IF (qIsNaN(psi) OR psi == 0.)
+    if (qIsNaN(psi) OR psi == 0.)
         return;
 
     // Convert psi to radians
     psi = qDegreesToRadians(psi);
 
     // Case, when: -0.02 deg < chi < 0.02 deg
-    IF (qAbs(chi) < 3.5e-4) {
+    if (qAbs(chi) < 3.5e-4) {
         omega -= 0.5*M_PI;
         chi   += psi;
         phi   -= 0.5*M_PI * As::Sign(-qCos(chi)); }
 
     // Case, when: 89.9994 deg < chi < 90.0006 deg
-    EI (qAbs(qCos(chi)) < 1.0e-5) {
+    else if (qAbs(qCos(chi)) < 1.0e-5) {
         phi -= psi * As::Sign(-chi); }
 
     // All other cases (most probable ones by the way)
-    EL {
+    else {
         const qreal o = qAtan( qSin(psi) * qCos(chi) * qSqrt(q2xyz) / z );
         omega -= o;
         chi    = qAtan2( z / (qSqrt(q2xyz) * qCos(o)), qCos(chi) * qCos(psi) );
@@ -312,7 +312,7 @@ void As::ScanArray::calcDirectionCosines(As::Scan *scan)
 
     // Calculate or re-calculate angles which correspond to the 4-circle geometry
     qreal twothetaMean, omegaMean, chiMean, phiMean;
-    IF (twotheta.isEmpty() OR omega.isEmpty() OR chi.isEmpty() OR phi.isEmpty()) {
+    if (twotheta.isEmpty() OR omega.isEmpty() OR chi.isEmpty() OR phi.isEmpty()) {
         const As::RealVector wavelength = (*scan)["conditions"]["Wavelength"]["data"];
         const As::RealVector h = (*scan)["indices"]["H"]["data"];
         const As::RealVector k = (*scan)["indices"]["K"]["data"];
@@ -323,7 +323,7 @@ void As::ScanArray::calcDirectionCosines(As::Scan *scan)
         omegaMean = angles[1];
         chiMean = angles[2];
         phiMean = angles[3]; }
-    EL {
+    else {
         twothetaMean = twotheta.mean();
         omegaMean = omega.mean();
         chiMean = chi.mean();
