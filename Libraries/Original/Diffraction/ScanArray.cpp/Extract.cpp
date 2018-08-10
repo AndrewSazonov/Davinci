@@ -505,7 +505,7 @@ void As::ScanArray::findScanAngle(As::Scan *scan)
             const As::RealVector data = (*scan)["angles"][subitemKey]["data"];
             /// add all the angles with non-zero range to the list of scan angles!?
             /// and allow user to chose the axis in the plot
-            if (data.simplified().size() > 1 AND data.range() > 0.1) {
+            if (data.simplify().size() > 1 AND data.range() > 0.1) {
                 scan->setScanAngle(subitemKey);
                 return; } } }
 }
