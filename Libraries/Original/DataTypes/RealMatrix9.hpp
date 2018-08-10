@@ -22,9 +22,13 @@
 #define AS_DATATYPES_REALMATRIX9_HPP
 
 #include <QDebug>
+#include <QMetaType>
+
 #include <QtGlobal>
 
 #include "RealArray.hpp"
+
+class QString;
 
 namespace As { //AS_BEGIN_NAMESPACE
 

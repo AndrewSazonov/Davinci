@@ -18,7 +18,7 @@
     along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <initializer_list>
+#include <QtMath>
 
 #include "Macros.hpp"
 #include "Functions.hpp"

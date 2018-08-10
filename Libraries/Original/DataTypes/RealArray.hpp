@@ -22,9 +22,13 @@
 #define AS_DATATYPES_REALARRAY_HPP
 
 #include <QDebug>
+#include <QMetaType>
+
 #include <QtGlobal>
 
-//#include <initializer_list>
+#include <QVector>
+
+class QString;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
