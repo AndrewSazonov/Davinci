@@ -24,6 +24,8 @@
 #include <QDebug>
 #include <QtGlobal>
 
+//#include <initializer_list>
+
 namespace As { //AS_BEGIN_NAMESPACE
 
 class RealArray {
@@ -35,28 +37,25 @@ class RealArray {
     RealArray(const QVector<qreal>& other);     // parameterized constructor
     RealArray(const int size,
               const qreal defaultValue = 0.0);  // parameterized constructor
+    RealArray(const QString &string);           // parameterized constructor
     virtual ~RealArray();                       // virtual destructor
 
     // operators
-    const qreal& operator[](const int i) const;             // subscript operator, without modification
-    qreal& operator[](const int i);                         // subscript operator, with modification
-    RealArray& operator=(const RealArray& other);           // copy assignment operator
-    RealArray operator+(const As::RealArray& other) const;  // binary operator +
-    bool operator==(const As::RealArray& other) const;      // equality operator
+    const qreal& operator[](const int i) const;                 // subscript operator, without modification
+    qreal& operator[](const int i);                             // subscript operator, with modification
+    As::RealArray& operator=(const As::RealArray& other);       // copy assignment operator =
+    As::RealArray operator+(const As::RealArray& other) const;  // binary operator +
+    bool operator==(const As::RealArray& other) const;          // equality operator ==
 
-    // set methods
-    //virtual void set(const QVector<qreal>& other);
-
-    // other methods
+    // methods
+    const qreal& at(const int i) const;
     bool isEmpty() const;
     int size() const;
     int indexOf(const qreal value) const;
     void append(const qreal value);
     void prepend(const qreal value);
-    RealArray mid(const int pos,
-                  const int length = -1) const;
-
-    // conversion methods
+    As::RealArray mid(const int pos,
+                      const int length = -1) const;
     QVector<qreal> toQVector() const;
     QString toQString() const;
 
@@ -66,7 +65,7 @@ class RealArray {
     const qreal* end() const;       // allows to use the range-based for loop
 
   private:
-    QVector<qreal> m_array;
+    QVector<qreal> m_array;         // prefer composition over inheritance from QVector
 
 };
 

@@ -33,21 +33,19 @@ class RealMatrix9 : public RealArray {
   public:
     // contructors and destructor
     RealMatrix9();
+    RealMatrix9(const As::RealMatrix9& other);
     RealMatrix9(const qreal a1, const qreal a2, const qreal a3,
                 const qreal b1, const qreal b2, const qreal b3,
                 const qreal c1, const qreal c2, const qreal c3);
     RealMatrix9(const QString& string);
     virtual ~RealMatrix9() Q_DECL_OVERRIDE;
 
+    // methods
     qreal det() const;
     const RealMatrix9 trans() const;
     const RealMatrix9 inv() const;
     const RealMatrix9 normRows() const;
     const RealMatrix9 normColumns() const;
-
-  private:
-    //virtual void set(const QVector<qreal>& other) Q_DECL_OVERRIDE;
-    void set(const QString& string);
 
 };
 

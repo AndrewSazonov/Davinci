@@ -39,7 +39,13 @@
     Constructs a matrix of 9 elements, which corresponds to the 3x3 identity matrix.
 */
 As::RealMatrix9::RealMatrix9() :
-    RealArray(QVector<qreal> ({ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 })) {}
+    RealArray({ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 }) {}
+
+/*!
+    Constructs a copy of \a other.
+*/
+As::RealMatrix9::RealMatrix9(const As::RealMatrix9& other) :
+    As::RealArray(other) {}
 
 /*!
     Constructs a matrix and initialize it with \a a1, \a a2, \a a3, \a b1,
@@ -50,50 +56,21 @@ As::RealMatrix9::RealMatrix9() :
 As::RealMatrix9::RealMatrix9(const qreal a1, const qreal a2, const qreal a3,
                              const qreal b1, const qreal b2, const qreal b3,
                              const qreal c1, const qreal c2, const qreal c3) :
-    RealArray(QVector<qreal> ({ a1, a2, a3, b1, b2, b3, c1, c2, c3 })) {}
+    RealArray({ a1, a2, a3, b1, b2, b3, c1, c2, c3 }) {}
 
 /*!
     Constructs a matrix and initialize it with elements stored in \a string.
 
     \note Number of the elements in \a string must be equal to 9.
 */
-As::RealMatrix9::RealMatrix9(const QString& string) {
-    //resize(9);
-    set(string); }
+As::RealMatrix9::RealMatrix9(const QString& string) :
+    As::RealArray(string) {
+    resize(9); }
 
 /*!
     Destroys the matrix.
 */
 As::RealMatrix9::~RealMatrix9() {}
-
-/*!
-    Sets the array with \a other.
-
-    \note Number of the elements in \a other must be equal to 9.
-*/
-/*
-    void As::RealMatrix9::set(const QVector<qreal>& other) {
-    //AASSERT(false, "matrix size is not 9");
-    As::RealArray::set(other);
-    resize(9); }*/
-
-/*!
-    Sets the array with elements stored in \a string.
-
-    \note Number of the elements in \a string must be equal to 9.
-*/
-void As::RealMatrix9::set(const QString& string) {
-    QStringList list = string.split(QRegExp("\\s"), QString::SkipEmptyParts);
-    QVector<qreal> vector;
-    bool ok;
-
-    for (const QString& num : list) {
-        vector << num.toDouble(&ok);
-        AASSERT(ok == true, "conversation of num to double fails"); }
-
-    AASSERT(vector.size() == 9, "vector size is not 9");
-    //////    As::RealArray::set(vector);
-    resize(9); }
 
 /*!
     Returns the determinant of a matrix.
@@ -131,17 +108,22 @@ const As::RealMatrix9 As::RealMatrix9::trans() const {
     \sa \link https://en.wikipedia.org/wiki/Invertible_matrix Wiki: Invertible matrix \endlink
 */
 const As::RealMatrix9 As::RealMatrix9::inv() const {
-    AASSERT(det() != 0., "determinant is zero");
+    AASSERT(det() != 0.0, "determinant is zero");
+
     As::RealArray m(*this);
+
     const qreal a1 = (m[4] * m[8] - m[7] * m[5]) / det();
     const qreal a2 = (m[2] * m[7] - m[1] * m[8]) / det();
     const qreal a3 = (m[1] * m[5] - m[2] * m[4]) / det();
+
     const qreal b1 = (m[5] * m[6] - m[3] * m[8]) / det();
     const qreal b2 = (m[0] * m[8] - m[2] * m[6]) / det();
     const qreal b3 = (m[3] * m[2] - m[0] * m[5]) / det();
+
     const qreal c1 = (m[3] * m[7] - m[6] * m[4]) / det();
     const qreal c2 = (m[6] * m[1] - m[0] * m[7]) / det();
     const qreal c3 = (m[0] * m[4] - m[3] * m[1]) / det();
+
     return RealMatrix9{a1, a2, a3, b1, b2, b3, c1, c2, c3 }; }
 
 /*!
@@ -155,9 +137,9 @@ const As::RealMatrix9 As::RealMatrix9::normColumns() const {
     const qreal k2 = qSqrt(As::Sqr(m[1]) + As::Sqr(m[4]) + As::Sqr(m[7]));
     const qreal k3 = qSqrt(As::Sqr(m[2]) + As::Sqr(m[5]) + As::Sqr(m[8]));
 
-    AASSERT(k1 != 0, "normalization of 1st matrix column fails (all elements are zeros)");
-    AASSERT(k2 != 0, "normalization of 2nd matrix column fails (all elements are zeros)");
-    AASSERT(k3 != 0, "normalization of 3rd matrix column fails (all elements are zeros)");
+    AASSERT(k1 != 0.0, "normalization of 1st matrix column fails (all elements are zeros)");
+    AASSERT(k2 != 0.0, "normalization of 2nd matrix column fails (all elements are zeros)");
+    AASSERT(k3 != 0.0, "normalization of 3rd matrix column fails (all elements are zeros)");
 
     return RealMatrix9 {m[0] / k1, m[1] / k2, m[2] / k3,
                         m[3] / k1, m[4] / k2, m[5] / k3,
@@ -186,9 +168,9 @@ const As::RealMatrix9 As::RealMatrix9::normRows() const {
     const qreal k2 = qSqrt(As::Sqr(m[3]) + As::Sqr(m[4]) + As::Sqr(m[5]));
     const qreal k3 = qSqrt(As::Sqr(m[6]) + As::Sqr(m[7]) + As::Sqr(m[8]));
 
-    AASSERT(k1 != 0, "normalization of 1st matrix row fails (all elements are zeros)");
-    AASSERT(k2 != 0, "normalization of 2nd matrix row fails (all elements are zeros)");
-    AASSERT(k3 != 0, "normalization of 3rd matrix row fails (all elements are zeros)");
+    AASSERT(k1 != 0.0, "normalization of 1st matrix row fails (all elements are zeros)");
+    AASSERT(k2 != 0.0, "normalization of 2nd matrix row fails (all elements are zeros)");
+    AASSERT(k3 != 0.0, "normalization of 3rd matrix row fails (all elements are zeros)");
 
     return RealMatrix9 {m[0] / k1, m[1] / k1, m[2] / k1,
                         m[3] / k2, m[4] / k2, m[5] / k2,
@@ -200,6 +182,5 @@ const As::RealMatrix9 As::RealMatrix9::normRows() const {
     Overloads operator<< for QDebug to accept RealMatrix9 output
 */
 QDebug operator<<(QDebug debug, const As::RealMatrix9& matrix) {
-    //QDebugStateSaver saver(debug);
     return QtPrivate::printSequentialContainer(debug, "As::RealMatrix9", matrix.toQVector()); }
 

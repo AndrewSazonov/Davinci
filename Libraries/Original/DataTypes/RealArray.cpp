@@ -18,6 +18,8 @@
     along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <initializer_list>
+
 #include "Macros.hpp"
 #include "Functions.hpp"
 
@@ -58,18 +60,26 @@ As::RealArray::RealArray(const int size,
     m_array(size, defaultValue) {}
 
 /*!
+    Sets the array with elements stored in \a string.
+*/
+As::RealArray::RealArray(const QString& string) {
+    if (string.isEmpty()) {
+        return; }
+
+    QStringList list = string.split(QRegExp("\\s"), QString::SkipEmptyParts);
+    bool ok;
+
+    for (const QString& num : list) {
+        m_array.append(num.toDouble(&ok));
+        AASSERT(ok == true, "conversation of num to double fails"); } }
+
+/*!
     Destroys the array.
 */
 As::RealArray::~RealArray() {}
 
 /*!
-    Sets the array with \a other.
-*/
-//void As::RealArray::set(const QVector<qreal>& other) {
-//  m_array = other; }
-
-/*!
-    Returns the element at index position \a i in the base array.
+    Returns the element at index position \a i in the base array as a modifiable reference.
 
     \a i must be a valid index position in the array (i.e., 0 <= \a i < size()).
 
@@ -80,23 +90,17 @@ As::RealArray::~RealArray() {}
     \endcode
 */
 qreal& As::RealArray::operator[](const int i) {
-    ///AASSERT(i >= 0 AND i < size(), "index out of range");
+    AASSERT(i >= 0 AND i < size(), "index out of range");
     return m_array[i]; }
 
 /*!
     \overload
+
+    Same as at(\a i).
 */
 const qreal& As::RealArray::operator[](const int i) const {
-    ///AASSERT(i >= 0 AND i < size(), "index out of range");
-    //return m_array.at(i);
+    AASSERT(i >= 0 AND i < size(), "index out of range");
     return m_array[i]; }
-
-/*!
-    Assigns \a other to this array and returns a reference to this array.
-*/
-//QVector<qreal>& As::RealArray::operator=(const QVector<qreal>& other) {
-//    m_array = other;
-//    return m_array; }
 
 /*!
     Assigns \a other to this array and returns a reference to this array.
@@ -108,20 +112,11 @@ As::RealArray& As::RealArray::operator=(const As::RealArray& other) {
     return *this; }
 
 /*!
-    Returns an array that contains elements, calculated as sum of the respective elements from
-    this array and the \a other array. Two arrays must be of equal length.
+    Returns an array that contains all the items in this array followed by all the items
+    in the \a other array.
 */
 As::RealArray As::RealArray::operator+(const As::RealArray& other) const {
-    AASSERT(m_array.size() == other.size(), QString("vector lengths mismatch, %1 vs. %2")
-            .arg(m_array.size()).arg(other.size()) );
-
-    const int minSize = qMin(m_array.size(), other.size());
-    As::RealArray out(minSize);
-
-    for (int i = 0; i < minSize; ++i) {
-        out[i] = m_array[i] + other.m_array[i]; }
-
-    return out; }
+    return As::RealArray(m_array + other.m_array); }
 
 /*!
     Returns \c true if \a other is equal to this array; otherwise returns \c false.
@@ -129,6 +124,23 @@ As::RealArray As::RealArray::operator+(const As::RealArray& other) const {
 */
 bool As::RealArray::operator==(const As::RealArray& other) const {
     return (m_array == other.m_array); }
+
+/*!
+    Returns the element at index position \a i in the base array as a const reference.
+
+    \a i must be a valid index position in the array (i.e., 0 <= \a i < size()).
+
+    Example:
+    \code
+    // array: [3.0, 5.0, 1.0]
+    // array[0]: 3.0
+    \endcode
+
+    \sa operator[]()
+*/
+const qreal& As::RealArray::at(const int i) const {
+    AASSERT(i >= 0 AND i < size(), "index out of range");
+    return m_array.at(i); }
 
 /*!
     Returns the number of elements in the array.
@@ -217,6 +229,5 @@ As::RealArray As::RealArray::mid(const int pos,
     Overloads operator<< for QDebug to accept the RealArray output.
 */
 QDebug operator<<(QDebug debug, const As::RealArray& array) {
-    //QDebugStateSaver saver(debug);
     return QtPrivate::printSequentialContainer(debug, "As::RealArray", array.toQVector()); }
 
