@@ -48,6 +48,7 @@ As::SpinBoxSingleBlock::SpinBoxSingleBlock(As::SpinBox*   changer,
                                            const QString& units,
                                            QWidget*       parent)
     : QWidget(parent) {
+
     const int SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
 
     changer->setMinimumWidth(0.4 * SIDEBAR_WIDTH);
