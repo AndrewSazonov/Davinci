@@ -44,12 +44,7 @@ void As::ScanArray::fillMissingDataArray(const int index)
     calcUnpolData("conditions",  "Time/step", scan);
 
     // Set some common parameters
-    // find a better way to get the size of all the scans!
-    // numPoints?
-    int size = (*scan)["intensities"]["Detector"]["data"].split(" ").size(); // returns 1 for "" !!! fix
-    scan->setData("conditions", "Points count", QString::number(size));
-    // or ???
-    scan->setSize(size);
+    scan->setData("conditions", "Points count", QString::number(scan->numPoints()));
 
     // Set McCandlish factor depends on the instrument
     scan->m_mcCandlishFactor = As::MC_CANDLISH_FACTOR[filesType()];
@@ -78,7 +73,7 @@ void As::ScanArray::fillMissingDataArray(const int index)
             QString data = (*scan)[itemKey][subitemKey]["data"];
             if (!data.contains(" ")) {
                 QStringList list;
-                for (int i = 0; i < size; ++i) {
+                for (int i = 0; i < scan->numPoints(); ++i) {
                     list.append(data); }
                 scan->setData(itemKey, subitemKey, list.join(" ")); } } }
 

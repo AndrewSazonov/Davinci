@@ -66,14 +66,14 @@ void As::ScanArray::indexSinglePeak(const int index)
             As::RealVector angles = xyzToAngles(wavelength.mean(), xyz[0], xyz[1], xyz[2], psi.mean());
 
             // Fill arrays with the found angles
-            for (int i = 0; i < scan->size(); ++i) {
+            for (int i = 0; i < scan->numPoints(); ++i) {
                 twotheta.append(angles[0]);
                 chi.append(angles[2]);
                 phi.append(angles[3]);
 
                 // Define omega angle considering the scan step
                 qreal center = angles[1];
-                qreal shift = (i + 1 - qCeil(static_cast<qreal>(scan->size()) / 2)) * scan->scanStep();
+                qreal shift = (i + 1 - qCeil(static_cast<qreal>(scan->numPoints()) / 2)) * scan->scanStep();
                 omega.append(center + shift); }
 
             // Set angle arrays to the scan
@@ -90,7 +90,7 @@ void As::ScanArray::indexSinglePeak(const int index)
             //if (nu.size() > 0) {
                 //if (gamma.size() == 0) // if name twotheta is wrongly used instead of gamma ?!
                 //    gamma = twotheta;
-                for (int i = 0; i < scan->size(); ++i) {
+                for (int i = 0; i < scan->numPoints(); ++i) {
                     As::RealVector xyz = anglesToXyz(wavelength[i], gamma[i], nu[i], omega[i]);
                     As::RealVector hkl = xyzToHkl(ub, xyz[0], xyz[1], xyz[2]);
                     h.append(hkl[0]);
@@ -99,7 +99,7 @@ void As::ScanArray::indexSinglePeak(const int index)
 
             // 4-circle geometry
             else {
-                for (int i = 0; i < scan->size(); ++i) {
+                for (int i = 0; i < scan->numPoints(); ++i) {
                     As::RealVector xyz = anglesToXyz(wavelength[i], twotheta[i], omega[i], chi[i], phi[i]);
                     As::RealVector hkl = xyzToHkl(ub, xyz[0], xyz[1], xyz[2]);
                     h.append(hkl[0]);

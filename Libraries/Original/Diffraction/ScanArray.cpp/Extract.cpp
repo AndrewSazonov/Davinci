@@ -566,7 +566,6 @@ void As::ScanArray::appendScan(As::Scan *scan)
             for (const auto &subitemKey : subitemKeys) {
 
                 // Check if there is any not-empty angle or hkl and...
-                //if (!(*scan)[itemKey][subitemKey]["data"].isEmpty() AND !(*scan).scanAngle().isEmpty()) {
                 if (!scan->data(itemKey, subitemKey).isEmpty() AND !scan->scanAngle().isEmpty()) {
                     append(scan);
                     return; } } } }

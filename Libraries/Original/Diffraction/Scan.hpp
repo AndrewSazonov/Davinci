@@ -104,8 +104,8 @@ public:
     void setIndex(const int index);
     int index() const;
 
-    void setSize(const int size);
-    int size() const;
+    ///void setSize(const int size);
+    ///int size() const;
 
     void setPlotType(const As::PlotType plotType);
     As::PlotType plotType() const;
