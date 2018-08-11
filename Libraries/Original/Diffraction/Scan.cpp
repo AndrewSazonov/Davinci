@@ -365,25 +365,6 @@ int As::Scan::index() const {
     return m_index; }
 
 /*!
-    Sets the \a size (number of points) of the scan.
-*/
-//void As::Scan::setSize(const int size)
-//{
-//    m_size = size;
-//}
-//    if (m_size != size) {
-//        m_size = size;
-//        emit sizeChanged(size); } }
-
-/*!
-    Returns the size (number of points) of the scan.
-*/
-//int As::Scan::size() const
-//{
-//    return m_size;
-//}
-
-/*!
     Sets a scan plot type with the \a plotType.
 */
 void As::Scan::setPlotType(const As::PlotType plotType) {

@@ -95,9 +95,6 @@ class Scan : public QObject {
     void setIndex(const int index);
     int index() const;
 
-    ///void setSize(const int size);
-    ///int size() const;
-
     void setPlotType(const As::PlotType plotType);
     As::PlotType plotType() const;
 
@@ -158,7 +155,6 @@ class Scan : public QObject {
     As::PlotType m_plotType;
     qreal m_scanStep = qQNaN();
     int m_index;
-    int m_size;
 
 };
 
