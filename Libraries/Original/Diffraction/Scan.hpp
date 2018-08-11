@@ -92,9 +92,6 @@ class Scan : public QObject {
     void setFileIndex(const int index);
     int fileIndex() const;
 
-    void setIndex(const int index);
-    int index() const;
-
     void setPlotType(const As::PlotType plotType);
     As::PlotType plotType() const;
 
@@ -154,7 +151,6 @@ class Scan : public QObject {
     int m_fileIndex;
     As::PlotType m_plotType;
     qreal m_scanStep = qQNaN();
-    int m_index;
 
 };
 

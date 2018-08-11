@@ -350,21 +350,6 @@ int As::Scan::fileIndex() const {
     return m_fileIndex; }
 
 /*!
-    Sets the \a index of the scan.
-*/
-void As::Scan::setIndex(const int index) {
-    //m_index = index;
-    //static int i = -1;
-    //m_index = ++i;
-}
-
-/*!
-    Returns the scan index.
-*/
-int As::Scan::index() const {
-    return m_index; }
-
-/*!
     Sets a scan plot type with the \a plotType.
 */
 void As::Scan::setPlotType(const As::PlotType plotType) {

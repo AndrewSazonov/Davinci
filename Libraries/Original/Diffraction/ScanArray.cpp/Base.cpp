@@ -140,11 +140,8 @@ Inserts \a scan at the end of the array.
 */
 void As::ScanArray::append(As::Scan *scan)
 {
-    //static int i = -1;
-    //++i;
     m_scanArray.QVector::append(scan);
     const int i = m_scanArray.size();
-    //scan->setIndex(i); // not used?!
     scan->setData("number", "Scan", QString::number(i));
 }
 
