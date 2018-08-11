@@ -177,19 +177,11 @@ const QString As::Scan::value(const QString &section,
         *ok = false;
         return QString(); }
 
-    AASSERT(false, QString("no such section '%1', entry '%2', or name '%3' in the current scan")
-            .arg(section).arg(entry).arg(name));
+    //AASSERT(false, QString("no such section '%1', entry '%2', or name '%3' in the current scan")
+    //        .arg(section).arg(entry).arg(name));
 
     return QString();
 }
-
-
-QString& As::Scan::data2(const QString &section,
-                         const QString &entry)
-{
-    return m_scan[section][entry]["data"];
-}
-
 
 /*!
 Returns the data field of the given scan \a section and \a entry.
@@ -329,22 +321,6 @@ Returns the scan step size.
 qreal As::Scan::scanStep() const
 {
     return m_scanStep;
-}
-
-/*!
-Sets \a value of the first line corresponding to scan data in the input file.
-*/
-void As::Scan::setScanLine(const int value)
-{
-    m_scanLine = value;
-}
-
-/*!
-Returns the first line corresponding to scan data in the input file.
-*/
-int As::Scan::scanLine() const
-{
-    return m_scanLine;
 }
 
 /*!
@@ -524,6 +500,19 @@ qreal As::Scan::numPoints() const {
         numPointsMax = qMax(numPoints, numPointsMax); }
 
     return numPointsMax;
+}
+
+/*!
+Returns the first line corresponding to scan data in the input file.
+*/
+int As::Scan::scanLine() const
+{
+    bool ok = false;
+    const int line = data("misc", "lines", &ok).section(" ", 0, 0).toInt(&ok) + 1;
+    if (ok)
+        return line;
+
+    return 1;
 }
 
 
