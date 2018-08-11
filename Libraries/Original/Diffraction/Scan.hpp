@@ -57,11 +57,6 @@ public:
                         const QString &entry,
                         const QString &name,
                         bool *ok = Q_NULLPTR) const;
-
-    QString &data2(const QString &section,
-                   const QString &entry);
-
-
     const QString data(const QString &section,
                        const QString &entry,
                        bool *ok = Q_NULLPTR) const;
@@ -88,9 +83,6 @@ public:
     void setScanStep(const qreal value);
     qreal scanStep() const;
 
-    void setScanLine(const int value);
-    int scanLine() const;
-
     void setAbsoluteFilePath(const QString &name);
     const QString absoluteFilePath() const;
     const QString absolutePath() const;
@@ -115,6 +107,7 @@ public:
 
     // Scan parameters
     qreal numPoints() const;
+    int scanLine() const;
 
 //protected:
 
@@ -165,7 +158,6 @@ private:
     int m_fileIndex;
     As::PlotType m_plotType;
     qreal m_scanStep = qQNaN();
-    int m_scanLine;
     int m_index;
     int m_size;
 

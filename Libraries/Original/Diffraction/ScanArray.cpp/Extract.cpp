@@ -551,12 +551,6 @@ void As::ScanArray::appendScan(As::Scan *scan)
 {
     //ADEBUG << scan;
 
-    // Set scan line
-    scan->setScanLine(1);
-    bool ok = false;
-    const int line = scan->data("misc", "lines", &ok).section(" ", 0, 0).toInt(&ok) + 1;
-    if (ok)
-        scan->setScanLine(line);
 
     //
     if (scan->numPoints() >= MIN_NUM_SCAN) {
