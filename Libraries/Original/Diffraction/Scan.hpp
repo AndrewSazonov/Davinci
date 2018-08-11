@@ -76,8 +76,6 @@ class Scan : public QObject {
     const As::ScanSectionMap_t operator[](const QString& key) const;
     const As::ScanMap_t toQMap() const;
 
-    void setScanAngle(const QString& name);
-    const QString scanAngle() const;
 
     void setScanStep(const qreal value);
     qreal scanStep() const;
@@ -101,6 +99,9 @@ class Scan : public QObject {
     // Scan parameters
     qreal numPoints() const;
     int scanLine() const;
+    const QString scanAngle() const;
+    void setScanAngle(const QString& name);
+    void findScanAngle();
 
     //protected:
 
@@ -147,6 +148,7 @@ class Scan : public QObject {
   private:
     As::ScanMap_t m_scan;
     QString m_scanAngle;
+
     QString m_absoluteFilePath; // currently used!!! absoluteFilePath
     int m_fileIndex;
     As::PlotType m_plotType;

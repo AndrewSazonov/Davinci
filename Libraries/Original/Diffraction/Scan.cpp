@@ -266,7 +266,25 @@ const As::ScanMap_t As::Scan::toQMap() const {
     Sets \a name to the scan angle.
 */
 void As::Scan::setScanAngle(const QString& name) {
-    m_scanAngle = name; }
+        m_scanAngle = name; }
+
+/*!
+    Finds the scan angle and sets....
+*/
+void As::Scan::findScanAngle() {
+
+    // Set scan angle, if not yet setted
+    const QStringList subitemKeys = m_scan["angles"].keys();
+
+    for (const auto& subitemKey : subitemKeys) {
+        const As::RealVector v = data("angles", subitemKey);
+
+        /// add all the angles with non-zero range to the list of scan angles!?
+        /// and allow user to chose the axis in the plot
+
+        if (v.simplify().size() > 1 AND v.range() > 0.1) {
+            setScanAngle(subitemKey);
+            return; } } }
 
 /*!
     Returns the name of the scan angle.

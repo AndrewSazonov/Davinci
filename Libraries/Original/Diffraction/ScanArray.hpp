@@ -160,7 +160,6 @@ public: // to check qdoc!
                         const QString& filePath,
                         QString& fileContent);
     // Common methods
-    void findScanAngle(As::Scan *scan);
     void extractDataFromTable(As::Scan *scan,
                               QList<QStringList> &headerMap);
     void appendScan(As::Scan *scan);

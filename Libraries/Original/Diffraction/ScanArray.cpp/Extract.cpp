@@ -283,7 +283,7 @@ void As::ScanArray::extractHeidiLog(const int fileIndex,
             extractDataFromTable(scan, headerMap);
 
             // Define scan angle name
-            findScanAngle(scan);
+            scan->findScanAngle();
 
             // Append single scan to the scan array
             appendScan(scan); } }
@@ -386,7 +386,7 @@ void As::ScanArray::extractNicosData(const int fileIndex,
         scan->setData("intensities", "Monitor2(-)", monitor2down.toQString());
 
     // Define scan angle name
-    findScanAngle(scan);
+    scan->findScanAngle();
 
     // Append single scan to the scan array
     appendScan(scan);
@@ -484,30 +484,10 @@ void As::ScanArray::extract6t2Data(const int fileIndex,
 
     // Define scan angle name
     //scan->setScanAngle("Omega");
-    findScanAngle(scan);
+    scan->findScanAngle();
 
     // Append single scan to the scan array
     appendScan(scan);
-}
-
-/*!
-...
-*/
-void As::ScanArray::findScanAngle(As::Scan *scan)
-{
-    //ADEBUG;
-
-    // Set scan angle, if not yet setted
-    if (scan->scanAngle().isEmpty()) {
-        QStringList subitemKeys = (*scan)["angles"].keys();
-        // default value
-        for (const QString &subitemKey : subitemKeys) {
-            const As::RealVector data = (*scan)["angles"][subitemKey]["data"];
-            /// add all the angles with non-zero range to the list of scan angles!?
-            /// and allow user to chose the axis in the plot
-            if (data.simplify().size() > 1 AND data.range() > 0.1) {
-                scan->setScanAngle(subitemKey);
-                return; } } }
 }
 
 /*!
