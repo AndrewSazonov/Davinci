@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include "Constants.hpp"
 #include "Macros.hpp"
@@ -24,40 +24,44 @@
 #include "ScanArray.hpp"
 
 /*!
-Returns the input file type.
+    Returns true if the input file type is detected.
 */
-bool As::ScanArray::detectInputFileType()
-{
+bool As::ScanArray::detectInputFileType() {
     ADEBUG;
 
     QList<QStringList> filesAsListOfStringLists;
-    for (const QString fileAsString : m_inputFilesContents.second)
-        filesAsListOfStringLists << fileAsString.split("\n");
+
+    for (const QString fileAsString : m_inputFilesContents.second) {
+        filesAsListOfStringLists << fileAsString.split("\n"); }
 
     // Go through all the files to get the list of all the opened file types
     QList<As::InputFileType> detectedTypes;
 
-    for (const QStringList &fileAsListOfStrings : filesAsListOfStringLists) {
-
+    for (const QStringList& fileAsListOfStrings : filesAsListOfStringLists) {
         As::InputFileType type = As::InputFileType(0);
 
-        for (const QString &str : fileAsListOfStrings) {
+        for (const QString& str : fileAsListOfStrings) {
 
             // Check the file content line by line
             if (str.startsWith("### NICOS data file")) {
-                type = As::InputFileType::NICOS_DAT; break; }
+                type = As::InputFileType::NICOS_DAT;
+                break; }
 
             else if (str.endsWith("4-CIRCLE DIFFRACTOMETER CONTROL PROGRAM") || str.endsWith("Protocol ON")) {
-                type = As::InputFileType::HEIDI_LOG; break; }
+                type = As::InputFileType::HEIDI_LOG;
+                break; }
 
             else if (str.endsWith("Rev HEIDI/FRM2")) {
-                type = As::InputFileType::HEIDI_DAT; break; }
+                type = As::InputFileType::HEIDI_DAT;
+                break; }
 
             else if (str.startsWith("  => Now executing the cmd GEO")) {
-                type = As::InputFileType::POLI_LOG; break; }
+                type = As::InputFileType::POLI_LOG;
+                break; }
 
             else if (str.contains("<manip>6T2</manip>")) {
-                type = As::InputFileType::S6T2_DAT; break; } }
+                type = As::InputFileType::S6T2_DAT;
+                break; } }
 
         detectedTypes << type; }
 
@@ -75,22 +79,20 @@ bool As::ScanArray::detectInputFileType()
 
     else {
         setInputFileType(As::InputFileType(0));
-        return false; }
-}
+        return false; } }
 
 /*!
-Sets the input file type to be \a type.
+    Sets the input file type to be \a type.
 */
-void As::ScanArray::setInputFileType(const As::InputFileType type)
-{
+void As::ScanArray::setInputFileType(const As::InputFileType type) {
     ADEBUG << "type:" << type;
 
-    if (m_inputFileType == type)
-        return;
+    if (m_inputFileType == type) {
+        return; }
 
     m_inputFileType = type;
 
-    switch(m_inputFileType) {
+    switch (m_inputFileType) {
 
     case As::InputFileType::UNKNOWN_FILE:
         m_facilityType = "Unknown";
@@ -131,15 +133,12 @@ void As::ScanArray::setInputFileType(const As::InputFileType type)
     //emit inputFileTypeChanged_Signal(m_inputFileType);
     emit facilityTypeChanged_Signal(m_facilityType);
     emit instrumentTypeChanged_Signal(m_instrumentType);
-    emit dataTypeChanged_Signal(m_dataType);
-}
+    emit dataTypeChanged_Signal(m_dataType); }
 
 /*!
-Returns the input file type.
+    Returns the input file type.
 */
-As::InputFileType As::ScanArray::filesType()
-{
-    return m_inputFileType;
-}
+As::InputFileType As::ScanArray::filesType() {
+    return m_inputFileType; }
 
 
