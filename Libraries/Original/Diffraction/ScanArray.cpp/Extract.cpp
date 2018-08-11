@@ -542,18 +542,20 @@ void As::ScanArray::extractDataFromTable(As::Scan* scan,
 void As::ScanArray::appendScan(As::Scan* scan) {
     //ADEBUG << scan;
 
-    if (scan->numPoints() >= MIN_NUM_SCAN) {
-        QStringList itemKeys = {"angles", "indices" };
+    if (scan->numPoints() < MIN_NUM_SCAN) {
+        delete scan;
+        return; }
 
-        for (const auto& itemKey : itemKeys) {
-            QStringList subitemKeys = (*scan)[itemKey].keys();
+    QStringList itemKeys = {"angles", "indices" };
 
-            for (const auto& subitemKey : subitemKeys) {
+    for (const auto& itemKey : itemKeys) {
+        QStringList subitemKeys = (*scan)[itemKey].keys();
 
-                // Check if there is any not-empty angle or hkl and...
-                if (!scan->data(itemKey, subitemKey).isEmpty() AND !scan->scanAngle().isEmpty()) {
-                    append(scan);
-                    return; } } } }
+        for (const auto& subitemKey : subitemKeys) {
+            // Check if there is any not-empty angle or hkl and...
+            if (!scan->data(itemKey, subitemKey).isEmpty() AND !scan->scanAngle().isEmpty()) {
+                append(scan);
+                return; } } }
 
     // not correctly measured scan - deallocate memory
     delete scan; }
