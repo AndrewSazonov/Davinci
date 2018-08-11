@@ -38,25 +38,25 @@ void As::ScanArray::indexSinglePeak(const int index)
     auto scan = at(index);
 
     // Get data
-    As::RealVector wavelength = (*scan)["conditions"]["Wavelength"]["data"];
-    As::RealVector twotheta = (*scan)["angles"]["2Theta"]["data"];
-    As::RealVector omega = (*scan)["angles"]["Omega"]["data"];
-    As::RealVector chi = (*scan)["angles"]["Chi"]["data"];
-    As::RealVector phi = (*scan)["angles"]["Phi"]["data"];
-    As::RealVector gamma = (*scan)["angles"]["Gamma"]["data"];
-    As::RealVector nu = (*scan)["angles"]["Nu"]["data"];
-    As::RealVector psi = (*scan)["angles"]["Psi"]["data"];
-    As::RealVector h = (*scan)["indices"]["H"]["data"];
-    As::RealVector k = (*scan)["indices"]["K"]["data"];
-    As::RealVector l = (*scan)["indices"]["L"]["data"];
+    As::RealVector wavelength = scan->data("conditions", "Wavelength");
+    As::RealVector twotheta = scan->data("angles", "2Theta");
+    As::RealVector omega = scan->data("angles", "Omega");
+    As::RealVector chi = scan->data("angles", "Chi");
+    As::RealVector phi = scan->data("angles", "Phi");
+    As::RealVector gamma = scan->data("angles", "Gamma");
+    As::RealVector nu = scan->data("angles", "Nu");
+    As::RealVector psi = scan->data("angles", "Psi");
+    As::RealVector h = scan->data("indices", "H");
+    As::RealVector k = scan->data("indices", "K");
+    As::RealVector l = scan->data("indices", "L");
 
     //As::RealVector psi2(QString(""));
 
     // Check if ub matrix is read
-    if (!(*scan)["orientation"]["matrix"]["data"].isEmpty()) {
+    if (!scan->data("orientation", "matrix").isEmpty()) {
 
-        As::RealMatrix9 ub = (*scan)["orientation"]["matrix"]["data"]; // make variable m_ubMatrix?!
-        //int size = scan["misc"]["nPoints"]["data"].toInt();
+        As::RealMatrix9 ub = scan->data("orientation", "matrix"); // make variable m_ubMatrix?!
+        //int size = scan["misc"]["nPoints").toInt();
 
         // Set angles
         if (!h.isEmpty() AND !k.isEmpty() AND !l.isEmpty() AND gamma.isEmpty()) {
@@ -294,24 +294,24 @@ Calculates the direction cosines of incident (s0) and diffracted (s2) beams.
 void As::ScanArray::calcDirectionCosines(As::Scan *scan)
 {
     // Check if ub matrix is read
-    if ((*scan)["orientation"]["matrix"]["data"].isEmpty())
+    if (scan->data("orientation", "matrix").isEmpty())
         return;
 
     // Get data
-    const As::RealMatrix9 ub = (*scan)["orientation"]["matrix"]["data"];
-    const As::RealVector twotheta = (*scan)["angles"]["2Theta"]["data"];
-    const As::RealVector omega = (*scan)["angles"]["Omega"]["data"];
-    const As::RealVector chi = (*scan)["angles"]["Chi"]["data"];
-    const As::RealVector phi = (*scan)["angles"]["Phi"]["data"];
-    const As::RealVector psi = (*scan)["angles"]["Phi"]["data"];
+    const As::RealMatrix9 ub = scan->data("orientation", "matrix");
+    const As::RealVector twotheta = scan->data("angles", "2Theta");
+    const As::RealVector omega = scan->data("angles", "Omega");
+    const As::RealVector chi = scan->data("angles", "Chi");
+    const As::RealVector phi = scan->data("angles", "Phi");
+    const As::RealVector psi = scan->data("angles", "Phi");
 
     // Calculate or re-calculate angles which correspond to the 4-circle geometry
     qreal twothetaMean, omegaMean, chiMean, phiMean;
     if (twotheta.isEmpty() OR omega.isEmpty() OR chi.isEmpty() OR phi.isEmpty()) {
-        const As::RealVector wavelength = (*scan)["conditions"]["Wavelength"]["data"];
-        const As::RealVector h = (*scan)["indices"]["H"]["data"];
-        const As::RealVector k = (*scan)["indices"]["K"]["data"];
-        const As::RealVector l = (*scan)["indices"]["L"]["data"];
+        const As::RealVector wavelength = scan->data("conditions", "Wavelength");
+        const As::RealVector h = scan->data("indices", "H");
+        const As::RealVector k = scan->data("indices", "K");
+        const As::RealVector l = scan->data("indices", "L");
         const As::RealVector xyz = hklToXyz(ub, h.mean(), k.mean(), l.mean());
         const As::RealVector angles = xyzToAngles(wavelength.mean(), xyz[0], xyz[1], xyz[2], psi.mean());
         twothetaMean = angles[0];

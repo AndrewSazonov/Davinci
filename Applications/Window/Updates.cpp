@@ -85,7 +85,7 @@ void As::Window::update_Plot_ExpDetailsGroup(const As::Scan *scan)
 
     // Now, show only the required lines
     for (const auto &subitemKey : (*scan)[itemKey].keys()) {
-        const QString data = (*scan)[itemKey][subitemKey]["data"];
+        const QString data = scan->data(itemKey, subitemKey);
         if (!data.isEmpty()) {
             auto widget = findChild<As::LabelTripleBlock*>(itemKey + subitemKey + "Widget");
             widget->show();
@@ -109,7 +109,7 @@ void As::Window::update_Plot_ExpAnglesGroup(const As::Scan *scan)
 
     // Now, show only the required lines
     for (const auto &subitemKey : (*scan)[itemKey].keys()) {
-        const QString data = (*scan)[itemKey][subitemKey]["data"];
+        const QString data = scan->data(itemKey, subitemKey);
         if (!data.isEmpty()) {
             auto widget = findChild<As::LabelQuatroBlock*>(itemKey + subitemKey + "Widget");
             widget->show();

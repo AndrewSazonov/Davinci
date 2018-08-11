@@ -361,12 +361,12 @@ void As::ScanArray::extractNicosData(const int fileIndex,
     extractDataFromTable(scan, headerMap);
 
     // Select appropriate data for the monitor
-    As::RealVector monitor1 = (*scan)["intensities"]["Monitor1"]["data"];
-    As::RealVector monitor2 = (*scan)["intensities"]["Monitor2"]["data"];
-    As::RealVector monitor1up = (*scan)["intensities"]["Monitor1(+)"]["data"];
-    As::RealVector monitor1down = (*scan)["intensities"]["Monitor1(-)"]["data"];
-    As::RealVector monitor2up = (*scan)["intensities"]["Monitor2(+)"]["data"];
-    As::RealVector monitor2down = (*scan)["intensities"]["Monitor2(-)"]["data"];
+    As::RealVector monitor1 = scan->data("intensities", "Monitor1");
+    As::RealVector monitor2 = scan->data("intensities", "Monitor2");
+    As::RealVector monitor1up = scan->data("intensities", "Monitor1(+)");
+    As::RealVector monitor1down = scan->data("intensities", "Monitor1(-)");
+    As::RealVector monitor2up = scan->data("intensities", "Monitor2(+)");
+    As::RealVector monitor2down = scan->data("intensities", "Monitor2(-)");
     //
     if (monitor1.isZero())
         scan->setData("intensities", "Monitor", monitor2.toQString());
@@ -500,7 +500,7 @@ void As::ScanArray::extractDataFromTable(As::Scan *scan,
 {
 
     // Make 2D map of the actually measured data from the single data string
-    const QStringList dataList = (*scan)["scandata"]["data"]["data"].split("\n");
+    const QStringList dataList = scan->data("scandata", "data").split("\n");
     QList<QStringList> dataMap;
     for (const QString &string : dataList)
         dataMap << string.split(QRegExp("\\s"), QString::SkipEmptyParts);
@@ -511,7 +511,7 @@ void As::ScanArray::extractDataFromTable(As::Scan *scan,
         return;
 
     // Check if data measured according to the header, and fill the respective array
-    const QStringList headerList = (*scan)["scandata"]["headers"]["data"].split(QRegExp("\\s"), QString::SkipEmptyParts);
+    const QStringList headerList = scan->data("scandata", "headers").split(QRegExp("\\s"), QString::SkipEmptyParts);
     for (int i = 0; i < headerMap.size(); ++i) {
         for (const QString &name : headerMap[i][2].split("|")) {
             const QRegularExpression re(name + "(_.*){0,1}"); // to catch, e.g., both 'sth' and 'sth_jvm2' cases

@@ -222,8 +222,8 @@ void As::Plot::appendCentralInfoLabel(const As::PlotType plotType,
 */
 void As::Plot::updateInfoLabels(const As::Scan *scan)
 {
-    As::RealVector x = (*scan)["angles"][scan->scanAngle()]["data"];
-    As::RealVector y = (*scan)["intensities"]["DetectorNorm"]["data"];
+    const As::RealVector x = scan->data("angles", scan->scanAngle());
+    const As::RealVector y = scan->data("intensities", "DetectorNorm");
     appendArrowInfoLabel(scan->plotType(), x[y.indexOfMax()], y.max());
     appendArrowInfoLabel(scan->plotType(), x[y.indexOfMin()], y.min());
     if (scan->plotType() == As::PlotType::Integrated) {
@@ -349,7 +349,7 @@ void As::Plot::addXMiddleArrows(const As::Scan *scan)
         int arrowLength = 8;
         int arrowWidth = 10;
         int yShift = 2;
-        As::RealVector x = (*scan)["angles"][scan->scanAngle()]["data"];
+        const As::RealVector x = scan->data("angles", scan->scanAngle());
         const int l = scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
         const int r = scan->numPoints() - scan->m_numRightBkgPoints - scan->m_numRightSkipPoints - 1;
 
@@ -428,9 +428,9 @@ void As::Plot::addCustomGraph(const As::PlotType plotType,
 void As::Plot::addAllGraphs(const As::Scan *scan)
 {
     // Define data
-    As::RealVector x  = (*scan)["angles"][scan->scanAngle()]["data"];
-    As::RealVector y  = (*scan)["intensities"]["DetectorNorm"]["data"];
-    As::RealVector sy = (*scan)["intensities"]["sDetectorNorm"]["data"];
+    const As::RealVector x  = scan->data("angles", scan->scanAngle());
+    const As::RealVector y  = scan->data("intensities", "DetectorNorm");
+    const As::RealVector sy = scan->data("intensities", "sDetectorNorm");
 
     // Define local variables
     QPair<QVector<int>, QVector<int> > ranges;
@@ -582,9 +582,9 @@ void As::Plot::updateAllOnPlot(const As::Scan *scan)
     //ADEBUG << scan;
 
     // Get data to plot
-    As::RealVector x  = (*scan)["angles"][scan->scanAngle()]["data"];
-    As::RealVector y  = (*scan)["intensities"]["DetectorNorm"]["data"];
-    As::RealVector sy = (*scan)["intensities"]["sDetectorNorm"]["data"];
+    const As::RealVector x  = scan->data("angles", scan->scanAngle());
+    const As::RealVector y  = scan->data("intensities", "DetectorNorm");
+    const As::RealVector sy = scan->data("intensities", "sDetectorNorm");
 
     // Update axes ranges
     updateAxesRanges(x, y, sy); // Auto by QCustomPlot: rescaleAxes();

@@ -95,10 +95,10 @@ void As::ScanArray::definePolarisationCrossSection(As::Scan *scan)
     //ADEBUG;
 
     // Read polarisation an flipper parameters
-    QString fin  = (*scan)["polarisation"]["Fin" ]["data"].split(" ")[0];
-    QString fout = (*scan)["polarisation"]["Fout"]["data"].split(" ")[0];
-    QString pin  = (*scan)["polarisation"]["Pin" ]["data"].split(" ")[0];
-    QString pout = (*scan)["polarisation"]["Pout"]["data"].split(" ")[0];
+    QString fin  = scan->data("polarisation", "Fin" ).split(" ")[0];
+    QString fout = scan->data("polarisation", "Fout").split(" ")[0];
+    QString pin  = scan->data("polarisation", "Pin" ).split(" ")[0];
+    QString pout = scan->data("polarisation", "Pout").split(" ")[0];
 
     // Adjust polarisation parameters depends on the flipper parameters
     if (fin == "on") {
@@ -126,8 +126,8 @@ void As::ScanArray::calcEsd(As::Scan *scan)
     //ADEBUG;
 
     for (const QString &countType : As::COUNT_TYPES) {
-        const As::RealVector detector = (*scan)["intensities"]["Detector" + countType]["data"];
-        const As::RealVector monitor  = (*scan)["intensities"]["Monitor" + countType]["data"];
+        const As::RealVector detector = scan->data("intensities", "Detector" + countType);
+        const As::RealVector monitor  = scan->data("intensities", "Monitor" + countType);
         if (!detector.isEmpty())
             scan->setData("intensities", "sDetector" + countType, detector.sqrt().toQString());
         if (!monitor.isEmpty())
@@ -142,11 +142,11 @@ void As::ScanArray::normalizeByTime(As::Scan *scan)
     //ADEBUG;
 
     for (const QString &countType : As::COUNT_TYPES) {
-        const As::RealVector detector  = (*scan)["intensities"]["Detector" + countType]["data"];
-        const As::RealVector sdetector = (*scan)["intensities"]["sDetector" + countType]["data"];
-        const As::RealVector monitor   = (*scan)["intensities"]["Monitor" + countType]["data"];
-        const As::RealVector smonitor  = (*scan)["intensities"]["sMonitor" + countType]["data"];
-        const As::RealVector time      = (*scan)["conditions"]["Time/step" + countType]["data"];
+        const As::RealVector detector  = scan->data("intensities", "Detector" + countType);
+        const As::RealVector sdetector = scan->data("intensities", "sDetector" + countType);
+        const As::RealVector monitor   = scan->data("intensities", "Monitor" + countType);
+        const As::RealVector smonitor  = scan->data("intensities", "sMonitor" + countType);
+        const As::RealVector time      = scan->data("conditions", "Time/step" + countType);
 
         //ADEBUG << detector;
         //ADEBUG << sdetector;
@@ -203,8 +203,8 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 {
     //ADEBUG;
 
-    const As::RealVector detector  = (*scan)["intensities"]["DetectorNorm"]["data"];
-    const As::RealVector sdetector = (*scan)["intensities"]["sDetectorNorm"]["data"];
+    const As::RealVector detector  = scan->data("intensities", "DetectorNorm");
+    const As::RealVector sdetector = scan->data("intensities", "sDetectorNorm");
 
     qreal minRatio = qInf();
 
@@ -332,8 +332,8 @@ void As::ScanArray::calcBkg(As::Scan *scan)
 {
     //ADEBUG;
 
-    const As::RealVector detector = (*scan)["intensities"]["DetectorNorm"]["data"];
-    const As::RealVector time = (*scan)["conditions"]["Time/step"]["data"];
+    const As::RealVector detector = scan->data("intensities", "DetectorNorm");
+    const As::RealVector time = scan->data("conditions", "Time/step");
     if (!detector.isEmpty()) {
         int from, to;
         qreal bkg = 0.;
@@ -424,8 +424,8 @@ Calculates the maximum peak intensity of the given \a scan.
 void As::ScanArray::calcMaxPeakInty(As::Scan *scan)
 {
     for (const QString &countType : As::COUNT_TYPES) {
-        const As::RealVector detector  = (*scan)["intensities"]["DetectorNorm" + countType]["data"];
-        const As::RealVector sdetector = (*scan)["intensities"]["sDetectorNorm" + countType]["data"];
+        const As::RealVector detector  = scan->data("intensities", "DetectorNorm" + countType);
+        const As::RealVector sdetector = scan->data("intensities", "sDetectorNorm" + countType);
         if (!detector.isEmpty()) {
             scan->m_maxPeakInty[countType]    = detector.max();
             scan->m_maxPeakIntyErr[countType] = sdetector.max();
@@ -440,8 +440,8 @@ Calculates the sum of all the peak point intensities of the given \a scan.
 void As::ScanArray::calcSumPeakInty(As::Scan *scan)
 {
     for (const QString &countType : As::COUNT_TYPES) {
-        const As::RealVector detector  = (*scan)["intensities"]["DetectorNorm" + countType]["data"];
-        const As::RealVector sdetector = (*scan)["intensities"]["sDetectorNorm" + countType]["data"];
+        const As::RealVector detector  = scan->data("intensities", "DetectorNorm" + countType);
+        const As::RealVector sdetector = scan->data("intensities", "sDetectorNorm" + countType);
         if (!detector.isEmpty()) {
             As::RealVector intyWithSig =
                     IntensityWithSigma(detector,
@@ -463,7 +463,7 @@ Calculates the peak area of the given \a scan.
 */
 void As::ScanArray::calcPeakArea(As::Scan *scan)
 {
-    const As::RealVector angle = (*scan)["angles"][scan->scanAngle()]["data"];
+    const As::RealVector angle = scan->data("angles", scan->scanAngle());
     const qreal step = angle.step();
     for (const QString &countType : As::COUNT_TYPES) {
         if (!qIsNaN(scan->m_sumPeakInty[countType])) {
@@ -479,7 +479,7 @@ Calculates the normalised peak area of the given \a scan.
 */
 void As::ScanArray::calcNormPeakArea(As::Scan *scan)
 {
-    const As::RealVector monitor = (*scan)["intensities"]["MonitorNorm"]["data"];
+    const As::RealVector monitor = scan->data("intensities", "MonitorNorm");
     //if (!monitor.isEmpty()) {
         qreal monitorMean = monitor.mean();
         if (monitorMean == 0.)
@@ -509,9 +509,9 @@ Calculates the structure factor area of the given \a scan.
 */
 void As::ScanArray::calcStructFactor(As::Scan *scan)
 {
-    const As::RealVector twotheta = (*scan)["angles"]["2Theta"]["data"];
-    const As::RealVector gamma    = (*scan)["angles"]["Gamma"]["data"];
-    const As::RealVector nu       = (*scan)["angles"]["Nu"]["data"];
+    const As::RealVector twotheta = scan->data("angles", "2Theta");
+    const As::RealVector gamma    = scan->data("angles", "Gamma");
+    const As::RealVector nu       = scan->data("angles", "Nu");
     qreal correction = qQNaN();
     if (!twotheta.isEmpty())
         correction = lorentzCorrectionFactor(twotheta.mean());
@@ -536,11 +536,11 @@ Calculates the full width at half maximum (FWHM) of the given \a scan.
 void As::ScanArray::calcFullWidthHalfMax(As::Scan *scan)
 {
     // Read measred data
-    const As::RealVector x     = (*scan)["angles"][scan->scanAngle()]["data"];
-    const As::RealVector inty  = (*scan)["intensities"]["DetectorNorm"]["data"];
-    const As::RealVector sInty = (*scan)["intensities"]["sDetectorNorm"]["data"];
-    const As::RealVector bkg   = (*scan)["calculations"]["BkgNorm"]["data"];
-    const As::RealVector sBkg  = (*scan)["calculations"]["BkgNormErr"]["data"];
+    const As::RealVector x     = scan->data("angles",       scan->scanAngle());
+    const As::RealVector inty  = scan->data("intensities",  "DetectorNorm");
+    const As::RealVector sInty = scan->data("intensities",  "sDetectorNorm");
+    const As::RealVector bkg   = scan->data("calculations", "BkgNorm");
+    const As::RealVector sBkg  = scan->data("calculations", "BkgNormErr");
 
     // Calc intensity and its standard deviation substracting background from total measured detector intensity
     As::RealVector y, sy;
