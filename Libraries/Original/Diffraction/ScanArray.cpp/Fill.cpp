@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QtConcurrent>
 #include <QStandardItemModel>
@@ -32,10 +32,9 @@
 #include "ScanArray.hpp"
 
 /*!
-Fills single array with single element...
+    Fills single array with single element...
 */
-void As::ScanArray::fillMissingDataArray(const int index)
-{
+void As::ScanArray::fillMissingDataArray(const int index) {
     auto scan = at(index);
 
     // Define the total measured intensities and times based on up and down polarized measurements
@@ -50,60 +49,63 @@ void As::ScanArray::fillMissingDataArray(const int index)
     scan->m_mcCandlishFactor = As::MC_CANDLISH_FACTOR[filesType()];
 
     // Add zeros to empty but required variables
+    QStringList subitemKeys;
 
     // 4-circle geometry...
-    if (!(*scan)["angles"]["2Theta"]["data"].isEmpty()) {
-        QStringList subitemKeys = {"Omega", "Chi", "Phi"};
-        for (const auto &subitemKey : subitemKeys) {
-            if ((*scan)["angles"][subitemKey]["data"].isEmpty())
-                scan->setData("angles", subitemKey, "0"); } }
+    if (!scan->data("angles", "2Theta").isEmpty()) {
+        subitemKeys = QStringList({"Omega", "Chi", "Phi"}); }
 
     // Liffting counter geometry...
-    if (!(*scan)["angles"]["Gamma"]["data"].isEmpty()) {
-        QStringList subitemKeys = {"Nu", "Omega"};
-        for (const auto &subitemKey : subitemKeys) {
-            if ((*scan)["angles"][subitemKey]["data"].isEmpty())
-                scan->setData("angles", subitemKey, "0"); } }
+    if (!scan->data("angles", "Gamma").isEmpty()) {
+        subitemKeys = QStringList({"Nu", "Omega"}); }
+
+    // Add zeros...
+    for (const auto& subitemKey : subitemKeys) {
+        if (scan->data("angles", subitemKey).isEmpty()) {
+            scan->setData("angles", subitemKey, "0"); } }
+
 
     // Fill arrays with existing single values
-    QStringList itemKeys = {"angles", "conditions", "indices", "intensities"};
-    for (const auto &itemKey : itemKeys) {
-        QStringList subitemKeys = (*scan)[itemKey].keys();
-        for (const auto &subitemKey : subitemKeys) {
-            QString data = (*scan)[itemKey][subitemKey]["data"];
+    const QStringList itemKeys = {"angles", "conditions", "indices", "intensities" };
+
+    for (const auto& itemKey : itemKeys) {
+        const QStringList subitemKeys = (*scan)[itemKey].keys();
+
+        for (const auto& subitemKey : subitemKeys) {
+            const QString data = scan->data(itemKey, subitemKey);
+
             if (!data.contains(" ")) {
                 QStringList list;
+
                 for (int i = 0; i < scan->numPoints(); ++i) {
                     list.append(data); }
+
                 scan->setData(itemKey, subitemKey, list.join(" ")); } } }
 
     // Add batch number. All the reflections are considered to belong to just 1st group...
     scan->setData("number", "Batch", "1");
 
     // Creates the table model for the scan
-    scan->createExtractedTableModel_Slot();
-}
+    scan->createExtractedTableModel_Slot(); }
 
 /*!
-Sets the unpolarised neutron data based on the polarised neutron diffraction
-measurement for the given \a scan using the provided \a section and \a entry.
+    Sets the unpolarised neutron data based on the polarised neutron diffraction
+    measurement for the given \a scan using the provided \a section and \a entry.
 */
-void As::ScanArray::calcUnpolData(const QString &section,
-                                  const QString &entry,
-                                  As::Scan *scan)
-{
+void As::ScanArray::calcUnpolData(const QString& section,
+                                  const QString& entry,
+                                  As::Scan* scan) {
     bool okUp, okDown;
 
     const As::RealVector up   = scan->data(section, entry + COUNT_TYPES[1], &okUp);
     const As::RealVector down = scan->data(section, entry + COUNT_TYPES[2], &okDown);
 
-    if (!okUp OR !okDown)
-        return;
+    if (!okUp OR !okDown) {
+        return; }
 
-    if (up.size() != down.size() OR up.size() == 0)
-        return;
+    if (up.size() != down.size() OR up.size() == 0) {
+        return; }
 
     const As::RealVector sum  = up + down;
 
-    scan->setData(section, entry, sum.toQString());
-}
+    scan->setData(section, entry, sum.toQString()); }
