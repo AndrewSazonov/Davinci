@@ -216,10 +216,10 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 
         // Find Bkg points
         const int fromLS = MIN_NUM_BKG;
-        const int toLS   = scan->m_numPoints - MIN_NUM_BKG;
+        const int toLS   = scan->numPoints() - MIN_NUM_BKG;
         for (int numLeftBkgPoints = fromLS; numLeftBkgPoints < toLS; ++numLeftBkgPoints) {
             const int fromRS = MIN_NUM_BKG;
-            const int toRS   = scan->m_numPoints - numLeftBkgPoints;
+            const int toRS   = scan->numPoints() - numLeftBkgPoints;
             for (int numRightBkgPoints = fromRS; numRightBkgPoints < toRS; ++numRightBkgPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              numLeftBkgPoints, numRightBkgPoints,
@@ -259,7 +259,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
     else if (autoBkg AND !autoSkip) {
 
         // Find Bkg points
-        const int numNonSkipPoints = scan->m_numPoints - scan->m_numLeftSkipPoints - scan->m_numRightSkipPoints;
+        const int numNonSkipPoints = scan->numPoints() - scan->m_numLeftSkipPoints - scan->m_numRightSkipPoints;
         const int fromLB = MIN_NUM_BKG;
         const int toLB   = numNonSkipPoints - MIN_NUM_BKG;
         for (int numLeftBkgPoints = fromLB; numLeftBkgPoints < toLB; ++numLeftBkgPoints) {
@@ -279,7 +279,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 
     // Manually set background and automatically detect skip points
     else if (!autoBkg AND autoSkip) {
-        const int numNonBkgPoints = scan->m_numPoints - scan->m_numLeftBkgPoints - scan->m_numRightBkgPoints;
+        const int numNonBkgPoints = scan->numPoints() - scan->m_numLeftBkgPoints - scan->m_numRightBkgPoints;
         const int fromLS = MIN_NUM_SKIP;
         const int toLS   = numNonBkgPoints - MIN_NUM_SKIP;
         for (int numLeftSkipPoints = fromLS; numLeftSkipPoints < toLS; ++numLeftSkipPoints) {
@@ -304,7 +304,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                            scan->m_mcCandlishFactor); }
 
     // Update points
-    scan->m_numNonSkipPoints = scan->m_numPoints - scan->m_numLeftSkipPoints - scan->m_numRightSkipPoints;
+    scan->m_numNonSkipPoints = scan->numPoints() - scan->m_numLeftSkipPoints - scan->m_numRightSkipPoints;
     scan->m_numPeakPoints = scan->m_numNonSkipPoints - scan->m_numLeftBkgPoints - scan->m_numRightBkgPoints;
 }
 
@@ -345,7 +345,7 @@ void As::ScanArray::calcBkg(As::Scan *scan)
             bkg += detector[i];
 
         // Calculate the sum of the right background intensities
-        to   = scan->m_numPoints - scan->m_numRightSkipPoints;
+        to   = scan->numPoints() - scan->m_numRightSkipPoints;
         from = to - scan->m_numRightBkgPoints;
         for (int i = from; i < to; ++i)
             bkg += detector[i];
@@ -550,9 +550,9 @@ void As::ScanArray::calcFullWidthHalfMax(As::Scan *scan)
 
     // Define local variables
     const qreal yHM            = 0.5 * y.max();    // intensity at half maximum (HM)
-    const qreal iLast          = scan->m_numPoints - 1;
+    const qreal iLast          = scan->numPoints() - 1;
     const int iLeftPeakBorder  = scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
-    const int iRightPeakBorder = scan->m_numPoints - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints - 1;
+    const int iRightPeakBorder = scan->numPoints() - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints - 1;
 
     // Find position of maximum within the peak range
     As::RealVector yPeak;

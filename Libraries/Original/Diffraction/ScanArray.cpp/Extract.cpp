@@ -559,22 +559,15 @@ void As::ScanArray::appendScan(As::Scan *scan)
         scan->setScanLine(line);
 
     //
-    int numPointsMax = 0;
-    for (const QString &countType : As::COUNT_TYPES) {
-        const int numPoints = (*scan)["intensities"]["Detector" + countType]["data"].split(" ").size(); // unify everything with numPoints!
-        numPointsMax = qMax(numPoints, numPointsMax); }
-
-    //
-    if (numPointsMax >= MIN_NUM_SCAN) {
+    if (scan->numPoints() >= MIN_NUM_SCAN) {
         QStringList itemKeys = {"angles", "indices"};
         for (const auto &itemKey : itemKeys) {
             QStringList subitemKeys = (*scan)[itemKey].keys();
             for (const auto &subitemKey : subitemKeys) {
 
                 // Check if there is any not-empty angle or hkl and...
-                if (!(*scan)[itemKey][subitemKey]["data"].isEmpty() AND !scan->scanAngle().isEmpty()) {
-
-                    scan->m_numPoints = numPointsMax;
+                //if (!(*scan)[itemKey][subitemKey]["data"].isEmpty() AND !(*scan).scanAngle().isEmpty()) {
+                if (!scan->data(itemKey, subitemKey).isEmpty() AND !scan->scanAngle().isEmpty()) {
                     append(scan);
                     return; } } } }
 

@@ -228,7 +228,7 @@ void As::Plot::updateInfoLabels(const As::Scan *scan)
     appendArrowInfoLabel(scan->plotType(), x[y.indexOfMin()], y.min());
     if (scan->plotType() == As::PlotType::Integrated) {
         const int l = scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
-        const int r = scan->m_numPoints - scan->m_numRightBkgPoints - scan->m_numRightSkipPoints - 1;
+        const int r = scan->numPoints() - scan->m_numRightBkgPoints - scan->m_numRightSkipPoints - 1;
         appendCentralInfoLabel(As::PlotType::Raw, (x[l] + x[r]) / 2, scan->m_normMeanBkg); }
 }
 
@@ -351,7 +351,7 @@ void As::Plot::addXMiddleArrows(const As::Scan *scan)
         int yShift = 2;
         As::RealVector x = (*scan)["angles"][scan->scanAngle()]["data"];
         const int l = scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
-        const int r = scan->m_numPoints - scan->m_numRightBkgPoints - scan->m_numRightSkipPoints - 1;
+        const int r = scan->numPoints() - scan->m_numRightBkgPoints - scan->m_numRightSkipPoints - 1;
 
         // Upper (top) arrow
         auto arrowT = new QCPItemLine(this);
@@ -445,7 +445,7 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
         ranges.first.clear();
         ranges.second.clear();
         ranges.first << scan->m_numLeftSkipPoints;
-        ranges.second << scan->m_numPoints - scan->m_numRightSkipPoints;
+        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
         // Add graphs according to the measured data (unpolarised or polarised)
         for (const QString &countType : countTypes) {
             As::RealVector y  = scan->data("intensities", "DetectorNorm" + countType);
@@ -465,7 +465,7 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
         ranges.first.clear();
         ranges.second.clear();
         ranges.first  << scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
-        ranges.second << scan->m_numPoints - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints;
+        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints;
         data.clear();
         data << x.toQVector() << y.toQVector() << sy.toQVector();
         addCustomGraph(scan->plotType(), "",
@@ -489,8 +489,8 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
             ranges.second.clear();
             ranges.first  << 0;
             ranges.second << scan->m_numLeftSkipPoints;
-            ranges.first  << scan->m_numPoints - scan->m_numRightSkipPoints;
-            ranges.second << scan->m_numPoints;
+            ranges.first  << scan->numPoints() - scan->m_numRightSkipPoints;
+            ranges.second << scan->numPoints();
             data.clear();
             data << x.toQVector() << y.toQVector() << sy.toQVector();
             addCustomGraph(As::PlotType::Excluded, "",
@@ -503,8 +503,8 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
         ranges.second.clear();
         ranges.first  << scan->m_numLeftSkipPoints;
         ranges.second << scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
-        ranges.first  << scan->m_numPoints - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints;
-        ranges.second << scan->m_numPoints - scan->m_numRightSkipPoints;
+        ranges.first  << scan->numPoints() - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints;
+        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
         data.clear();
         data << x.toQVector() << y.toQVector() << sy.toQVector();
         addCustomGraph(As::PlotType::Raw, "",
@@ -516,7 +516,7 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
         ranges.first.clear();
         ranges.second.clear();
         ranges.first  << scan->m_numLeftSkipPoints;
-        ranges.second << scan->m_numPoints - scan->m_numRightSkipPoints;
+        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
         data.clear();
         data << x.toQVector() << QVector<qreal>(x.toQVector().size(), scan->m_normMeanBkg);
         addCustomGraph(As::PlotType::Raw, "",
@@ -534,7 +534,7 @@ void As::Plot::addAllGraphs(const As::Scan *scan)
         ranges.first.clear();
         ranges.second.clear();
         ranges.first << scan->m_numLeftSkipPoints;
-        ranges.second << scan->m_numPoints - scan->m_numRightSkipPoints;
+        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
         data.clear();
         data << x.toQVector() << y.toQVector() << sy.toQVector();
         addCustomGraph(scan->plotType(), "",

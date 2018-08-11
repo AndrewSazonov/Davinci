@@ -57,6 +57,11 @@ public:
                         const QString &entry,
                         const QString &name,
                         bool *ok = Q_NULLPTR) const;
+
+    QString &data2(const QString &section,
+                   const QString &entry);
+
+
     const QString data(const QString &section,
                        const QString &entry,
                        bool *ok = Q_NULLPTR) const;
@@ -109,12 +114,11 @@ public:
     qreal millerIndex(const QString& index) const;
 
     // Scan parameters
-    qreal numPoints();
+    qreal numPoints() const;
 
 //protected:
 
 
-    int m_numPoints;
     int m_numLeftSkipPoints;
     int m_numRightSkipPoints;
     int m_numNonSkipPoints;

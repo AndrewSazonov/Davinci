@@ -156,7 +156,7 @@ void As::Window::update_Plot_ScanCorrectGroup(const As::Scan *scan)
     int numBkgPoints = scan->m_numLeftBkgPoints + scan->m_numRightBkgPoints;
     int numLeftSkipPoints = scan->m_numLeftSkipPoints;
     int numRightSkipPoints = scan->m_numRightSkipPoints;
-    int numPoints = scan->m_numPoints;
+    int numPoints = scan->numPoints();
     int maxNumLeftSkipPoints = numPoints - numBkgPoints - numRightSkipPoints - 1;
     int maxNumRightSkipPoints = numPoints - numBkgPoints - numLeftSkipPoints - 1;
 
@@ -189,7 +189,7 @@ void As::Window::update_Plot_PeakIntegrateGroup(const Scan *scan)
     int numSkipPoints = scan->m_numLeftSkipPoints + scan->m_numRightSkipPoints;
     int numLeftBkgPoints = scan->m_numLeftBkgPoints;
     int numRightBkgPoints = scan->m_numRightBkgPoints;
-    int numPoints = scan->m_numPoints;
+    int numPoints = scan->numPoints();
     int maxNumLeftBkgPoints = numPoints - numSkipPoints - numRightBkgPoints - 1;
     int maxNumRightBkgPoints = numPoints - numSkipPoints - numLeftBkgPoints - 1;
 

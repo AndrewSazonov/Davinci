@@ -78,7 +78,6 @@ void As::Scan::init()
     // Not completed yet!
 
     // Single calculated values (doesn't depend on polarisation)
-    m_numPoints          = 0;
     m_numLeftSkipPoints  = MIN_NUM_SKIP;
     m_numRightSkipPoints = MIN_NUM_SKIP;
     m_numNonSkipPoints   = 0;
@@ -183,6 +182,14 @@ const QString As::Scan::value(const QString &section,
 
     return QString();
 }
+
+
+QString& As::Scan::data2(const QString &section,
+                         const QString &entry)
+{
+    return m_scan[section][entry]["data"];
+}
+
 
 /*!
 Returns the data field of the given scan \a section and \a entry.
@@ -483,16 +490,38 @@ qreal As::Scan::millerIndex(const QString& index) const {
 }
 
 
-qreal As::Scan::numPoints() {
+qreal As::Scan::numPoints() const {
 
     // if not all the COUNT_TYPES were measured...
-    static int numPointsMax = 0;
+    int numPointsMax = 0;
 
-   if (numPointsMax == 0) {
-        for (const QString &countType : As::COUNT_TYPES) {
-            const QString string = (*this)["intensities"]["Detector" + countType]["data"];
-            const int numPoints = string.split(" ", QString::SkipEmptyParts).size();
-            numPointsMax = qMax(numPoints, numPointsMax); } }
+    for (const QString& countType : As::COUNT_TYPES) {
+        //QString string = data("intensities", "Detector" + countType); // skip check of existing fields...
+        const QString string = m_scan["intensities"]["Detector" + countType]["data"];
+
+        if (string.length() == 0)
+            continue;
+
+        // too slow: 3.9s
+        //const int numPoints = string.split(" ", QString::SkipEmptyParts).size();
+
+        // still slow: 1.2s
+        //const int numPoints = string.count(" ") + 1;
+
+        // faster, but still slow: 0.8s
+        //int numPoints = 0;
+        //for (int i = 0; i < string.length(); ++i) {
+        //    if (string[i] == ' ') {
+        //        ++numPoints; } }
+
+        // String: "2.1 5.3 7.0 1.2". numSpaces: 3, numPoints = numDataElements = numSpaces + 1 = 4
+        int numPoints = 0;
+        for (int i = 0; i < string.length(); ++i) {
+            if (string[i] == ' ') {
+                ++numPoints; } }
+        ++numPoints;
+
+        numPointsMax = qMax(numPoints, numPointsMax); }
 
     return numPointsMax;
 }
