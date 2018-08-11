@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #ifndef AS_DIFFRACTION_SCAN_HPP
 #define AS_DIFFRACTION_SCAN_HPP
@@ -34,56 +34,55 @@ namespace As { //AS_BEGIN_NAMESPACE
 
 class RealVector;
 
-class Scan : public QObject
-{
+class Scan : public QObject {
     Q_OBJECT
 
-public:
-    Scan(QObject *parent = Q_NULLPTR);
+  public:
+    Scan(QObject* parent = Q_NULLPTR);
     ~Scan();
 
     void init();
 
-    void setData(const QString &section,
-                 const QString &entry,
-                 const QString &data);
-    void appendData(const QString &section,
-                    const QString &entry,
-                    const QString &data);
-    void removeData(const QString &section,
-                    const QString &entry);
+    void setData(const QString& section,
+                 const QString& entry,
+                 const QString& data);
+    void appendData(const QString& section,
+                    const QString& entry,
+                    const QString& data);
+    void removeData(const QString& section,
+                    const QString& entry);
 
-    const QString value(const QString &section,
-                        const QString &entry,
-                        const QString &name,
-                        bool *ok = Q_NULLPTR) const;
-    const QString data(const QString &section,
-                       const QString &entry,
-                       bool *ok = Q_NULLPTR) const;
-    const QString format(const QString &section,
-                         const QString &entry,
-                         bool *ok = Q_NULLPTR) const;
+    const QString value(const QString& section,
+                        const QString& entry,
+                        const QString& name,
+                        bool* ok = Q_NULLPTR) const;
+    const QString data(const QString& section,
+                       const QString& entry,
+                       bool* ok = Q_NULLPTR) const;
+    const QString format(const QString& section,
+                         const QString& entry,
+                         bool* ok = Q_NULLPTR) const;
 
-    const QString printDataSingle(const QString &section,
-                                  const QString &entry,
-                                  const QString &format) const;
-    const QString printDataSingle(const QString &section,
-                                  const QString &entry) const;
-    const QString printDataRange(const QString &section,
-                                 const QString &entry) const;
+    const QString printDataSingle(const QString& section,
+                                  const QString& entry,
+                                  const QString& format) const;
+    const QString printDataSingle(const QString& section,
+                                  const QString& entry) const;
+    const QString printDataRange(const QString& section,
+                                 const QString& entry) const;
 
     const QStringList keys() const;
 
-    const As::ScanSectionMap_t operator[](const QString &key) const;
+    const As::ScanSectionMap_t operator[](const QString& key) const;
     const As::ScanMap_t toQMap() const;
 
-    void setScanAngle(const QString &name);
+    void setScanAngle(const QString& name);
     const QString scanAngle() const;
 
     void setScanStep(const qreal value);
     qreal scanStep() const;
 
-    void setAbsoluteFilePath(const QString &name);
+    void setAbsoluteFilePath(const QString& name);
     const QString absoluteFilePath() const;
     const QString absolutePath() const;
     const QString baseName() const;
@@ -109,7 +108,7 @@ public:
     qreal numPoints() const;
     int scanLine() const;
 
-//protected:
+    //protected:
 
 
     int m_numLeftSkipPoints;
@@ -130,7 +129,7 @@ public:
     QMap<QString, qreal> m_structFactor, m_structFactorErr;
 
     // MISC
-    QStandardItemModel *m_tableModel;
+    QStandardItemModel* m_tableModel;
     qreal m_mcCandlishFactor;
 
     bool m_isIndividuallyTreated = false;
@@ -143,15 +142,15 @@ public:
     QString m_integrationType = "Conventional peak integration";
     QString m_integrationSubType = BKG_TYPES[0];
 
-public slots:
+  public slots:
     void createExtractedTableModel_Slot();
     // void setSize(const int size);
 
-signals:
+  signals:
     // void extractedTableModelChanged_Signal(QStandardItemModel *tableModel);
     // void sizeChanged(const int size);
 
-private:
+  private:
     As::ScanMap_t m_scan;
     QString m_scanAngle;
     QString m_absoluteFilePath; // currently used!!! absoluteFilePath
@@ -164,18 +163,18 @@ private:
 };
 
 /*
-static const QHash<int, QString> BkgTypes;
+    static const QHash<int, QString> BkgTypes;
 
-enum BkgTypesEnum
-{
+    enum BkgTypesEnum
+    {
     autoBkg,
     manualBkg
-};
+    };
 */
 
 } //AS_END_NAMESPACE
 
-QDebug operator<<(QDebug debug, const As::Scan &scan);
+QDebug operator<<(QDebug debug, const As::Scan& scan);
 
 #endif // AS_DIFFRACTION_SCAN_HPP
 
