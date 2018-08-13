@@ -37,7 +37,7 @@ public:
     ScanDatabase();
     ~ScanDatabase();
 
-    const As::ScanSectionMap_t operator[](const QString &section) const;
+    const As::ScanSection_t operator[](const QString &section) const;
     const QStringList keys() const;
 
 private:
@@ -47,7 +47,7 @@ private:
              const QString &units,
              const QString &tooltip);
 
-    As::ScanMap_t m_scanDatabase;
+    As::Scan_t m_scanDatabase;
 
 };
 

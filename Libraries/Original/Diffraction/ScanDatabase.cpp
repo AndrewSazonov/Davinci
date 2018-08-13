@@ -216,7 +216,7 @@ As::ScanDatabase::~ScanDatabase() {}
 /*!
 Returns the value associated with the key \a section.
 */
-const As::ScanSectionMap_t As::ScanDatabase::operator[](const QString &section) const
+const As::ScanSection_t As::ScanDatabase::operator[](const QString &section) const
 {
     return m_scanDatabase[section];
 }
@@ -239,6 +239,6 @@ void As::ScanDatabase::set(const QString &section,
                            const QString &units,
                            const QString &tooltip)
 {
-    m_scanDatabase[section][entry] = QMap<QString, QString>{
+    m_scanDatabase[section][entry] = ScanSubSection_t{
         {"format", format}, {"units", units}, {"tooltip", tooltip} };
 }

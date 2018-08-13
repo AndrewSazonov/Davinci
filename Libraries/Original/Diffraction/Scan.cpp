@@ -66,6 +66,14 @@ As::Scan::Scan(QObject* parent)
 As::Scan::~Scan() {
     ADESTROYED; }
 
+
+
+
+As::ScanSection_t& As::Scan::operator[](const QString &key)
+{
+    return m_scan[key];
+}
+
 /*!
     Initializes a scan with default parameters.
 */
@@ -162,11 +170,7 @@ const QString As::Scan::value(const QString& section,
         return m_scan[section][entry][name]; }
 
     if (ok) {
-        *ok = false;
-        return QString(); }
-
-    //AASSERT(false, QString("no such section '%1', entry '%2', or name '%3' in the current scan")
-    //        .arg(section).arg(entry).arg(name));
+        *ok = false; }
 
     return QString(); }
 
@@ -250,7 +254,7 @@ const QStringList As::Scan::keys() const {
 /*!
     Returns the value associated with the \a key.
 */
-const As::ScanSectionMap_t As::Scan::operator[](const QString& key) const {
+const As::ScanSection_t As::Scan::operator[](const QString& key) const {
     return m_scan[key]; }
 //const QMap<QString, QMap<QString, QString> > &operator[](const QString &akey) const;
 //As::Scan &operator[](const int i);
@@ -259,14 +263,14 @@ const As::ScanSectionMap_t As::Scan::operator[](const QString& key) const {
 /*!
     Returns the scan as a QMap.
 */
-const As::ScanMap_t As::Scan::toQMap() const {
+const As::Scan_t As::Scan::toQMap() const {
     return m_scan; }
 
 /*!
     Sets \a name to the scan angle.
 */
 void As::Scan::setScanAngle(const QString& name) {
-        m_scanAngle = name; }
+    m_scanAngle = name; }
 
 /*!
     Finds the scan angle and sets....
@@ -396,8 +400,8 @@ qreal As::Scan::numPoints() const {
     int numPointsMax = 0;
 
     for (const QString& countType : As::COUNT_TYPES) {
-        //QString string = data("intensities", "Detector" + countType); // skip check of existing fields...
-        const QString string = m_scan["intensities"]["Detector" + countType]["data"];
+        //const QString string = data("intensities", "Detector" + countType);
+        const QString& string = m_scan["intensities"]["Detector" + countType]["data"];
 
         if (string.length() == 0) {
             continue; }

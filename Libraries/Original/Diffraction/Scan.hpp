@@ -41,6 +41,8 @@ class Scan : public QObject {
     Scan(QObject* parent = Q_NULLPTR);
     ~Scan();
 
+    As::ScanSection_t& operator[](const QString& key);
+
     void init();
 
     void setData(const QString& section,
@@ -73,8 +75,8 @@ class Scan : public QObject {
 
     const QStringList keys() const;
 
-    const As::ScanSectionMap_t operator[](const QString& key) const;
-    const As::ScanMap_t toQMap() const;
+    const As::ScanSection_t operator[](const QString& key) const;
+    const As::Scan_t toQMap() const;
 
 
     void setScanStep(const qreal value);
@@ -146,7 +148,7 @@ class Scan : public QObject {
     // void sizeChanged(const int size);
 
   private:
-    As::ScanMap_t m_scan;
+    As::Scan_t m_scan;
     QString m_scanAngle;
 
     QString m_absoluteFilePath; // currently used!!! absoluteFilePath

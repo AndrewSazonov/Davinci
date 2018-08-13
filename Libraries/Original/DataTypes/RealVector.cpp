@@ -62,7 +62,8 @@ As::RealVector::RealVector(const QVector<qreal>& other) :
     Constructs a vector with an initial size of \a size elements.
     Each element is initialized with \a defaultValue.
 */
-As::RealVector::RealVector(const int size, const qreal defaultValue = 0.0) :
+As::RealVector::RealVector(const int size,
+                           const qreal defaultValue = 0.0) :
     As::RealArray(size, defaultValue) {}
 
 /*!
@@ -126,7 +127,7 @@ qreal As::RealVector::sum() const {
 */
 qreal As::RealVector::sumSqr() const {
     AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
-    qreal out = 0;
+    qreal out = 0.0;
 
     for (const auto v : *this) {
         out += v * v; }
@@ -143,10 +144,9 @@ qreal As::RealVector::sumSqr() const {
     \endcode
 */
 qreal As::RealVector::mean() const {
-    if (this->size() == 0) {
+    if (size() == 0) {
         return qQNaN(); }
 
-    //AASSERT(this->size() > 0, "vector size is too small");
     return sum() / size(); }
 
 /*!
@@ -216,10 +216,10 @@ int As::RealVector::indexOfMax() const {
 */
 bool As::RealVector::isZero() const {
     //AASSERT(this->size() > 0, "vector size is too small");
-    if (this->size() == 0) {
+    if (size() == 0) {
         return false; }
 
-    for (const qreal value : *this)
+    for (const auto& value : *this)
         if (value != 0.0) {
             return false; }
 
@@ -237,7 +237,7 @@ bool As::RealVector::isZero() const {
 As::RealVector As::RealVector::reverse() const {
     As::RealVector out;
 
-    for (const auto value : *this) {
+    for (const auto& value : *this) {
         out.prepend(value); }
 
     return out; }

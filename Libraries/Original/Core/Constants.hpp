@@ -32,8 +32,9 @@ namespace As { //AS_BEGIN_NAMESPACE
 class ScanDatabase;
 
 // Alias names (using instead of typedef)
-using ScanSectionMap_t = QMap<QString, QMap<QString, QString> >;
-using ScanMap_t = QMap<QString, QMap<QString, QMap<QString, QString> > >;
+using ScanSubSection_t = QMap<QString, QString>;
+using ScanSection_t = QMap<QString, ScanSubSection_t>;
+using Scan_t = QMap<QString, ScanSection_t>;
 
 // Internally defined constants
 
