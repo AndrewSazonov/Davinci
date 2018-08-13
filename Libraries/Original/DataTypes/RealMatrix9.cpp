@@ -86,7 +86,8 @@ As::RealMatrix9::~RealMatrix9() {}
     \sa \link https://en.wikipedia.org/wiki/Determinant Wiki: Determinant \endlink
 */
 qreal As::RealMatrix9::det() const {
-    As::RealArray m(*this);
+    const As::RealArray& m = *this;
+
     return m[0] * (m[4] * m[8] - m[7] * m[5]) -
            m[1] * (m[3] * m[8] - m[5] * m[6]) +
            m[2] * (m[3] * m[7] - m[4] * m[6]); }
@@ -97,8 +98,9 @@ qreal As::RealMatrix9::det() const {
     \sa \link https://en.wikipedia.org/wiki/Transpose Wiki: Transpose \endlink
 */
 const As::RealMatrix9 As::RealMatrix9::trans() const {
-    As::RealArray m(*this);
-    return RealMatrix9 {m[0], m[3], m[6],
+    const As::RealArray& m = *this;
+
+    return RealMatrix9{ m[0], m[3], m[6],
                         m[1], m[4], m[7],
                         m[2], m[5], m[8] }; }
 
@@ -108,44 +110,43 @@ const As::RealMatrix9 As::RealMatrix9::trans() const {
     \sa \link https://en.wikipedia.org/wiki/Invertible_matrix Wiki: Invertible matrix \endlink
 */
 const As::RealMatrix9 As::RealMatrix9::inv() const {
-    AASSERT(det() != 0.0, "determinant is zero");
+    const qreal d = det();
+    AASSERT(d != 0.0, "determinant is zero");
 
-    As::RealArray m(*this);
+    const As::RealArray& m = *this;
 
-    const qreal a1 = (m[4] * m[8] - m[7] * m[5]) / det();
-    const qreal a2 = (m[2] * m[7] - m[1] * m[8]) / det();
-    const qreal a3 = (m[1] * m[5] - m[2] * m[4]) / det();
+    const qreal a1 = (m[4] * m[8] - m[7] * m[5]) / d;
+    const qreal a2 = (m[2] * m[7] - m[1] * m[8]) / d;
+    const qreal a3 = (m[1] * m[5] - m[2] * m[4]) / d;
 
-    const qreal b1 = (m[5] * m[6] - m[3] * m[8]) / det();
-    const qreal b2 = (m[0] * m[8] - m[2] * m[6]) / det();
-    const qreal b3 = (m[3] * m[2] - m[0] * m[5]) / det();
+    const qreal b1 = (m[5] * m[6] - m[3] * m[8]) / d;
+    const qreal b2 = (m[0] * m[8] - m[2] * m[6]) / d;
+    const qreal b3 = (m[3] * m[2] - m[0] * m[5]) / d;
 
-    const qreal c1 = (m[3] * m[7] - m[6] * m[4]) / det();
-    const qreal c2 = (m[6] * m[1] - m[0] * m[7]) / det();
-    const qreal c3 = (m[0] * m[4] - m[3] * m[1]) / det();
+    const qreal c1 = (m[3] * m[7] - m[6] * m[4]) / d;
+    const qreal c2 = (m[6] * m[1] - m[0] * m[7]) / d;
+    const qreal c3 = (m[0] * m[4] - m[3] * m[1]) / d;
 
-    return RealMatrix9{a1, a2, a3, b1, b2, b3, c1, c2, c3 }; }
+    return RealMatrix9{ a1, a2, a3, b1, b2, b3, c1, c2, c3 }; }
 
 /*!
     Returns a matrix with columns normalized to a length of 1.
 */
 const As::RealMatrix9 As::RealMatrix9::normColumns() const {
-    As::RealArray m(*this);
+    const As::RealArray& m = *this;
 
     // Normalization coefficients for every row
-    const qreal k1 = qSqrt(As::Sqr(m[0]) + As::Sqr(m[3]) + As::Sqr(m[6]));
-    const qreal k2 = qSqrt(As::Sqr(m[1]) + As::Sqr(m[4]) + As::Sqr(m[7]));
-    const qreal k3 = qSqrt(As::Sqr(m[2]) + As::Sqr(m[5]) + As::Sqr(m[8]));
+    const qreal k1 = qSqrt( As::Sqr(m[0]) + As::Sqr(m[3]) + As::Sqr(m[6]) );
+    const qreal k2 = qSqrt( As::Sqr(m[1]) + As::Sqr(m[4]) + As::Sqr(m[7]) );
+    const qreal k3 = qSqrt( As::Sqr(m[2]) + As::Sqr(m[5]) + As::Sqr(m[8]) );
 
     AASSERT(k1 != 0.0, "normalization of 1st matrix column fails (all elements are zeros)");
     AASSERT(k2 != 0.0, "normalization of 2nd matrix column fails (all elements are zeros)");
     AASSERT(k3 != 0.0, "normalization of 3rd matrix column fails (all elements are zeros)");
 
-    return RealMatrix9 {m[0] / k1, m[1] / k2, m[2] / k3,
+    return RealMatrix9{ m[0] / k1, m[1] / k2, m[2] / k3,
                         m[3] / k1, m[4] / k2, m[5] / k3,
-                        m[6] / k1, m[7] / k2, m[8] / k3 };
-
-}
+                        m[6] / k1, m[7] / k2, m[8] / k3 }; }
 
 /*!
     Returns a matrix with rows normalized to a length of 1.
@@ -161,18 +162,18 @@ const As::RealMatrix9 As::RealMatrix9::normColumns() const {
     \endcode
 */
 const As::RealMatrix9 As::RealMatrix9::normRows() const {
-    As::RealArray m(*this);
+    const As::RealArray& m = *this;
 
     // Normalization coefficients for every row
-    const qreal k1 = qSqrt(As::Sqr(m[0]) + As::Sqr(m[1]) + As::Sqr(m[2]));
-    const qreal k2 = qSqrt(As::Sqr(m[3]) + As::Sqr(m[4]) + As::Sqr(m[5]));
-    const qreal k3 = qSqrt(As::Sqr(m[6]) + As::Sqr(m[7]) + As::Sqr(m[8]));
+    const qreal k1 = qSqrt( As::Sqr(m[0]) + As::Sqr(m[1]) + As::Sqr(m[2]) );
+    const qreal k2 = qSqrt( As::Sqr(m[3]) + As::Sqr(m[4]) + As::Sqr(m[5]) );
+    const qreal k3 = qSqrt( As::Sqr(m[6]) + As::Sqr(m[7]) + As::Sqr(m[8]) );
 
     AASSERT(k1 != 0.0, "normalization of 1st matrix row fails (all elements are zeros)");
     AASSERT(k2 != 0.0, "normalization of 2nd matrix row fails (all elements are zeros)");
     AASSERT(k3 != 0.0, "normalization of 3rd matrix row fails (all elements are zeros)");
 
-    return RealMatrix9 {m[0] / k1, m[1] / k1, m[2] / k1,
+    return RealMatrix9{ m[0] / k1, m[1] / k1, m[2] / k1,
                         m[3] / k2, m[4] / k2, m[5] / k2,
                         m[6] / k3, m[7] / k3, m[8] / k3 };
 
