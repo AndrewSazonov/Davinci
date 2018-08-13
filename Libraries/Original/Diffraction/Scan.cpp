@@ -57,7 +57,6 @@
 */
 As::Scan::Scan(QObject* parent)
     : QObject(parent) {
-    //connect(this, &sizeChanged, this, &Counter::setValue);
     init(); }
 
 /*!
@@ -66,19 +65,11 @@ As::Scan::Scan(QObject* parent)
 As::Scan::~Scan() {
     ADESTROYED; }
 
-
-
-
-As::ScanSection_t& As::Scan::operator[](const QString &key)
-{
-    return m_scan[key];
-}
-
 /*!
     Initializes a scan with default parameters.
 */
 void As::Scan::init() {
-    // Not completed yet!
+    // Not completed yet!?
 
     // Single calculated values (doesn't depend on polarisation)
     m_numLeftSkipPoints  = MIN_NUM_SKIP;
@@ -102,7 +93,10 @@ void As::Scan::init() {
         m_structFactor[countType] = qQNaN(); m_structFactorErr[countType] = qQNaN(); } }
 
 /*!
-    Sets the \a data to the given scan \a section and \a entry.
+    Replaces the \a data of the given scan \a section and \a entry, if they exist.
+
+    If the scan doesn't contain [section][entry]["data"] yet, but the ScanDatabase does,
+    the data is inserted.
 */
 void As::Scan::setData(const QString& section,
                        const QString& entry,
@@ -122,15 +116,16 @@ void As::Scan::setData(const QString& section,
         AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); } }
 
 /*!
-    Appends the \a data to the given scan \a section and \a entry.
+    Appends the \a data of the given scan \a section and \a entry, if they exist.
+
+    If the scan doesn't contain [section][entry]["data"] yet, but the ScanDatabase does,
+    the data is inserted.
 */
 void As::Scan::appendData(const QString& section,
                           const QString& entry,
                           const QString& data) {
-    QString message;
-
     if (data.isEmpty()) {
-        AASSERT(false, QString("empty data array passed to the function"));
+        //AASSERT(false, QString("empty data array [%1][%2] passed to the function").arg(section).arg(entry));
         return; }
 
     if (m_scan[section].contains(entry)) {
@@ -144,7 +139,7 @@ void As::Scan::appendData(const QString& section,
         AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); } }
 
 /*!
-    Removes the given scan \a section and \a entry.
+    Removes the given \a section and \a entry from the scan.
 */
 void As::Scan::removeData(const QString& section,
                           const QString& entry) {
@@ -155,7 +150,7 @@ void As::Scan::removeData(const QString& section,
         AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); } }
 
 /*!
-    Returns the required field value of the given scan \a section, \a entry and \a name.
+    Returns the required field value by the given scan \a section, \a entry and field \a name.
 
     If an error occurs, *\a{ok} is set to \c false; otherwise *\a{ok} is set to \c true.
 */
@@ -196,31 +191,17 @@ const QString As::Scan::format(const QString& section,
 
 /*!
     Returns the single data value of the given scan \a section and \a entry
-    formatted with \a format.
-*/
-const QString As::Scan::printDataSingle(const QString& section,
-                                        const QString& entry,
-                                        const QString& format) const {
-    if (m_scan[section].contains(entry)) {
-        const QString string = m_scan[section][entry]["data"];
-        return As::FormatString(string, format); }
-
-    AASSERT(false, QString("no such section '%1' or entry '%2' in the current scan").arg(section).arg(entry));
-    return QString(); }
-
-/*!
-    Returns the single data value of the given scan \a section and \a entry.
-
-    \overload
+    formatted with its corresponding format.
 */
 const QString As::Scan::printDataSingle(const QString& section,
                                         const QString& entry) const {
-    if (m_scan[section].contains(entry)) {
-        const QString format = m_scan[section][entry]["format"];
-        return printDataSingle(section, entry, format); }
+    if (!m_scan[section].contains(entry)) {
+        AASSERT(false, QString("no such section '%1' or entry '%2' in the current scan"));
+        return QString(); }
 
-    AASSERT(false, QString("no such section '%1' or entry '%2' in the current scan").arg(section).arg(entry));
-    return QString(); }
+    const QString format = m_scan[section][entry]["format"];
+    const QString data = m_scan[section][entry]["data"];
+    return As::FormatString(data, format); }
 
 /*!
     Returns the range data values of the given scan \a section and \a entry.
@@ -234,14 +215,14 @@ const QString As::Scan::printDataRange(const QString& section,
     const QString format = m_scan[section][entry]["format"];
 
     if (!format.contains("f")) {
-        return printDataSingle(section, entry, format); }
+        return printDataSingle(section, entry); }
 
     const As::RealVector data = m_scan[section][entry]["data"];
     const qreal min = data.min();
     const qreal max = data.max();
 
-    if (qAbs(max / min) < 1.01 OR max - min < 0.01) {
-        return printDataSingle(section, entry, format); }
+    if ( ( qAbs(max / min) < 1.01 ) OR ( (max - min) < 0.01 ) ) {
+        return printDataSingle(section, entry); }
 
     return QString().sprintf(qPrintable("%" + format + " - " + "%" + format), min, max); }
 
@@ -252,13 +233,21 @@ const QStringList As::Scan::keys() const {
     return m_scan.keys(); }
 
 /*!
-    Returns the value associated with the \a key.
+    Returns the As::ScanSection_t associated with the key \a key as a modifiable reference.
+
+    If the map contains no item with key \a key, the function inserts a default-constructed
+    value into the map with key \a key, and returns a reference to it. If the map contains
+    multiple items with key \a key key, this function returns a reference to the most recently
+    inserted value.
+*/
+As::ScanSection_t& As::Scan::operator[](const QString& key) {
+    return m_scan[key]; }
+
+/*!
+    \overload
 */
 const As::ScanSection_t As::Scan::operator[](const QString& key) const {
     return m_scan[key]; }
-//const QMap<QString, QMap<QString, QString> > &operator[](const QString &akey) const;
-//As::Scan &operator[](const int i);
-//const As::Scan &operator[](const int i) const;
 
 /*!
     Returns the scan as a QMap.
@@ -273,20 +262,19 @@ void As::Scan::setScanAngle(const QString& name) {
     m_scanAngle = name; }
 
 /*!
-    Finds the scan angle and sets....
+    Finds the scan angle and sets it.
 */
-void As::Scan::findScanAngle() {
+void As::Scan::findAndSetScanAngle() {
 
-    // Set scan angle, if not yet setted
     const QStringList subitemKeys = m_scan["angles"].keys();
 
     for (const auto& subitemKey : subitemKeys) {
         const As::RealVector v = data("angles", subitemKey);
 
-        /// add all the angles with non-zero range to the list of scan angles!?
-        /// and allow user to chose the axis in the plot
+        // add all the angles with non-zero range to the list of scan angles,
+        // and allow user to chose the axis in the plot!?
 
-        if (v.simplify().size() > 1 AND v.range() > 0.1) {
+        if ( ( v.simplify().size() > 1 ) AND ( v.range() > 0.1 ) ) {
             setScanAngle(subitemKey);
             return; } } }
 

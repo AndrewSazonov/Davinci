@@ -288,7 +288,7 @@ void As::ScanArray::extractHeidiLog(const int fileIndex,
             extractDataFromTable(scan, headerMap);
 
             // Define scan angle name
-            scan->findScanAngle();
+            scan->findAndSetScanAngle();
 
             // Append single scan to the scan array
             appendScan(scan); } } }
@@ -395,7 +395,7 @@ void As::ScanArray::extractNicosData(const int fileIndex,
         scan->setData("intensities", "Monitor2(-)", monitor2down.toQString()); }
 
     // Define scan angle name
-    scan->findScanAngle();
+    scan->findAndSetScanAngle();
 
     // Append single scan to the scan array
     appendScan(scan); }
@@ -494,7 +494,7 @@ void As::ScanArray::extract6t2Data(const int fileIndex,
 
     // Define scan angle name
     //scan->setScanAngle("Omega");
-    scan->findScanAngle();
+    scan->findAndSetScanAngle();
 
     // Append single scan to the scan array
     appendScan(scan); }

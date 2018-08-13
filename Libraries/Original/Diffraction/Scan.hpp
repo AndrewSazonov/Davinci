@@ -41,8 +41,6 @@ class Scan : public QObject {
     Scan(QObject* parent = Q_NULLPTR);
     ~Scan();
 
-    As::ScanSection_t& operator[](const QString& key);
-
     void init();
 
     void setData(const QString& section,
@@ -66,9 +64,6 @@ class Scan : public QObject {
                          bool* ok = Q_NULLPTR) const;
 
     const QString printDataSingle(const QString& section,
-                                  const QString& entry,
-                                  const QString& format) const;
-    const QString printDataSingle(const QString& section,
                                   const QString& entry) const;
     const QString printDataRange(const QString& section,
                                  const QString& entry) const;
@@ -76,6 +71,8 @@ class Scan : public QObject {
     const QStringList keys() const;
 
     const As::ScanSection_t operator[](const QString& key) const;
+    As::ScanSection_t& operator[](const QString& key);
+
     const As::Scan_t toQMap() const;
 
 
@@ -103,7 +100,7 @@ class Scan : public QObject {
     int scanLine() const;
     const QString scanAngle() const;
     void setScanAngle(const QString& name);
-    void findScanAngle();
+    void findAndSetScanAngle();
 
     //protected:
 
