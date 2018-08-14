@@ -551,7 +551,11 @@ As::GroupBox *As::Window::create_Plot_ScanTreatGroup(const QString &objectName,
 
     auto individualTreat = new As::CheckBox(tr("Individual treatment of current scan"));
     individualTreat->setToolTip(tr("Treat current scan with independent settings"));
+
+    ADEBUG << "lknernkerjnvkjenbkj 1 " << currentScan();
+
     connect(individualTreat, &As::CheckBox::clicked, this, &As::Window::treatIndividually_Slot);
+    ///connect(individualTreat, &As::CheckBox::clicked, currentScan(), &As::Scan::setIndividuallyTreated);
     connect(this, &As::Window::individualTreatStateChanged_Signal, individualTreat, &As::CheckBox::setCheckedSilently);
 
     auto layout = new QVBoxLayout;

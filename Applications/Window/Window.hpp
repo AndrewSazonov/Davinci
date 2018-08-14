@@ -179,7 +179,7 @@ private slots:
     void visualizePlots_Slot();
 
     // For plot sidebar tab
-    void treatIndividually_Slot(const bool treat);
+    void treatIndividually_Slot(const bool b);
 
     void selectNeighborsRemoveType(int index);
     void setLeftSkipCount_Slot(const int count);
@@ -188,7 +188,6 @@ private slots:
     void selectPeakAnalysisType(int index);
     void selectBkgDetectType(int index);
     void selectPeakFitType(int index);
-    void selectIntegrationSubType_Slot(const QString &type);
     void setLeftBkgCount_Slot(const int count);
     void setRightBkgCount_Slot(const int count);
 

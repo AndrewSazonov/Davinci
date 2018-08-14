@@ -95,19 +95,20 @@ class Scan : public QObject {
 
     void setFileIndex(const int index);
     int fileIndex() const;
-
-    //void setRemoveNeighborsType(const As::PlotType plotType);
-    //As::PlotType plotType() const;
+    int m_fileIndex;
 
     void setPlotType(const As::PlotType plotType);
     As::PlotType plotType() const;
+    As::PlotType m_plotType;
 
     void setScanStep(const qreal value);
     qreal scanStep() const;
+    qreal m_scanStep = qQNaN();
 
     const QString scanAngle() const;
     void setScanAngle(const QString& name);
     void findAndSetScanAngle();
+    QString m_scanAngle;
 
     void setAbsoluteFilePath(const QString& name);
     const QString absoluteFilePath() const;
@@ -115,8 +116,19 @@ class Scan : public QObject {
     const QString baseName() const;
     const QString absolutePathWithBaseName() const;
     const QString absolutePathWithBaseNameAndHkl() const;
+    QString m_absoluteFilePath;
 
+    void createExtractedTableModel();
+    QStandardItemModel* extractedTableModel() const;
+    QStandardItemModel* m_extractedTableModel;
 
+    // sidebar 'scan treatment' group
+
+    void setIndividuallyTreated(const bool b);
+    bool isIndividuallyTreated() const;
+    bool m_isIndividuallyTreated = false;
+
+    // sidebar 'scan correction' group
 
     enum NeighborsRemoveType { ManualNeighborsRemove, AutoNeighborsRemove };
     Q_ENUM(NeighborsRemoveType)
@@ -125,6 +137,7 @@ class Scan : public QObject {
     As::Scan::NeighborsRemoveType neighborsRemoveType() const;
     As::Scan::NeighborsRemoveType m_neighborsRemoveType = As::Scan::ManualNeighborsRemove;
 
+    // sidebar 'peak integration' group -> rename to 'peak analysis' group?
     //https://www.originlab.com/index.aspx?go=products/origin/dataanalysis/peakanalysis
 
     enum PeakAnalysisType { PeakIntegration, PeakFit };
@@ -172,41 +185,17 @@ class Scan : public QObject {
     QMap<QString, qreal> m_structFactor, m_structFactorErr;
 
     // MISC
-    QStandardItemModel* m_tableModel;
     qreal m_mcCandlishFactor;
 
-    bool m_isIndividuallyTreated = false;
-    //bool m_isAlreadyTreated = false;
 
 
-    //QString m_integrationSubType = BKG_TYPES[0];
-
-    /*
-        const QHash<int, QString> As::Scan::BkgTypes{
-        {As::Scan::autoBkg,  "Automatically detect background"},
-        {As::Scan::manualBkg,"Manually set background"}};
-    */
-
-
-
-
-
-  public slots:
-    void createExtractedTableModel();
-
-  private:
 
 
 
 
   private:
     As::Scan_t m_scan;
-    QString m_scanAngle;
 
-    QString m_absoluteFilePath; // currently used!!! absoluteFilePath
-    int m_fileIndex;
-    As::PlotType m_plotType;
-    qreal m_scanStep = qQNaN();
 
 };
 

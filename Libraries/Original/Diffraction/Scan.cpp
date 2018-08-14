@@ -84,7 +84,7 @@ void As::Scan::init() {
     m_peakPosition       = qQNaN(); // Is it used? Calc esd?
     m_plotType           = As::PlotType(0);
 
-    // Multi calculated values (depend on polarisation).
+    // Multi calculated values (depend on polarisation, i.e. COUNT_TYPES).
     for (const QString& countType : As::COUNT_TYPES) {
         m_maxPeakInty[countType]  = qQNaN(); m_maxPeakIntyErr[countType]  = qQNaN();
         m_sumPeakInty[countType]  = qQNaN(); m_sumPeakIntyErr[countType]  = qQNaN();
@@ -440,7 +440,6 @@ int As::Scan::scanLine() const {
 /*!
     Creates the table model of extracted scans.
 */
-// Get rid of this in the scan!
 void As::Scan::createExtractedTableModel() {
 
     // Get the table heading, cell elements values and their formats
@@ -471,19 +470,37 @@ void As::Scan::createExtractedTableModel() {
 
     // Create the table model based on the extracted one from above
 
-    m_tableModel = new QStandardItemModel;
-    m_tableModel->setColumnCount(columnCount);
-    m_tableModel->setRowCount(rowCount);
+    m_extractedTableModel = new QStandardItemModel;
+    m_extractedTableModel->setColumnCount(columnCount);
+    m_extractedTableModel->setRowCount(rowCount);
 
     for (int column = 0; column < columnCount; ++column) {
         // Headers
-        m_tableModel->setHorizontalHeaderItem(column, new QStandardItem(headers[column]));
+        m_extractedTableModel->setHorizontalHeaderItem(column, new QStandardItem(headers[column]));
         // Values
         for (int row = 0; row < rowCount; ++row) {
             auto const value = As::FormatString( dataTable[column][row], formats[column] );
-            m_tableModel->setItem( row, column, new QStandardItem(value) );
-            m_tableModel->item(row, column)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter); } } }
+            m_extractedTableModel->setItem( row, column, new QStandardItem(value) );
+            m_extractedTableModel->item(row, column)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter); } } }
 
+/*!
+    Returns the table model of extracted scans as a pointer.
+*/
+QStandardItemModel* As::Scan::extractedTableModel() const {
+    return m_extractedTableModel; }
+
+/*!
+    Returns the true if scan should be treated with individual settings with regards
+    to the outhers. Otherwise returns false.
+*/
+bool As::Scan::isIndividuallyTreated() const {
+    return m_isIndividuallyTreated; }
+
+/*!
+    Sets the individual treatment with \a individuallyTreated.
+*/
+void As::Scan::setIndividuallyTreated(const bool b) {
+    m_isIndividuallyTreated = b; }
 
 /*!
     \variable As::Scan::NeighborsRemoveTypeDict

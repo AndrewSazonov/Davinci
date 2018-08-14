@@ -77,7 +77,7 @@ void As::Window::gotoScan_Slot(const int index)
     emit currentScanChanged_Signal(index);
 
     //if (!scanAt(index)->m_isIndividuallyTreated) {
-    if (!currentScan()->m_isIndividuallyTreated) {
+    if (!currentScan()->isIndividuallyTreated()) {
         currentScan()->setNeighborsRemoveType( genericScan()->neighborsRemoveType() );
 
         currentScan()->m_numLeftSkipPoints = genericScan()->m_numLeftSkipPoints;
@@ -106,7 +106,7 @@ void As::Window::gotoScan_Slot(const int index)
         emit excludeScanStateChanged_Signal(false);
 
     // Update the extracted tables
-    emit extractedTableModelChanged(scanAt(index)->m_tableModel);
+    emit extractedTableModelChanged(scanAt(index)->extractedTableModel());
 
     // Update the text widget
     m_inputTextWidget->setCursorPosition(currentScan()->scanLine());
@@ -117,7 +117,7 @@ void As::Window::gotoScan_Slot(const int index)
         //updateChangeScanGroup(scanAt(index));
         update_Plot_ExpDetailsGroup(scanAt(index));
         update_Plot_ExpAnglesGroup(scanAt(index));
-        emit individualTreatStateChanged_Signal(scanAt(index)->m_isIndividuallyTreated);
+        emit individualTreatStateChanged_Signal(scanAt(index)->isIndividuallyTreated());
         update_Plot_ScanCorrectGroup(scanAt(index));
         update_Plot_PeakIntegrateGroup(scanAt(index)); }
 
@@ -510,11 +510,12 @@ void As::Window::visualizePlots_Slot()
 /*!
 ...
 */
-void As::Window::treatIndividually_Slot(const bool treat)
+void As::Window::treatIndividually_Slot(const bool b)
 {
-    ADEBUG << "treat:" << treat;
+    if (currentScan() == Q_NULLPTR)
+        return;
 
-    currentScan()->m_isIndividuallyTreated = treat; // make slot in As::Scan!
+    currentScan()->setIndividuallyTreated(b);
 }
 
 /*!
@@ -526,7 +527,7 @@ void As::Window::selectNeighborsRemoveType(int index)
 
     ADEBUG << type;
 
-    if (currentScan()->m_isIndividuallyTreated) {
+    if (currentScan()->isIndividuallyTreated()) {
         currentScan()->setNeighborsRemoveType( type ); }
     else {
         genericScan()->setNeighborsRemoveType( type ); }
@@ -541,7 +542,7 @@ void As::Window::setLeftSkipCount_Slot(const int count)
 {
     ADEBUG << "LeftSkipCount:" << count;
 
-    if (currentScan()->m_isIndividuallyTreated)
+    if (currentScan()->isIndividuallyTreated())
         currentScan()->m_numLeftSkipPoints = count; // make slot in As::Scan?
     else
         genericScan()->m_numLeftSkipPoints = count;
@@ -557,7 +558,7 @@ void As::Window::setRightSkipCount_Slot(const int count)
 {
     ADEBUG << "RightSkipCount:" << count;
 
-    if (currentScan()->m_isIndividuallyTreated)
+    if (currentScan()->isIndividuallyTreated())
         currentScan()->m_numRightSkipPoints = count; // make slot in As::Scan?
     else
         genericScan()->m_numRightSkipPoints = count;
@@ -575,7 +576,7 @@ void As::Window::selectPeakAnalysisType(int index)
 
     ADEBUG << type;
 
-    if (currentScan()->m_isIndividuallyTreated) {
+    if (currentScan()->isIndividuallyTreated()) {
         currentScan()->setPeakAnalysisType( type ); }
     else {
         genericScan()->setPeakAnalysisType( type ); }
@@ -592,7 +593,7 @@ void As::Window::selectBkgDetectType(int index)
 
     ADEBUG << type;
 
-    if (currentScan()->m_isIndividuallyTreated) {
+    if (currentScan()->isIndividuallyTreated()) {
         currentScan()->setBkgDetectType( type ); }
     else {
         genericScan()->setBkgDetectType( type ); }
@@ -609,7 +610,7 @@ void As::Window::selectPeakFitType(int index)
 
     ADEBUG << type;
 
-    if (currentScan()->m_isIndividuallyTreated) {
+    if (currentScan()->isIndividuallyTreated()) {
         currentScan()->setPeakFitType( type ); }
     else {
         genericScan()->setPeakFitType( type ); }
@@ -617,40 +618,6 @@ void As::Window::selectPeakFitType(int index)
     updateScan_Slot();
 }
 
-
-
-
-/*!
-...
-*/
-void As::Window::selectIntegrationSubType_Slot(const QString &type)
-{
-    ADEBUG << "Integration sub type:" << type;
-
-//    if (currentScan()->m_isIndividuallyTreated)
-//        currentScan()->m_integrationSubType = type; // make slot in As::Scan?
-//    else
-//        genericScan()->m_integrationSubType = type;
-
-    //currentScan()->m_integrationSubType = genericScan()->m_integrationSubType;
-
-    /*
-    currentScan()->m_integrationSubType = type; // make slot in As::Scan?
-
-    if (!currentScan()->m_isIndividuallyTreated) {
-        genericScan()->m_integrationSubType = type;
-
-        currentScan()->m_numLeftSkipPoints = genericScan()->m_numLeftSkipPoints;
-        currentScan()->m_numRightSkipPoints = genericScan()->m_numRightSkipPoints;
-        currentScan()->m_numLeftBkgPoints = genericScan()->m_numLeftBkgPoints;
-        currentScan()->m_removeNeighborsType = genericScan()->m_removeNeighborsType;
-        currentScan()->m_integrationType = genericScan()->m_integrationType;
-        currentScan()->m_integrationSubType = genericScan()->m_integrationSubType;
-    }
-    */
-
-    updateScan_Slot();
-}
 
 /*!
 ...
@@ -662,7 +629,7 @@ void As::Window::setLeftBkgCount_Slot(const int count)
     //if (currentScan()->m_integrationSubType == "Automatically detect background")
     //    return;
 
-    if (currentScan()->m_isIndividuallyTreated)
+    if (currentScan()->isIndividuallyTreated())
         currentScan()->m_numLeftBkgPoints = count; // make slot in As::Scan?
     else
         genericScan()->m_numLeftBkgPoints = count;
@@ -680,7 +647,7 @@ void As::Window::setRightBkgCount_Slot(const int count)
     //if (currentScan()->m_integrationSubType == "Automatically detect background")
     //    return;
 
-    if (currentScan()->m_isIndividuallyTreated)
+    if (currentScan()->isIndividuallyTreated())
         currentScan()->m_numRightBkgPoints = count; // make slot in As::Scan?
     else
         genericScan()->m_numRightBkgPoints = count;
