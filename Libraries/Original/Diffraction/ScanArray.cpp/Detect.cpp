@@ -26,7 +26,7 @@
 /*!
     Returns true if the input file type is detected.
 */
-bool As::ScanArray::detectInputFileType() {
+bool As::ScanArray::detectInputFilesType() {
     ADEBUG;
 
     QList<QStringList> filesAsListOfStringLists;

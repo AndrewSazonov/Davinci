@@ -70,7 +70,7 @@ class ScanArray : public QObject {
                                    const QString& filter);
 
     // ScanArray.cpp/Detect.cpp
-    bool detectInputFileType();
+    bool detectInputFilesType();
 
     // ScanArray.cpp/Extract.cpp
     void extractDataFromFile(const int index);
