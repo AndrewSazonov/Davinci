@@ -371,30 +371,35 @@ void As::Scan::setPlotType(const As::PlotType plotType) {
 As::PlotType As::Scan::plotType() const {
     return m_plotType; }
 
+/*!
+    Returns the averaged Miller index value depends on its name (H, K, or L).
+*/
+qreal As::Scan::millerIndex(const QString& name) const {
+    if (name == "H" OR name == "K" OR name == "L") {
+        return As::RealVector(m_scan["indices"][name]["data"]).mean(); }
 
-
-
-
-qreal As::Scan::millerIndex(const QString& index) const {
-    if (index == "H" OR index == "K" OR index == "L") {
-        return As::RealVector(m_scan["indices"][index]["data"]).mean(); }
-
+    AASSERT(false, QString("Miller index name '%1' is not correct").arg(name));
     return qQNaN(); }
 
-
+/*!
+    Returns the number of points (detector data count) in the scan.
+*/
 qreal As::Scan::numPoints() const {
 
-    // if not all the COUNT_TYPES were measured...
+    // Search for maximum of all the COUNT_TYPES
     int numPointsMax = 0;
 
     for (const QString& countType : As::COUNT_TYPES) {
-        //const QString string = data("intensities", "Detector" + countType);
-        const QString& string = m_scan["intensities"]["Detector" + countType]["data"];
+
+        //const QString& string = m_scan["intensities"]["Detector" + countType]["data"];
+        const QString string = data("intensities", "Detector" + countType);
 
         if (string.length() == 0) {
             continue; }
 
-        // too slow: 3.9s
+        // Possible solutions
+
+        // simple, but too slow: 3.9s
         //const int numPoints = string.split(" ", QString::SkipEmptyParts).size();
 
         // still slow: 1.2s
@@ -432,106 +437,169 @@ int As::Scan::scanLine() const {
     return 1; }
 
 
-
-
-
-
-
-/*!
-    \variable As::Scan::BKG_TYPES
-    \brief the background determination types available for the scan.
-*/
-const QStringList As::Scan::BKG_TYPES = {
-    "Automatically detect background",
-    "Manually set background" };
-
-/*!
-    \variable As::Scan::FIT_TYPES
-    \brief the peak profile fit types available for the scan.
-*/
-const QStringList As::Scan::FIT_TYPES = {
-    "Gaussian function",
-    "Lorentzian function",
-    "Pseudo-Voigt function" };
-
 /*!
     Creates the table model of extracted scans.
 */
 // Get rid of this in the scan!
-void As::Scan::createExtractedTableModel_Slot() {
-    /*
-        if (m_tableModel == tableModel)
-        return;
+void As::Scan::createExtractedTableModel() {
 
-        m_tableModel = tableModel;
-    */
+    // Get the table heading, cell elements values and their formats
+    // from the selected scan sections listed in 'items'
 
     QStringList headers;
     QStringList formats;
     QList<QStringList> dataTable;
 
-    // Make a list of items to be potentially used in the table
-    const QStringList items{"indices", "angles", "intensities", "conditions" };
-    //////ADEBUG << items;
-
-    // Go through all their subitems
+    const QStringList items({ "indices", "angles", "intensities", "conditions" });
     for (const QString& item : items) {
-        const QStringList subitems = this->operator[](item).keys();
 
-        /////ADEBUG << item << subitems;
+        const QStringList subitems = m_scan.value(item).keys();
         for (const QString& subitem : subitems) {
-            bool ok;
-            const QString str = data(item, subitem, &ok);
 
-            //////ADEBUG << "----------------------" << item << subitem << ok;
-            if (ok) {
+            const QString dataString = data(item, subitem);
+            const QString formatString = format(item, subitem);
+            if (!dataString.isEmpty() AND !formatString.isEmpty()) {
+
                 headers << subitem;
-                dataTable << str.split(" ");
-                formats << format(item, subitem); } } }
+                formats << formatString;
+                dataTable << dataString.split(" "); } } }
 
-    ///ADEBUG;
-    // Create tableModel
-    // Number of columns and rows
+    // Extracted table size
+
     int columnCount = dataTable.size();
-    ///ADEBUG << columnCount;
     int rowCount = dataTable[0].size();
-    ///ADEBUG << rowCount;
-    ///
 
-    //ADEBUG << dataTable;
+    // Create the table model based on the extracted one from above
 
-    // Model
     m_tableModel = new QStandardItemModel;
-    //auto m_tableModel = new QAbstractItemModel();
-
-    ////scan.setExtractedTablesModels_Slot(new QStandardItemModel);
-    ////m_tableModel->setRowCount(qMax(rowCount, 50));
-    ////m_tableModel->setColumnCount(qMax(columnCount, 15));
-    m_tableModel->setRowCount(rowCount);
     m_tableModel->setColumnCount(columnCount);
+    m_tableModel->setRowCount(rowCount);
 
-    ///ADEBUG;
-    // Fill model
     for (int column = 0; column < columnCount; ++column) {
         // Headers
         m_tableModel->setHorizontalHeaderItem(column, new QStandardItem(headers[column]));
-
-        ///ADEBUG << column;
         // Values
         for (int row = 0; row < rowCount; ++row) {
-            //ADEBUG_H2 << column << row << dataTable[column][row] << As::FormatString(dataTable[column][row], formats[column]);
-            //scan.m_tableModel->setItem(row, column, new QStandardItem(dataTable[column][row]));
-            m_tableModel->setItem(row, column, new QStandardItem(As::FormatString(dataTable[column][row], formats[column])));
-            m_tableModel->item(row, column)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter); } }
+            auto const value = As::FormatString( dataTable[column][row], formats[column] );
+            m_tableModel->setItem( row, column, new QStandardItem(value) );
+            m_tableModel->item(row, column)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter); } } }
 
-    //emit extractedTablesModelsChanged_Signal(tableModel);
-}
 
-/*
-    const QHash<int, QString> As::Scan::BkgTypes{
-    {As::Scan::autoBkg,  "Automatically detect background"},
-    {As::Scan::manualBkg,"Manually set background"}};
+/*!
+    \variable As::Scan::NeighborsRemoveTypeDict
+    \brief the dictionary, which stores the types of the neighbor peaks removing procedures
+    as enum and thier associated descriptions as string.
 */
+const QMap<As::Scan::NeighborsRemoveType, QString> As::Scan::NeighborsRemoveTypeDict  = {
+    { As::Scan::ManualNeighborsRemove, "Manually remove neighbors" },
+    { As::Scan::AutoNeighborsRemove, "Automatically remove neighbors" } };
+
+/*!
+    Sets the neighbor peaks removing type as \a type.
+*/
+void As::Scan::setNeighborsRemoveType(const As::Scan::NeighborsRemoveType type) {
+    m_neighborsRemoveType = type; }
+
+/*!
+    Returns the neighbor peaks removing type.
+*/
+As::Scan::NeighborsRemoveType As::Scan::neighborsRemoveType() const {
+    return m_neighborsRemoveType; }
+
+/*!
+    \enum As::Scan::BkgDetectType
+
+    This enum type describes types of the background detection procedures.
+
+    \value ManualBkgSet     Manually set background
+    \value AutoBkgDetect    Automatically detect background
+*/
+
+/*!
+    \enum As::Scan::PeakAnalysisType
+
+    This enum type describes types of the peak analysis procedures.
+
+    \value PeakIntegration    Conventional peak integration
+*/
+
+/*!
+    \variable As::Scan::PeakAnalysisTypeDict
+    \brief the dictionary, which stores the types of the peak analysis procedures
+    as enum and thier associated descriptions as string.
+*/
+const QMap<As::Scan::PeakAnalysisType, QString> As::Scan::PeakAnalysisTypeDict  = {
+    //{ As::Scan::PeakFit, "Peak fitting" }
+    { As::Scan::PeakIntegration, "Conventional peak integration" } };
+
+/*!
+    Sets the neighbor peaks removing type as \a type.
+*/
+void As::Scan::setPeakAnalysisType(const As::Scan::PeakAnalysisType type) {
+    m_peakAnalysisType = type; }
+
+/*!
+    Returns the neighbor peaks removing type.
+*/
+As::Scan::PeakAnalysisType As::Scan::peakAnalysisType() const {
+    return m_peakAnalysisType; }
+
+/*!
+    \variable As::Scan::BkgDetectTypeDict
+    \brief the dictionary, which stores the types of the background detection procedures
+    as enum and thier associated descriptions as string.
+*/
+const QMap<As::Scan::BkgDetectType, QString> As::Scan::BkgDetectTypeDict  = {
+    { As::Scan::ManualBkgSet, "Manually set background" },
+    { As::Scan::AutoBkgDetect, "Automatically detect background" } };
+
+/*!
+    Sets the neighbor peaks removing type as \a type.
+*/
+void As::Scan::setBkgDetectType(const As::Scan::BkgDetectType type) {
+    m_bkgDetectType = type; }
+
+/*!
+    Returns the neighbor peaks removing type.
+*/
+As::Scan::BkgDetectType As::Scan::bkgDetectType() const {
+    return m_bkgDetectType; }
+
+/*!
+    \enum As::Scan::PeakFitType
+
+    This enum type describes types of the peak fit functions.
+
+    \value GaussFit         Gaussian function
+    \value LorentzFit       Lorentzian function
+    \value PseudoVoigtFit   Pseudo-Voigt function
+*/
+
+/*!
+    \variable As::Scan::PeakFitTypeDict
+    \brief the dictionary, which stores the types of the peak fit functions
+    as enum and thier associated descriptions as string.
+*/
+const QMap<As::Scan::PeakFitType, QString> As::Scan::PeakFitTypeDict  = {
+    { As::Scan::GaussFit, "Gaussian function" },
+    { As::Scan::LorentzFit, "Lorentzian function" },
+    { As::Scan::PseudoVoigtFit, "Pseudo-Voigt function" } };
+
+/*!
+    Sets the peak fit type as \a type.
+*/
+void As::Scan::setPeakFitType(const As::Scan::PeakFitType type) {
+    m_peakFitType = type; }
+
+/*!
+    Returns the peak fit type.
+*/
+As::Scan::PeakFitType As::Scan::peakFitType() const {
+    return m_peakFitType; }
+
+
+
+
 
 /**
     Overloads operator<< for QDebug to accept the Scan output.

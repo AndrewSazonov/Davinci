@@ -208,8 +208,9 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 
     qreal minRatio = qInf();
 
-    const bool autoSkip = scan->m_removeNeighborsType.contains("Automatically");
-    const bool autoBkg = scan->m_integrationSubType.contains("Automatically");
+    const bool autoSkip = (scan->neighborsRemoveType() == As::Scan::AutoNeighborsRemove);
+    const bool autoBkg = (scan->bkgDetectType() == As::Scan::AutoBkgDetect);
+            //scan->m_integrationSubType.contains("Automatically");
 
     // Automatically detect background and skip points
     if (autoBkg AND autoSkip) {
@@ -315,7 +316,8 @@ void As::ScanArray::adjustBkgPoints(As::Scan *scan)
 {
     //ADEBUG;
 
-    if (scan->m_integrationSubType == "Automatically detect background") {
+    if (scan->bkgDetectType() == As::Scan::AutoBkgDetect) {
+    //if (scan->m_integrationSubType == "Automatically detect background") {
         for (int i = 0; i < ADD_NUM_PEAK; ++i) {
             if (scan->m_numLeftBkgPoints > 1) {
                 --scan->m_numLeftBkgPoints;

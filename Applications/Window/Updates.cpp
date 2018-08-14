@@ -142,12 +142,12 @@ void As::Window::update_Plot_ScanCorrectGroup(const As::Scan *scan)
     ADEBUG;
 
     // Enable or disable left and right skip counts spin boxes
-    const bool b = (scan->m_removeNeighborsType.contains("Automatically")); // make similar to: (scan.m_integrationSubType == As::Scan::BKG_TYPES[0])?!
+    const bool b = (scan->neighborsRemoveType() == As::Scan::AutoNeighborsRemove);
     m_leftSkipCount->setDisabled(b);
     m_rightSkipCount->setDisabled(b);
 
     // Set remove neighbor type
-    m_removeNeighborsType->setCurrentText(scan->m_removeNeighborsType);
+    m_removeNeighborsType->setCurrentText(As::Scan::NeighborsRemoveTypeDict[scan->neighborsRemoveType()]);
 
     // Set number of non-skipped points
     m_nonSkipPointsCount->setText(QString::number(scan->m_numNonSkipPoints)); // chose Count or Num everywhere?!
@@ -175,12 +175,13 @@ void As::Window::update_Plot_PeakIntegrateGroup(const Scan *scan)
     ADEBUG;
 
     // Enable or disable left and right background counts spin boxes
-    const bool b = (scan->m_integrationSubType == As::Scan::BKG_TYPES[0]);
+    //const bool b = (scan->m_integrationSubType == As::Scan::AutoBkgDetect);
+    const bool b = (scan->bkgDetectType() == As::Scan::AutoBkgDetect);
     m_leftBkgCount->setDisabled(b);
     m_rightBkgCount->setDisabled(b);
 
     // Set background type
-    m_backgroundType->setCurrentText(scan->m_integrationSubType);
+    m_backgroundType->setCurrentText( As::Scan::BkgDetectTypeDict[ scan->bkgDetectType() ] );
 
     // Set number of peak points
     m_peakPointsCount->setText(QString::number(scan->m_numPeakPoints));

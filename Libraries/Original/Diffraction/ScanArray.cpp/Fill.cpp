@@ -86,7 +86,7 @@ void As::ScanArray::fillMissingDataArray(const int index) {
     scan->setData("number", "Batch", "1");
 
     // Creates the table model for the scan
-    scan->createExtractedTableModel_Slot(); }
+    scan->createExtractedTableModel(); }
 
 /*!
     Sets the unpolarised neutron data based on the polarised neutron diffraction

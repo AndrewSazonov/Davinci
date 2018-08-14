@@ -78,13 +78,15 @@ void As::Window::gotoScan_Slot(const int index)
 
     //if (!scanAt(index)->m_isIndividuallyTreated) {
     if (!currentScan()->m_isIndividuallyTreated) {
-        currentScan()->m_removeNeighborsType = genericScan()->m_removeNeighborsType;
+        currentScan()->setNeighborsRemoveType( genericScan()->neighborsRemoveType() );
 
         currentScan()->m_numLeftSkipPoints = genericScan()->m_numLeftSkipPoints;
         currentScan()->m_numRightSkipPoints = genericScan()->m_numRightSkipPoints;
 
-        currentScan()->m_integrationType = genericScan()->m_integrationType;
-        currentScan()->m_integrationSubType = genericScan()->m_integrationSubType;
+        currentScan()->setPeakAnalysisType( genericScan()->peakAnalysisType() );
+        currentScan()->setBkgDetectType( genericScan()->bkgDetectType() );
+        currentScan()->setPeakFitType( genericScan()->peakFitType() );
+        //currentScan()->m_integrationSubType = genericScan()->m_integrationSubType;
 
         currentScan()->m_numLeftBkgPoints = genericScan()->m_numLeftBkgPoints;
         currentScan()->m_numRightBkgPoints = genericScan()->m_numRightBkgPoints;
@@ -518,14 +520,16 @@ void As::Window::treatIndividually_Slot(const bool treat)
 /*!
 ...
 */
-void As::Window::selectRemoveNeighborsType_Slot(const QString &type)
+void As::Window::selectNeighborsRemoveType(int index)
 {
-    ADEBUG << "Remove neighbors type:" << type;
+    const auto type = static_cast<As::Scan::NeighborsRemoveType>(index);
 
-    if (currentScan()->m_isIndividuallyTreated)
-        currentScan()->m_removeNeighborsType = type; // make slot in As::Scan?
-    else
-        genericScan()->m_removeNeighborsType = type;
+    ADEBUG << type;
+
+    if (currentScan()->m_isIndividuallyTreated) {
+        currentScan()->setNeighborsRemoveType( type ); }
+    else {
+        genericScan()->setNeighborsRemoveType( type ); }
 
     updateScan_Slot();
 }
@@ -561,6 +565,61 @@ void As::Window::setRightSkipCount_Slot(const int count)
     updateScan_Slot();
 }
 
+
+/*!
+...
+*/
+void As::Window::selectPeakAnalysisType(int index)
+{
+    const auto type = static_cast<As::Scan::PeakAnalysisType>(index);
+
+    ADEBUG << type;
+
+    if (currentScan()->m_isIndividuallyTreated) {
+        currentScan()->setPeakAnalysisType( type ); }
+    else {
+        genericScan()->setPeakAnalysisType( type ); }
+
+    updateScan_Slot();
+}
+
+/*!
+...
+*/
+void As::Window::selectBkgDetectType(int index)
+{
+    const auto type = static_cast<As::Scan::BkgDetectType>(index);
+
+    ADEBUG << type;
+
+    if (currentScan()->m_isIndividuallyTreated) {
+        currentScan()->setBkgDetectType( type ); }
+    else {
+        genericScan()->setBkgDetectType( type ); }
+
+    updateScan_Slot();
+}
+
+/*!
+...
+*/
+void As::Window::selectPeakFitType(int index)
+{
+    const auto type = static_cast<As::Scan::PeakFitType>(index);
+
+    ADEBUG << type;
+
+    if (currentScan()->m_isIndividuallyTreated) {
+        currentScan()->setPeakFitType( type ); }
+    else {
+        genericScan()->setPeakFitType( type ); }
+
+    updateScan_Slot();
+}
+
+
+
+
 /*!
 ...
 */
@@ -568,10 +627,10 @@ void As::Window::selectIntegrationSubType_Slot(const QString &type)
 {
     ADEBUG << "Integration sub type:" << type;
 
-    if (currentScan()->m_isIndividuallyTreated)
-        currentScan()->m_integrationSubType = type; // make slot in As::Scan?
-    else
-        genericScan()->m_integrationSubType = type;
+//    if (currentScan()->m_isIndividuallyTreated)
+//        currentScan()->m_integrationSubType = type; // make slot in As::Scan?
+//    else
+//        genericScan()->m_integrationSubType = type;
 
     //currentScan()->m_integrationSubType = genericScan()->m_integrationSubType;
 

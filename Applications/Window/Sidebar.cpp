@@ -577,13 +577,15 @@ As::GroupBox *As::Window::create_Plot_ScanCorrectGroup(const QString &objectName
     //auto removeNeighborsType = new As::ComboBox;
     m_removeNeighborsType = new As::ComboBox;
     //m_removeNeighborsType->setToolTip(tr("???"));
-    m_removeNeighborsType->addItem(tr("Manually remove neighbors"));  // !!! make as m_backgroundType->addItems(As::Scan::BKG_TYPES);
-    m_removeNeighborsType->addItem(tr("Automatically remove neighbors"));
-    connect(m_removeNeighborsType, &As::ComboBox::currentTextChanged, this, &As::Window::selectRemoveNeighborsType_Slot); // Error in Linux
+    m_removeNeighborsType->addItems(QStringList(As::Scan::NeighborsRemoveTypeDict.values()));
+    //m_removeNeighborsType->setCurrentIndex(As::Scan::ManualNeighborsRemove);
+    connect(m_removeNeighborsType, qOverload<int>(&As::ComboBox::currentIndexChanged),
+            this, &As::Window::selectNeighborsRemoveType);
 
     // Relatives: Numbers of points to be skipped in the scan
     m_leftSkipCount = new As::SpinBox;
-    connect(m_leftSkipCount, qOverload<int>(&As::SpinBox::valueChanged), this, &As::Window::setLeftSkipCount_Slot);
+    connect(m_leftSkipCount, qOverload<int>(&As::SpinBox::valueChanged),
+            this, &As::Window::setLeftSkipCount_Slot);
 
     m_nonSkipPointsCount = new As::Label;
     m_nonSkipPointsCount->setObjectName("nonSkipPointsCount");
@@ -619,15 +621,17 @@ As::GroupBox *As::Window::create_Plot_PeakIntegrateGroup(const QString &objectNa
     auto integrationType = new As::ComboBox;
     //integrationType->setObjectName("integrationType");
     integrationType->setToolTip(tr("Select peak integration type"));
-    integrationType->addItem(tr("Conventional peak integration"));
+    integrationType->addItems(As::Scan::PeakAnalysisTypeDict.values());
+    connect(integrationType, qOverload<int>(&As::ComboBox::currentIndexChanged),
+            this, &As::Window::selectPeakAnalysisType);
 
     // Relatives: Background type
     //auto backgroundType = new As::ComboBox;
     m_backgroundType = new As::ComboBox;
-    //backgroundType->setObjectName("backgroundType");
     m_backgroundType->setToolTip(tr("Select algorithm for background estimation"));
-    m_backgroundType->addItems(As::Scan::BKG_TYPES);
-    connect(m_backgroundType, &As::ComboBox::currentTextChanged, this, &As::Window::selectIntegrationSubType_Slot); // Error in Linux
+    m_backgroundType->addItems(As::Scan::BkgDetectTypeDict.values());
+    connect(m_backgroundType, qOverload<int>(&As::ComboBox::currentIndexChanged),
+            this, &As::Window::selectBkgDetectType);
 
     // Relatives: Numbers of background points in the scan
     //auto bkgLeft = new As::SpinBox;
@@ -647,10 +651,11 @@ As::GroupBox *As::Window::create_Plot_PeakIntegrateGroup(const QString &objectNa
 
     // Relatives: Fit type
     auto fitType = new As::ComboBox;
-    //fitType->setObjectName("fitType");
-    fitType->setToolTip(tr("Select function for the peak fitting"));
-    fitType->addItems(As::Scan::FIT_TYPES);
+    //fitType->setToolTip(tr("Select function for the peak fitting"));
+    fitType->addItems(As::Scan::PeakFitTypeDict.values());
     fitType->hide(); //hide until implemented
+    connect(fitType, qOverload<int>(&As::ComboBox::currentIndexChanged),
+            this, &As::Window::selectPeakFitType);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(integrationType);
