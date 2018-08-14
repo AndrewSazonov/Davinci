@@ -225,7 +225,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              numLeftBkgPoints, numRightBkgPoints,
                                              0, 0,
-                                             scan->m_mcCandlishFactor);
+                                             scan->mcCandlishFactor());
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
                 if (ratio > 0 AND ratio < minRatio) {
                     minRatio = ratio;
@@ -244,7 +244,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              numLeftBkgPoints, numRightBkgPoints,
                                              numLeftSkipPoints, numRightSkipPoints,
-                                             scan->m_mcCandlishFactor);
+                                             scan->mcCandlishFactor());
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
                 //ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
                 if (ratio > 0 AND ratio < minRatio) {
@@ -270,7 +270,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              numLeftBkgPoints, numRightBkgPoints,
                                              scan->m_numLeftSkipPoints, scan->m_numRightSkipPoints,
-                                             scan->m_mcCandlishFactor);
+                                             scan->mcCandlishFactor());
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
                 //ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
                 if (ratio > 0 AND ratio < minRatio) {
@@ -290,7 +290,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                              scan->m_numLeftBkgPoints, scan->m_numRightBkgPoints,
                                              numLeftSkipPoints, numRightSkipPoints,
-                                             scan->m_mcCandlishFactor);
+                                             scan->mcCandlishFactor());
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
                 if (ratio > 0 AND ratio < minRatio) {
                     minRatio = ratio;
@@ -302,7 +302,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
         IntensityWithSigma(detector, sdetector,
                            scan->m_numLeftBkgPoints, scan->m_numRightBkgPoints,
                            scan->m_numLeftSkipPoints, scan->m_numRightSkipPoints,
-                           scan->m_mcCandlishFactor); }
+                           scan->mcCandlishFactor()); }
 
     // Update points
     scan->m_numNonSkipPoints = scan->numPoints() - scan->m_numLeftSkipPoints - scan->m_numRightSkipPoints;
@@ -452,7 +452,7 @@ void As::ScanArray::calcSumPeakInty(As::Scan *scan)
                                        scan->m_numRightBkgPoints,
                                        scan->m_numLeftSkipPoints,
                                        scan->m_numRightSkipPoints,
-                                       scan->m_mcCandlishFactor);
+                                       scan->mcCandlishFactor());
             scan->m_sumPeakInty[countType]    = intyWithSig[0];
             scan->m_sumPeakIntyErr[countType] = intyWithSig[1];
             // Set data for the auto appearance in the output table

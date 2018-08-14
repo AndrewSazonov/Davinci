@@ -69,22 +69,23 @@ As::Scan::~Scan() {
     Initializes a scan with default parameters.
 */
 void As::Scan::init() {
-    // Not completed yet!?
 
     // Single calculated values (doesn't depend on polarisation)
+
     m_numLeftSkipPoints  = MIN_NUM_SKIP;
     m_numRightSkipPoints = MIN_NUM_SKIP;
     m_numNonSkipPoints   = 0;
     m_numLeftBkgPoints   = MIN_NUM_BKG;
     m_numRightBkgPoints  = MIN_NUM_BKG;
     m_numPeakPoints      = 0;
+
     m_normMeanBkg        = qQNaN();
     m_fullWidthHalfMax   = qQNaN(); m_fullWidthHalfMaxErr = qQNaN();
     m_flippingRatio      = qQNaN(); m_flippingRatioErr    = qQNaN();
     m_peakPosition       = qQNaN(); // Is it used? Calc esd?
-    m_plotType           = As::PlotType(0);
 
     // Multi calculated values (depend on polarisation, i.e. COUNT_TYPES).
+
     for (const QString& countType : As::COUNT_TYPES) {
         m_maxPeakInty[countType]  = qQNaN(); m_maxPeakIntyErr[countType]  = qQNaN();
         m_sumPeakInty[countType]  = qQNaN(); m_sumPeakIntyErr[countType]  = qQNaN();
@@ -342,10 +343,10 @@ const QString As::Scan::absolutePathWithBaseName() const {
 */
 const QString As::Scan::absolutePathWithBaseNameAndHkl() const {
     return QString("%1_hkl(%2,%3,%4)").
-           arg(absolutePathWithBaseName()).
-           arg(millerIndex("H"), 0, 'f', 3).
-           arg(millerIndex("K"), 0, 'f', 3).
-           arg(millerIndex("L"), 0, 'f', 3); }
+           arg( absolutePathWithBaseName() ).
+           arg( millerIndex("H"), 0, 'f', 3 ).
+           arg( millerIndex("K"), 0, 'f', 3 ).
+           arg( millerIndex("L"), 0, 'f', 3 ); }
 
 /*!
     Sets the \a index of the scan file.
@@ -524,15 +525,6 @@ As::Scan::NeighborsRemoveType As::Scan::neighborsRemoveType() const {
     return m_neighborsRemoveType; }
 
 /*!
-    \enum As::Scan::BkgDetectType
-
-    This enum type describes types of the background detection procedures.
-
-    \value ManualBkgSet     Manually set background
-    \value AutoBkgDetect    Automatically detect background
-*/
-
-/*!
     \enum As::Scan::PeakAnalysisType
 
     This enum type describes types of the peak analysis procedures.
@@ -560,6 +552,15 @@ void As::Scan::setPeakAnalysisType(const As::Scan::PeakAnalysisType type) {
 */
 As::Scan::PeakAnalysisType As::Scan::peakAnalysisType() const {
     return m_peakAnalysisType; }
+
+/*!
+    \enum As::Scan::BkgDetectType
+
+    This enum type describes types of the background detection procedures.
+
+    \value ManualBkgSet     Manually set background
+    \value AutoBkgDetect    Automatically detect background
+*/
 
 /*!
     \variable As::Scan::BkgDetectTypeDict
@@ -614,9 +615,17 @@ void As::Scan::setPeakFitType(const As::Scan::PeakFitType type) {
 As::Scan::PeakFitType As::Scan::peakFitType() const {
     return m_peakFitType; }
 
+/*!
+    Sets the McCandlish Factor based on the file \a type.
+*/
+void As::Scan::setMcCandlishFactor(const qreal val) {
+    m_mcCandlishFactor = val; }
 
-
-
+/*!
+    Returns the McCandlish Factor.
+*/
+qreal As::Scan::mcCandlishFactor() const {
+    return m_mcCandlishFactor; }
 
 /**
     Overloads operator<< for QDebug to accept the Scan output.

@@ -32,7 +32,6 @@ template <class Key, class T> class QMap;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
-
 class RealVector;
 
 class Scan : public QObject {
@@ -50,7 +49,7 @@ class Scan : public QObject {
     const As::ScanSection_t operator[](const QString& key) const;
     As::ScanSection_t& operator[](const QString& key);
 
-    // set data
+    // general set data methods
 
     void init();
 
@@ -63,7 +62,7 @@ class Scan : public QObject {
     void removeData(const QString& section,
                     const QString& entry);
 
-    // return data
+    // general return data methods
 
     const QString value(const QString& section,
                         const QString& entry,
@@ -83,7 +82,7 @@ class Scan : public QObject {
 
     const QStringList keys() const;
 
-    // convert
+    // convert methods
 
     const As::Scan_t toQMap() const;
 
@@ -95,20 +94,7 @@ class Scan : public QObject {
 
     void setFileIndex(const int index);
     int fileIndex() const;
-    int m_fileIndex;
-
-    void setPlotType(const As::PlotType plotType);
-    As::PlotType plotType() const;
-    As::PlotType m_plotType;
-
-    void setScanStep(const qreal value);
-    qreal scanStep() const;
-    qreal m_scanStep = qQNaN();
-
-    const QString scanAngle() const;
-    void setScanAngle(const QString& name);
-    void findAndSetScanAngle();
-    QString m_scanAngle;
+    int m_fileIndex = 0; // move to private!
 
     void setAbsoluteFilePath(const QString& name);
     const QString absoluteFilePath() const;
@@ -116,17 +102,34 @@ class Scan : public QObject {
     const QString baseName() const;
     const QString absolutePathWithBaseName() const;
     const QString absolutePathWithBaseNameAndHkl() const;
-    QString m_absoluteFilePath;
+    QString m_absoluteFilePath = ""; // move to private!
+
+    void setScanStep(const qreal value);
+    qreal scanStep() const;
+    qreal m_scanStep = qQNaN(); // move to private!
+
+    void setScanAngle(const QString& name);
+    void findAndSetScanAngle();
+    const QString scanAngle() const;
+    QString m_scanAngle = ""; // move to private!
+
+    void setPlotType(const As::PlotType plotType);
+    As::PlotType plotType() const;
+    As::PlotType m_plotType = As::PlotType::Raw; // move to private!
+
+    void setMcCandlishFactor(const qreal val);
+    qreal mcCandlishFactor() const;
+    qreal m_mcCandlishFactor = 0.0; // move to private!
 
     void createExtractedTableModel();
     QStandardItemModel* extractedTableModel() const;
-    QStandardItemModel* m_extractedTableModel;
+    QStandardItemModel* m_extractedTableModel; // move to private!
 
     // sidebar 'scan treatment' group
 
     void setIndividuallyTreated(const bool b);
     bool isIndividuallyTreated() const;
-    bool m_isIndividuallyTreated = false;
+    bool m_isIndividuallyTreated = false; // move to private!
 
     // sidebar 'scan correction' group
 
@@ -135,7 +138,7 @@ class Scan : public QObject {
     static const QMap<As::Scan::NeighborsRemoveType, QString> NeighborsRemoveTypeDict;
     void setNeighborsRemoveType(const As::Scan::NeighborsRemoveType type);
     As::Scan::NeighborsRemoveType neighborsRemoveType() const;
-    As::Scan::NeighborsRemoveType m_neighborsRemoveType = As::Scan::ManualNeighborsRemove;
+    As::Scan::NeighborsRemoveType m_neighborsRemoveType = As::Scan::ManualNeighborsRemove; // move to private!
 
     // sidebar 'peak integration' group -> rename to 'peak analysis' group?
     //https://www.originlab.com/index.aspx?go=products/origin/dataanalysis/peakanalysis
@@ -145,27 +148,23 @@ class Scan : public QObject {
     static const QMap<As::Scan::PeakAnalysisType, QString> PeakAnalysisTypeDict;
     void setPeakAnalysisType(const As::Scan::PeakAnalysisType type);
     As::Scan::PeakAnalysisType peakAnalysisType() const;
-    As::Scan::PeakAnalysisType m_peakAnalysisType = As::Scan::PeakIntegration;
+    As::Scan::PeakAnalysisType m_peakAnalysisType = As::Scan::PeakIntegration; // move to private!
 
     enum BkgDetectType { ManualBkgSet, AutoBkgDetect };
     Q_ENUM(BkgDetectType)
     static const QMap<As::Scan::BkgDetectType, QString> BkgDetectTypeDict;
     void setBkgDetectType(const As::Scan::BkgDetectType type);
     As::Scan::BkgDetectType bkgDetectType() const;
-    As::Scan::BkgDetectType m_bkgDetectType = As::Scan::AutoBkgDetect;
+    As::Scan::BkgDetectType m_bkgDetectType = As::Scan::AutoBkgDetect; // move to private!
 
     enum PeakFitType { GaussFit, LorentzFit, PseudoVoigtFit };
     Q_ENUM(PeakFitType)
     static const QMap<As::Scan::PeakFitType, QString> PeakFitTypeDict;
     void setPeakFitType(const As::Scan::PeakFitType type);
     As::Scan::PeakFitType peakFitType() const;
-    As::Scan::PeakFitType m_peakFitType = As::Scan::GaussFit;
+    As::Scan::PeakFitType m_peakFitType = As::Scan::GaussFit; // move to private!
 
-
-
-
-    //protected:
-
+    // move to private!
 
     int m_numLeftSkipPoints;
     int m_numRightSkipPoints;
@@ -173,6 +172,7 @@ class Scan : public QObject {
     int m_numLeftBkgPoints;
     int m_numRightBkgPoints;
     int m_numPeakPoints;
+
     qreal m_normMeanBkg;
     qreal m_fullWidthHalfMax, m_fullWidthHalfMaxErr;
     qreal m_flippingRatio, m_flippingRatioErr;
@@ -184,32 +184,8 @@ class Scan : public QObject {
     QMap<QString, qreal> m_normPeakArea, m_normPeakAreaErr;
     QMap<QString, qreal> m_structFactor, m_structFactorErr;
 
-    // MISC
-    qreal m_mcCandlishFactor;
-
-
-
-
-
-
-
   private:
-    As::Scan_t m_scan;
-
-
-};
-
-/*
-    static const QHash<int, QString> BkgTypes;
-
-    enum BkgTypesEnum
-    {
-    autoBkg,
-    manualBkg
-    };
-*/
-
-
+    As::Scan_t m_scan; };
 
 } //AS_END_NAMESPACE
 

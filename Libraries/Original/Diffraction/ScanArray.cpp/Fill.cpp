@@ -46,7 +46,7 @@ void As::ScanArray::fillMissingDataArray(const int index) {
     scan->setData("conditions", "Points count", QString::number(scan->numPoints()));
 
     // Set McCandlish factor depends on the instrument
-    scan->m_mcCandlishFactor = As::MC_CANDLISH_FACTOR[filesType()];
+    scan->setMcCandlishFactor( As::MC_CANDLISH_FACTOR[ filesType() ] );
 
     // Add zeros to empty but required variables
     QStringList subitemKeys;
