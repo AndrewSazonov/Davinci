@@ -23,7 +23,7 @@
 
 class QString;
 class QStringList;
-template <typename T> class QVector;
+template<typename> class QVector;
 
 namespace As { //AS_BEGIN_NAMESPACE
 

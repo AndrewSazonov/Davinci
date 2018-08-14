@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QSettings>
 #include <QString>
@@ -28,20 +28,19 @@
 #include "SaveHeaders.hpp"
 
 /*!
-\class As::SaveHeaders
+    \class As::SaveHeaders
 
-\brief The SaveHeaders is a class that provides the different output
-text formats to save the processed data.
+    \brief The SaveHeaders is a class that provides the different output
+    text formats to save the processed data.
 
-\inmodule Diffraction
+    \inmodule Diffraction
 */
 
 /*!
-Constructs the class depends on the given \a type and \a headers list.
+    Constructs the class depends on the given \a type and \a headers list.
 */
 As::SaveHeaders::SaveHeaders(QString type,
-                             const QStringList &headers)
-{
+                             const QStringList& headers) {
     ADEBUG_H1;
     ADEBUG << type;
     ADEBUG << headers;
@@ -62,7 +61,7 @@ As::SaveHeaders::SaveHeaders(QString type,
 
     // Choose the output (save) type
     if (type.contains("general")) { // General comma separated
-        for (const QString &header : headers) {
+        for (const QString& header : headers) {
             m_name   << header;
             m_format << "csv";
             m_addHeader = true; } }
@@ -86,14 +85,11 @@ As::SaveHeaders::SaveHeaders(QString type,
 
     else if (type.contains("ccsl")) {
         m_name   << "Scan" << "H"  << "K"  << "L"  << "Omega" << "Gamma" << "Nu"   << "FR"    << "FRerr" << "|FR-1|/FRerr" << "Temperature" << "Magnetic field";
-        m_format << "5i"   << "5i" << "5i" << "5i" << "8.2f"  << "8.2f"  << "8.2f" << "10.6f" << "10.6f" << "8.2f"         << "7.1f"        << "5.1f"; }
-}
+        m_format << "5i"   << "5i" << "5i" << "5i" << "8.2f"  << "8.2f"  << "8.2f" << "10.6f" << "10.6f" << "8.2f"         << "7.1f"        << "5.1f"; } }
 
 /*!
-Destroys the class.
+    Destroys the class.
 */
-As::SaveHeaders::~SaveHeaders()
-{
-    ADESTROYED;
-}
+As::SaveHeaders::~SaveHeaders() {
+    ADESTROYED; }
 
