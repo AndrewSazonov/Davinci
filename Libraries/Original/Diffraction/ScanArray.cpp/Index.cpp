@@ -81,11 +81,9 @@ void As::ScanArray::indexSinglePeak(const int index) {
 
         // Calculate hkl's if angles are given
         else {
-            // Lifting counter geometry /// not very convenient !!!
+
+            // Lifting counter geometry. Consider to find a better way!
             if (!gamma.isEmpty()) {
-                //if (nu.size() > 0) {
-                //if (gamma.size() == 0) // if name twotheta is wrongly used instead of gamma ?!
-                //    gamma = twotheta;
                 for (int i = 0; i < scan->numPoints(); ++i) {
                     As::RealVector xyz = anglesToXyz(wavelength[i], gamma[i], nu[i], omega[i]);
                     As::RealVector hkl = xyzToHkl(ub, xyz[0], xyz[1], xyz[2]);
@@ -277,6 +275,7 @@ void As::ScanArray::correctForAzimuthAnglePsi(qreal& omega,
 // Heidi orient matrix = ub.trans!
 // make m_meanS0X, as m_meanIndexH?
 void As::ScanArray::calcDirectionCosines(As::Scan* scan) {
+
     // Check if ub matrix is read
     if (scan->data("orientation", "matrix").isEmpty()) {
         return; }
@@ -369,6 +368,3 @@ const As::RealVector As::ScanArray::directionCosines(const As::RealMatrix9& ub,
     const qreal diffractedZ = qSin(twotheta) * opqZ - qCos(twotheta) * incidentZ;
 
     return As::RealVector({incidentX, diffractedX, incidentY, diffractedY, incidentZ, diffractedZ }); }
-
-
-

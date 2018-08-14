@@ -80,11 +80,11 @@ void As::ConcurrentWatcher::startComputation(const QString& type,
     else if (type == "index") // join "index" with "pretreat"
         func = [&] (const int i) {
         scans->indexSinglePeak(i);
-        scans->preTreatSingleScan(i); };
+        scans->preTreatSinglePeak(i); };
 
     else if (type == "treat")
         func = [&] (const int i) {
-        scans->treatSingleScan(i); };
+        scans->treatSinglePeak(i); };
 
     else {
         return; }

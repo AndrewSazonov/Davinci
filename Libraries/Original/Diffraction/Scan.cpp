@@ -385,7 +385,7 @@ qreal As::Scan::millerIndex(const QString& name) const {
 /*!
     Returns the number of points (detector data count) in the scan.
 */
-qreal As::Scan::numPoints() const {
+int As::Scan::numPoints() const {
 
     // Search for maximum of all the COUNT_TYPES
     int numPointsMax = 0;

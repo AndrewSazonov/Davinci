@@ -13,23 +13,20 @@
 #include "ScanArray.hpp"
 
 /*!
-Treats the data preliminary for the single scan at \a index in the scan array.
+    Treats the data preliminary for the single scan at \a index in the scan array.
 */
-void As::ScanArray::preTreatSingleScan(const int index)
-{
+void As::ScanArray::preTreatSinglePeak(const int index) {
     auto scan = at(index);
 
     scan->setData("number", "Excluded", "0"); // Init. It's modified then in excludeScanSlot
     definePolarisationCrossSection(scan);
     calcEsd(scan);
-    normalizeByTime(scan);
-}
+    normalizeByTime(scan); }
 
 /*!
-Treats the data for the single scan at \a index in the scan array.
+    Treats the data for the single scan at \a index in the scan array.
 */
-void As::ScanArray::treatSingleScan(const int index)
-{
+void As::ScanArray::treatSinglePeak(const int index) {
     auto scan = at(index);
 
     findNonPeakPoints(scan);
@@ -43,33 +40,26 @@ void As::ScanArray::treatSingleScan(const int index)
     calcFullWidthHalfMax(scan);
     calcFlippingRatio(scan);
 
-    if (scan->plotType() != As::PlotType::Excluded)
-        scan->setPlotType(As::PlotType::Integrated); // what is better?!
-
-    //scan.setData("number", "xcluded", scan.plotType() == As::Scan::Excluded ? "0" : "1"); // it's modified then in excludeScanSlot
-    //scan.m_isAlreadyTreated = true; // what is better?
-
-    //emit signalTreatSingleFinished(index);
-}
+    if (scan->plotType() != As::PlotType::Excluded) {
+        scan->setPlotType(As::PlotType::Integrated); } }
 
 /*!
-Creates the full output table with all the processed parameters.
+    Creates the full output table with all the processed parameters.
 */
-void As::ScanArray::createFullOutputTable()
-{
+void As::ScanArray::createFullOutputTable() {
     ADEBUG;
 
     // Set the groups to be shown in the output table. Their order is preserved.
     // Group elements (subitems) are sorted automatically by QMap in alphabetic order
     // of their string keys
     const QStringList itemKeys = {"number", "indices", "calculations",
-                                  "angles", "cosines", "conditions"};
+                                  "angles", "cosines", "conditions" };
 
     // Make a map (headerMap) and list (m_outputTableHeaders) of the actually measured headers
     // from the 1st scan: m_scanArray.at(0)
     m_outputTableHeaders = QStringList();
     QMap<QString, QStringList> headerMap;
-    for (const auto &itemKey : itemKeys) {
+    for (const auto& itemKey : itemKeys) {
         const QStringList subitemKeys = (*m_scanArray.at(0))[itemKey].keys();
         m_outputTableHeaders.append(subitemKeys);
         headerMap.insert(itemKey, subitemKeys); }
@@ -79,22 +69,19 @@ void As::ScanArray::createFullOutputTable()
     for (const auto scan : m_scanArray) {
         QStringList dataRow;
         int j = 0;
-        for (const auto &itemKey : itemKeys)
-            for (const auto &subitemKey : headerMap[itemKey])
-                    dataRow.insert(j++, scan->printDataSingle(itemKey, subitemKey));
+        for (const auto& itemKey : itemKeys)
+            for (const auto& subitemKey : headerMap[itemKey]) {
+                dataRow.insert(j++, scan->printDataSingle(itemKey, subitemKey)); }
         m_outputTableData << dataRow; }
 
-    ADEBUG;
-}
+    ADEBUG; }
 
 /*!
-Defines the polarisation cross-section for the given \a scan.
+    Defines the polarisation cross-section for the given \a scan.
 */
-void As::ScanArray::definePolarisationCrossSection(As::Scan *scan)
-{
-    //ADEBUG;
+void As::ScanArray::definePolarisationCrossSection(As::Scan* scan) {
 
-    // Read polarisation an flipper parameters
+    // Read polarisation and flipper parameters
     QString fin  = scan->data("polarisation", "Fin" ).split(" ")[0];
     QString fout = scan->data("polarisation", "Fout").split(" ")[0];
     QString pin  = scan->data("polarisation", "Pin" ).split(" ")[0];
@@ -102,72 +89,60 @@ void As::ScanArray::definePolarisationCrossSection(As::Scan *scan)
 
     // Adjust polarisation parameters depends on the flipper parameters
     if (fin == "on") {
-        if (pin.startsWith("+"))
-            pin.replace("+", "-");
-        else
-            pin.replace("-", "+"); }
+        if (pin.startsWith("+")) {
+            pin.replace("+", "-"); }
+        else {
+            pin.replace("-", "+"); } }
     if (fout == "on") {
-        if (pout.startsWith("+"))
-            pout.replace("+", "-");
-        else
-            pout.replace("-", "+"); }
+        if (pout.startsWith("+")) {
+            pout.replace("+", "-"); }
+        else {
+            pout.replace("-", "+"); } }
 
     // Set the measured polarisation cross-ection parameter
-    if (!(pin + pout).isEmpty())
-        scan->setData("conditions", "Polarisation (in/out)", pin + pout); // what if we work in a half polarized mode?
+    if (!(pin + pout).isEmpty()) {
+        scan->setData("conditions", "Polarisation (in/out)", pin + pout); } // what if we work in a half polarized mode?
 }
 
 /*!
-Calculates the estimated standard deviations for the measured detector and
-monitor data arrays of the given \a scan.
+    Calculates the estimated standard deviations for the measured detector and
+    monitor data arrays of the given \a scan.
 */
-void As::ScanArray::calcEsd(As::Scan *scan)
-{
-    //ADEBUG;
+void As::ScanArray::calcEsd(As::Scan* scan) {
+    for (const QString& countType : As::COUNT_TYPES) {
 
-    for (const QString &countType : As::COUNT_TYPES) {
         const As::RealVector detector = scan->data("intensities", "Detector" + countType);
         const As::RealVector monitor  = scan->data("intensities", "Monitor" + countType);
-        if (!detector.isEmpty())
-            scan->setData("intensities", "sDetector" + countType, detector.sqrt().toQString());
-        if (!monitor.isEmpty())
-            scan->setData("intensities", "sMonitor" + countType,  monitor.sqrt().toQString()); }
-}
+
+        if (!detector.isEmpty()) {
+            scan->setData("intensities", "sDetector" + countType, detector.sqrt().toQString()); }
+        if (!monitor.isEmpty()) {
+            scan->setData("intensities", "sMonitor" + countType,  monitor.sqrt().toQString()); } } }
 
 /*!
-Normalizes the measured detector and monitor data arrays of the given \a scan by the measured time.
+    Normalizes the measured detector and monitor data arrays of the given \a scan by the measured time.
 */
-void As::ScanArray::normalizeByTime(As::Scan *scan)
-{
-    //ADEBUG;
+void As::ScanArray::normalizeByTime(As::Scan* scan) {
+    for (const QString& countType : As::COUNT_TYPES) {
 
-    for (const QString &countType : As::COUNT_TYPES) {
         const As::RealVector detector  = scan->data("intensities", "Detector" + countType);
         const As::RealVector sdetector = scan->data("intensities", "sDetector" + countType);
         const As::RealVector monitor   = scan->data("intensities", "Monitor" + countType);
         const As::RealVector smonitor  = scan->data("intensities", "sMonitor" + countType);
         const As::RealVector time      = scan->data("conditions", "Time/step" + countType);
 
-        //ADEBUG << detector;
-        //ADEBUG << sdetector;
-        //ADEBUG << monitor;
-        //ADEBUG << smonitor;
-        //ADEBUG << time;
-
-        if (!detector.isEmpty())
-            scan->setData("intensities", "DetectorNorm" + countType,  detector.normalizeBy(time).toQString());
-        if (!sdetector.isEmpty())
-            scan->setData("intensities", "sDetectorNorm" + countType, sdetector.normalizeBy(time).toQString());
-        if (!monitor.isEmpty())
-            scan->setData("intensities", "MonitorNorm" + countType,   monitor.normalizeBy(time).toQString());
-        if (!smonitor.isEmpty())
-            scan->setData("intensities", "sMonitorNorm" + countType,  smonitor.normalizeBy(time).toQString()); }
-}
+        if (!detector.isEmpty()) {
+            scan->setData("intensities", "DetectorNorm" + countType,  detector.normalizeBy(time).toQString()); }
+        if (!sdetector.isEmpty()) {
+            scan->setData("intensities", "sDetectorNorm" + countType, sdetector.normalizeBy(time).toQString()); }
+        if (!monitor.isEmpty()) {
+            scan->setData("intensities", "MonitorNorm" + countType,   monitor.normalizeBy(time).toQString()); }
+        if (!smonitor.isEmpty()) {
+            scan->setData("intensities", "sMonitorNorm" + countType,  smonitor.normalizeBy(time).toQString()); } } }
 
 /*
-//Not in use!?
-void As::ScanArray::findNonPeakPoints(const As::RealVector &inty)
-{
+    void As::ScanArray::findNonPeakPoints(const As::RealVector &inty)
+    {
     ADEBUG;
 
     int from = MIN_NUM_SKIP;
@@ -192,15 +167,14 @@ void As::ScanArray::findNonPeakPoints(const As::RealVector &inty)
                         numBkgLeft_   = numBkgLeft;
                         numBkgRight_  = numBkgRight;
                         numSkipLeft_  = numSkipLeft;
-                        numSkipRight_ = numSkipRight; } } } } }
-}*/
+                        numSkipRight_ = numSkipRight; } } } } } }
+*/
 
 /*!
-Finds non-peak points (neighbors to be skipped + background) of
-the given \a scan.
+    Finds non-peak points (neighbors to be skipped + background) of
+    the given \a scan.
 */
-void As::ScanArray::findNonPeakPoints(As::Scan *scan)
-{
+void As::ScanArray::findNonPeakPoints(As::Scan* scan) {
     //ADEBUG;
 
     const As::RealVector detector  = scan->data("intensities", "DetectorNorm");
@@ -210,7 +184,6 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 
     const bool autoSkip = (scan->neighborsRemoveType() == As::Scan::AutoNeighborsRemove);
     const bool autoBkg = (scan->bkgDetectType() == As::Scan::AutoBkgDetect);
-            //scan->m_integrationSubType.contains("Automatically");
 
     // Automatically detect background and skip points
     if (autoBkg AND autoSkip) {
@@ -223,9 +196,9 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
             const int toRS   = scan->numPoints() - numLeftBkgPoints;
             for (int numRightBkgPoints = fromRS; numRightBkgPoints < toRS; ++numRightBkgPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
-                                             numLeftBkgPoints, numRightBkgPoints,
-                                             0, 0,
-                                             scan->mcCandlishFactor());
+                                                                      numLeftBkgPoints, numRightBkgPoints,
+                                                                      0, 0,
+                                                                      scan->mcCandlishFactor());
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
                 if (ratio > 0 AND ratio < minRatio) {
                     minRatio = ratio;
@@ -242,9 +215,9 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
             for (int numRightSkipPoints = fromRB; numRightSkipPoints < toRB; ++numRightSkipPoints) {
                 const int numRightBkgPoints = scan->m_numRightBkgPoints - numRightSkipPoints;
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
-                                             numLeftBkgPoints, numRightBkgPoints,
-                                             numLeftSkipPoints, numRightSkipPoints,
-                                             scan->mcCandlishFactor());
+                                                                      numLeftBkgPoints, numRightBkgPoints,
+                                                                      numLeftSkipPoints, numRightSkipPoints,
+                                                                      scan->mcCandlishFactor());
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
                 //ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
                 if (ratio > 0 AND ratio < minRatio) {
@@ -268,9 +241,9 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
             const int toRB   = numNonSkipPoints - numLeftBkgPoints;
             for (int numRightBkgPoints = fromRB; numRightBkgPoints < toRB; ++numRightBkgPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
-                                             numLeftBkgPoints, numRightBkgPoints,
-                                             scan->m_numLeftSkipPoints, scan->m_numRightSkipPoints,
-                                             scan->mcCandlishFactor());
+                                                                      numLeftBkgPoints, numRightBkgPoints,
+                                                                      scan->m_numLeftSkipPoints, scan->m_numRightSkipPoints,
+                                                                      scan->mcCandlishFactor());
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
                 //ADEBUG << ratio << minRatio << numLeftBkgPoints << numRightBkgPoints;
                 if (ratio > 0 AND ratio < minRatio) {
@@ -288,9 +261,9 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
             const int toRS   = numNonBkgPoints - numLeftSkipPoints - MIN_NUM_SKIP;
             for (int numRightSkipPoints = fromRS; numRightSkipPoints < toRS; ++numRightSkipPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
-                                             scan->m_numLeftBkgPoints, scan->m_numRightBkgPoints,
-                                             numLeftSkipPoints, numRightSkipPoints,
-                                             scan->mcCandlishFactor());
+                                                                      scan->m_numLeftBkgPoints, scan->m_numRightBkgPoints,
+                                                                      numLeftSkipPoints, numRightSkipPoints,
+                                                                      scan->mcCandlishFactor());
                 const qreal ratio = intyWithSig[1] / intyWithSig[0];
                 if (ratio > 0 AND ratio < minRatio) {
                     minRatio = ratio;
@@ -306,237 +279,231 @@ void As::ScanArray::findNonPeakPoints(As::Scan *scan)
 
     // Update points
     scan->m_numNonSkipPoints = scan->numPoints() - scan->m_numLeftSkipPoints - scan->m_numRightSkipPoints;
-    scan->m_numPeakPoints = scan->m_numNonSkipPoints - scan->m_numLeftBkgPoints - scan->m_numRightBkgPoints;
-}
+    scan->m_numPeakPoints = scan->m_numNonSkipPoints - scan->m_numLeftBkgPoints - scan->m_numRightBkgPoints; }
 
 /*!
-Adjusts the background points of the given \a scan.
+    Adjusts the background points of the given \a scan.
 */
-void As::ScanArray::adjustBkgPoints(As::Scan *scan)
-{
-    //ADEBUG;
-
+void As::ScanArray::adjustBkgPoints(As::Scan* scan) {
     if (scan->bkgDetectType() == As::Scan::AutoBkgDetect) {
-    //if (scan->m_integrationSubType == "Automatically detect background") {
         for (int i = 0; i < ADD_NUM_PEAK; ++i) {
             if (scan->m_numLeftBkgPoints > 1) {
                 --scan->m_numLeftBkgPoints;
                 ++scan->m_numPeakPoints; }
             if (scan->m_numRightBkgPoints > 1) {
                 --scan->m_numRightBkgPoints;
-                ++scan->m_numPeakPoints; } } }
-}
+                ++scan->m_numPeakPoints; } } } }
 
 /*!
-Calculates the average background of the given \a scan.
+    Calculates the average background of the given \a scan.
 */
-void As::ScanArray::calcBkg(As::Scan *scan)
-{
+void As::ScanArray::calcBkg(As::Scan* scan) {
     //ADEBUG;
 
     const As::RealVector detector = scan->data("intensities", "DetectorNorm");
     const As::RealVector time = scan->data("conditions", "Time/step");
-    if (!detector.isEmpty()) {
-        int from, to;
-        qreal bkg = 0.;
 
-        // Calculate the sum of the left background intensities
-        from = scan->m_numLeftSkipPoints;
-        to   = from + scan->m_numLeftBkgPoints;
-        for (int i = from; i < to; ++i)
-            bkg += detector[i];
+    if (detector.isEmpty()) {
+        return; }
 
-        // Calculate the sum of the right background intensities
-        to   = scan->numPoints() - scan->m_numRightSkipPoints;
-        from = to - scan->m_numRightBkgPoints;
-        for (int i = from; i < to; ++i)
-            bkg += detector[i];
+    int from, to;
+    qreal bkg = 0.;
 
-        // Calculate the mean background
-        scan->m_normMeanBkg = bkg / (scan->m_numLeftBkgPoints + scan->m_numRightBkgPoints);
+    // Calculate the sum of the left background intensities
+    from = scan->m_numLeftSkipPoints;
+    to   = from + scan->m_numLeftBkgPoints;
+    for (int i = from; i < to; ++i) {
+        bkg += detector[i]; }
 
-        // Create a background array and array with background estimated standard deviations (ESD)
-        As::RealVector vectorBkg;
-        for (int i = 0; i < time.size(); ++i) {
-            vectorBkg.append(scan->m_normMeanBkg * time[i]); }
-        As::RealVector vectorBkgErr(vectorBkg.sqrt());
+    // Calculate the sum of the right background intensities
+    to   = scan->numPoints() - scan->m_numRightSkipPoints;
+    from = to - scan->m_numRightBkgPoints;
+    for (int i = from; i < to; ++i) {
+        bkg += detector[i]; }
 
-        // Normalize background and ESD arrays by time
-        As::RealVector vectorBkgNorm(vectorBkg.normalizeBy(time));
-        As::RealVector vectorBkgErrNorm(vectorBkgErr.normalizeBy(time));
+    // Calculate the mean background
+    scan->m_normMeanBkg = bkg / (scan->m_numLeftBkgPoints + scan->m_numRightBkgPoints);
 
-        // Set data for the auto appearance in the output table
-        scan->setData("calculations", "BkgNorm",  vectorBkgNorm.toQString());
-        scan->setData("calculations", "BkgNormErr", vectorBkgErrNorm.toQString()); }
-}
+    // Create a background array and array with background estimated standard deviations (ESD)
+    As::RealVector vectorBkg;
+    for (int i = 0; i < time.size(); ++i) {
+        vectorBkg.append(scan->m_normMeanBkg * time[i]); }
+    As::RealVector vectorBkgErr(vectorBkg.sqrt());
+
+    // Normalize background and ESD arrays by time
+    As::RealVector vectorBkgNorm(vectorBkg.normalizeBy(time));
+    As::RealVector vectorBkgErrNorm(vectorBkgErr.normalizeBy(time));
+
+    // Set data for the auto appearance in the output table
+    scan->setData("calculations", "BkgNorm",  vectorBkgNorm.toQString());
+    scan->setData("calculations", "BkgNormErr", vectorBkgErrNorm.toQString()); }
 
 /*!
-Returns the ratio of standard deviation to integrated intensity according
-to the given \a intensities, \a sigmas, \a numLeftBkgPoints, \a numRightBkgPoints,
-\a numLeftSkipPoints, \a numRightSkipPoints and \a mcCandlishFactor.
+    Returns the ratio of standard deviation to integrated intensity according
+    to the given \a intensities, \a sigmas, \a numLeftBkgPoints, \a numRightBkgPoints,
+    \a numLeftSkipPoints, \a numRightSkipPoints and \a mcCandlishFactor.
 */
-As::RealVector As::ScanArray::IntensityWithSigma(const As::RealVector &intensities,
-                                                 const As::RealVector &sigmas,
+As::RealVector As::ScanArray::IntensityWithSigma(const As::RealVector& intensities,
+                                                 const As::RealVector& sigmas,
                                                  const int numLeftBkgPoints,
                                                  const int numRightBkgPoints,
                                                  const int numLeftSkipPoints,
                                                  const int numRightSkipPoints,
-                                                 const qreal mcCandlishFactor)
-{
+                                                 const qreal mcCandlishFactor) {
     // Calculate number of points
     const int numPoints = intensities.size();
 
     // Set intensities for the left + right background points: 0.8 sec (735 peaks)
-    As::RealVector intyBkg, sigIntyBkg;
     const int posLeft     = numLeftSkipPoints;
     const int lengthLeft  = numLeftBkgPoints;
     const int posRight    = numPoints - numRightBkgPoints - numRightSkipPoints;
     const int lengthRight = numRightBkgPoints;
-    intyBkg  = intensities.mid(posLeft, lengthLeft) + intensities.mid(posRight, lengthRight);
-    //ADEBUG << "intyBkg" << intyBkg;
+    As::RealVector intyBkg, sigIntyBkg;
+    intyBkg    = intensities.mid(posLeft, lengthLeft) + intensities.mid(posRight, lengthRight);
     sigIntyBkg = sigmas.mid(posLeft, lengthLeft) + sigmas.mid(posRight, lengthRight);
 
     // Set intensities for the peak points (background is included): 0.4 sec (735 peaks)
-    As::RealVector intyPeak, sigIntyPeak;
     const int pos     = numLeftSkipPoints + numLeftBkgPoints;
     const int length  = numPoints - numLeftSkipPoints - numLeftBkgPoints - numRightSkipPoints - numRightBkgPoints;
+    As::RealVector intyPeak, sigIntyPeak;
     intyPeak  = intensities.mid(pos, length);
     sigIntyPeak = sigmas.mid(pos, length);
 
     // Calculate ratio of peak points number to background points number
     const qreal ratioPeakToBkgPoints = static_cast<qreal>(intyPeak.size()) / intyBkg.size();
-    //ADEBUG << "ratioPeakToBkgPoints" << ratioPeakToBkgPoints;
 
     // Calculate peak sum intensity: 0.6 sec (735 peaks)
     qreal intensity = intyPeak.sum() - intyBkg.sum() * ratioPeakToBkgPoints;
-    //ADEBUG << "intensity" << intensity;
 
     // Calculate sigma (standard deviation) for the peak sum intensity: 0.5 sec (735 peaks)
     qreal sigma = qSqrt(sigIntyPeak.sumSqr() +
-                  sigIntyBkg.sumSqr() * As::Sqr(ratioPeakToBkgPoints) +
-                  As::Sqr(mcCandlishFactor * intensity));
-    //ADEBUG << "sigma" << sigma;
+                        sigIntyBkg.sumSqr() * As::Sqr(ratioPeakToBkgPoints) +
+                        As::Sqr(mcCandlishFactor * intensity));
 
-    return As::RealVector(QVector<qreal>{intensity, sigma});
-}
+    return As::RealVector(QVector<qreal> {intensity, sigma }); }
 
 /*!
-Calculates the maximum peak intensity of the given \a scan.
+    Calculates the maximum peak intensity of the given \a scan.
 */
-void As::ScanArray::calcMaxPeakInty(As::Scan *scan)
-{
-    for (const QString &countType : As::COUNT_TYPES) {
+void As::ScanArray::calcMaxPeakInty(As::Scan* scan) {
+    for (const QString& countType : As::COUNT_TYPES) {
         const As::RealVector detector  = scan->data("intensities", "DetectorNorm" + countType);
         const As::RealVector sdetector = scan->data("intensities", "sDetectorNorm" + countType);
-        if (!detector.isEmpty()) {
-            scan->m_maxPeakInty[countType]    = detector.max();
-            scan->m_maxPeakIntyErr[countType] = sdetector.max();
-            // Set data for the auto appearance in the output table
-            scan->setData("calculations", "IntMax" + countType, QString::number(scan->m_maxPeakInty[countType]));
-            scan->setData("calculations", "IntMaxErr" + countType, QString::number(scan->m_maxPeakIntyErr[countType])); } }
-}
+
+        if (detector.isEmpty()) {
+            continue; }
+
+        scan->m_maxPeakInty[countType]    = detector.max();
+        scan->m_maxPeakIntyErr[countType] = sdetector.max();
+
+        // Set data for the auto appearance in the output table
+        scan->setData("calculations", "IntMax" + countType, QString::number(scan->m_maxPeakInty[countType]));
+        scan->setData("calculations", "IntMaxErr" + countType, QString::number(scan->m_maxPeakIntyErr[countType])); } }
 
 /*!
-Calculates the sum of all the peak point intensities of the given \a scan.
+    Calculates the sum of all the peak point intensities of the given \a scan.
 */
-void As::ScanArray::calcSumPeakInty(As::Scan *scan)
-{
-    for (const QString &countType : As::COUNT_TYPES) {
+void As::ScanArray::calcSumPeakInty(As::Scan* scan) {
+    for (const QString& countType : As::COUNT_TYPES) {
         const As::RealVector detector  = scan->data("intensities", "DetectorNorm" + countType);
         const As::RealVector sdetector = scan->data("intensities", "sDetectorNorm" + countType);
-        if (!detector.isEmpty()) {
-            As::RealVector intyWithSig =
-                    IntensityWithSigma(detector,
-                                       sdetector,
-                                       scan->m_numLeftBkgPoints,
-                                       scan->m_numRightBkgPoints,
-                                       scan->m_numLeftSkipPoints,
-                                       scan->m_numRightSkipPoints,
-                                       scan->mcCandlishFactor());
-            scan->m_sumPeakInty[countType]    = intyWithSig[0];
-            scan->m_sumPeakIntyErr[countType] = intyWithSig[1];
-            // Set data for the auto appearance in the output table
-            scan->setData("calculations", "IntSum" + countType, QString::number(scan->m_sumPeakInty[countType]));
-            scan->setData("calculations", "IntSumErr" + countType, QString::number(scan->m_sumPeakIntyErr[countType])); } }
-}
+
+        if (detector.isEmpty()) {
+            continue; }
+
+        As::RealVector intyWithSig = IntensityWithSigma(detector,
+                                                        sdetector,
+                                                        scan->m_numLeftBkgPoints,
+                                                        scan->m_numRightBkgPoints,
+                                                        scan->m_numLeftSkipPoints,
+                                                        scan->m_numRightSkipPoints,
+                                                        scan->mcCandlishFactor());
+        scan->m_sumPeakInty[countType]    = intyWithSig[0];
+        scan->m_sumPeakIntyErr[countType] = intyWithSig[1];
+
+        // Set data for the auto appearance in the output table
+        scan->setData("calculations", "IntSum" + countType, QString::number(scan->m_sumPeakInty[countType]));
+        scan->setData("calculations", "IntSumErr" + countType, QString::number(scan->m_sumPeakIntyErr[countType])); } }
 
 /*!
-Calculates the peak area of the given \a scan.
+    Calculates the peak area of the given \a scan.
 */
-void As::ScanArray::calcPeakArea(As::Scan *scan)
-{
+void As::ScanArray::calcPeakArea(As::Scan* scan) {
     const As::RealVector angle = scan->data("angles", scan->scanAngle());
     const qreal step = angle.step();
-    for (const QString &countType : As::COUNT_TYPES) {
+
+    for (const QString& countType : As::COUNT_TYPES) {
         if (!qIsNaN(scan->m_sumPeakInty[countType])) {
             scan->m_peakArea[countType]    = scan->m_sumPeakInty[countType]    * step;
             scan->m_peakAreaErr[countType] = scan->m_sumPeakIntyErr[countType] * step;
             // Set data for the auto appearance in the output table
             scan->setData("calculations", "Area" + countType, QString::number(scan->m_peakArea[countType]));
-            scan->setData("calculations", "AreaErr" + countType, QString::number(scan->m_peakAreaErr[countType])); } }
-}
+            scan->setData("calculations", "AreaErr" + countType, QString::number(scan->m_peakAreaErr[countType])); } } }
 
 /*!
-Calculates the normalised peak area of the given \a scan.
+    Calculates the normalised peak area of the given \a scan.
 */
-void As::ScanArray::calcNormPeakArea(As::Scan *scan)
-{
+void As::ScanArray::calcNormPeakArea(As::Scan* scan) {
     const As::RealVector monitor = scan->data("intensities", "MonitorNorm");
     //if (!monitor.isEmpty()) {
-        qreal monitorMean = monitor.mean();
-        if (monitorMean == 0.)
-            monitorMean = MONITOR_NORM;
-        const qreal normalizer = MONITOR_NORM / monitorMean;
-        for (const QString &countType : As::COUNT_TYPES) {
-            if (!qIsNaN(scan->m_peakArea[countType])) {
-                scan->m_normPeakArea[countType]    = scan->m_peakArea[countType]    * normalizer;
-                scan->m_normPeakAreaErr[countType] = scan->m_peakAreaErr[countType] * normalizer;
-                // Set data for the auto appearance in the output table
-                scan->setData("calculations", "AreaNorm" + countType, QString::number(scan->m_normPeakArea[countType]));
-                scan->setData("calculations", "AreaNormErr" + countType, QString::number(scan->m_normPeakAreaErr[countType])); } }
+
+    qreal monitorMean = monitor.mean();
+
+    if (monitorMean == 0.) {
+        monitorMean = MONITOR_NORM; }
+
+    const qreal normalizer = MONITOR_NORM / monitorMean;
+
+    for (const QString& countType : As::COUNT_TYPES) {
+        if (!qIsNaN(scan->m_peakArea[countType])) {
+            scan->m_normPeakArea[countType]    = scan->m_peakArea[countType]    * normalizer;
+            scan->m_normPeakAreaErr[countType] = scan->m_peakAreaErr[countType] * normalizer;
+            // Set data for the auto appearance in the output table
+            scan->setData("calculations", "AreaNorm" + countType, QString::number(scan->m_normPeakArea[countType]));
+            scan->setData("calculations", "AreaNormErr" + countType, QString::number(scan->m_normPeakAreaErr[countType])); } }
     //}
 }
 
 /*!
-Returns the Lorentz correction coefficient calculated from the given
-detector 2theta angle \a gammaMean and lifting counter nu anlge \a nuMean.
+    Returns the Lorentz correction coefficient calculated from the given
+    detector 2theta angle \a gammaMean and lifting counter nu anlge \a nuMean.
 */
-qreal As::ScanArray::lorentzCorrectionFactor(const qreal gammaMean, const qreal nuMean)
-{
-    return qSin(qDegreesToRadians(gammaMean)) * qCos(qDegreesToRadians(nuMean));
-}
+qreal As::ScanArray::lorentzCorrectionFactor(const qreal gammaMean, const qreal nuMean) {
+    return qSin(qDegreesToRadians(gammaMean)) * qCos(qDegreesToRadians(nuMean)); }
 
 /*!
-Calculates the structure factor area of the given \a scan.
+    Calculates the structure factor of the given \a scan.
 */
-void As::ScanArray::calcStructFactor(As::Scan *scan)
-{
+void As::ScanArray::calcStructFactor(As::Scan* scan) {
     const As::RealVector twotheta = scan->data("angles", "2Theta");
     const As::RealVector gamma    = scan->data("angles", "Gamma");
     const As::RealVector nu       = scan->data("angles", "Nu");
     qreal correction = qQNaN();
-    if (!twotheta.isEmpty())
-        correction = lorentzCorrectionFactor(twotheta.mean());
-    else if (!gamma.isEmpty() AND nu.isEmpty())         /// check!!! not very sophisticated
-        correction = lorentzCorrectionFactor(gamma.mean());
-    else if (!gamma.isEmpty() AND !nu.isEmpty())
-        correction = lorentzCorrectionFactor(gamma.mean(), nu.mean());
+
+    if (!twotheta.isEmpty()) {
+        correction = lorentzCorrectionFactor(twotheta.mean()); }
+
+    else if (!gamma.isEmpty() AND nu.isEmpty()) {           // find a better way!
+        correction = lorentzCorrectionFactor(gamma.mean()); }
+
+    else if (!gamma.isEmpty() AND !nu.isEmpty()) {
+        correction = lorentzCorrectionFactor(gamma.mean(), nu.mean()); }
+
     //else
     //    qFatal("%s: unknown Lorentz correction input", __FUNCTION__);
-    for (const QString &countType : As::COUNT_TYPES) {
+
+    for (const QString& countType : As::COUNT_TYPES) {
         if (!qIsNaN(scan->m_normPeakArea[countType])) {
             scan->m_structFactor[countType]    = scan->m_normPeakArea[countType]    * correction;
             scan->m_structFactorErr[countType] = scan->m_normPeakAreaErr[countType] * correction;
             // Set data for the auto appearance in the output table
             scan->setData("calculations", "Sf2" + countType, QString::number(scan->m_structFactor[countType]));
-            scan->setData("calculations", "Sf2Err" + countType, QString::number(scan->m_structFactorErr[countType])); } }
-}
+            scan->setData("calculations", "Sf2Err" + countType, QString::number(scan->m_structFactorErr[countType])); } } }
 
 /*!
-Calculates the full width at half maximum (FWHM) of the given \a scan.
+    Calculates the full width at half maximum (FWHM) of the given \a scan.
 */
-void As::ScanArray::calcFullWidthHalfMax(As::Scan *scan)
-{
+void As::ScanArray::calcFullWidthHalfMax(As::Scan* scan) {
     // Read measred data
     const As::RealVector x     = scan->data("angles",       scan->scanAngle());
     const As::RealVector inty  = scan->data("intensities",  "DetectorNorm");
@@ -606,18 +573,16 @@ void As::ScanArray::calcFullWidthHalfMax(As::Scan *scan)
 
     // Set data for the auto appearance in the output table
     scan->setData("calculations", "Fwhm",  QString::number(scan->m_fullWidthHalfMax));
-    scan->setData("calculations", "FwhmErr", QString::number(scan->m_fullWidthHalfMaxErr));
-}
+    scan->setData("calculations", "FwhmErr", QString::number(scan->m_fullWidthHalfMaxErr)); }
 
 /*!
-Calculates the flipping ratio of the given \a scan.
+    Calculates the flipping ratio of the given \a scan.
 */
-void As::ScanArray::calcFlippingRatio(As::Scan *scan)
-{
+void As::ScanArray::calcFlippingRatio(As::Scan* scan) {
     // Check if all the countTypes are defined
-    for (const QString &countType : As::COUNT_TYPES)
-        if (qIsNaN(scan->m_structFactor[countType]))
-            return;
+    for (const QString& countType : As::COUNT_TYPES)
+        if (qIsNaN(scan->m_structFactor[countType])) {
+            return; }
 
     // Get structure factors of the up(-) and down(-) polarised data
     const qreal plus     = scan->m_structFactor[As::COUNT_TYPES[1]];
@@ -630,46 +595,45 @@ void As::ScanArray::calcFlippingRatio(As::Scan *scan)
     scan->m_flippingRatioErr = qSqrt(As::Sqr(1 / minus * sigPlus) +
                                      As::Sqr(-plus / As::Sqr(minus) * sigMinus));
     qreal significance = qAbs(scan->m_flippingRatio - 1) / scan->m_flippingRatioErr;
-    if (scan->m_flippingRatio < 0)
-        significance *= -1;
+    if (scan->m_flippingRatio < 0) {
+        significance *= -1; }
 
     // Set data for the auto appearance in the output table
     scan->setData("calculations", "FR",           QString::number(scan->m_flippingRatio));
     scan->setData("calculations", "FRerr",        QString::number(scan->m_flippingRatioErr));
-    scan->setData("calculations", "|FR-1|/FRerr", QString::number(significance));
-}
+    scan->setData("calculations", "|FR-1|/FRerr", QString::number(significance)); }
 
 /*!
-\fn void As::ScanArray::facilityTypeChanged_Signal(const QString &type)
+    \fn void As::ScanArray::facilityTypeChanged(const QString &type)
 
-This signal is emitted whenever the type of the facility in the input data
-is changed. The new value is passed in \a type.
+    This signal is emitted whenever the type of the facility in the input data
+    is changed. The new value is passed in \a type.
 */
 
 /*!
-\fn void As::ScanArray::instrumentTypeChanged_Signal(const QString &type)
+    \fn void As::ScanArray::instrumentTypeChanged(const QString &type)
 
-This signal is emitted whenever the type of the instrument in the input data
-is changed. The new value is passed in \a type.
+    This signal is emitted whenever the type of the instrument in the input data
+    is changed. The new value is passed in \a type.
 */
 
 /*!
-\fn void As::ScanArray::dataTypeChanged_Signal(const QString &type)
+    \fn void As::ScanArray::dataTypeChanged(const QString &type)
 
-This signal is emitted whenever the type of the input data is changed.
-The new value is passed in \a type.
+    This signal is emitted whenever the type of the input data is changed.
+    The new value is passed in \a type.
 */
 
 /*!
-\fn void As::ScanArray::scanIndexChanged(const int index)
+    \fn void As::ScanArray::scanIndexChanged(const int index)
 
-This signal is emitted whenever the index of the current scan is changed.
-The new value is passed in \a index.
+    This signal is emitted whenever the index of the current scan is changed.
+    The new value is passed in \a index.
 */
 
 /*!
-\fn void As::ScanArray::fileIndexChanged(const int index)
+    \fn void As::ScanArray::fileIndexChanged(const int index)
 
-This signal is emitted whenever the file index of the current scan is changed.
-The new value is passed in \a index.
+    This signal is emitted whenever the file index of the current scan is changed.
+    The new value is passed in \a index.
 */

@@ -87,9 +87,9 @@ protected:
 
 signals:
     // Misc
-    void facilityTypeChanged_Signal(const QString &text);
-    void instrumentTypeChanged_Signal(const QString &text);
-    void dataTypeChanged_Signal(const QString &text);
+    void facilityTypeChanged(const QString &text);
+    void instrumentTypeChanged(const QString &text);
+    void dataTypeChanged(const QString &text);
 
     // For all sidebar tabs
     void currentScanChanged_Signal(const int index);

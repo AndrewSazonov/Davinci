@@ -68,7 +68,7 @@ bool As::ScanArray::detectInputFileType() {
     // Get the size of the detectedTypes list converted to set and back to list in order to remove duplicates
     int size = detectedTypes.toSet().toList().size();
 
-    // Set m_inputFileType depends on the size of the detectedTypes list
+    // Set m_inputFilesType depends on the size of the detectedTypes list
     if (size == 0) {
         setInputFileType(As::InputFileType(0));
         return true; }
@@ -87,58 +87,53 @@ bool As::ScanArray::detectInputFileType() {
 void As::ScanArray::setInputFileType(const As::InputFileType type) {
     ADEBUG << "type:" << type;
 
-    if (m_inputFileType == type) {
+    if (m_inputFilesType == type) {
         return; }
 
-    m_inputFileType = type;
+    m_inputFilesType = type;
 
-    switch (m_inputFileType) {
+    switch (m_inputFilesType) {
 
-    case As::InputFileType::UNKNOWN_FILE:
-        m_facilityType = "Unknown";
-        m_instrumentType = "Unknown";
-        m_dataType = "Unknown";
-        break;
+        case As::InputFileType::UNKNOWN_FILE:
+            m_facilityType = "Unknown";
+            m_instrumentType = "Unknown";
+            m_dataType = "Unknown";
+            break;
 
-    case As::InputFileType::HEIDI_DAT:
-        m_facilityType = "MLZ/FRMII";
-        m_instrumentType = "HEiDi";
-        m_dataType = "DIF4 dat";
-        break;
+        case As::InputFileType::HEIDI_DAT:
+            m_facilityType = "MLZ/FRMII";
+            m_instrumentType = "HEiDi";
+            m_dataType = "DIF4 dat";
+            break;
 
-    case As::InputFileType::HEIDI_LOG:
-        m_facilityType = "MLZ/FRMII";
-        m_instrumentType = "HEiDi";
-        m_dataType = "DIF4 log";
-        break;
+        case As::InputFileType::HEIDI_LOG:
+            m_facilityType = "MLZ/FRMII";
+            m_instrumentType = "HEiDi";
+            m_dataType = "DIF4 log";
+            break;
 
-    case As::InputFileType::NICOS_DAT:
-        m_facilityType = "MLZ/FRMII";
-        m_instrumentType = "POLI";
-        m_dataType = "NICOS dat";
-        break;
+        case As::InputFileType::NICOS_DAT:
+            m_facilityType = "MLZ/FRMII";
+            m_instrumentType = "POLI";
+            m_dataType = "NICOS dat";
+            break;
 
-    case As::InputFileType::POLI_LOG:
-        m_facilityType = "MLZ/FRMII";
-        m_instrumentType = "POLI";
-        m_dataType = "IgorPro log";
-        break;
+        case As::InputFileType::POLI_LOG:
+            m_facilityType = "MLZ/FRMII";
+            m_instrumentType = "POLI";
+            m_dataType = "IgorPro log";
+            break;
 
-    case As::InputFileType::S6T2_DAT:
-        m_facilityType = "LLB";
-        m_instrumentType = "6T2";
-        m_dataType = "NEW xml";
-        break; }
+        case As::InputFileType::S6T2_DAT:
+            m_facilityType = "LLB";
+            m_instrumentType = "6T2";
+            m_dataType = "NEW xml";
+            break; }
 
-    //emit inputFileTypeChanged_Signal(m_inputFileType);
-    emit facilityTypeChanged_Signal(m_facilityType);
-    emit instrumentTypeChanged_Signal(m_instrumentType);
-    emit dataTypeChanged_Signal(m_dataType); }
+    emit facilityTypeChanged(m_facilityType);
+    emit instrumentTypeChanged(m_instrumentType);
+    emit dataTypeChanged(m_dataType); }
 
-/*!
-    Returns the input file type.
-*/
-As::InputFileType As::ScanArray::filesType() {
-    return m_inputFileType; }
+
 
 

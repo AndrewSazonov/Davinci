@@ -175,7 +175,6 @@ void As::Window::update_Plot_PeakIntegrateGroup(const Scan *scan)
     ADEBUG;
 
     // Enable or disable left and right background counts spin boxes
-    //const bool b = (scan->m_integrationSubType == As::Scan::AutoBkgDetect);
     const bool b = (scan->bkgDetectType() == As::Scan::AutoBkgDetect);
     m_leftBkgCount->setDisabled(b);
     m_rightBkgCount->setDisabled(b);

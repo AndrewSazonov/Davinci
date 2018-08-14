@@ -222,7 +222,7 @@ void As::Window::createActionsMenusToolBar()
     facilityType->setPlaceholderText(tr("Undefined"));
     facilityType->setAlignment(Qt::AlignHCenter);
     facilityType->setFocusPolicy(Qt::NoFocus);
-    connect(this, &As::Window::facilityTypeChanged_Signal, facilityType, &As::LineEdit::setText);
+    connect(this, &As::Window::facilityTypeChanged, facilityType, &As::LineEdit::setText);
     connect(this, &As::Window::oldFilesClosed_Signal, facilityType, &As::LineEdit::clear);
 
     auto facilityTypeWidget = new As::UnderLabeledWidget(facilityType, tr("Facility"));
@@ -238,7 +238,7 @@ void As::Window::createActionsMenusToolBar()
     instrumentType->setPlaceholderText(tr("Undefined"));
     instrumentType->setAlignment(Qt::AlignHCenter);
     instrumentType->setFocusPolicy(Qt::NoFocus);
-    connect(this, &As::Window::instrumentTypeChanged_Signal, instrumentType, &As::LineEdit::setText);
+    connect(this, &As::Window::instrumentTypeChanged, instrumentType, &As::LineEdit::setText);
     connect(this, &As::Window::oldFilesClosed_Signal, instrumentType, &As::LineEdit::clear);
 
     auto instrumentTypeWidget = new As::UnderLabeledWidget(instrumentType, tr("Instrument"));
@@ -254,7 +254,7 @@ void As::Window::createActionsMenusToolBar()
     dataType->setPlaceholderText(tr("Undefined"));
     dataType->setAlignment(Qt::AlignHCenter);
     dataType->setFocusPolicy(Qt::NoFocus);
-    connect(this, &As::Window::dataTypeChanged_Signal, dataType, &As::LineEdit::setText);
+    connect(this, &As::Window::dataTypeChanged, dataType, &As::LineEdit::setText);
     connect(this, &As::Window::oldFilesClosed_Signal, dataType, &As::LineEdit::clear);
 
     auto dataTypeWidget = new As::UnderLabeledWidget(dataType, tr("Data type"));

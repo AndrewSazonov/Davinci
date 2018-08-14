@@ -46,24 +46,20 @@ void As::ScanArray::fillMissingDataArray(const int index) {
     scan->setData("conditions", "Points count", QString::number(scan->numPoints()));
 
     // Set McCandlish factor depends on the instrument
-    scan->setMcCandlishFactor( As::MC_CANDLISH_FACTOR[ filesType() ] );
+    scan->setMcCandlishFactor( As::MC_CANDLISH_FACTOR[ m_inputFilesType ] );
 
-    // Add zeros to empty but required variables
+    // Add zeros to empty but required variables depends on the instrument geometry
     QStringList subitemKeys;
 
-    // 4-circle geometry...
-    if (!scan->data("angles", "2Theta").isEmpty()) {
+    if (!scan->data("angles", "2Theta").isEmpty()) {            // 4-circle geometry
         subitemKeys = QStringList({"Omega", "Chi", "Phi"}); }
 
-    // Liffting counter geometry...
-    if (!scan->data("angles", "Gamma").isEmpty()) {
+    if (!scan->data("angles", "Gamma").isEmpty()) {             // Liffting counter geometry
         subitemKeys = QStringList({"Nu", "Omega"}); }
 
-    // Add zeros...
     for (const auto& subitemKey : subitemKeys) {
         if (scan->data("angles", subitemKey).isEmpty()) {
             scan->setData("angles", subitemKey, "0"); } }
-
 
     // Fill arrays with existing single values
     const QStringList itemKeys = {"angles", "conditions", "indices", "intensities" };
@@ -82,10 +78,9 @@ void As::ScanArray::fillMissingDataArray(const int index) {
 
                 scan->setData(itemKey, subitemKey, list.join(" ")); } } }
 
-    // Add batch number. All the reflections are considered to belong to just 1st group...
+    // All the reflections are considered to belong to just 1st group...
     scan->setData("number", "Batch", "1");
 
-    // Creates the table model for the scan
     scan->createExtractedTableModel(); }
 
 /*!
@@ -106,6 +101,6 @@ void As::ScanArray::calcUnpolData(const QString& section,
     if (up.size() != down.size() OR up.size() == 0) {
         return; }
 
-    const As::RealVector sum  = up + down;
+    const As::RealVector sum = up + down;
 
     scan->setData(section, entry, sum.toQString()); }

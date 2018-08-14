@@ -86,7 +86,6 @@ void As::Window::gotoScan_Slot(const int index)
         currentScan()->setPeakAnalysisType( genericScan()->peakAnalysisType() );
         currentScan()->setBkgDetectType( genericScan()->bkgDetectType() );
         currentScan()->setPeakFitType( genericScan()->peakFitType() );
-        //currentScan()->m_integrationSubType = genericScan()->m_integrationSubType;
 
         currentScan()->m_numLeftBkgPoints = genericScan()->m_numLeftBkgPoints;
         currentScan()->m_numRightBkgPoints = genericScan()->m_numRightBkgPoints;
@@ -94,7 +93,7 @@ void As::Window::gotoScan_Slot(const int index)
 
     // Treat current scan conditions
     if (genericScan()->plotType() == As::PlotType::Integrated AND currentScan()->plotType() != As::PlotType::Excluded)
-        m_scans->treatSingleScan(index-1);
+        m_scans->treatSinglePeak(index-1);
 
     //
     m_scans->setScanIndex(index);
@@ -626,9 +625,6 @@ void As::Window::setLeftBkgCount_Slot(const int count)
 {
     ADEBUG << "LeftBkgCount:" << count;
 
-    //if (currentScan()->m_integrationSubType == "Automatically detect background")
-    //    return;
-
     if (currentScan()->isIndividuallyTreated())
         currentScan()->m_numLeftBkgPoints = count; // make slot in As::Scan?
     else
@@ -643,9 +639,6 @@ void As::Window::setLeftBkgCount_Slot(const int count)
 void As::Window::setRightBkgCount_Slot(const int count)
 {
     ADEBUG << "RightBkgCount:" << count;
-
-    //if (currentScan()->m_integrationSubType == "Automatically detect background")
-    //    return;
 
     if (currentScan()->isIndividuallyTreated())
         currentScan()->m_numRightBkgPoints = count; // make slot in As::Scan?

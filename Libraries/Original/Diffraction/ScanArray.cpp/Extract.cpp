@@ -43,7 +43,7 @@ void As::ScanArray::extractDataFromFile(const int index) {
     const QString& filePath    = m_inputFilesContents.first[index];
     const QString& fileContent = m_inputFilesContents.second[index];
 
-    switch (filesType()) {
+    switch (m_inputFilesType) {
 
     case UNKNOWN_FILE:
         ADEBUG << "Not implemented yet"; break;

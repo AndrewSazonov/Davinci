@@ -89,7 +89,7 @@ class Scan : public QObject {
     // set and get the scan parameters
 
     int scanLine() const;
-    qreal numPoints() const;
+    int numPoints() const;
     qreal millerIndex(const QString& index) const;
 
     void setFileIndex(const int index);
@@ -164,7 +164,7 @@ class Scan : public QObject {
     As::Scan::PeakFitType peakFitType() const;
     As::Scan::PeakFitType m_peakFitType = As::Scan::GaussFit; // move to private!
 
-    // move to private!
+  public: // move to private!
 
     int m_numLeftSkipPoints;
     int m_numRightSkipPoints;
