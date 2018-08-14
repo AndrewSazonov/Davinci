@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QCommandLineParser>
 #include <QDebug>
@@ -38,146 +38,119 @@
 #include "Console.hpp"
 
 /*!
-Constructs a console version of the application.
+    Constructs a console version of the application.
 */
-As::Console::Console()
-{
-    // Create command line parser
+As::Console::Console() {
+
+    As::SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
+
     createCommandLineParser(qApp);
-
-    // Print program description
     printAppDescription();
+    checkRequiredOptionsAreProvided(QStringList{ "path" });
+    checkAllOptionsCorrectness();
 
-    // Set output format for qDebug() depends on the build type
-    SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
-
-    // Check if required options are provided by user
-    checkRequiredOptions(QStringList{"path"});
-
-    // Open file or dir based on the path provided in 'path' option
+    // Load data
     openFiles(m_parser.value("path"));
 
-    // Process the measured data using Multi-Thread
+    // Process the laded data (concurrentRun - using Multi-Thread)
+    detectInputFilesType();
     concurrentRun("extract", m_scans);
     printMessage(QString("Number of treated files:  %1").arg(m_scans->m_inputFilesContents.first.size()));
-
     concurrentRun("fill", m_scans);
     concurrentRun("index", m_scans);
-    concurrentRun("pretreat", m_scans); // included in "index" above!
     concurrentRun("treat", m_scans);
     printMessage(QString("Number of treated reflections:  %1").arg(m_scans->size()));
 
     // Output
     exportOutputTable();
-    printProgramOutput();
-}
+    printProgramOutput(); }
 
 /*!
-Destroys the application.
+    Destroys the application.
 */
-As::Console::~Console()
-{
-    ADESTROYED;
-}
+As::Console::~Console() {
+    ADESTROYED; }
 
 /*!
-Returns the application description.
+    Returns the application description.
 */
-QString As::Console::applicationDescription() const
-{
-    ADEBUG;
-
-    return m_parser.applicationDescription();
-}
+QString As::Console::applicationDescription() const {
+    return m_parser.applicationDescription(); }
 
 /*!
-Returns the format of the output file.
+    Returns the format of the output file. Default value: "General".
 */
-// file to be exported?!
-QString As::Console::outputFileFormat() const
-{
-    ADEBUG;
-
-    return m_parser.value("format").isEmpty() ? "General" : m_parser.value("format");
-}
+QString As::Console::outputFileFormat() const {
+    return m_parser.value("format").isEmpty() ? "General" : m_parser.value("format"); }
 
 /*!
-Returns the extension of the output file.
+    Returns the extension of the output file. Default value: "csv"
 */
-QString As::Console::outputFileExt() const
-{
-    ADEBUG;
-
-    // sync with GUI types?!
+// sync with GUI types?!
+QString As::Console::outputFileExt() const {
 
     const QString format = outputFileFormat().toLower();
     QString ext;
 
-    if (format.contains("shelx"))
-        ext = "hkl";
+    if (format.isEmpty()) {
+        ext = "csv"; }
 
-    else if (format.contains("tbar"))
-        ext = "tb";
+    else if (format.contains("general")) {
+        ext = "csv"; }
 
-    else if (format.contains("umweg"))
-        ext = "obs";
+    else if (format.contains("shelx")) {
+        ext = "hkl"; }
 
-    else if (format.contains("ccsl"))
-        ext = "fli";
+    else if (format.contains("tbar")) {
+        ext = "tb"; }
 
-    else // default
-        ext = "csv";
+    else if (format.contains("umweg")) {
+        ext = "obs"; }
 
-    return ext;
-}
+    else if (format.contains("ccsl")) {
+        ext = "fli"; }
+
+    else {
+        printMessage(QString("Unknown output file format '%1'").arg(format));
+        AEXIT; }
+
+    return ext; }
 
 /*!
-Returns the name of the output file.
+    Returns the name of the output file.
 */
-QString As::Console::outputFileName() const
-{
-    ADEBUG;
-
+QString As::Console::outputFileName() const {
     const auto firstScan = m_scans->at(0);
-    const auto lastScan = m_scans->at(m_scans->size()-1);
+    const auto lastScan = m_scans->at(m_scans->size() - 1);
 
     const QString baseNameFirst = firstScan->baseName();
     const QString baseNameLast = lastScan->baseName();
     const QString absolutePathLast = lastScan->absolutePath();
     const QString pathWithName = FormatToPathWithName(baseNameFirst, baseNameLast, absolutePathLast);
 
-    return m_parser.value("output").isEmpty() ? pathWithName : m_parser.value("output");
-}
+    return m_parser.value("output").isEmpty() ? pathWithName : m_parser.value("output"); }
 
 /*!
-Returns the name with extension of the output file.
+    Returns the name with extension of the output file.
 */
-QString As::Console::outputFileNameWithExt() const
-{
-    ADEBUG;
-
-    return outputFileName() + "." + outputFileExt();
-}
+QString As::Console::outputFileNameWithExt() const {
+    return outputFileName() + "." + outputFileExt(); }
 
 /*!
-Process the actual command line arguments given by the user
-for a given core application \a app.
+    Process the actual command line arguments given by the user
+    for a given core application \a app.
 */
-void As::Console::createCommandLineParser(QCoreApplication *app)
-{
-    ADEBUG;
+void As::Console::createCommandLineParser(QCoreApplication* app) {
 
     // Application description
-    const QString text = QString("%1\n"
-                                 "v%2 (%3)\n"
+    const QString text = QString("%1 v%2 (%3)\n"
                                  "%4\n"
                                  "%5\n"
                                  "%6")
-            .arg(APP_NAME)
-            .arg(APP_VERSION).arg(APP_RELEASE_DATE)
-            .arg(APP_URL)
-            .arg(QString(APP_DESCRIPTION).replace("<br />", " "))
-            .arg(APP_COPYRIGHT).replace("&copy;", "(C)");
+                         .arg(APP_NAME).arg(APP_VERSION).arg(APP_RELEASE_DATE)
+                         .arg(APP_URL)
+                         .arg(QString(APP_DESCRIPTION).replace("<br />", " "))
+                         .arg(APP_COPYRIGHT).replace("&copy;", "(C)");
     m_parser.setApplicationDescription(qPrintable(text));
 
     // Pre-defined options
@@ -185,15 +158,13 @@ void As::Console::createCommandLineParser(QCoreApplication *app)
     m_parser.addHelpOption();
 
     // Add options
-    m_parser.addOptions({{{"p", "path"},   "File/dir to open.", "file/dir"},
-                         {{"o", "output"}, "File to save output data.", "file"},
-                         {{"f", "format"}, "Output file format <type>: general, shelx, tbar, umweg, ccsl.", "type"},
-                        }); // {{"d", "debug"},  "Enable debug output."}
+    m_parser.addOptions({{{"p", "path" },   "File/dir to open.", "file/dir" },
+        {{"o", "output" }, "File to save output data.", "file" },
+        {{"f", "format" }, "Output file format <type>: general, shelx, tbar, umweg, ccsl.", "type" }, }); // {{"d", "debug"},  "Enable debug output."}
 
     // Add arguments
     //parser->addPositionalArgument("urls", QObject::tr("Files to open."), "[urls...]");
     //parser->addPositionalArgument("file", QCoreApplication::translate("main", "The file to open."));
-    //m_parser.addPositionalArgument("file", QObject::tr("The file(s) to open."));
     //addPositionalArgument("path", QCoreApplication::translate("main", "The path to file or directory to open.")); // what is "main"?
 
     // Get positional arguments
@@ -202,22 +173,17 @@ void As::Console::createCommandLineParser(QCoreApplication *app)
     //qDebug() << "is debug:" << parser.isSet("debug");
     //qDebug() << parser.value("path");
 
-     // Link parser to application
-    m_parser.process(*app);
-
     // Debug output format, depends on the option provided by user
     //As::SetDebugOutputFormat(m_parser.isSet("debug"));
-}
+
+    // Link parser to application
+    m_parser.process(*app); }
 
 /*!
-Opens the file(s) according to the given file or folder \a path.
+    Opens the file(s) according to the given file or folder \a path.
 */
-void As::Console::openFiles(const QString &path)
-{
-    ADEBUG << path;
-
+void As::Console::openFiles(const QString& path) {
     QStringList filePathList;
-
     QFileInfo fileInfo(path);
 
     if (fileInfo.isFile()) {
@@ -225,39 +191,33 @@ void As::Console::openFiles(const QString &path)
 
     else if (fileInfo.isDir()) {
         QDir dir(path);
-        for (const QFileInfo &fileInfo : dir.entryInfoList(QDir::Files)) {
+        for (const QFileInfo& fileInfo : dir.entryInfoList(QDir::Files)) {
             filePathList << fileInfo.absoluteFilePath(); } }
 
     if (filePathList.isEmpty()) {
         printMessage(QString("Cannot find file/dir '%1'.")
                      .arg(QDir::toNativeSeparators(path)));
-        AEXIT; }
+        AEXIT; } //???
 
-    loadFiles(filePathList);
-}
+    loadData(filePathList); }
 
 /*!
-Loads the file(s) according to the given list of file path \a filePathList.
+    Loads the file(s) according to the given list of file path \a filePathList.
 */
-void As::Console::loadFiles(const QStringList &filePathList)
-{
-    ADEBUG << filePathList;
-
-    // Create the future watcher
-    //m_futureWatcher = new QFutureWatcher<void>;
+void As::Console::loadData(const QStringList& filePathList) {
 
     // Create the scan array
     m_scans = new As::ScanArray;
 
     // Read all files contents
-    for (const auto &path : filePathList) {
+    for (const auto& path : filePathList) {
 
         // Open file
         QFile file(path);
         if (!file.open(QFile::ReadOnly | QFile::Text)) {
             printMessage(QString("Cannot read file '%1': %2.")
                          .arg(QDir::toNativeSeparators(path), file.errorString()));
-            AEXIT; }
+            AEXIT; } //???
 
         // Read file content to QStringList using QTextStream
         QTextStream textStream(&file);
@@ -266,84 +226,69 @@ void As::Console::loadFiles(const QStringList &filePathList)
 
         // Add file path and content to the global variable
         m_scans->m_inputFilesContents.first  << path;
-        m_scans->m_inputFilesContents.second << textStream.readAll(); }
+        m_scans->m_inputFilesContents.second << textStream.readAll(); } }
 
-    // Detect data
-    bool ok = m_scans->detectInputFileType();
+/*!
+    Detects a type of the input files.
+*/
+void As::Console::detectInputFilesType() {
+    bool ok = m_scans->detectInputFilesType();
     if (!ok) {
         printMessage(QString("Files of multiple types were selected for opening. "
                              "Please open the files of the same type only."));
-        AEXIT; }
-}
+        AEXIT; } } //???
 
 /*!
-Exports the output table to disk.
+    Exports the output table to disk.
 */
-void As::Console::exportOutputTable() const
-{
+void As::Console::exportOutputTable() const {
     m_scans->createFullOutputTable();
-
-    m_scans->saveSelectedOutputColumns(outputFileNameWithExt(), outputFileFormat());
-}
+    m_scans->saveSelectedOutputColumns(outputFileNameWithExt(), outputFileFormat()); }
 
 /*!
-Checks if all the required options \a optionList are provided by the user.
+    Checks if all the required options \a optionList are provided by the user.
 */
-void As::Console::checkRequiredOptions(const QStringList &optionList) const
-{
-    ADEBUG << optionList;
-
+void As::Console::checkRequiredOptionsAreProvided(const QStringList& optionList) const {
     const QString message = "Required option '--%s' is not specified.\n"
                             "Run the program with '--help' or '-h' to see more.\n";
-    for (const QString option : optionList) {
+    for (const QString& option : optionList) {
         if (m_parser.value(option).isEmpty()) {
             printMessage(message, option);
-            AEXIT; } }
-}
+            AEXIT; } } } //???
 
 /*!
-Prints the console \a message. If optional argument \a arg is provided, then
-\a arg is placed inside the \a message.
+    Checks if the all the provided options are correctly described by the user.
 */
-void As::Console::printMessage(const QString &message,
-                               const QString &arg) const
-{
-    ADEBUG;
-
-    if (arg.isEmpty())
-        fprintf(stderr, "%s\n", qUtf8Printable(message));
-    else
-        fprintf(stderr, qUtf8Printable(message), qUtf8Printable(arg));
-}
+void As::Console::checkAllOptionsCorrectness() const {}
 
 /*!
-Prints the list of messages \a messageList.
+    Prints the console \a message. If optional argument \a arg is provided, then
+    \a arg is placed inside the \a message.
 */
-void As::Console::printMessageList(const QStringList &messageList) const
-{
-    ADEBUG;
-
-    for (const QString &message : messageList)
-        printMessage(message);
-}
+void As::Console::printMessage(const QString& message,
+                               const QString& arg) const {
+    if (arg.isEmpty()) {
+        fprintf(stderr, "%s\n", qUtf8Printable(message)); }
+    else {
+        fprintf(stderr, qUtf8Printable(message), qUtf8Printable(arg)); } }
 
 /*!
-Prints the application description.
+    Prints the list of messages \a messageList.
 */
-void As::Console::printAppDescription() const
-{
-    ADEBUG;
-
-    printMessageList(QStringList{applicationDescription(), ""});
-}
+void As::Console::printMessageList(const QStringList& messageList) const {
+    for (const QString& message : messageList) {
+        printMessage(message); } }
 
 /*!
-Prints the console output when the programm is finished.
+    Prints the application description.
 */
-void As::Console::printProgramOutput() const
-{
-    ADEBUG;
+void As::Console::printAppDescription() const {
+    printMessageList(QStringList{ applicationDescription(), "" }); }
 
+/*!
+    Prints the console output when the programm is finished.
+*/
+void As::Console::printProgramOutput() const {
     const QStringList messageList = {
         //QString("Number of treated files:  %1").arg(m_scans->m_inputFilesContents.first.size()),
         //QString("Number of treated reflections:  %1").arg(m_scans->size()),
@@ -351,12 +296,9 @@ void As::Console::printProgramOutput() const
         "",
         "The program is finished successfully." };
 
-    printMessageList(messageList);
-}
+    printMessageList(messageList); }
 
-void As::Console::concurrentRun(const QString &type,
-                               As::ScanArray *scans) const
-{
+void As::Console::concurrentRun(const QString& type,
+                                As::ScanArray* scans) const {
     As::ConcurrentWatcher watcher;
-    watcher.startComputation(type, scans);
-}
+    watcher.startComputation(type, scans); }
