@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QMap>
 #include <QString>
@@ -26,19 +26,18 @@
 #include "ScanDatabase.hpp"
 
 /*!
-\class As::ScanDatabase
+    \class As::ScanDatabase
 
-\brief The ScanDatabase class is a class that provides a database with
-all the possible parameters of the diffraction scan.
+    \brief The ScanDatabase class is a class that provides a database with
+    all the possible parameters of the diffraction scan.
 
-\inmodule Diffraction
+    \inmodule Diffraction
 */
 
 /*!
-Constructs the database.
+    Constructs the database.
 */
-As::ScanDatabase::ScanDatabase()
-{
+As::ScanDatabase::ScanDatabase() {
     //  --------------------------------------------------------------------------------------
     //  Holds the number of the experimental scan.
     //  --------------------------------------------------------------------------------------
@@ -47,7 +46,6 @@ As::ScanDatabase::ScanDatabase()
     set("number", "Scan",      "i",    "",       "Relative index number of the experimental scan");
     set("number", "Excluded",  "i",    "",       "Is current scan excluded (1) or correctly measured (0)");
     set("number", "Batch",     "i",    "",       "A batch number to distinguish between groups of reflections with separate scale factors");
-    //set("number", "file",  "File num",  "g",     "",       "Index number of the file");
 
     //  --------------------------------------------------------------------------------------
     //  Holds the arrays of the experimental angles.
@@ -55,7 +53,7 @@ As::ScanDatabase::ScanDatabase()
     //  section   name      format  units     tooltip
     //  --------------------------------------------------------------------------------------
     set("angles", "2Theta", "0.2f", "\u00B0", "two-theta detector angle");
-    set("angles", "Theta",  "0.2f", "\u00B0", "theta detector angle"); // for convenience (tbar, ...)
+    set("angles", "Theta",  "0.2f", "\u00B0", "theta detector angle"); // for convenience: tbar, etc.
     set("angles", "Gamma",  "0.2f", "\u00B0", "gamma detector angle");
     set("angles", "Omega",  "0.2f", "\u00B0", "omega instrument angle");
     set("angles", "Nu",     "0.2f", "\u00B0", "nu detector angle");
@@ -168,17 +166,17 @@ As::ScanDatabase::ScanDatabase()
     set("calculations", "numSkipLeft",  "0.2f", "counts",    "Number of the left skipped points");
     set("calculations", "numSkipRight", "0.2f", "counts",    "Number of the right skipped points");
     //  --------------------------------------------------------------------------------------
-    for (const QString &t : As::COUNT_TYPES) {
-        set("calculations", "IntMax"+t,      "0.2f", "arb.units", "Peak intensity in maximum");
-        set("calculations", "IntMaxErr"+t,   "0.2f", "arb.units", "ESD Peak intensity in maximum");
-        set("calculations", "IntSum"+t,      "0.2f", "arb.units", "Total peak intensity... sum");
-        set("calculations", "IntSumErr"+t,   "0.2f", "arb.units", "ESD Total peak intensity... sum");
-        set("calculations", "Area"+t,        "0.2f", "arb.units", "Raw integrated intensity");
-        set("calculations", "AreaErr"+t,     "0.2f", "arb.units", "ESD Raw integrated intensity");
-        set("calculations", "AreaNorm"+t,    "0.2f", "arb.units", "Normalised integrated intensity");
-        set("calculations", "AreaNormErr"+t, "0.2f", "arb.units", "ESD Normalised integrated intensity");
-        set("calculations", "Sf2"+t,         "0.2f", "arb.units", "Corrected and normalised integrated intensity (structure factor)");
-        set("calculations", "Sf2Err"+t,      "0.2f", "arb.units", "ESD Corrected and normalised integrated intensity"); }
+    for (const QString& t : As::COUNT_TYPES) {
+        set("calculations", "IntMax" + t,      "0.2f", "arb.units", "Peak intensity in maximum");
+        set("calculations", "IntMaxErr" + t,   "0.2f", "arb.units", "ESD Peak intensity in maximum");
+        set("calculations", "IntSum" + t,      "0.2f", "arb.units", "Total peak intensity... sum");
+        set("calculations", "IntSumErr" + t,   "0.2f", "arb.units", "ESD Total peak intensity... sum");
+        set("calculations", "Area" + t,        "0.2f", "arb.units", "Raw integrated intensity");
+        set("calculations", "AreaErr" + t,     "0.2f", "arb.units", "ESD Raw integrated intensity");
+        set("calculations", "AreaNorm" + t,    "0.2f", "arb.units", "Normalised integrated intensity");
+        set("calculations", "AreaNormErr" + t, "0.2f", "arb.units", "ESD Normalised integrated intensity");
+        set("calculations", "Sf2" + t,         "0.2f", "arb.units", "Corrected and normalised integrated intensity (structure factor)");
+        set("calculations", "Sf2Err" + t,      "0.2f", "arb.units", "ESD Corrected and normalised integrated intensity"); }
 
     //  --------------------------------------------------------------------------------------
     //  Holds the orientation matrix.
@@ -202,43 +200,33 @@ As::ScanDatabase::ScanDatabase()
     //  --------------------------------------------------------------------------------------
     set("file",  "File name",  "",     "",     "Name of the file with the original data");
     set("file",  "File path",  "",     "",     "Path to the file with the original data"); // should path also include the name?
-    set("misc",  "lines",      "",     "",     "Numbers of lines of the scan points in the file");
-    //set("conditions",  "step",        "Time/step",   "s",      "This is a time per step");
-    //set("misc",  "nPoints",  "Points count",  "",     "",     "The number of data points in the scan");
-
-}
+    set("misc",  "lines",      "",     "",     "Numbers of lines of the scan points in the file"); }
 
 /*!
-Destroys the database.
+    Destroys the database.
 */
 As::ScanDatabase::~ScanDatabase() {}
 
 /*!
-Returns the value associated with the key \a section.
+    Returns the value associated with the key \a section.
 */
-const As::ScanSection_t As::ScanDatabase::operator[](const QString &section) const
-{
-    return m_scanDatabase[section];
-}
+const As::ScanSection_t As::ScanDatabase::operator[](const QString& section) const {
+    return m_scanDatabase[section]; }
 
 /*!
-Returns a list containing all the keys in the map in ascending order.
+    Returns a list containing all the keys in the map in ascending order.
 */
-const QStringList As::ScanDatabase::keys() const
-{
-    return m_scanDatabase.keys();
-}
+const QStringList As::ScanDatabase::keys() const {
+    return m_scanDatabase.keys(); }
 
 /*!
-Adds a new entry to the database with the given \a section, \a entry, \a format,
-\a units and \a tooltip.
+    Adds a new entry to the database with the given \a section, \a entry, \a format,
+    \a units and \a tooltip.
 */
-void As::ScanDatabase::set(const QString &section,
-                           const QString &entry,
-                           const QString &format,
-                           const QString &units,
-                           const QString &tooltip)
-{
+void As::ScanDatabase::set(const QString& section,
+                           const QString& entry,
+                           const QString& format,
+                           const QString& units,
+                           const QString& tooltip) {
     m_scanDatabase[section][entry] = ScanSubSection_t{
-        {"format", format}, {"units", units}, {"tooltip", tooltip} };
-}
+        {"format", format }, {"units", units }, {"tooltip", tooltip } }; }
