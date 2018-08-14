@@ -1,4 +1,3 @@
-# For full docs:
 # http://astyle.sourceforge.net/astyle.html
 
 # General Options:
@@ -56,6 +55,9 @@
 # Indent 'class ' and 'struct' access modifiers, 'public:', 'protected:' and 'private:', one half indent.
 --indent-modifiers
 
+# Indent 'switch' blocks so that the 'case X:' statements are indented in the switch block.
+--indent-switches
+
 # Indent preprocessor blocks, and defines
 --indent-preproc-block
 --indent-preproc-define
@@ -72,8 +74,11 @@
 # Set the  maximum of # spaces to indent a continuation line.
 --max-continuation-indent=120
 
+# Pad empty lines around header blocks (e.g. 'if', 'for', 'while'...).
+#--break-blocks
+
 # Pad empty lines around header blocks (e.g. 'if', 'for', 'while'...). Treat closing header blocks (e.g. 'else', 'catch') as stand-alone blocks.
---break-blocks=all
+#--break-blocks=all
 
 # Paddings around operators, comma and headers
 # (header means `if`, `while`, etc. Example: `if (true)`, instead of `if(true)`)
