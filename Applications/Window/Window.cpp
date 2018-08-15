@@ -57,6 +57,7 @@
 #include "Macros.hpp"
 
 #include "ConcurrentWatcher.hpp"
+#include "ComboBox.hpp"
 #include "FontComboBox.hpp"
 #include "LineEdit.hpp"
 #include "MessageWidget.hpp"
@@ -80,92 +81,30 @@
 
 #include "RealVector.hpp"
 #include "RealMatrix9.hpp"
+#include "String.hpp"
+#include "StringParser.hpp"
+#include <QJsonObject>
 
 /*!
     Constructs the main program window.
 */
 As::Window::Window() {
-    // Print application info
     //printAppInfo_Slot();
-
-    // Set output format for qDebug() depends on the build type
     SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
 
-
-
-    QVector<qreal> qv{1.0, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-    QVector<qreal> qv2{3, 5, 8 };
-    As::RealVector v(qv);
-    As::RealVector v2(qv2);
-    As::RealMatrix9 m(1.0, 2, 3, 4, 5, 6, 7, 8, 9);
-    ADEBUG << v;
-    ADEBUG << v2;
-    ADEBUG << m;
-    //m.set(qv);
-    ADEBUG << m;
-    ADEBUG;
-
-    v2 = v;
-    ADEBUG << v2;
-
-    qv2.resize(4);
-    ADEBUG << qv2;
-
-    QVector<qreal> qv3;
-    qv3.resize(5);
-    qv3.append(4.4);
-
-    QVector<qreal> qv4(0);
-    ADEBUG << qv4;
-
-    for (auto d : qv4) {
-        ADEBUG << d; }
-
-
-    //AEXIT;
-
-    // Set program GUI style
     setStyleSheet(createStyleSheet());
+    createActionsMenusToolBar();
+    //createStatusBar();
+    setAcceptDrops(true);
+    setCentralWidget(createDragAndDropWidget()); // Initial central widget before new files are loaded
+    //setCentralWidget(createMainWidget());
+    setupWindowSizeAndPosition();
+    connect(this, &As::Window::currentFilePathChanged_Signal, this, &As::Window::setWindowTitle);
 
     // Method setFontFilters(QFontComboBox::MonospacedFonts) takes some time (1-2s),
     // when called for the 1st time after the program start. So, we do it once here
     // to shift that time delay from the files opening time to the program opening time.
-    initMonospacedFonts();
-
-    // Create action, menues and tool bar
-    createActionsMenusToolBar();
-    //createStatusBar();
-
-    // To be able to receive media dropped on a widget
-    setAcceptDrops(true);
-
-    // Initial central widget before new files are loaded
-    setCentralWidget(createDragAndDropWidget());
-    //setCentralWidget(createMainWidget());
-
-    // Window size and position
-    setupWindowSizeAndPosition();
-
-    // Update windows title when needed
-    connect(this, &As::Window::currentFilePathChanged_Signal, this, &As::Window::setWindowTitle);
-
-    // Show the main application window
-    show(); // moved here from main.cpp to show (1) mainwindow and then (2) autoupdate window
-
-    // Offer to chose the automatic update, when the program is started for the 1st time
-    offerAutoUpdate();
-
-    // Check for update, if required
-    checkApplicationUpdate();
-
-    // Update count of application start
-    setApplicationStartCount();
-
-
-
-    // Auto run test
-    //autoRun("/Users/asazonov/tmp/p10533");
-}
+    initMonospacedFonts(); }
 
 /*!
     Destructs the main window.
@@ -176,21 +115,29 @@ As::Window::~Window() {
     writeSettings(); }
 
 /*!
+    Shows the main application window.
+*/
+void As::Window::show() {
+    QMainWindow::show();
+
+    offerAutoUpdate();
+    checkApplicationUpdate();
+    setApplicationStartCount();
+
+    // Auto run test
+    //autoRun("/Users/asazonov/tmp/p10533");
+}
+
+/*!
     Writes application setting to disk.
 */
-void As::Window::autoRun(const QString& path, const bool quit) {
-
-    openFiles(QStringList{path });
-
+void As::Window::autoRun(const QString& path) {
+    openFiles(QStringList{ path });
     extractScans_Slot();
     visualizePlots_Slot();
     calcStructureFactor_Slot();
     showOutput_Slot();
-    exportOutputTable_Slot();
-
-    if (quit) {
-        QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection); } // qApp = QApplication::instance()
-}
+    exportOutputTable_Slot(); }
 
 /*!
     Writes application setting to disk.
@@ -226,24 +173,29 @@ void As::Window::loadFiles(const QStringList& filePathList) {
     if (m_scans != Q_NULLPTR) {
         delete m_scans;
         m_scans = Q_NULLPTR; }
-
     m_scans = new As::ScanArray;
 
     // Signal-slot connections for the scans array
     //connect(this, SIGNAL(currentFileIndexChanged_Signal(int)), m_scans, SLOT(setModel(int)));
-    connect(this, &As::Window::currentFileIndexChanged_Signal, m_scans, &As::ScanArray::setFileIndex);
-    connect(this, &As::Window::currentScanChanged_Signal, m_scans, &As::ScanArray::setScanIndex);
-    connect(m_scans, &As::ScanArray::scanIndexChanged, this, &As::Window::highlightScanLines_Slot);
-    connect(m_scans, &As::ScanArray::scanIndexChanged, this, &As::Window::highlightFoundText_Slot);
-    connect(m_scans, &As::ScanArray::facilityTypeChanged_Signal, this, &As::Window::facilityTypeChanged_Signal);
-    connect(m_scans, &As::ScanArray::instrumentTypeChanged_Signal, this, &As::Window::instrumentTypeChanged_Signal);
-    connect(m_scans, &As::ScanArray::dataTypeChanged_Signal, this, &As::Window::dataTypeChanged_Signal);
+    connect(this, &As::Window::currentFileIndexChanged_Signal,
+            m_scans, &As::ScanArray::setFileIndex);
+    connect(this, &As::Window::currentScanChanged_Signal,
+            m_scans, &As::ScanArray::setScanIndex);
+    connect(m_scans, &As::ScanArray::scanIndexChanged,
+            this, &As::Window::highlightScanLines_Slot);
+    connect(m_scans, &As::ScanArray::scanIndexChanged,
+            this, &As::Window::highlightFoundText_Slot);
+    connect(m_scans, &As::ScanArray::facilityTypeChanged,
+            this, &As::Window::facilityTypeChanged);
+    connect(m_scans, &As::ScanArray::instrumentTypeChanged,
+            this, &As::Window::instrumentTypeChanged);
+    connect(m_scans, &As::ScanArray::dataTypeChanged,
+            this, &As::Window::dataTypeChanged);
 
     // Create or re-create the common scan
     if (m_commonScan != Q_NULLPTR) {
         delete m_commonScan;
         m_commonScan = Q_NULLPTR; }
-
     m_commonScan = new As::Scan;
 
     // Save contents of the old files
@@ -281,7 +233,7 @@ void As::Window::loadFiles(const QStringList& filePathList) {
     emit oldFilesClosed_Signal(false);
 
     // Detect data
-    bool ok = m_scans->detectInputFileType();
+    bool ok = m_scans->detectInputFilesType();
 
     if (!ok) {
         auto msgBox = new QMessageBox(this);
@@ -321,15 +273,13 @@ void As::Window::dragEnterEvent(QDragEnterEvent* event) {
 void As::Window::dropEvent(QDropEvent* event) {
     ADEBUG;
 
+    // Extract the local paths of the files
     if (event->mimeData()->hasUrls()) {
-
-        // Extract the local paths of the files
         QStringList pathList;
 
         for (const QUrl& url : event->mimeData()->urls()) {
             pathList << url.toLocalFile(); }
 
-        // Open file(s)
         openFiles(pathList); } }
 
 /*!
@@ -411,8 +361,8 @@ void As::Window::offerAutoUpdate() {
     ADEBUG << "isFirstApplicationStart()" << isFirstApplicationStart();
 
     // Return if the program run not for the 1st time
-    if (!isFirstApplicationStart()) {
-        return; }
+    ///    if (!isFirstApplicationStart()) {
+    ///        return; }
 
     // Opens user dialog window
 
@@ -460,7 +410,7 @@ void As::Window::checkApplicationUpdate() {
 
     if (autoUpdate) {
         const bool hideOutput = true;
-        checkApplicationUpdateNow_Slot(hideOutput); } }
+        checkApplicationUpdateNow(hideOutput); } }
 
 /*!
     Resizes main program window and move it to the screen center.
@@ -468,13 +418,14 @@ void As::Window::checkApplicationUpdate() {
 void As::Window::setupWindowSizeAndPosition() {
     ADEBUG;
 
-    // Read saved window size
-    QSize windowRect = QSettings().value("MainWindow/size", QSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT)).toSize();
-
     // Relative widget to have screen dimensions
     QDesktopWidget* desktop = QApplication::desktop();
     QRect desktopRect = desktop->screenGeometry(this); // main screen
     //QRect desktopRect = desktop->screenGeometry(desktop->screenNumber(QCursor::pos())); // screen with cursor
+
+    // Read window size an position
+    QSize windowRect = QSettings().value("MainWindow/size", QSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT)).toSize();
+    QPoint windowPos = QSettings().value("MainWindow/position", QPoint(left, top)).toPoint();
 
     // Correct window size to be not larger than screen size
     windowRect.setWidth(qMin(windowRect.width(), desktopRect.width()));
@@ -484,13 +435,8 @@ void As::Window::setupWindowSizeAndPosition() {
     const int left = (desktopRect.width() - windowRect.width()) / 2;
     const int top = (desktopRect.height() - windowRect.height()) / 2;
 
-    // Resize main window
+    // Resize and move main window
     resize(windowRect.width(), windowRect.height());
-
-    // Read saved window position
-    QPoint windowPos = QSettings().value("MainWindow/position", QPoint(left, top)).toPoint();
-
-    // Move main window
     move(windowPos.x(), windowPos.y()); }
 
 /*!

@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QAction>
 #include <QApplication>
@@ -70,45 +70,42 @@
 #include "Window.hpp"
 
 /*!
-Updates the group 'Plot - Experimental details'
+    Updates the group 'Plot - Experimental details'
 */
-void As::Window::update_Plot_ExpDetailsGroup(const As::Scan *scan)
-{
+void As::Window::update_Plot_ExpDetailsGroup(const As::Scan* scan) {
     ADEBUG;
 
     const QString itemKey = "conditions";
 
     // First, hide all the lines
-    for (const auto &subitemKey : SCAN_DATABASE[itemKey].keys()) {
+    for (const auto& subitemKey : SCAN_DATABASE[itemKey].keys()) {
         auto widget = findChild<As::LabelQuatroBlock*>(itemKey + subitemKey + "Widget");
         widget->hide(); }
 
     // Now, show only the required lines
-    for (const auto &subitemKey : (*scan)[itemKey].keys()) {
+    for (const auto& subitemKey : (*scan)[itemKey].keys()) {
         const QString data = scan->data(itemKey, subitemKey);
         if (!data.isEmpty()) {
             auto widget = findChild<As::LabelTripleBlock*>(itemKey + subitemKey + "Widget");
             widget->show();
             auto label = findChild<QLabel*>(itemKey + subitemKey + "Data");
-            label->setText(scan->printDataRange(itemKey, subitemKey)); } }
-}
+            label->setText(scan->printDataRange(itemKey, subitemKey)); } } }
 
 /*!
-Updates the group 'Plot - Experimental angles'
+    Updates the group 'Plot - Experimental angles'
 */
-void As::Window::update_Plot_ExpAnglesGroup(const As::Scan *scan)
-{
+void As::Window::update_Plot_ExpAnglesGroup(const As::Scan* scan) {
     ADEBUG;
 
     const QString itemKey = "angles";
 
     // First, hide all the lines
-    for (const auto &subitemKey : SCAN_DATABASE[itemKey].keys()) {
+    for (const auto& subitemKey : SCAN_DATABASE[itemKey].keys()) {
         auto widget = findChild<As::LabelQuatroBlock*>(itemKey + subitemKey + "Widget");
         widget->hide(); }
 
     // Now, show only the required lines
-    for (const auto &subitemKey : (*scan)[itemKey].keys()) {
+    for (const auto& subitemKey : (*scan)[itemKey].keys()) {
         const QString data = scan->data(itemKey, subitemKey);
         if (!data.isEmpty()) {
             auto widget = findChild<As::LabelQuatroBlock*>(itemKey + subitemKey + "Widget");
@@ -126,19 +123,17 @@ void As::Window::update_Plot_ExpAnglesGroup(const As::Scan *scan)
 
             // Modify color of non-zero ranges and steps
             QString color = As::Color(As::grayLight).name();
-            if (vector.step() != 0.)
-                color = As::Color(As::blue).name();
+            if (vector.step() != 0.) {
+                color = As::Color(As::blue).name(); }
 
             // Change style
             range->setStyleSheet(QString("QLabel {color: %1}").arg(color));
-            step->setStyleSheet(QString("QLabel {color: %1}").arg(color)); } }
-}
+            step->setStyleSheet(QString("QLabel {color: %1}").arg(color)); } } }
 
 /*!
-Updates the group 'Plot - Scan corrections'
+    Updates the group 'Plot - Scan corrections'
 */
-void As::Window::update_Plot_ScanCorrectGroup(const As::Scan *scan)
-{
+void As::Window::update_Plot_ScanCorrectGroup(const As::Scan* scan) {
     ADEBUG;
 
     // Enable or disable left and right skip counts spin boxes
@@ -164,14 +159,12 @@ void As::Window::update_Plot_ScanCorrectGroup(const As::Scan *scan)
     m_leftSkipCount->setMaximumSilently(maxNumLeftSkipPoints);
     m_leftSkipCount->setValueSilently(numLeftSkipPoints);
     m_rightSkipCount->setMaximumSilently(maxNumRightSkipPoints);
-    m_rightSkipCount->setValueSilently(numRightSkipPoints);
-}
+    m_rightSkipCount->setValueSilently(numRightSkipPoints); }
 
 /*!
-Updates the group 'Plot - Peak integration'
+    Updates the group 'Plot - Peak integration'
 */
-void As::Window::update_Plot_PeakIntegrateGroup(const Scan *scan)
-{
+void As::Window::update_Plot_PeakIntegrateGroup(const Scan* scan) {
     ADEBUG;
 
     // Enable or disable left and right background counts spin boxes
@@ -199,18 +192,15 @@ void As::Window::update_Plot_PeakIntegrateGroup(const Scan *scan)
     m_rightBkgCount->setMaximumSilently(maxNumRightBkgPoints);
     m_rightBkgCount->setValueSilently(numRightBkgPoints);
 
-    ADEBUG;
-}
+    ADEBUG; }
 
 /*!
-Updates the output table highlighting
+    Updates the output table highlighting
 */
-void As::Window::update_OutputTable_Highlight(const int index)
-{
+void As::Window::update_OutputTable_Highlight(const int index) {
     ADEBUG << index;
 
-    if (m_outputTableWidget)
-        m_outputTableWidget->selectRow(index);
+    if (m_outputTableWidget) {
+        m_outputTableWidget->selectRow(index); }
 
-    ADEBUG;
-}
+    ADEBUG; }

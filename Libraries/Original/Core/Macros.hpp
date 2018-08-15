@@ -43,7 +43,8 @@
 
 #define ADESTROYED qDebug() << "Destroyed:" << this
 
-#define AEXIT exit(0)
+#define AEXIT exit(0);
+#define AQUIT quit();
 
 #define OR  ||
 #define AND &&

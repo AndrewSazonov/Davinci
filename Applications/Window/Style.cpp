@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QSettings>
 #include <QString>
@@ -27,53 +27,42 @@
 #include "Style.hpp"
 
 /*!
-Constructs the program style.
+    Constructs the program style.
 */
-As::Style::Style()
-{
-    createStyle();
-}
+As::Style::Style() {
+    createStyle(); }
 
 /*!
-Starts the new style part named \a block.
+    Starts the new style part named \a block.
 */
-void As::Style::startBlock(const QString &block)
-{
-    if (!m_style.isEmpty())
-        closeBlock();
-    m_style += block + "{";
-}
+void As::Style::startBlock(const QString& block) {
+    if (!m_style.isEmpty()) {
+        closeBlock(); }
+    m_style += block + "{"; }
 
 /*!
-Closes the \a block.
+    Closes the \a block.
 */
-void As::Style::closeBlock()
-{
-    m_style += "}";
-}
+void As::Style::closeBlock() {
+    m_style += "}"; }
 
 /*!
-Appends \a property with \a value to the last created block.
+    Appends \a property with \a value to the last created block.
 */
-void As::Style::add(const QString &property,
-                    const QString &value)
-{
-    m_style += QString("%1 %2;").arg(property).arg(value);
-}
+void As::Style::add(const QString& property,
+                    const QString& value) {
+    m_style += QString("%1 %2;").arg(property).arg(value); }
 
 /*!
-Returns the style as QString.
+    Returns the style as QString.
 */
-QString As::Style::toQString()
-{
-    return m_style;
-}
+QString As::Style::toQString() {
+    return m_style; }
 
 /*!
-Creates the style.
+    Creates the style.
 */
-void As::Style::createStyle()
-{
+void As::Style::createStyle() {
 
     //==========
     // QGroupBox
@@ -489,5 +478,4 @@ void As::Style::createStyle()
     // Close the last block
     //=====================
 
-    closeBlock();
-}
+    closeBlock(); }

@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QAbstractItemModel>
 #include <QDebug>
@@ -60,10 +60,9 @@
 //=======================
 
 /*!
-...
+    ...
 */
-void As::Window::gotoScan_Slot(const int index)
-{
+void As::Window::gotoScan_Slot(const int index) {
     ADEBUG_H1;
     ADEBUG << "index:" << index;
 
@@ -88,21 +87,20 @@ void As::Window::gotoScan_Slot(const int index)
         currentScan()->setPeakFitType( genericScan()->peakFitType() );
 
         currentScan()->m_numLeftBkgPoints = genericScan()->m_numLeftBkgPoints;
-        currentScan()->m_numRightBkgPoints = genericScan()->m_numRightBkgPoints;
-    }
+        currentScan()->m_numRightBkgPoints = genericScan()->m_numRightBkgPoints; }
 
     // Treat current scan conditions
-    if (genericScan()->plotType() == As::PlotType::Integrated AND currentScan()->plotType() != As::PlotType::Excluded)
-        m_scans->treatSinglePeak(index-1);
+    if (genericScan()->plotType() == As::PlotType::Integrated AND currentScan()->plotType() != As::PlotType::Excluded) {
+        m_scans->treatSinglePeak(index - 1); }
 
     //
     m_scans->setScanIndex(index);
 
     // Update the common widgets
-    if (scanAt(index)->plotType() == As::PlotType::Excluded)
-        emit excludeScanStateChanged_Signal(true);
-    else
-        emit excludeScanStateChanged_Signal(false);
+    if (scanAt(index)->plotType() == As::PlotType::Excluded) {
+        emit excludeScanStateChanged_Signal(true); }
+    else {
+        emit excludeScanStateChanged_Signal(false); }
 
     // Update the extracted tables
     emit extractedTableModelChanged(scanAt(index)->extractedTableModel());
@@ -125,60 +123,52 @@ void As::Window::gotoScan_Slot(const int index)
         // next to lines are done when we switch to the output table tab only
         //m_scans->createFullOutputTable(); // slows down scan change via go to
         //createFullOutputTableModel_Slot(); // further slows down...
-        update_OutputTable_Highlight(index-1); }
-}
+        update_OutputTable_Highlight(index - 1); } }
 
 /*!
-...
+    ...
 */
-void As::Window::updateScan_Slot()
-{
+void As::Window::updateScan_Slot() {
     ADEBUG << m_scans->scanIndex();
 
-    gotoScan_Slot(m_scans->scanIndex());
-}
+    gotoScan_Slot(m_scans->scanIndex()); }
 
 /*!
-...
+    ...
 */
-void As::Window::excludeScan_Slot(const bool exclude)
-{
+void As::Window::excludeScan_Slot(const bool exclude) {
     ADEBUG << "exclude:" << exclude;
 
     currentScan()->setPlotType(exclude ? As::PlotType::Excluded : genericScan()->plotType());
     currentScan()->setData("number", "Excluded", exclude ? "1" : "0"); // init in preTreatData()
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 //================
 // Text - Controls
 //================
 
 /*!
-...
+    ...
 */
-void As::Window::gotoFile_Slot(const int index)
-{
+void As::Window::gotoFile_Slot(const int index) {
     ADEBUG << "index:" << index;
 
     //if (currentScan() != Q_NULLPTR AND currentScan()->fileIndex() == index)
     //    return;
 
     emit currentFileIndexChanged_Signal(index);
-    emit currentFilePathChanged_Signal(m_scans->m_inputFilesContents.first[index-1]);
-    emit currentFileContentChanged_Signal(m_scans->m_inputFilesContents.second[index-1]);
+    emit currentFilePathChanged_Signal(m_scans->m_inputFilesContents.first[index - 1]);
+    emit currentFileContentChanged_Signal(m_scans->m_inputFilesContents.second[index - 1]);
 
     const int size = m_inputTextWidget->blockCount();
     emit linesRangeChanged_Signal(1, size);
-    emit linesCountChanged_Signal(QString::number(size));
-}
+    emit linesCountChanged_Signal(QString::number(size)); }
 
 /*!
-...
+    ...
 */
-void As::Window::gotoLine_Slot(const int index)
-{
+void As::Window::gotoLine_Slot(const int index) {
     ADEBUG << "index:" << index;
 
     // !?
@@ -187,31 +177,26 @@ void As::Window::gotoLine_Slot(const int index)
 }
 
 /*!
-...
+    ...
 */
-void As::Window::ignoreCase_Slot(const bool ignore)
-{
+void As::Window::ignoreCase_Slot(const bool ignore) {
     ADEBUG << "ignore:" << ignore;
 
-    QSettings().setValue("TextControls/ignoreCase", ignore);
-}
+    QSettings().setValue("TextControls/ignoreCase", ignore); }
 
 /*!
-...
+    ...
 */
-void As::Window::gotoMatch_Slot(const int index)
-{
+void As::Window::gotoMatch_Slot(const int index) {
     ADEBUG << "index:" << index;
 
-    if (index > 0)
-        m_inputTextWidget->setTextCursor(m_searchMatches[index-1]);
-}
+    if (index > 0) {
+        m_inputTextWidget->setTextCursor(m_searchMatches[index - 1]); } }
 
 /*!
-...
+    ...
 */
-void As::Window::extractScans_Slot()
-{
+void As::Window::extractScans_Slot() {
     ADEBUG_H3;
 
     // Extract data from raw input using multi-threading
@@ -247,106 +232,94 @@ void As::Window::extractScans_Slot()
         emit scansCountChanged_Signal(QString::number(size)); }
 
     // Set focus
-    m_tabsWidget->setCurrentWidget(extractedTableWidget);
-}
+    m_tabsWidget->setCurrentWidget(extractedTableWidget); }
 
 //================
 // Text - Settings
 //================
 
 /*!
-...
+    ...
 */
-void As::Window::wrapText_Slot(const bool wrap)
-{
+void As::Window::wrapText_Slot(const bool wrap) {
     ADEBUG << "wrap:" << wrap;
 
     QSettings().setValue("TextSettings/wrapText", wrap);
 
     QPlainTextEdit::LineWrapMode mode = QPlainTextEdit::NoWrap;
-    if (wrap)
-        mode = QPlainTextEdit::WidgetWidth;
+    if (wrap) {
+        mode = QPlainTextEdit::WidgetWidth; }
 
-    m_inputTextWidget->setLineWrapMode(mode);
-}
+    m_inputTextWidget->setLineWrapMode(mode); }
 
 /*!
-...
+    ...
 */
-void As::Window::highlightSyntax_Slot(const bool highlight)
-{
+void As::Window::highlightSyntax_Slot(const bool highlight) {
     ADEBUG << "highlight:" << highlight;
 
     QSettings().setValue("TextSettings/highlightSyntax", highlight);
 
     /*
-    tobeHighligthed = checked;
-    QString type("");
+        tobeHighligthed = checked;
+        QString type("");
 
-    if (tobeHighligthed)
+        if (tobeHighligthed)
         type.append(inputFileType);
-    //else
-    //    type.append("");
+        //else
+        //    type.append("");
     */
 
     // Highlight syntax
     QString type("");
-    if (highlight)
-        type.append(m_scans->m_instrumentType + " " + m_scans->m_dataType);
-    new As::SyntaxHighlighter(m_inputTextWidget->document(), type);
-}
+    if (highlight) {
+        type.append(m_scans->m_instrumentType + " " + m_scans->m_dataType); }
+    new As::SyntaxHighlighter(m_inputTextWidget->document(), type); }
 
 /*!
-...
+    ...
 */
-void As::Window::setFont_Slot(const QFont &font)
-{
+void As::Window::setFont_Slot(const QFont& font) {
     ADEBUG << "font:" << font;
 
     QSettings().setValue("TextSettings/fontFamily", font.family());
     QSettings().setValue("TextSettings/fontSize", font.pointSize());
 
     m_inputTextWidget->setFont(font);
-    m_inputTextWidget->updateLineNumberAreaFontSize(font);
-}
+    m_inputTextWidget->updateLineNumberAreaFontSize(font); }
 
 /*!
-...
+    ...
 */
-void As::Window::setFontSize_Slot(const int size)
-{
+void As::Window::setFontSize_Slot(const int size) {
     ADEBUG << "size:" << size;
 
     auto font = m_inputTextWidget->font();
     font.setPointSize(size);
 
-    setFont_Slot(font);
-}
+    setFont_Slot(font); }
 
 /*!
-...
+    ...
 */
-void As::Window::highlightCurrentScanLines_Slot(const int fileIndex)
-{
+void As::Window::highlightCurrentScanLines_Slot(const int fileIndex) {
     //ADEBUG;
 
-    if (currentScan() AND fileIndex == currentScan()->fileIndex())
-        highlightScanLines_Slot(currentScanIndex());
-}
+    if (currentScan() AND fileIndex == currentScan()->fileIndex()) {
+        highlightScanLines_Slot(currentScanIndex()); } }
 
 /*!
-...
+    ...
 */
-void As::Window::highlightScanLines_Slot(const int scanIndex)
-{
+void As::Window::highlightScanLines_Slot(const int scanIndex) {
     //ADEBUG << "scanIndex:" << scanIndex;
     //m_inputTextWidget->clearAllSelections();
 
-    if (scanIndex == 0)
-        return;
+    if (scanIndex == 0) {
+        return; }
 
-    if (scanIndex != m_scans->scanIndex())
-        return;
+    if (scanIndex != m_scans->scanIndex()) {
+        return; }
 
     QList<QTextEdit::ExtraSelection> selections;
     QTextEdit::ExtraSelection selection;
@@ -358,8 +331,8 @@ void As::Window::highlightScanLines_Slot(const int scanIndex)
     // Define lines to be highlighted
     selection.cursor = m_inputTextWidget->textCursor();
     bool ok;
-    const QStringList lines = m_scans->at(scanIndex-1)->data("misc", "lines", &ok).split(" ");
-    for (const QString &line : lines) {
+    const QStringList lines = m_scans->at(scanIndex - 1)->data("misc", "lines", &ok).split(" ");
+    for (const QString& line : lines) {
         bool ok;
         const int num = line.toInt(&ok);
         if (ok) {
@@ -372,18 +345,16 @@ void As::Window::highlightScanLines_Slot(const int scanIndex)
         bool ok;
         const int lineIndex = lines[0].toInt(&ok);
         ///ADEBUG << "???" << lineIndex;
-        if (ok)
-            m_inputTextWidget->setCursorPosition(lineIndex); }
+        if (ok) {
+            m_inputTextWidget->setCursorPosition(lineIndex); } }
 
     // Set selections
-    m_inputTextWidget->setCurrentScanSelections(selections);
-}
+    m_inputTextWidget->setCurrentScanSelections(selections); }
 
 /*!
-...
+    ...
 */
-void As::Window::textSearchTimer_Slot()
-{
+void As::Window::textSearchTimer_Slot() {
     // m_delayBeforeSearching was created with findField in create_Text_FindGroup
     // it allows to type more then 1 symbol before start searching of the document
     // Disconnect m_delayBeforeSearching from previous signal-slot connections
@@ -396,14 +367,12 @@ void As::Window::textSearchTimer_Slot()
     // If within 1 second findField text was edited again then
     // previous signal-slot is disconnected and new will be set for 1 second
     //connect(m_delayBeforeSearching, SIGNAL(timeout()), this, SLOT(highlightFoundText_Slot()));
-    connect(m_delayBeforeSearching, &QTimer::timeout, this, &As::Window::highlightFoundText_Slot);
-}
+    connect(m_delayBeforeSearching, &QTimer::timeout, this, &As::Window::highlightFoundText_Slot); }
 
 /*!
-...
+    ...
 */
-void As::Window::highlightFoundText_Slot()
-{
+void As::Window::highlightFoundText_Slot() {
     ADEBUG;
 
     // Move cursor to start
@@ -414,8 +383,8 @@ void As::Window::highlightFoundText_Slot()
 
     // Flags for search
     QTextDocument::FindFlags flags = 0;
-    if (!isCaseIgnored)
-        flags |= QTextDocument::FindCaseSensitively;
+    if (!isCaseIgnored) {
+        flags |= QTextDocument::FindCaseSensitively; }
 
     // Make alias to find field widget
     auto findField = findChild<As::LineEdit*>("findField");
@@ -444,32 +413,30 @@ void As::Window::highlightFoundText_Slot()
     // Go to the first match
     if (numMatches > 0) {
         m_inputTextWidget->setTextCursor(m_searchMatches[0]);
-        matchesIndexChanged_Signal(1);}
+        matchesIndexChanged_Signal(1); }
 
     // Define color for the findField depends on searching result
     As::Color color;
-    if (numMatches > 0)
-        color = As::blue;
+    if (numMatches > 0) {
+        color = As::blue; }
     else /* numMatches == 0 */
-        if (findField->text() != "")
-            color = As::red;
-        else
-            color = As::gray;
+        if (findField->text() != "") {
+            color = As::red; }
+        else {
+            color = As::gray; }
     findField->setStyleSheet(QString("#findField {color: %1}").arg(color.name()));
 
     // Set selections
-    m_inputTextWidget->setFoundTextSelections(selections);
-}
+    m_inputTextWidget->setFoundTextSelections(selections); }
 
 //=================
 // Table - Controls
 //=================
 
 /*!
-...
+    ...
 */
-void As::Window::visualizePlots_Slot()
-{
+void As::Window::visualizePlots_Slot() {
     ADEBUG_H3;
 
     // Create widget if not yet created
@@ -499,29 +466,25 @@ void As::Window::visualizePlots_Slot()
     gotoScan_Slot(currentScanIndex()); // m_scans->scanIndex()
 
     // Set focus
-    m_tabsWidget->setCurrentWidget(m_visualizedPlotsWidget);
-}
+    m_tabsWidget->setCurrentWidget(m_visualizedPlotsWidget); }
 
 //================
 // Plot - Controls
 //================
 
 /*!
-...
+    ...
 */
-void As::Window::treatIndividually_Slot(const bool b)
-{
-    if (currentScan() == Q_NULLPTR)
-        return;
+void As::Window::treatIndividually_Slot(const bool b) {
+    if (currentScan() == Q_NULLPTR) {
+        return; }
 
-    currentScan()->setIndividuallyTreated(b);
-}
+    currentScan()->setIndividuallyTreated(b); }
 
 /*!
-...
+    ...
 */
-void As::Window::selectNeighborsRemoveType(int index)
-{
+void As::Window::selectNeighborsRemoveType(int index) {
     const auto type = static_cast<As::Scan::NeighborsRemoveType>(index);
 
     ADEBUG << type;
@@ -531,46 +494,41 @@ void As::Window::selectNeighborsRemoveType(int index)
     else {
         genericScan()->setNeighborsRemoveType( type ); }
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 /*!
-...
+    ...
 */
-void As::Window::setLeftSkipCount_Slot(const int count)
-{
+void As::Window::setLeftSkipCount_Slot(const int count) {
     ADEBUG << "LeftSkipCount:" << count;
 
-    if (currentScan()->isIndividuallyTreated())
-        currentScan()->m_numLeftSkipPoints = count; // make slot in As::Scan?
-    else
-        genericScan()->m_numLeftSkipPoints = count;
+    if (currentScan()->isIndividuallyTreated()) {
+        currentScan()->m_numLeftSkipPoints = count; } // make slot in As::Scan?
+    else {
+        genericScan()->m_numLeftSkipPoints = count; }
 
     updateScan_Slot();
 
 }
 
 /*!
-...
+    ...
 */
-void As::Window::setRightSkipCount_Slot(const int count)
-{
+void As::Window::setRightSkipCount_Slot(const int count) {
     ADEBUG << "RightSkipCount:" << count;
 
-    if (currentScan()->isIndividuallyTreated())
-        currentScan()->m_numRightSkipPoints = count; // make slot in As::Scan?
-    else
-        genericScan()->m_numRightSkipPoints = count;
+    if (currentScan()->isIndividuallyTreated()) {
+        currentScan()->m_numRightSkipPoints = count; } // make slot in As::Scan?
+    else {
+        genericScan()->m_numRightSkipPoints = count; }
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 
 /*!
-...
+    ...
 */
-void As::Window::selectPeakAnalysisType(int index)
-{
+void As::Window::selectPeakAnalysisType(int index) {
     const auto type = static_cast<As::Scan::PeakAnalysisType>(index);
 
     ADEBUG << type;
@@ -580,14 +538,12 @@ void As::Window::selectPeakAnalysisType(int index)
     else {
         genericScan()->setPeakAnalysisType( type ); }
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 /*!
-...
+    ...
 */
-void As::Window::selectBkgDetectType(int index)
-{
+void As::Window::selectBkgDetectType(int index) {
     const auto type = static_cast<As::Scan::BkgDetectType>(index);
 
     ADEBUG << type;
@@ -597,14 +553,12 @@ void As::Window::selectBkgDetectType(int index)
     else {
         genericScan()->setBkgDetectType( type ); }
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 /*!
-...
+    ...
 */
-void As::Window::selectPeakFitType(int index)
-{
+void As::Window::selectPeakFitType(int index) {
     const auto type = static_cast<As::Scan::PeakFitType>(index);
 
     ADEBUG << type;
@@ -614,57 +568,49 @@ void As::Window::selectPeakFitType(int index)
     else {
         genericScan()->setPeakFitType( type ); }
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 
 /*!
-...
+    ...
 */
-void As::Window::setLeftBkgCount_Slot(const int count)
-{
+void As::Window::setLeftBkgCount_Slot(const int count) {
     ADEBUG << "LeftBkgCount:" << count;
 
-    if (currentScan()->isIndividuallyTreated())
-        currentScan()->m_numLeftBkgPoints = count; // make slot in As::Scan?
-    else
-        genericScan()->m_numLeftBkgPoints = count;
+    if (currentScan()->isIndividuallyTreated()) {
+        currentScan()->m_numLeftBkgPoints = count; } // make slot in As::Scan?
+    else {
+        genericScan()->m_numLeftBkgPoints = count; }
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 /*!
-...
+    ...
 */
-void As::Window::setRightBkgCount_Slot(const int count)
-{
+void As::Window::setRightBkgCount_Slot(const int count) {
     ADEBUG << "RightBkgCount:" << count;
 
-    if (currentScan()->isIndividuallyTreated())
-        currentScan()->m_numRightBkgPoints = count; // make slot in As::Scan?
-    else
-        genericScan()->m_numRightBkgPoints = count;
+    if (currentScan()->isIndividuallyTreated()) {
+        currentScan()->m_numRightBkgPoints = count; } // make slot in As::Scan?
+    else {
+        genericScan()->m_numRightBkgPoints = count; }
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 /*!
-...
+    ...
 */
-void As::Window::calcStructureFactor_Slot()
-{
+void As::Window::calcStructureFactor_Slot() {
     ADEBUG_H3;
 
     genericScan()->setPlotType(As::PlotType::Integrated);
 
-    updateScan_Slot();
-}
+    updateScan_Slot(); }
 
 /*!
-...
+    ...
 */
-void As::Window::showOutput_Slot()
-{
+void As::Window::showOutput_Slot() {
     ADEBUG_H3;
 
     // Run data treatment using multi-threading
@@ -681,47 +627,40 @@ void As::Window::showOutput_Slot()
     // Set focus
     m_tabsWidget->setCurrentWidget(m_outputTableWidget);
 
-    ADEBUG;
-}
+    ADEBUG; }
 
 //================
 // Plot - Settings
 //================
 
 /*!
-...
+    ...
 */
-void As::Window::hideLegend_Slot(const bool hide)
-{
+void As::Window::hideLegend_Slot(const bool hide) {
     ADEBUG << "hide:" << hide;
 
     QSettings().setValue("PlotSettings/hideLegend", hide);
 
     // !?
-    m_visualizedPlotsWidget->updateAllOnPlot(scanAt(currentScanIndex()));
-}
+    m_visualizedPlotsWidget->updateAllOnPlot(scanAt(currentScanIndex())); }
 
 //==================
 // Output - Settings
 //==================
 
 /*!
-...
+    ...
 */
-void As::Window::exportExcluded_Slot(const bool save)
-{
+void As::Window::exportExcluded_Slot(const bool save) {
     ADEBUG << "save:" << save;
 
-    QSettings().setValue("OutputSettings/exportExcluded", save);
-}
+    QSettings().setValue("OutputSettings/exportExcluded", save); }
 
 /*!
-...
+    ...
 */
-void As::Window::alwaysSaveHeaders_Slot(const bool save)
-{
+void As::Window::alwaysSaveHeaders_Slot(const bool save) {
     ADEBUG << "save:" << save;
 
-    QSettings().setValue("OutputSettings/alwaysSaveHeaders", save);
-}
+    QSettings().setValue("OutputSettings/alwaysSaveHeaders", save); }
 

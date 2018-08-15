@@ -47,7 +47,14 @@
     \macro AEXIT
     \relates As
 
-    This macro is a shortcut for \c 'exit(0);', which tells the application to exit.
+    This macro is a shortcut for \c 'exit(0);'.
+*/
+
+/*!
+    \macro AQUIT
+    \relates As
+
+    This macro is a shortcut for \c 'quit();'.
 */
 
 /*!

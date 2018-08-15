@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QRegExp>
 #include <QString>
@@ -28,20 +28,17 @@
 #include "SyntaxHighlighter.hpp"
 
 /*!
-...
+    ...
 */
-As::SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent,
-                                         const QString &type)
-    : QSyntaxHighlighter(parent)
-{
-    load(type);
-}
+As::SyntaxHighlighter::SyntaxHighlighter(QTextDocument* parent,
+                                         const QString& type)
+    : QSyntaxHighlighter(parent) {
+    load(type); }
 
 /*!
-...
+    ...
 */
-void As::SyntaxHighlighter::load(const QString &type)
-{
+void As::SyntaxHighlighter::load(const QString& type) {
     // Set QStringList major, minor, medium, grayed, hidden?!
     // Use enum InputFileType here and in SyntaxHighlighter?!
 
@@ -80,15 +77,13 @@ void As::SyntaxHighlighter::load(const QString &type)
     if (type == "6T2 NEW xml") {
         append(As::blueDark,      "<[^>]*>"); // [^>]* - everything but '>' as much as possible times
         append(As::grayLightVery, "</[^>]*>");
-        append(As::grayLightVery, "(<|>)"); }
-}
+        append(As::grayLightVery, "(<|>)"); } }
 
 /*!
-...
+    ...
 */
-void As::SyntaxHighlighter::append(const As::Color &color,
-                                   const QString &pattern)
-{
+void As::SyntaxHighlighter::append(const As::Color& color,
+                                   const QString& pattern) {
     QTextCharFormat format;
     format.setForeground(color);
 
@@ -96,15 +91,13 @@ void As::SyntaxHighlighter::append(const As::Color &color,
     rule.m_format = format;
     rule.m_pattern = QRegExp(pattern); // rule.pattern = QRegularExpression(pattern);
 
-    m_highlightingRules.append(rule);
-}
+    m_highlightingRules.append(rule); }
 
 /*!
-...
+    ...
 */
-void As::SyntaxHighlighter::highlightBlock(const QString &text)
-{
-    for (const HighlightingRule &rule : m_highlightingRules) {
+void As::SyntaxHighlighter::highlightBlock(const QString& text) {
+    for (const HighlightingRule& rule : m_highlightingRules) {
 
         QRegExp expression(rule.m_pattern); // QRegularExpression expression(rule.pattern);
         int index = expression.indexIn(text);
@@ -114,5 +107,4 @@ void As::SyntaxHighlighter::highlightBlock(const QString &text)
             setFormat(index, length, rule.m_format);
             index = expression.indexIn(text, index + length); } }
 
-    setCurrentBlockState(0);
-}
+    setCurrentBlockState(0); }

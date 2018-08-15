@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QMouseEvent>
 #include <QString>
@@ -31,10 +31,9 @@
 #include "Plot.hpp"
 
 /*!
-...
+    ...
 */
-As::Plot::Plot()
-{
+As::Plot::Plot() {
     // Define global vars
     m_debugLineWidth = 2;
     m_markSize  = 8;
@@ -87,30 +86,28 @@ As::Plot::Plot()
     // comma as decimal separator and space as thousand separator
     //this->setLocale(QLocale(QLocale::Russian, QLocale::Russia));
     // period as decimal separator and comma as thousand separator
-    setLocale(QLocale(QLocale::English, QLocale::UnitedKingdom));
-}
+    setLocale(QLocale(QLocale::English, QLocale::UnitedKingdom)); }
 
 /*!
-...
+    ...
 */
 void As::Plot::setPlotColors(const As::PlotType plotType,
-                             const QString &countType)
-{
+                             const QString& countType) {
     // Individual
-    if (plotType == As::PlotType::Raw)
-        m_color = As::Color(As::green);
-    else if (plotType == As::PlotType::Integrated)
-        m_color = As::Color(As::blue);
-    else if (plotType == As::PlotType::Fitted)
-        m_color = As::Color(As::red);
-    else if (plotType == As::PlotType::Excluded)
-        m_color = As::Color(As::grayLight);
+    if (plotType == As::PlotType::Raw) {
+        m_color = As::Color(As::green); }
+    else if (plotType == As::PlotType::Integrated) {
+        m_color = As::Color(As::blue); }
+    else if (plotType == As::PlotType::Fitted) {
+        m_color = As::Color(As::red); }
+    else if (plotType == As::PlotType::Excluded) {
+        m_color = As::Color(As::grayLight); }
 
     // Adjust for Up and Down polarisation data
-    if (countType == "+")
-        m_color = m_color.lighter(120);
-    else if (countType == "-")
-        m_color = m_color.darker(120);
+    if (countType == "+") {
+        m_color = m_color.lighter(120); }
+    else if (countType == "-") {
+        m_color = m_color.darker(120); }
 
     // Common
     m_textColor           = As::Color(As::white);
@@ -119,38 +116,33 @@ void As::Plot::setPlotColors(const As::PlotType plotType,
     m_markDrawColor       = m_color.darker(160);
     m_markFillColor       = m_color.lighter(120);
     m_errorBarsDrawColor  = m_color;
-    m_areaFillColor       = m_color.transparenter(40);
-}
+    m_areaFillColor       = m_color.transparenter(40); }
 
 /*!
-...
+    ...
 */
 //void As::Plot::setAxesLabels(const QString &xLabel)
-void As::Plot::setAxesLabels()
-{
+void As::Plot::setAxesLabels() {
     //xAxis->setLabel(xLabel + "(degrees)");
     xAxis->setLabel("Scan angle (degrees)");
-    yAxis->setLabel("Intensity (counts / second)");
-}
+    yAxis->setLabel("Intensity (counts / second)"); }
 
 /*!
-...
+    ...
 */
-void As::Plot::updateAxesRanges(const RealVector &x,
-                                const RealVector &y,
-                                const RealVector &sy)
-{
+void As::Plot::updateAxesRanges(const RealVector& x,
+                                const RealVector& y,
+                                const RealVector& sy) {
     qreal extra = 2 * sy.max() + 0.1 * (y.max() + 2 * sy.max());
     m_xAxisMin = x.min();
     m_xAxisMax = x.max();
     m_yAxisMin = y.min() - extra;
     m_yAxisMax = y.max() + 1.5 * extra;
     xAxis->setRange(m_xAxisMin, m_xAxisMax);
-    yAxis->setRange(m_yAxisMin, m_yAxisMax);
-}
+    yAxis->setRange(m_yAxisMin, m_yAxisMax); }
 
 /*!
-...
+    ...
 */
 // Label with an arrow-like marker to a specific (x, y) point
 void As::Plot::appendArrowInfoLabel(const As::PlotType plotType,
@@ -158,9 +150,7 @@ void As::Plot::appendArrowInfoLabel(const As::PlotType plotType,
                                     const qreal y,
                                     const int labelShift,
                                     const int arrowWidth,
-                                    const int arrowLength)
-{
-    // Set colors
+                                    const int arrowLength) {
     setPlotColors(plotType);
 
     // Point to attach the text label
@@ -176,10 +166,10 @@ void As::Plot::appendArrowInfoLabel(const As::PlotType plotType,
     int yShift = labelShift + arrowLength;
     label->position->setCoords(0, -yShift); // additional y-move from the initial anchor
     //label->position->setType(QCPItemPosition::ptPlotCoords);
-    if (yShift == 0)
-        label->setPositionAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    else
-        label->setPositionAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+    if (yShift == 0) {
+        label->setPositionAlignment(Qt::AlignHCenter | Qt::AlignVCenter); }
+    else {
+        label->setPositionAlignment(Qt::AlignHCenter | Qt::AlignBottom); }
     label->setClipToAxisRect(false);
     label->setPadding(QMargins(5, 3, 5, 3));
     label->setBrush(QBrush(m_textBkgColor));
@@ -200,28 +190,24 @@ void As::Plot::appendArrowInfoLabel(const As::PlotType plotType,
     // Create arrow head
     //QCPLineEnding head(QCPLineEnding::esFlatArrow, arrowWidth, arrowLength);
     arrow->setHead(QCPLineEnding(QCPLineEnding::esFlatArrow, arrowWidth, arrowLength));
-    arrow->setLayer("labels");
-}
+    arrow->setLayer("labels"); }
 
 /*!
-...
+    ...
 */
 // Conventional label to appear in the center of the (x, y) point
 void As::Plot::appendCentralInfoLabel(const As::PlotType plotType,
                                       const qreal x,
-                                      const qreal y)
-{
+                                      const qreal y) {
     int labelShift = 0;
     int arrowWidth = 0;
     int arrowLength = 0;
-    appendArrowInfoLabel(plotType, x, y, labelShift, arrowWidth, arrowLength);
-}
+    appendArrowInfoLabel(plotType, x, y, labelShift, arrowWidth, arrowLength); }
 
 /*!
-...
+    ...
 */
-void As::Plot::updateInfoLabels(const As::Scan *scan)
-{
+void As::Plot::updateInfoLabels(const As::Scan* scan) {
     const As::RealVector x = scan->data("angles", scan->scanAngle());
     const As::RealVector y = scan->data("intensities", "DetectorNorm");
     appendArrowInfoLabel(scan->plotType(), x[y.indexOfMax()], y.max());
@@ -229,70 +215,59 @@ void As::Plot::updateInfoLabels(const As::Scan *scan)
     if (scan->plotType() == As::PlotType::Integrated) {
         const int l = scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
         const int r = scan->numPoints() - scan->m_numRightBkgPoints - scan->m_numRightSkipPoints - 1;
-        appendCentralInfoLabel(As::PlotType::Raw, (x[l] + x[r]) / 2, scan->m_normMeanBkg); }
-}
+        appendCentralInfoLabel(As::PlotType::Raw, (x[l] + x[r]) / 2, scan->m_normMeanBkg); } }
 
 /*!
-...
+    ...
 */
-int As::Plot::getHklIndexPrecision(const qreal value)
-{
-    if (qAbs(value - qRound(value)) > 0.03)
-        return 3;
-    return 0;
-}
+int As::Plot::getHklIndexPrecision(const qreal value) {
+    if (qAbs(value - qRound(value)) > 0.03) {
+        return 3; }
+    return 0; }
 
 /*!
-...
+    ...
 */
-int As::Plot::getNumberPrecision(const qreal value)
-{
-    if (value < 1)
-        return 2;
-    else if (value < 10)
-        return 1;
-    return 0;
-}
+int As::Plot::getNumberPrecision(const qreal value) {
+    if (value < 1) {
+        return 2; }
+    else if (value < 10) {
+        return 1; }
+    return 0; }
 
 /*!
-...
+    ...
 */
-QString As::Plot::formatForInfoBox(const QString &name,
+QString As::Plot::formatForInfoBox(const QString& name,
                                    const qreal value,
-                                   const qreal error)
-{
-    if (qIsNaN(value) OR qIsNaN(error))
-        return QString("");
+                                   const qreal error) {
+    if (qIsNaN(value) OR qIsNaN(error)) {
+        return QString(""); }
     return QString("%1: %2 \u00B1 %3\n")
-            .arg(name)
-            .arg(value, 0, 'f', getNumberPrecision(value))
-            .arg(error, 0, 'f', getNumberPrecision(error));
-}
+           .arg(name)
+           .arg(value, 0, 'f', getNumberPrecision(value))
+           .arg(error, 0, 'f', getNumberPrecision(error)); }
 
 /*!
-...
+    ...
 */
-QString As::Plot::formatForInfoBox(const QString &name,
+QString As::Plot::formatForInfoBox(const QString& name,
                                    const qreal value1,
                                    const qreal value2,
-                                   const qreal value3)
-{
-    if (qIsNaN(value1) OR qIsNaN(value2) OR qIsNaN(value3))
-        return QString("");
+                                   const qreal value3) {
+    if (qIsNaN(value1) OR qIsNaN(value2) OR qIsNaN(value3)) {
+        return QString(""); }
     return QString("%1: %2, %3, %4\n")
-            .arg(name)
-            .arg(value1, 0, 'f', getHklIndexPrecision(value1))
-            .arg(value2, 0, 'f', getHklIndexPrecision(value2))
-            .arg(value3, 0, 'f', getHklIndexPrecision(value3));
-}
+           .arg(name)
+           .arg(value1, 0, 'f', getHklIndexPrecision(value1))
+           .arg(value2, 0, 'f', getHklIndexPrecision(value2))
+           .arg(value3, 0, 'f', getHklIndexPrecision(value3)); }
 
 /*!
-...
+    ...
 */
 // Make correction according to updateInfoLabels!?
-void As::Plot::updateInfoBox(const As::Scan *scan)
-{
-    // Set colors
+void As::Plot::updateInfoBox(const As::Scan* scan) {
     setPlotColors(scan->plotType());
 
     // Create string with plot info
@@ -301,10 +276,10 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
     // Add information to be shown
     text += formatForInfoBox("HKL", scan->millerIndex("H"), scan->millerIndex("K"), scan->millerIndex("L"));
     if (scan->plotType() != As::PlotType::Excluded) {
-        for (const QString &countType : As::COUNT_TYPES) {
+        for (const QString& countType : As::COUNT_TYPES) {
             if (!qIsNaN(scan->m_normPeakArea[countType])) {
                 text += formatForInfoBox("Area" + countType, scan->m_normPeakArea[countType], scan->m_normPeakAreaErr[countType]); } }
-        for (const QString &countType : As::COUNT_TYPES) {
+        for (const QString& countType : As::COUNT_TYPES) {
             if (!qIsNaN(scan->m_structFactor[countType])) {
                 text += formatForInfoBox("F2" + countType,   scan->m_structFactor[countType], scan->m_structFactorErr[countType]); } }
         text += formatForInfoBox("Fwhm", scan->m_fullWidthHalfMax, scan->m_fullWidthHalfMaxErr);
@@ -333,17 +308,15 @@ void As::Plot::updateInfoBox(const As::Scan *scan)
     plotInfo->setColor(m_textColor);
     plotInfo->setText(text);
     plotInfo->setVisible(true);
-    if (text.isEmpty())
-        plotInfo->setVisible(false);
-    plotInfo->setLayer("legend");
-}
+    if (text.isEmpty()) {
+        plotInfo->setVisible(false); }
+    plotInfo->setLayer("legend"); }
 
 /*!
-...
+    ...
 */
 // Not updated after zoom!?
-void As::Plot::addXMiddleArrows(const As::Scan *scan)
-{
+void As::Plot::addXMiddleArrows(const As::Scan* scan) {
     if (scan->plotType() == As::PlotType::Integrated) {
 
         int arrowLength = 8;
@@ -373,13 +346,13 @@ void As::Plot::addXMiddleArrows(const As::Scan *scan)
         auto arrowB = new QCPItemLine(this);
         addItem(arrowB); // allows to clear it when needed
         /*
-        arrow->end->setType(QCPItemPosition::ptAxisRectRatio);
-        arrow->end->setCoords(0.5, 0);
-        arrow->end->setType(QCPItemPosition::ptPlotCoords);
-        arrow->end->setCoords((x[l] + x[r]) / 2, arrow->end->coords().y());
-        arrow->end->setType(QCPItemPosition::ptAxisRectRatio);
-        arrow->start->setParentAnchor(arrow->end);
-        arrow->start->setCoords(0, arrowLength);
+            arrow->end->setType(QCPItemPosition::ptAxisRectRatio);
+            arrow->end->setCoords(0.5, 0);
+            arrow->end->setType(QCPItemPosition::ptPlotCoords);
+            arrow->end->setCoords((x[l] + x[r]) / 2, arrow->end->coords().y());
+            arrow->end->setType(QCPItemPosition::ptAxisRectRatio);
+            arrow->start->setParentAnchor(arrow->end);
+            arrow->start->setCoords(0, arrowLength);
         */
         arrowB->end->setType(QCPItemPosition::ptPlotCoords);
         arrowB->end->setCoords((x[l] + x[r]) / 2, m_yAxisMax);
@@ -389,23 +362,18 @@ void As::Plot::addXMiddleArrows(const As::Scan *scan)
         arrowB->setPen(QPen(m_textBkgColor));
         arrowB->setClipToAxisRect(false);
         arrowB->setHead(QCPLineEnding(QCPLineEnding::esFlatArrow, arrowWidth, arrowLength));
-        arrowB->setLayer("labels"); }
-}
+        arrowB->setLayer("labels"); } }
 
 /*!
-...
+    ...
 */
 void As::Plot::addCustomGraph(const As::PlotType plotType,
-                              const QString &countType,
+                              const QString& countType,
                               const QCPScatterStyle::ScatterShape markType,
                               const Qt::PenStyle lineType,
                               const Qt::BrushStyle fillType,
-                              const QCPGraph::ErrorType errType)
-{
-    // Add graph and set its name
+                              const QCPGraph::ErrorType errType) {
     addGraph();
-
-    // Set colors
     setPlotColors(plotType, countType);
 
     // Scatter symbols (marks)
@@ -419,143 +387,139 @@ void As::Plot::addCustomGraph(const As::PlotType plotType,
 
     // Error bars
     graph()->setErrorType(errType);
-    graph()->setErrorPen(QPen(m_errorBarsDrawColor));
-}
+    graph()->setErrorPen(QPen(m_errorBarsDrawColor)); }
 
 /*!
-...
+    ...
 */
-void As::Plot::addAllGraphs(const As::Scan *scan)
-{
+void As::Plot::addAllGraphs(const As::Scan* scan) {
     // Define data
     const As::RealVector x  = scan->data("angles", scan->scanAngle());
     const As::RealVector y  = scan->data("intensities", "DetectorNorm");
     const As::RealVector sy = scan->data("intensities", "sDetectorNorm");
 
     // Define local variables
-    QPair<QVector<int>, QVector<int> > ranges;
-    QVector<QVector<qreal> > data;
+    QPair<QVector<int>, QVector<int>> ranges;
+    QVector<QVector<qreal>> data;
     //bool hasSkipPoints = scan->m_numLeftSkipPoints + scan->m_numRightSkipPoints;
-    QStringList countTypes{""};
+    QStringList countTypes{"" };
 
     // Create graphs depends on plotType
     switch (scan->plotType()) {
 
-    case As::PlotType::Raw: {
-        ranges.first.clear();
-        ranges.second.clear();
-        ranges.first << scan->m_numLeftSkipPoints;
-        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
-        // Add graphs according to the measured data (unpolarised or polarised)
-        for (const QString &countType : countTypes) {
-            As::RealVector y  = scan->data("intensities", "DetectorNorm" + countType);
-            As::RealVector sy  = scan->data("intensities", "sDetectorNorm" + countType);
-            if (!y.isEmpty()) {
-                data.clear();
-                data << x.toQVector() << y.toQVector() << sy.toQVector();
-                addCustomGraph(scan->plotType(), countType,
-                               QCPScatterStyle::ssCircle, Qt::SolidLine,
-                               Qt::SolidPattern, QCPGraph::etValue);
-                updateGraphOnPlot(ranges, data);
-                graph()->setName(tr(qPrintable("Scan" + countType))); } }
-        break; }
-
-    case As::PlotType::Integrated: {
-        // Peak marks, line and fill
-        ranges.first.clear();
-        ranges.second.clear();
-        ranges.first  << scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
-        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints;
-        data.clear();
-        data << x.toQVector() << y.toQVector() << sy.toQVector();
-        addCustomGraph(scan->plotType(), "",
-                       QCPScatterStyle::ssCircle, Qt::SolidLine,
-                       Qt::SolidPattern, QCPGraph::etValue);
-        updateGraphOnPlot(ranges, data);
-        graph()->setName(tr("Peak"));
-        // Bottom line to cut the filled area of the above peak graph
-        data.clear();
-        data << x.toQVector() << QVector<qreal>(x.toQVector().size(), scan->m_normMeanBkg);
-        addCustomGraph(scan->plotType(), "",
-                       QCPScatterStyle::ssNone, Qt::NoPen,
-                       Qt::NoBrush, QCPGraph::etNone);
-        updateGraphOnPlot(ranges, data);
-        int previous = graphCount() - 2;
-        graph(previous)->setChannelFillGraph(graph());
-        graph()->removeFromLegend();
-        // Skipped marks, if any
-        if (scan->m_numLeftSkipPoints + scan->m_numRightSkipPoints > 0) {
+        case As::PlotType::Raw: {
             ranges.first.clear();
             ranges.second.clear();
-            ranges.first  << 0;
-            ranges.second << scan->m_numLeftSkipPoints;
-            ranges.first  << scan->numPoints() - scan->m_numRightSkipPoints;
-            ranges.second << scan->numPoints();
+            ranges.first << scan->m_numLeftSkipPoints;
+            ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
+            // Add graphs according to the measured data (unpolarised or polarised)
+            for (const QString& countType : countTypes) {
+                As::RealVector y  = scan->data("intensities", "DetectorNorm" + countType);
+                As::RealVector sy  = scan->data("intensities", "sDetectorNorm" + countType);
+                if (!y.isEmpty()) {
+                    data.clear();
+                    data << x.toQVector() << y.toQVector() << sy.toQVector();
+                    addCustomGraph(scan->plotType(), countType,
+                                   QCPScatterStyle::ssCircle, Qt::SolidLine,
+                                   Qt::SolidPattern, QCPGraph::etValue);
+                    updateGraphOnPlot(ranges, data);
+                    graph()->setName(tr(qPrintable("Scan" + countType))); } }
+            break; }
+
+        case As::PlotType::Integrated: {
+            // Peak marks, line and fill
+            ranges.first.clear();
+            ranges.second.clear();
+            ranges.first  << scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
+            ranges.second << scan->numPoints() - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints;
             data.clear();
             data << x.toQVector() << y.toQVector() << sy.toQVector();
-            addCustomGraph(As::PlotType::Excluded, "",
+            addCustomGraph(scan->plotType(), "",
+                           QCPScatterStyle::ssCircle, Qt::SolidLine,
+                           Qt::SolidPattern, QCPGraph::etValue);
+            updateGraphOnPlot(ranges, data);
+            graph()->setName(tr("Peak"));
+            // Bottom line to cut the filled area of the above peak graph
+            data.clear();
+            data << x.toQVector() << QVector<qreal>(x.toQVector().size(), scan->m_normMeanBkg);
+            addCustomGraph(scan->plotType(), "",
+                           QCPScatterStyle::ssNone, Qt::NoPen,
+                           Qt::NoBrush, QCPGraph::etNone);
+            updateGraphOnPlot(ranges, data);
+            int previous = graphCount() - 2;
+            graph(previous)->setChannelFillGraph(graph());
+            graph()->removeFromLegend();
+            // Skipped marks, if any
+            if (scan->m_numLeftSkipPoints + scan->m_numRightSkipPoints > 0) {
+                ranges.first.clear();
+                ranges.second.clear();
+                ranges.first  << 0;
+                ranges.second << scan->m_numLeftSkipPoints;
+                ranges.first  << scan->numPoints() - scan->m_numRightSkipPoints;
+                ranges.second << scan->numPoints();
+                data.clear();
+                data << x.toQVector() << y.toQVector() << sy.toQVector();
+                addCustomGraph(As::PlotType::Excluded, "",
+                               QCPScatterStyle::ssCircle, Qt::NoPen,
+                               Qt::NoBrush, QCPGraph::etValue);
+                updateGraphOnPlot(ranges, data);
+                graph()->setName(tr("Skipped")); }
+            // Background marks
+            ranges.first.clear();
+            ranges.second.clear();
+            ranges.first  << scan->m_numLeftSkipPoints;
+            ranges.second << scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
+            ranges.first  << scan->numPoints() - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints;
+            ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
+            data.clear();
+            data << x.toQVector() << y.toQVector() << sy.toQVector();
+            addCustomGraph(As::PlotType::Raw, "",
                            QCPScatterStyle::ssCircle, Qt::NoPen,
                            Qt::NoBrush, QCPGraph::etValue);
             updateGraphOnPlot(ranges, data);
-            graph()->setName(tr("Skipped")); }
-        // Background marks
-        ranges.first.clear();
-        ranges.second.clear();
-        ranges.first  << scan->m_numLeftSkipPoints;
-        ranges.second << scan->m_numLeftSkipPoints + scan->m_numLeftBkgPoints;
-        ranges.first  << scan->numPoints() - scan->m_numRightSkipPoints - scan->m_numRightBkgPoints;
-        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
-        data.clear();
-        data << x.toQVector() << y.toQVector() << sy.toQVector();
-        addCustomGraph(As::PlotType::Raw, "",
-                       QCPScatterStyle::ssCircle, Qt::NoPen,
-                       Qt::NoBrush, QCPGraph::etValue);
-        updateGraphOnPlot(ranges, data);
-        graph()->setName(tr("Background"));
-        // Background line
-        ranges.first.clear();
-        ranges.second.clear();
-        ranges.first  << scan->m_numLeftSkipPoints;
-        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
-        data.clear();
-        data << x.toQVector() << QVector<qreal>(x.toQVector().size(), scan->m_normMeanBkg);
-        addCustomGraph(As::PlotType::Raw, "",
-                       QCPScatterStyle::ssNone, Qt::DotLine,
-                       Qt::SolidPattern, QCPGraph::etNone);
-        updateGraphOnPlot(ranges, data);
-        graph()->setName(tr("Background mean"));
-        break; }
+            graph()->setName(tr("Background"));
+            // Background line
+            ranges.first.clear();
+            ranges.second.clear();
+            ranges.first  << scan->m_numLeftSkipPoints;
+            ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
+            data.clear();
+            data << x.toQVector() << QVector<qreal>(x.toQVector().size(), scan->m_normMeanBkg);
+            addCustomGraph(As::PlotType::Raw, "",
+                           QCPScatterStyle::ssNone, Qt::DotLine,
+                           Qt::SolidPattern, QCPGraph::etNone);
+            updateGraphOnPlot(ranges, data);
+            graph()->setName(tr("Background mean"));
+            break; }
 
-    case As::PlotType::Fitted: {
-        ADEBUG;
-        break; }
+        case As::PlotType::Fitted: {
+            ADEBUG;
+            break; }
 
-    case As::PlotType::Excluded: {
-        ranges.first.clear();
-        ranges.second.clear();
-        ranges.first << scan->m_numLeftSkipPoints;
-        ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
-        data.clear();
-        data << x.toQVector() << y.toQVector() << sy.toQVector();
-        addCustomGraph(scan->plotType(), "",
-                       QCPScatterStyle::ssCircle, Qt::SolidLine,
-                       Qt::SolidPattern, QCPGraph::etValue);
-        updateGraphOnPlot(ranges, data);
-        graph()->setName(tr("Scan"));
-        break; }
+        case As::PlotType::Excluded: {
+            ranges.first.clear();
+            ranges.second.clear();
+            ranges.first << scan->m_numLeftSkipPoints;
+            ranges.second << scan->numPoints() - scan->m_numRightSkipPoints;
+            data.clear();
+            data << x.toQVector() << y.toQVector() << sy.toQVector();
+            addCustomGraph(scan->plotType(), "",
+                           QCPScatterStyle::ssCircle, Qt::SolidLine,
+                           Qt::SolidPattern, QCPGraph::etValue);
+            updateGraphOnPlot(ranges, data);
+            graph()->setName(tr("Scan"));
+            break; }
 
-    default: {
-        qFatal("%s: unknown plotType", __FUNCTION__);
-        break; } }
-}
+        default: {
+            qFatal("%s: unknown plotType", __FUNCTION__);
+            break; } } }
 
 /*!
-...
+    ...
 */
-void As::Plot::updateGraphOnPlot(const QPair<QVector<int>, QVector<int> > ranges,
-                                 const QVector<QVector<qreal> > data)
-{
-    QVector<QVector<qreal> > subData(data.size());
+void As::Plot::updateGraphOnPlot(const QPair<QVector<int>, QVector<int>> ranges,
+                                 const QVector<QVector<qreal>> data) {
+    QVector<QVector<qreal>> subData(data.size());
 
     // Fill subData arrays
     for (int m = 0; m < ranges.first.size(); ++m) {
@@ -567,18 +531,16 @@ void As::Plot::updateGraphOnPlot(const QPair<QVector<int>, QVector<int> > ranges
     AASSERT(size == 3 OR size == 2, QString("wrong size of the subData array '%1'").arg(size));
 
     // Select appropriate plot type depends on number of data columns
-    if (subData.size() == 3)
-        graph()->setDataValueError(subData[0], subData[1], subData[2]);
+    if (subData.size() == 3) {
+        graph()->setDataValueError(subData[0], subData[1], subData[2]); }
 
-    else if (subData.size() == 2)
-        graph()->setData(subData[0], subData[1]);
-}
+    else if (subData.size() == 2) {
+        graph()->setData(subData[0], subData[1]); } }
 
 /*!
-...
+    ...
 */
-void As::Plot::updateAllOnPlot(const As::Scan *scan)
-{
+void As::Plot::updateAllOnPlot(const As::Scan* scan) {
     //ADEBUG << scan;
 
     // Get data to plot
@@ -586,7 +548,6 @@ void As::Plot::updateAllOnPlot(const As::Scan *scan)
     const As::RealVector y  = scan->data("intensities", "DetectorNorm");
     const As::RealVector sy = scan->data("intensities", "sDetectorNorm");
 
-    // Update axes ranges
     updateAxesRanges(x, y, sy); // Auto by QCustomPlot: rescaleAxes();
 
     // Remove all existing graphs
@@ -595,20 +556,18 @@ void As::Plot::updateAllOnPlot(const As::Scan *scan)
     // Removes all item from the plot (like additional text previously plotted: info labels and box)
     clearItems();
 
-    // Set plot colors
     setPlotColors(scan->plotType());
 
     // Create graphs depends on plotType
     addAllGraphs(scan);
 
-    // Update info labels and box
     updateInfoLabels(scan);
     updateInfoBox(scan);
 
     // Create Legend
     auto isLegendHidden = QSettings().value("PlotSettings/hideLegend", false).toBool();
     legend->setVisible(!isLegendHidden);
-    legend->setBrush(QBrush(QColor(255,255,255,230)));
+    legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
 
     // By default, the legend is in the inset layout of the main axis rect.
     // So this is how we access it to change legend placement:
@@ -618,14 +577,12 @@ void As::Plot::updateAllOnPlot(const As::Scan *scan)
     addXMiddleArrows(scan);
 
     // Re-plot everything defined above
-    replot();
-}
+    replot(); }
 
 /*!
-...
+    ...
 */
-void As::Plot::showPointCoordinatesToolTip(QMouseEvent *event)
-{
+void As::Plot::showPointCoordinatesToolTip(QMouseEvent* event) {
     const qreal x = xAxis->pixelToCoord(event->x());
     const qreal y = yAxis->pixelToCoord(event->y());
 
@@ -638,19 +595,19 @@ void As::Plot::showPointCoordinatesToolTip(QMouseEvent *event)
 
     QString toolTip;
 
-    if (isInside)
-        toolTip = QString("(%1, %2)").arg(x, 0, 'f', 2).arg(y, 0, 'f', 1);
+    if (isInside) {
+        toolTip = QString("(%1, %2)").arg(x, 0, 'f', 2).arg(y, 0, 'f', 1); }
 
     setToolTip(toolTip);
     /*
-    // Coordinates of mouse pointer (in px)
-    QPoint p(event->pos().x(), event->pos().y());
-    // Coordinates of top left and bottom right corners of axis rectangle (in px)
-    QPoint tL(this->axisRect()->topLeft());
-    QPoint bR(this->axisRect()->bottomRight());
-    // Check if pointer is inside axis rectangle. If yes, convert px to axis dimentions and visualize via tooltip
-    const bool isInside = p.x() >= tL.x() AND p.x() <= bR.x() AND p.y() >= tL.y() AND p.y() <= bR.y();
-    if (isInside) {
+        // Coordinates of mouse pointer (in px)
+        QPoint p(event->pos().x(), event->pos().y());
+        // Coordinates of top left and bottom right corners of axis rectangle (in px)
+        QPoint tL(this->axisRect()->topLeft());
+        QPoint bR(this->axisRect()->bottomRight());
+        // Check if pointer is inside axis rectangle. If yes, convert px to axis dimentions and visualize via tooltip
+        const bool isInside = p.x() >= tL.x() AND p.x() <= bR.x() AND p.y() >= tL.y() AND p.y() <= bR.y();
+        if (isInside) {
         const qreal x = this->xAxis->pixelToCoord(p.x());
         const qreal y = this->yAxis->pixelToCoord(p.y());
         setToolTip(QString("(%1, %2)").arg(x, 0, 'f', 2).arg(y, 0, 'f', 1)); }
@@ -658,10 +615,9 @@ void As::Plot::showPointCoordinatesToolTip(QMouseEvent *event)
 }
 
 /*!
-...
+    ...
 */
-void As::Plot::mousePressToZoom(QMouseEvent *event)
-{
+void As::Plot::mousePressToZoom(QMouseEvent* event) {
     m_leftMouseButtonPressed = false;
     m_rightMouseButtonPressed = false;
 
@@ -690,14 +646,12 @@ void As::Plot::mousePressToZoom(QMouseEvent *event)
 
     // Check if the right button is pressed
     else if (event->buttons() == Qt::RightButton) {
-        m_rightMouseButtonPressed = true; }
-}
+        m_rightMouseButtonPressed = true; } }
 
 /*!
-...
+    ...
 */
-void As::Plot::mouseMoveToZoom(QMouseEvent *event)
-{
+void As::Plot::mouseMoveToZoom(QMouseEvent* event) {
     // Check if the left button is pressed
     if (event->buttons() == Qt::LeftButton) {
 
@@ -709,14 +663,12 @@ void As::Plot::mouseMoveToZoom(QMouseEvent *event)
         m_zoomRectangle->bottomRight->setCoords(m_xZoom2, m_yZoom2);
 
         // Replot graph to see the movement of the zoom rectangle
-        replot(); }
-}
+        replot(); } }
 
 /*!
-...
+    ...
 */
-void As::Plot::mouseReleaseToZoom(QMouseEvent *event)
-{
+void As::Plot::mouseReleaseToZoom(QMouseEvent* event) {
     // Check if the left button is released
     if (m_leftMouseButtonPressed) {
 
@@ -744,5 +696,4 @@ void As::Plot::mouseReleaseToZoom(QMouseEvent *event)
         yAxis->setRange(m_yAxisMin, m_yAxisMax); }
 
     // Replot graph with new ranges
-    replot();
-}
+    replot(); }

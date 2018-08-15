@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QCheckBox>
 #include <QDebug>
@@ -44,11 +44,10 @@
 #include "PreferencesDialog.hpp"
 
 /*!
-...
+    ...
 */
-As::PreferencesDialog::PreferencesDialog(QWidget *parent)
-    : QDialog(parent)
-{
+As::PreferencesDialog::PreferencesDialog(QWidget* parent)
+    : QDialog(parent) {
     ADEBUG;
 
     auto layout = new As::VBoxLayout;
@@ -56,14 +55,12 @@ As::PreferencesDialog::PreferencesDialog(QWidget *parent)
     layout->addWidget(createUpdateGroup());
 
     setLayout(layout);
-    setWindowTitle(tr("Preferences"));
-}
+    setWindowTitle(tr("Preferences")); }
 
 /*!
-...
+    ...
 */
-As::GroupBox *As::PreferencesDialog::createLanguageGroup()
-{
+As::GroupBox* As::PreferencesDialog::createLanguageGroup() {
     ADEBUG;
 
     auto languageComboBox = new As::ComboBox;
@@ -78,14 +75,12 @@ As::GroupBox *As::PreferencesDialog::createLanguageGroup()
     auto group = new As::GroupBox("PreferencesGeneralGroup", tr("Language"));
     group->setLayout(layout);
 
-    return group;
-}
+    return group; }
 
 /*!
-...
+    ...
 */
-As::GroupBox *As::PreferencesDialog::createUpdateGroup()
-{
+As::GroupBox* As::PreferencesDialog::createUpdateGroup() {
     ADEBUG;
 
     const bool autoUpdate = QSettings().value("Preferences/autoUpdate", true).toBool();
@@ -97,7 +92,7 @@ As::GroupBox *As::PreferencesDialog::createUpdateGroup()
 
     auto checkNow = new As::PushButton(tr("Check now"));
     checkNow->setToolTip(tr("Click to check for updates."));
-    connect(checkNow, &As::PushButton::clicked, this, &As::PreferencesDialog::checkUpdateNowClicked_Signal);
+    connect(checkNow, &As::PushButton::clicked, this, &As::PreferencesDialog::checkUpdateNowClicked);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(checkAuto);
@@ -107,16 +102,13 @@ As::GroupBox *As::PreferencesDialog::createUpdateGroup()
     group->setLayout(layout);
     group->setProperty("isLast", true);
 
-    return group;
-}
+    return group; }
 
 /*!
-...
+    ...
 */
-void As::PreferencesDialog::setAutoUpdate_Slot(const bool autoUpdate)
-{
+void As::PreferencesDialog::setAutoUpdate_Slot(const bool autoUpdate) {
     ADEBUG << "autoUpdate:" << autoUpdate;
 
-    QSettings().setValue("Preferences/autoUpdate", autoUpdate);
-}
+    QSettings().setValue("Preferences/autoUpdate", autoUpdate); }
 
