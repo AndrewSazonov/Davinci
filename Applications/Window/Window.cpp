@@ -361,8 +361,8 @@ void As::Window::offerAutoUpdate() {
     ADEBUG << "isFirstApplicationStart()" << isFirstApplicationStart();
 
     // Return if the program run not for the 1st time
-        if (!isFirstApplicationStart()) {
-            return; }
+    if (!isFirstApplicationStart()) {
+        return; }
 
     // Opens user dialog window
 
@@ -498,7 +498,11 @@ QString As::Window::maintainerPath() {
     const QRegularExpression appName(QString("%1(?![/\\\\])").arg(APP_NAME)); // match 'APP_NAME' which is not followed by '/' or '\'
     return appPath.replace(appName, MAINTAINER_NAME); }
 
+/*!
+    Starts parallel computation of type \a type on the scan array \a scans.
 
+    Connects the progress with the member progress dialog widget.
+*/
 void As::Window::concurrentRun(const QString& type,
                                As::ScanArray* scans) const {
     As::ConcurrentWatcher watcher;

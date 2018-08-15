@@ -619,6 +619,7 @@ void As::Window::showOutput_Slot() {
     // Create widget if not yet created
     if (m_outputTableWidget == Q_NULLPTR) {
         m_outputTableWidget = new As::TableView();
+        m_outputTableWidget->setObjectName("outputTableWidget");
         m_tabsWidget->addTab(m_outputTableWidget, "Output Table"); }
 
     // Create/updadate full output data table

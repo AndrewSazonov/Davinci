@@ -306,6 +306,9 @@ void As::Console::printProgramOutput() const {
 
     printMessageList(messageList); }
 
+/*!
+    Starts parallel computation of type \a type on the scan array \a scans.
+*/
 void As::Console::concurrentRun(const QString& type,
                                 As::ScanArray* scans) const {
     As::ConcurrentWatcher watcher;

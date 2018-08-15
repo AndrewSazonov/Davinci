@@ -59,6 +59,7 @@
 #include "ToolBarButton.hpp"
 #include "ToolBarSpacer.hpp"
 #include "UnderLabeledWidget.hpp"
+#include "Widget.hpp"
 
 #include "ScanDatabase.hpp"
 
@@ -93,11 +94,13 @@ QWidget* As::Window::createMainWidget() {
     ADEBUG;
 
     auto layout = new As::HBoxLayout;
+    layout->setObjectName("mainWidget layout");
     layout->addWidget(createDataWidget());
     layout->addWidget(createSidebarWidget());
     showOrHideSidebarBlocks_Slot(0);
 
-    auto mainWidget = new QWidget;
+    auto mainWidget = new As::Widget;
+    mainWidget->setObjectName("mainWidget");
     mainWidget->setLayout(layout);
 
     return mainWidget; }
@@ -109,9 +112,11 @@ QWidget* As::Window::createDataWidget() {
     ADEBUG;
 
     auto layout = new As::HBoxLayout;
+    layout->setObjectName("dataWidget layout");
     layout->addWidget(createTabsWidget());
 
-    auto widget = new QWidget;
+    auto widget = new As::Widget;
+    widget->setObjectName("dataWidget");
     widget->setLayout(layout);
 
     return widget; }
@@ -141,6 +146,7 @@ As::TextEditor* As::Window::createInputTextWidget() {
     ADEBUG;
 
     m_inputTextWidget = new As::TextEditor;
+    m_inputTextWidget->setObjectName("inputTextWidget");
 
     connect(this, &As::Window::currentFileContentChanged_Signal, m_inputTextWidget, &As::TextEditor::setPlainText);
 

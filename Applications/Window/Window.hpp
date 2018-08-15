@@ -269,8 +269,8 @@ class Window : public QMainWindow {
     //QPointer<As::TableView> m_extractedTableWidget; //signal-slot description doesn't work with QPointer in linux gcc
     //As::TableView *m_extractedTableWidget;          //with * works in linux gcc, but pointer is not set automatically to 0...
     QPointer<As::Plot> m_visualizedPlotsWidget;
-    //QPointer<As::TableView> m_outputTableWidget;
-    As::TableView* m_outputTableWidget;
+    QPointer<As::TableView> m_outputTableWidget;    // with simple pointer crashes if reopen files... fix!
+    //As::TableView* m_outputTableWidget;
 
     // Sidebar widgets
     QWidget* createSidebarWidget();
