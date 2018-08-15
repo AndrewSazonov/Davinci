@@ -21,6 +21,7 @@
 #ifndef AS_DIFFRACTION_CONCURRENTWATCHER_HPP
 #define AS_DIFFRACTION_CONCURRENTWATCHER_HPP
 
+#include <QObject>
 #include <QFutureWatcher>
 
 class QString;
@@ -30,14 +31,16 @@ namespace As { //AS_BEGIN_NAMESPACE
 class ScanArray;
 
 class ConcurrentWatcher : public QFutureWatcher<void> {
+    Q_OBJECT
 
   public:
-    ConcurrentWatcher();
+    ConcurrentWatcher(QObject* parent = Q_NULLPTR);
+    virtual ~ConcurrentWatcher();
 
     void startComputation(const QString& type,
                           As::ScanArray* scans);
 
-    virtual ~ConcurrentWatcher(); };
+};
 
 } //AS_END_NAMESPACE
 

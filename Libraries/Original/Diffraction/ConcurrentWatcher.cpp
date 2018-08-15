@@ -43,9 +43,16 @@
 /*!
     Constructs a default watcher.
 */
-As::ConcurrentWatcher::ConcurrentWatcher() {
+As::ConcurrentWatcher::ConcurrentWatcher(QObject* parent)
+    : QFutureWatcher<void>(parent) {
     // Use default number of threads in parallel computation
     QThreadPool::globalInstance()->setMaxThreadCount(QThread::idealThreadCount()); }
+
+/*!
+    Destroys the watcher.
+*/
+As::ConcurrentWatcher::~ConcurrentWatcher() {
+    ADESTROYED; }
 
 /*!
     Starts parallel computation of type \a type on the scan array \a scans.
@@ -96,7 +103,3 @@ void As::ConcurrentWatcher::startComputation(const QString& type,
 
     ADEBUG << "--------> parallel computation are finished." << type; }
 
-/*!
-    Destroys the watcher.
-*/
-As::ConcurrentWatcher::~ConcurrentWatcher() {}

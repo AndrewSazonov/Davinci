@@ -42,7 +42,7 @@ class Scan : public QObject {
     // constructor and destructor
 
     Scan(QObject* parent = Q_NULLPTR);
-    ~Scan();
+    virtual ~Scan();
 
     // operators
 
@@ -185,7 +185,13 @@ class Scan : public QObject {
     QMap<QString, qreal> m_structFactor, m_structFactorErr;
 
   private:
-    As::Scan_t m_scan; };
+    As::Scan_t m_scan; // main scan object
+
+    // Forbid to copy and assign scans
+    Scan(const As::Scan& other);
+    As::Scan& operator=(const As::Scan& other);
+
+};
 
 } //AS_END_NAMESPACE
 

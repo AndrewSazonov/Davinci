@@ -45,7 +45,7 @@ class ScanArray : public QObject {
 
     // ScanArray.cpp/Base.cpp
     ScanArray(QObject* parent = Q_NULLPTR);
-    ~ScanArray();
+    virtual ~ScanArray();
 
     As::Scan* operator[](const int i);
     const As::Scan* operator[](const int i) const;
@@ -127,6 +127,10 @@ class ScanArray : public QObject {
 
     int m_scanIndex = 0; // Index of the currently processed scan
     int m_fileIndex = 0; // Index of the file which contains the currently processed scan
+
+    // Forbid to copy and assign scan array
+    ScanArray(const As::ScanArray& other);
+    As::ScanArray& operator=(const As::ScanArray& other);
 
     // ScanArray.cpp/Extract.cpp
 

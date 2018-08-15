@@ -361,8 +361,8 @@ void As::Window::offerAutoUpdate() {
     ADEBUG << "isFirstApplicationStart()" << isFirstApplicationStart();
 
     // Return if the program run not for the 1st time
-    ///    if (!isFirstApplicationStart()) {
-    ///        return; }
+        if (!isFirstApplicationStart()) {
+            return; }
 
     // Opens user dialog window
 
@@ -423,9 +423,8 @@ void As::Window::setupWindowSizeAndPosition() {
     QRect desktopRect = desktop->screenGeometry(this); // main screen
     //QRect desktopRect = desktop->screenGeometry(desktop->screenNumber(QCursor::pos())); // screen with cursor
 
-    // Read window size an position
+    // Read window size
     QSize windowRect = QSettings().value("MainWindow/size", QSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT)).toSize();
-    QPoint windowPos = QSettings().value("MainWindow/position", QPoint(left, top)).toPoint();
 
     // Correct window size to be not larger than screen size
     windowRect.setWidth(qMin(windowRect.width(), desktopRect.width()));
@@ -434,6 +433,9 @@ void As::Window::setupWindowSizeAndPosition() {
     // Calculate window position to be in the screen center
     const int left = (desktopRect.width() - windowRect.width()) / 2;
     const int top = (desktopRect.height() - windowRect.height()) / 2;
+
+    // Read window position
+    QPoint windowPos = QSettings().value("MainWindow/position", QPoint(left, top)).toPoint();
 
     // Resize and move main window
     resize(windowRect.width(), windowRect.height());

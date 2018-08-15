@@ -80,4 +80,4 @@
 */
 
 // to get rid of 'libAsCore.a(Macros.o) has no symbols'
-int As::macrosObjHasNoSymbols = 0;
+int As::macrosObjFileHasNoSymbols = 0;
