@@ -615,6 +615,7 @@ void As::Window::showOutput_Slot() {
 
     // Run data treatment using multi-threading
     concurrentRun("treat", m_scans);
+    emit peaksTreatmentIsFinished(true);
 
     // Create widget if not yet created
     if (m_outputTableWidget == Q_NULLPTR) {

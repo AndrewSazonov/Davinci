@@ -346,9 +346,9 @@ As::GroupBox* As::Window::create_Text_ExtractGroup() {
     auto button = new As::PushButton(tr("Extract data"));
     button->setToolTip(tr("Click to extract the data from the opened file(s) and switch to the table view tab."));
     connect(button, &As::PushButton::clicked,
-            this, &As::Window::extractScans_Slot);
+            [button](){ button->setDisabled(true); });
     connect(button, &As::PushButton::clicked,
-            button, &As::PushButton::setEnabled);
+            this, &As::Window::extractScans_Slot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(button);
@@ -443,9 +443,9 @@ As::GroupBox* As::Window::create_Table_VisualizeGroup() {
     auto button = new As::PushButton(tr("Visualize extracted data"));
     button->setToolTip(tr("Click to visualize the data and switch to the plot view tab."));
     connect(button, &As::PushButton::clicked,
-            this, &As::Window::visualizePlots_Slot);
+            [button](){ button->setDisabled(true); });
     connect(button, &As::PushButton::clicked,
-            button, &As::PushButton::setEnabled);
+            this, &As::Window::visualizePlots_Slot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(button);
@@ -569,7 +569,8 @@ As::GroupBox* As::Window::create_Plot_ScanTreatGroup(const QString& objectName,
     auto group = new As::GroupBox(objectName, title);
     group->setLayout(layout);
     group->setHidden(true);
-    connect(this, &As::Window::calculateButtonPressed_Signal, group, &As::GroupBox::setHidden);
+    connect(this, &As::Window::calculateButtonPressed_Signal,
+            group, &As::GroupBox::setHidden);
 
     return group; }
 
@@ -612,7 +613,8 @@ As::GroupBox* As::Window::create_Plot_ScanCorrectGroup(const QString& objectName
     auto group = new As::GroupBox(objectName, title);
     group->setLayout(layout);
     group->setHidden(true);
-    connect(this, &As::Window::calculateButtonPressed_Signal, group, &As::GroupBox::setHidden);
+    connect(this, &As::Window::calculateButtonPressed_Signal,
+            group, &As::GroupBox::setHidden);
 
     return group; }
 
@@ -688,9 +690,11 @@ As::GroupBox* As::Window::create_Plot_ShowOutputGroup() {
     auto calcButton = new As::PushButton(tr("Show processed scans"));
     calcButton->setToolTip(tr("Click to show the processed scans with some calculated parameters."));
     connect(calcButton, &As::PushButton::clicked,
-            this, &As::Window::calcStructureFactor_Slot);
+            [calcButton](){ calcButton->setDisabled(true); });
+    //connect(calcButton, &As::PushButton::clicked,
+    //        calcButton, &As::PushButton::setEnabled);
     connect(calcButton, &As::PushButton::clicked,
-            calcButton, &As::PushButton::setEnabled);
+            this, &As::Window::calcStructureFactor_Slot);
     connect(calcButton, &As::PushButton::clicked,
             this, &As::Window::calculateButtonPressed_Signal);
 
@@ -706,9 +710,13 @@ As::GroupBox* As::Window::create_Plot_ShowOutputGroup() {
     outputButton->setToolTip(tr("Click to process (reprocess) all the scans and generate (update) the output table tab."));
     outputButton->setDisabled(true);
     connect(outputButton, &As::PushButton::clicked,
-            this, &As::Window::showOutput_Slot);
+            [outputButton](){ outputButton->setDisabled(true); });
+    connect(this, &As::Window::peaksTreatmentIsFinished,
+            outputButton, &As::PushButton::setEnabled);
     connect(this, &As::Window::calculateButtonPressed_Signal,
             outputButton, &As::PushButton::setDisabled);
+    connect(outputButton, &As::PushButton::clicked,
+            this, &As::Window::showOutput_Slot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(calcButton);

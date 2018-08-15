@@ -122,6 +122,7 @@ class Window : public QMainWindow {
     void newScansPlotted_Signal(const int count);
     void individualTreatStateChanged_Signal(const bool treat);
     void calculateButtonPressed_Signal(const bool);
+    void peaksTreatmentIsFinished(const bool);
 
     // For output sidebar tab
     void newPeaksIntegrated(const int count);
