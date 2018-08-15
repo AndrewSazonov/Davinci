@@ -22,6 +22,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
+#include <QMetaObject>
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
@@ -38,38 +39,44 @@
 #include "Console.hpp"
 
 /*!
-    Constructs a console version of the application.
+    Constructs a console version of the application with command line parser.
 */
-As::Console::Console() {
-
+As::Console::Console(QObject* parent)
+    : QObject(parent) {
     As::SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
-
-    createCommandLineParser(qApp);
-    printAppDescription();
-    checkRequiredOptionsAreProvided(QStringList{ "path" });
-    checkAllOptionsCorrectness();
-
-    // Load data
-    openFiles(m_parser.value("path"));
-
-    // Process the laded data (concurrentRun - using Multi-Thread)
-    detectInputFilesType();
-    concurrentRun("extract", m_scans);
-    printMessage(QString("Number of treated files:  %1").arg(m_scans->m_inputFilesContents.first.size()));
-    concurrentRun("fill", m_scans);
-    concurrentRun("index", m_scans);
-    concurrentRun("treat", m_scans);
-    printMessage(QString("Number of treated reflections:  %1").arg(m_scans->size()));
-
-    // Output
-    exportOutputTable();
-    printProgramOutput(); }
+    createCommandLineParser(qApp); }
 
 /*!
-    Destroys the application.
+    Destroys the console.
 */
 As::Console::~Console() {
     ADESTROYED; }
+
+/*!
+    Starts the data processing.
+*/
+void As::Console::run() {
+    printAppDescription();
+
+    if (!checkRequiredOptionsAreProvided(QStringList{ "path" }))
+        return;
+    if (!setOutputFileExt()) {
+        return; }
+    if (!openFiles()) {
+        return; }
+    if (!detectInputFilesType()) {
+        return; }
+
+    // Process the data using Multi-Thread (concurrentRun)
+    concurrentRun("extract", &m_scans);
+    printMessage(QString("Number of treated files:  %1").arg(m_scans.m_inputFilesContents.first.size()));
+    concurrentRun("fill", &m_scans);
+    concurrentRun("index", &m_scans);
+    concurrentRun("treat", &m_scans);
+    printMessage(QString("Number of treated reflections:  %1").arg(m_scans.size()));
+
+    exportOutputTable();
+    printProgramOutput(); }
 
 /*!
     Returns the application description.
@@ -84,44 +91,50 @@ QString As::Console::outputFileFormat() const {
     return m_parser.value("format").isEmpty() ? "General" : m_parser.value("format"); }
 
 /*!
-    Returns the extension of the output file. Default value: "csv"
+    Sets the extension of the output file. Default value: "csv"
 */
 // sync with GUI types?!
-QString As::Console::outputFileExt() const {
+bool As::Console::setOutputFileExt() {
 
     const QString format = outputFileFormat().toLower();
-    QString ext;
 
     if (format.isEmpty()) {
-        ext = "csv"; }
+        m_outputFileExt = "csv"; }
 
     else if (format.contains("general")) {
-        ext = "csv"; }
+        m_outputFileExt = "csv"; }
 
     else if (format.contains("shelx")) {
-        ext = "hkl"; }
+        m_outputFileExt = "hkl"; }
 
     else if (format.contains("tbar")) {
-        ext = "tb"; }
+        m_outputFileExt = "tb"; }
 
     else if (format.contains("umweg")) {
-        ext = "obs"; }
+        m_outputFileExt = "obs"; }
 
     else if (format.contains("ccsl")) {
-        ext = "fli"; }
+        m_outputFileExt = "fli"; }
 
     else {
         printMessage(QString("Unknown output file format '%1'").arg(format));
-        AEXIT; }
+        printMessage("Run the program with '--help' or '-h' to see more.");
+        return false; }
 
-    return ext; }
+    return true; }
+
+/*!
+    Returns the extension of the output file.
+*/
+QString As::Console::outputFileExt() const {
+    return m_outputFileExt; }
 
 /*!
     Returns the name of the output file.
 */
 QString As::Console::outputFileName() const {
-    const auto firstScan = m_scans->at(0);
-    const auto lastScan = m_scans->at(m_scans->size() - 1);
+    const auto firstScan = m_scans.at(0);
+    const auto lastScan = m_scans.at( m_scans.size() - 1 );
 
     const QString baseNameFirst = firstScan->baseName();
     const QString baseNameLast = lastScan->baseName();
@@ -182,9 +195,11 @@ void As::Console::createCommandLineParser(QCoreApplication* app) {
 /*!
     Opens the file(s) according to the given file or folder \a path.
 */
-void As::Console::openFiles(const QString& path) {
+bool As::Console::openFiles() {
+
+    const QString& path = m_parser.value("path");
+    const QFileInfo fileInfo(path);
     QStringList filePathList;
-    QFileInfo fileInfo(path);
 
     if (fileInfo.isFile()) {
         filePathList << path; }
@@ -197,69 +212,62 @@ void As::Console::openFiles(const QString& path) {
     if (filePathList.isEmpty()) {
         printMessage(QString("Cannot find file/dir '%1'.")
                      .arg(QDir::toNativeSeparators(path)));
-        AEXIT; } //???
+        return false; }
 
-    loadData(filePathList); }
+    if (!loadData(filePathList)) {
+        return false; }
+
+    return true; }
 
 /*!
     Loads the file(s) according to the given list of file path \a filePathList.
 */
-void As::Console::loadData(const QStringList& filePathList) {
-
-    // Create the scan array
-    m_scans = new As::ScanArray;
-
-    // Read all files contents
+bool As::Console::loadData(const QStringList& filePathList) {
     for (const auto& path : filePathList) {
-
-        // Open file
         QFile file(path);
         if (!file.open(QFile::ReadOnly | QFile::Text)) {
             printMessage(QString("Cannot read file '%1': %2.")
                          .arg(QDir::toNativeSeparators(path), file.errorString()));
-            AEXIT; } //???
+            return false; }
 
         // Read file content to QStringList using QTextStream
         QTextStream textStream(&file);
         textStream.setAutoDetectUnicode(true);
         textStream.setCodec("MacRoman"); // "ISO 8859-1", "UTF-8", "UTF-16", "MacRoman" (POLI)?!
 
-        // Add file path and content to the global variable
-        m_scans->m_inputFilesContents.first  << path;
-        m_scans->m_inputFilesContents.second << textStream.readAll(); } }
+        // Add file path and content to the member variable
+        m_scans.m_inputFilesContents.first  << path;
+        m_scans.m_inputFilesContents.second << textStream.readAll(); }
+
+    return true; }
 
 /*!
     Detects a type of the input files.
 */
-void As::Console::detectInputFilesType() {
-    bool ok = m_scans->detectInputFilesType();
-    if (!ok) {
-        printMessage(QString("Files of multiple types were selected for opening. "
-                             "Please open the files of the same type only."));
-        AEXIT; } } //???
+bool As::Console::detectInputFilesType() {
+    if (!m_scans.detectInputFilesType()) {
+        printMessage("Files of multiple types were selected for opening. "
+                     "Please open the files of the same type only.");
+        return false; }
+    return true; }
 
 /*!
     Exports the output table to disk.
 */
-void As::Console::exportOutputTable() const {
-    m_scans->createFullOutputTable();
-    m_scans->saveSelectedOutputColumns(outputFileNameWithExt(), outputFileFormat()); }
+void As::Console::exportOutputTable() {
+    m_scans.createFullOutputTable();
+    m_scans.saveSelectedOutputColumns(outputFileNameWithExt(), outputFileFormat()); }
 
 /*!
     Checks if all the required options \a optionList are provided by the user.
 */
-void As::Console::checkRequiredOptionsAreProvided(const QStringList& optionList) const {
-    const QString message = "Required option '--%s' is not specified.\n"
-                            "Run the program with '--help' or '-h' to see more.\n";
+bool As::Console::checkRequiredOptionsAreProvided(const QStringList& optionList) const {
     for (const QString& option : optionList) {
         if (m_parser.value(option).isEmpty()) {
-            printMessage(message, option);
-            AEXIT; } } } //???
-
-/*!
-    Checks if the all the provided options are correctly described by the user.
-*/
-void As::Console::checkAllOptionsCorrectness() const {}
+            printMessage("Required option '--%s' is not specified.\n", option);
+            printMessage("Run the program with '--help' or '-h' to see more.");
+            return false; } }
+    return true; }
 
 /*!
     Prints the console \a message. If optional argument \a arg is provided, then

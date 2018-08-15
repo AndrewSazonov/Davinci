@@ -32,6 +32,6 @@ int main(int argc, char* argv[]) {
     app.setOrganizationDomain(APP_DOMAIN);
 
     As::Console mainConsole;
-    Q_UNUSED(mainConsole) // to suppress the warning message of unused variable
+    mainConsole.run();
 
     return 0; }

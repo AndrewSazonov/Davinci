@@ -44,19 +44,20 @@ class Console : public QObject {
     Q_OBJECT
 
   public:
-    Console();
+    Console(QObject* parent = Q_NULLPTR);
     ~Console();
 
     void createCommandLineParser(QCoreApplication* app);
-    void checkRequiredOptionsAreProvided(const QStringList& optionList) const;
-    void checkAllOptionsCorrectness() const;
 
-    void openFiles(const QString& path);
-    void loadData(const QStringList& filePathList);
-    void detectInputFilesType();
+    bool checkRequiredOptionsAreProvided(const QStringList& optionList) const;
+    bool setOutputFileExt();
+    bool openFiles();
+    bool loadData(const QStringList& filePathList);
+    bool detectInputFilesType();
+
     void concurrentRun(const QString& type,
                        As::ScanArray* scans) const;
-    void exportOutputTable() const;
+    void exportOutputTable();
 
     void printMessage(const QString& message,
                       const QString& arg = QString()) const;
@@ -71,9 +72,16 @@ class Console : public QObject {
     QString outputFileExt() const;
     QString outputFileNameWithExt() const;
 
+  public slots:
+    void run();
+
+  signals:
+    void finished() const;
+
   private:
     QCommandLineParser m_parser;
-    As::ScanArray* m_scans; };
+    As::ScanArray m_scans;
+    QString m_outputFileExt; };
 
 } //AS_END_NAMESPACE
 
