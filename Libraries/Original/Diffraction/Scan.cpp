@@ -33,7 +33,7 @@
 #include "Macros.hpp"
 
 #include "RealVector.hpp"
-#include "ScanDatabase.hpp"
+#include "ScanDict.hpp"
 
 #include "Scan.hpp"
 
@@ -53,11 +53,21 @@
 */
 
 /*!
+\variable As::ScanDict::Properties
+\brief the dictionary with all the possible scan properties.
+*/
+const As::ScanDict As::Scan::Properties;
+
+/*!
     Constructs and initializes a scan with the given \a parent.
 */
 As::Scan::Scan(QObject* parent)
     : QObject(parent) {
-    init(); }
+    init();
+
+    //ADEBUG << Properties;
+
+}
 
 /*!
     Destroys the scan.
@@ -94,76 +104,76 @@ void As::Scan::init() {
         m_structFactor[countType] = qQNaN(); m_structFactorErr[countType] = qQNaN(); } }
 
 /*!
-    Replaces the \a data of the given scan \a section and \a entry, if they exist.
+    Replaces the \a data of the given scan \a group and \a element, if they exist.
 
-    If the scan doesn't contain [section][entry]["data"] yet, but the ScanDatabase does,
+    If the scan doesn't contain [group][element]["data"] yet, but the ScanDatabase does,
     the data is inserted.
 */
-void As::Scan::setData(const QString& section,
-                       const QString& entry,
+void As::Scan::setData(const QString& group,
+                       const QString& element,
                        const QString& data) {
     if (data.isEmpty()) {
-        //AASSERT(false, QString("empty data array [%1][%2] passed to the function").arg(section).arg(entry));
+        //AASSERT(false, QString("empty data array [%1][%2] passed to the function").arg(group).arg(element));
         return; }
 
-    if (m_scan[section].contains(entry)) {
-        m_scan[section][entry].insert("data", data); }
+    if (m_scan[group].contains(element)) {
+        m_scan[group][element].insert("data", data); }
 
-    else if (As::SCAN_DATABASE[section].contains(entry)) {
-        m_scan[section][entry] = As::SCAN_DATABASE[section][entry];
-        m_scan[section][entry].insert("data", data); }
+    else if (As::Scan::Properties[group].contains(element)) {
+        m_scan[group][element] = As::Scan::Properties[group][element];
+        m_scan[group][element].insert("data", data); }
 
     else {
-        AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); } }
+        AASSERT(false, QString("no such group '%1' or element '%2' in ScanDatabase").arg(group).arg(element)); } }
 
 /*!
-    Appends the \a data of the given scan \a section and \a entry, if they exist.
+    Appends the \a data of the given scan \a group and \a element, if they exist.
 
-    If the scan doesn't contain [section][entry]["data"] yet, but the ScanDatabase does,
+    If the scan doesn't contain [group][element]["data"] yet, but the ScanDatabase does,
     the data is inserted.
 */
-void As::Scan::appendData(const QString& section,
-                          const QString& entry,
+void As::Scan::appendData(const QString& group,
+                          const QString& element,
                           const QString& data) {
     if (data.isEmpty()) {
-        //AASSERT(false, QString("empty data array [%1][%2] passed to the function").arg(section).arg(entry));
+        //AASSERT(false, QString("empty data array [%1][%2] passed to the function").arg(group).arg(element));
         return; }
 
-    if (m_scan[section].contains(entry)) {
-        m_scan[section][entry].insert("data", m_scan[section][entry]["data"] + " " + data); }
+    if (m_scan[group].contains(element)) {
+        m_scan[group][element].insert("data", m_scan[group][element]["data"] + " " + data); }
 
-    else if (As::SCAN_DATABASE[section].contains(entry)) {
-        m_scan[section][entry] = As::SCAN_DATABASE[section][entry];
-        m_scan[section][entry].insert("data", data); }
+    else if (As::Scan::Properties[group].contains(element)) {
+        m_scan[group][element] = As::Scan::Properties[group][element];
+        m_scan[group][element].insert("data", data); }
 
     else {
-        AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); } }
+        AASSERT(false, QString("no such group '%1' or element '%2' in ScanDatabase").arg(group).arg(element)); } }
 
 /*!
-    Removes the given \a section and \a entry from the scan.
+    Removes the given \a group and \a element from the scan.
 */
-void As::Scan::removeData(const QString& section,
-                          const QString& entry) {
-    if (m_scan[section].contains(entry)) {
-        m_scan[section][entry].remove("data"); }
+void As::Scan::removeData(const QString& group,
+                          const QString& element) {
+    if (m_scan[group].contains(element)) {
+        m_scan[group][element].remove("data"); }
 
     else {
-        AASSERT(false, QString("no such section '%1' or entry '%2' in ScanDatabase").arg(section).arg(entry)); } }
+        AASSERT(false, QString("no such group '%1' or element '%2' in ScanDatabase").arg(group).arg(element)); } }
 
 /*!
-    Returns the required field value by the given scan \a section, \a entry and field \a name.
+    Returns the required field value by the given scan \a group, \a element and field \a name.
 
     If an error occurs, *\a{ok} is set to \c false; otherwise *\a{ok} is set to \c true.
 */
-const QString As::Scan::value(const QString& section,
-                              const QString& entry,
+const QString As::Scan::value(const QString& group,
+                              const QString& element,
                               const QString& name,
                               bool* ok) const {
-    if (m_scan[section][entry].contains(name)) {
+    if (m_scan[group][element].contains(name)) {
         if (ok) {
             *ok = true; }
 
-        return m_scan[section][entry][name]; }
+        return m_scan[group][element][name]; }
 
     if (ok) {
         *ok = false; }
@@ -171,59 +181,59 @@ const QString As::Scan::value(const QString& section,
     return QString(); }
 
 /*!
-    Returns the data field of the given scan \a section and \a entry.
+    Returns the data field of the given scan \a group and \a element.
 
     If an error occurs, *\a{ok} is set to \c false; otherwise *\a{ok} is set to \c true.
 */
-const QString As::Scan::data(const QString& section,
-                             const QString& entry,
+const QString As::Scan::data(const QString& group,
+                             const QString& element,
                              bool* ok) const {
-    return value(section, entry, "data", ok); }
+    return value(group, element, "data", ok); }
 
 /*!
-    Returns the format field of the given scan \a section and \a entry.
+    Returns the format field of the given scan \a group and \a element.
 
     If an error occurs, *\a{ok} is set to \c false; otherwise *\a{ok} is set to \c true.
 */
-const QString As::Scan::format(const QString& section,
-                               const QString& entry,
+const QString As::Scan::format(const QString& group,
+                               const QString& element,
                                bool* ok) const {
-    return value(section, entry, "format", ok); }
+    return value(group, element, "format", ok); }
 
 /*!
-    Returns the single data value of the given scan \a section and \a entry
+    Returns the single data value of the given scan \a group and \a element
     formatted with its corresponding format.
 */
-const QString As::Scan::printDataSingle(const QString& section,
-                                        const QString& entry) const {
-    if (!m_scan[section].contains(entry)) {
-        AASSERT(false, QString("no such section '%1' or entry '%2' in the current scan"));
+const QString As::Scan::printDataSingle(const QString& group,
+                                        const QString& element) const {
+    if (!m_scan[group].contains(element)) {
+        AASSERT(false, QString("no such group '%1' or element '%2' in the current scan"));
         return QString(); }
 
-    const QString format = m_scan[section][entry]["format"];
-    const QString data = m_scan[section][entry]["data"];
+    const QString format = m_scan[group][element]["format"];
+    const QString data = m_scan[group][element]["data"];
     return As::FormatString(data, format); }
 
 /*!
-    Returns the range data values of the given scan \a section and \a entry.
+    Returns the range data values of the given scan \a group and \a element.
 */
-const QString As::Scan::printDataRange(const QString& section,
-                                       const QString& entry) const {
-    if (!m_scan[section].contains(entry)) {
-        AASSERT(false, QString("no such section '%1' or entry '%2' in the current scan"));
+const QString As::Scan::printDataRange(const QString& group,
+                                       const QString& element) const {
+    if (!m_scan[group].contains(element)) {
+        AASSERT(false, QString("no such group '%1' or element '%2' in the current scan"));
         return QString(); }
 
-    const QString format = m_scan[section][entry]["format"];
+    const QString format = m_scan[group][element]["format"];
 
     if (!format.contains("f")) {
-        return printDataSingle(section, entry); }
+        return printDataSingle(group, element); }
 
-    const As::RealVector data = m_scan[section][entry]["data"];
+    const As::RealVector data = m_scan[group][element]["data"];
     const qreal min = data.min();
     const qreal max = data.max();
 
     if ( ( qAbs(max / min) < 1.01 ) OR ( (max - min) < 0.01 ) ) {
-        return printDataSingle(section, entry); }
+        return printDataSingle(group, element); }
 
     return QString().sprintf(qPrintable("%" + format + " - " + "%" + format), min, max); }
 
@@ -241,19 +251,19 @@ const QStringList As::Scan::keys() const {
     multiple items with key \a key key, this function returns a reference to the most recently
     inserted value.
 */
-As::ScanSection_t& As::Scan::operator[](const QString& key) {
+As::ScanDict::GroupElements_t& As::Scan::operator[](const QString& key) {
     return m_scan[key]; }
 
 /*!
     \overload
 */
-const As::ScanSection_t As::Scan::operator[](const QString& key) const {
+const As::ScanDict::GroupElements_t As::Scan::operator[](const QString& key) const {
     return m_scan[key]; }
 
 /*!
     Returns the scan as a QMap.
 */
-const As::Scan_t As::Scan::toQMap() const {
+const As::ScanDict::PropertyGroups_t As::Scan::toQMap() const {
     return m_scan; }
 
 /*!

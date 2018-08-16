@@ -31,11 +31,6 @@ namespace As { //AS_BEGIN_NAMESPACE
 
 class ScanDatabase;
 
-// Alias names (using instead of typedef)
-using ScanSubSection_t = QMap<QString, QString>;
-using ScanSection_t = QMap<QString, ScanSubSection_t>;
-using Scan_t = QMap<QString, ScanSection_t>;
-
 // Internally defined constants
 
 constexpr int DEBUG_INDEX_WIDTH = 5;
@@ -154,8 +149,6 @@ extern const QString DATA_TIME_FORMAT;
 extern const QStringList COUNT_TYPES;
 
 extern const QHash<int, double> MC_CANDLISH_FACTOR;
-
-extern const ScanDatabase SCAN_DATABASE;
 
 } //AS_END_NAMESPACE
 

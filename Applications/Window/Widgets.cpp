@@ -61,7 +61,7 @@
 #include "UnderLabeledWidget.hpp"
 #include "Widget.hpp"
 
-#include "ScanDatabase.hpp"
+#include "ScanDict.hpp"
 
 #include "Window.hpp"
 

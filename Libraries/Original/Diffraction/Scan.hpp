@@ -25,6 +25,7 @@
 #include <QStandardItemModel>
 
 #include "Constants.hpp"
+#include "ScanDict.hpp"
 
 class QString;
 class QStringList;
@@ -33,11 +34,16 @@ template <class Key, class T> class QMap;
 namespace As { //AS_BEGIN_NAMESPACE
 
 class RealVector;
+//class ScanDict;
 
 class Scan : public QObject {
     Q_OBJECT
 
   public:
+
+    // static constants
+
+    static const As::ScanDict Properties;
 
     // constructor and destructor
 
@@ -46,8 +52,8 @@ class Scan : public QObject {
 
     // operators
 
-    const As::ScanSection_t operator[](const QString& key) const;
-    As::ScanSection_t& operator[](const QString& key);
+    const As::ScanDict::GroupElements_t operator[](const QString& key) const;
+    As::ScanDict::GroupElements_t& operator[](const QString& key);
 
     // general set data methods
 
@@ -84,7 +90,7 @@ class Scan : public QObject {
 
     // convert methods
 
-    const As::Scan_t toQMap() const;
+    const As::ScanDict::PropertyGroups_t toQMap() const;
 
     // set and get the scan parameters
 
@@ -185,7 +191,7 @@ class Scan : public QObject {
     QMap<QString, qreal> m_structFactor, m_structFactorErr;
 
   private:
-    As::Scan_t m_scan; // main scan object
+    As::ScanDict::PropertyGroups_t m_scan;
 
     // Forbid to copy and assign scans
     Scan(const As::Scan& other);

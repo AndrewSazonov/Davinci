@@ -71,7 +71,7 @@
 
 #include "Scan.hpp"
 #include "ScanArray.hpp"
-#include "ScanDatabase.hpp"
+#include "ScanDict.hpp"
 
 #include "Window.hpp"
 
@@ -123,6 +123,7 @@ void As::Window::show() {
     offerAutoUpdate();
     checkApplicationUpdate();
     setApplicationStartCount();
+
 
     // Auto run test
     //autoRun("/Users/asazonov/tmp/p10533");

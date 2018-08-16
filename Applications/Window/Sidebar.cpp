@@ -47,7 +47,7 @@
 #include "ProgressBar.hpp"
 #include "ProgressDialog.hpp"
 #include "Scan.hpp"
-#include "ScanDatabase.hpp"
+#include "ScanDict.hpp"
 #include "SpinBox.hpp"
 #include "SpinBoxSingleBlock.hpp"
 #include "SpinBoxDoubleBlock.hpp"
@@ -466,25 +466,25 @@ As::GroupBox* As::Window::create_Plot_ExpDetailsGroup(const QString& objectName,
     auto layout = new QVBoxLayout;
     layout->setSpacing(UI_VERTICAL_SPACE_ROWS);
 
-    QStringList itemKeys = {"conditions" };
-    for (const auto& itemKey : itemKeys) {
-        QStringList subitemKeys = SCAN_DATABASE[itemKey].keys();
-        for (const auto& subitemKey : subitemKeys) {
+    QStringList groups = { "conditions" };
+    for (const auto& group : groups) {
+        QStringList elements = As::Scan::Properties[group].keys();
+        for (const auto& element : elements) {
             // Label
-            auto label = new QLabel(subitemKey);
+            auto label = new QLabel(element);
 
             // Data
             auto data = new QLabel("");
-            data->setObjectName(itemKey + subitemKey + "Data");
+            data->setObjectName(group + element + "Data");
             data->setStyleSheet(QString("QLabel {color: %1}").arg(As::Color(As::blue).name()));
 
             // Units
-            auto units = new QLabel(SCAN_DATABASE[itemKey][subitemKey]["units"]);
+            auto units = new QLabel(As::Scan::Properties[group][element]["units"]);
             units->setStyleSheet(QString("QLabel {color: %1}").arg(As::Color(As::grayLight).name()));
 
             // Widget (Label + Data + Units)
             auto widget = new As::LabelTripleBlock(label, data, units);
-            widget->setObjectName(itemKey + subitemKey + "Widget");
+            widget->setObjectName(group + element + "Widget");
             widget->hide();
 
             // Layout
@@ -511,31 +511,31 @@ As::GroupBox* As::Window::create_Plot_ExpAnglesGroup(const QString& objectName,
                                            new QLabel(tr("Step")));
     layout->addWidget(header);
 
-    QStringList itemKeys = {"angles" };
-    for (const auto& itemKey : itemKeys) {
-        QStringList subitemKeys = SCAN_DATABASE[itemKey].keys();
-        for (const auto& subitemKey : subitemKeys) {
+    QStringList groups = { "angles" };
+    for (const auto& group : groups) {
+        QStringList elements = As::Scan::Properties[group].keys();
+        for (const auto& element : elements) {
             // Label
-            auto label = new QLabel(subitemKey);
+            auto label = new QLabel(element);
 
             // Value
             auto value = new QLabel("");
-            value->setObjectName(itemKey + subitemKey + "Value");
+            value->setObjectName(group + element + "Value");
             value->setStyleSheet(QString("QLabel {color: %1}").arg(As::Color(As::blue).name()));
 
             // Range
             auto range = new QLabel("");
-            range->setObjectName(itemKey + subitemKey + "Range");
+            range->setObjectName(group + element + "Range");
             range->setStyleSheet(QString("QLabel {color: %1}").arg(As::Color(As::grayLight).name()));
 
             // Step
             auto step = new QLabel("");
-            step->setObjectName(itemKey + subitemKey + "Step");
+            step->setObjectName(group + element + "Step");
             step->setStyleSheet(QString("QLabel {color: %1}").arg(As::Color(As::grayLight).name()));
 
             // Widget (Label + Value + Range + Step)
             auto widget = new As::LabelQuatroBlock(label, value, range, step);
-            widget->setObjectName(itemKey + subitemKey + "Widget");
+            widget->setObjectName(group + element + "Widget");
             widget->hide();
 
             // Layout

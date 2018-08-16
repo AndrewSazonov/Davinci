@@ -65,7 +65,7 @@
 #include "UnderLabeledWidget.hpp"
 
 #include "Scan.hpp"
-#include "ScanDatabase.hpp"
+#include "ScanDict.hpp"
 
 #include "Window.hpp"
 
@@ -75,21 +75,21 @@
 void As::Window::update_Plot_ExpDetailsGroup(const As::Scan* scan) {
     ADEBUG;
 
-    const QString itemKey = "conditions";
+    const QString group = "conditions";
 
     // First, hide all the lines
-    for (const auto& subitemKey : SCAN_DATABASE[itemKey].keys()) {
-        auto widget = findChild<As::LabelQuatroBlock*>(itemKey + subitemKey + "Widget");
+    for (const auto& element : As::Scan::Properties[group].keys()) {
+        auto widget = findChild<As::LabelQuatroBlock*>(group + element + "Widget");
         widget->hide(); }
 
     // Now, show only the required lines
-    for (const auto& subitemKey : (*scan)[itemKey].keys()) {
-        const QString data = scan->data(itemKey, subitemKey);
+    for (const auto& element : (*scan)[group].keys()) {
+        const QString data = scan->data(group, element);
         if (!data.isEmpty()) {
-            auto widget = findChild<As::LabelTripleBlock*>(itemKey + subitemKey + "Widget");
+            auto widget = findChild<As::LabelTripleBlock*>(group + element + "Widget");
             widget->show();
-            auto label = findChild<QLabel*>(itemKey + subitemKey + "Data");
-            label->setText(scan->printDataRange(itemKey, subitemKey)); } } }
+            auto label = findChild<QLabel*>(group + element + "Data");
+            label->setText(scan->printDataRange(group, element)); } } }
 
 /*!
     Updates the group 'Plot - Experimental angles'
@@ -97,28 +97,28 @@ void As::Window::update_Plot_ExpDetailsGroup(const As::Scan* scan) {
 void As::Window::update_Plot_ExpAnglesGroup(const As::Scan* scan) {
     ADEBUG;
 
-    const QString itemKey = "angles";
+    const QString group = "angles";
 
     // First, hide all the lines
-    for (const auto& subitemKey : SCAN_DATABASE[itemKey].keys()) {
-        auto widget = findChild<As::LabelQuatroBlock*>(itemKey + subitemKey + "Widget");
+    for (const auto& element : As::Scan::Properties[group].keys()) {
+        auto widget = findChild<As::LabelQuatroBlock*>(group + element + "Widget");
         widget->hide(); }
 
     // Now, show only the required lines
-    for (const auto& subitemKey : (*scan)[itemKey].keys()) {
-        const QString data = scan->data(itemKey, subitemKey);
+    for (const auto& element : (*scan)[group].keys()) {
+        const QString data = scan->data(group, element);
         if (!data.isEmpty()) {
-            auto widget = findChild<As::LabelQuatroBlock*>(itemKey + subitemKey + "Widget");
+            auto widget = findChild<As::LabelQuatroBlock*>(group + element + "Widget");
             widget->show();
 
             // Update the value, range and step
             const As::RealVector vector(data);
 
-            auto value = findChild<QLabel*>(itemKey + subitemKey + "Value");
+            auto value = findChild<QLabel*>(group + element + "Value");
             value->setText(QString::number(vector.mean(), 'f', 2));
-            auto range = findChild<QLabel*>(itemKey + subitemKey + "Range");
+            auto range = findChild<QLabel*>(group + element + "Range");
             range->setText(QString::number(vector.range(), 'f', 2));
-            auto step = findChild<QLabel*>(itemKey + subitemKey + "Step");
+            auto step = findChild<QLabel*>(group + element + "Step");
             step->setText(QString::number(vector.step(), 'f', 2));
 
             // Modify color of non-zero ranges and steps

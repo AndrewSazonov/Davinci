@@ -23,7 +23,7 @@
 #include <QString>
 #include <QStringList>
 
-#include "ScanDatabase.hpp"
+#include "ScanDict.hpp"
 
 #include "Constants.hpp"
 
@@ -77,11 +77,6 @@ const QHash<int, double> As::MC_CANDLISH_FACTOR
     {As::S6T2_DAT,      0.}
 };
 
-/*!
-\variable As::SCAN_DATABASE
-\brief the version of the Macintosh operating system on which the application is run (Mac only).
-*/
-const As::ScanDatabase As::SCAN_DATABASE;
 
 // Internally defined constants
 

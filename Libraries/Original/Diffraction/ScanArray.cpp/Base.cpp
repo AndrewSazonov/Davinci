@@ -30,7 +30,7 @@
 #include "RealVector.hpp"
 #include "SaveHeaders.hpp"
 #include "Scan.hpp"
-#include "ScanDatabase.hpp"
+#include "ScanDict.hpp"
 
 #include "ScanArray.hpp"
 
