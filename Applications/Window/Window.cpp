@@ -508,9 +508,14 @@ void As::Window::concurrentRun(const QString& type,
                                As::ScanArray* scans) const {
     As::ConcurrentWatcher watcher;
 
-    connect(&watcher, &As::ConcurrentWatcher::progressRangeChanged, m_progressDialog, &As::ProgressDialog::setRange);
-    connect(&watcher, &As::ConcurrentWatcher::progressValueChanged, m_progressDialog, &As::ProgressDialog::setValue);
-    connect(&watcher, &As::ConcurrentWatcher::started, m_progressDialog, &As::ProgressDialog::exec);
+    connect(&watcher, &As::ConcurrentWatcher::started,
+            m_progressDialog, &As::ProgressDialog::exec);
+    //connect(&watcher, &As::ConcurrentWatcher::finished,
+    //        m_progressDialog, &As::ProgressDialog::reset);
+    connect(&watcher, &As::ConcurrentWatcher::progressRangeChanged,
+            m_progressDialog, &As::ProgressDialog::setRange);
+    connect(&watcher, &As::ConcurrentWatcher::progressValueChanged,
+            m_progressDialog, &As::ProgressDialog::setValue);
 
     watcher.startComputation(type, scans); }
 

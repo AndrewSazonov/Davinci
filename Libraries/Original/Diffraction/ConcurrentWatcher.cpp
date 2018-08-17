@@ -59,7 +59,7 @@ As::ConcurrentWatcher::~ConcurrentWatcher() {
 */
 void As::ConcurrentWatcher::startComputation(const QString& type,
                                              ScanArray* scans) {
-    ADEBUG << "--------> parallel computation are started for:" << type;
+    ADEBUG << "- parallel computation are started for:" << type;
 
     // Default sequence for QtConcurrent::map
     QVector<int> sequence(scans->size());
@@ -96,10 +96,10 @@ void As::ConcurrentWatcher::startComputation(const QString& type,
     else {
         return; }
 
-    // Start the computation, force to emit the started signal and wait
+    // Start the computation
     setFuture(QtConcurrent::map(sequence, func));
     emit started();
     waitForFinished();
 
-    ADEBUG << "--------> parallel computation are finished." << type; }
+    ADEBUG << "- parallel computation are finished." << type; }
 

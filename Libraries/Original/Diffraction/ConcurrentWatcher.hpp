@@ -40,6 +40,9 @@ class ConcurrentWatcher : public QFutureWatcher<void> {
     void startComputation(const QString& type,
                           As::ScanArray* scans);
 
+  signals:
+    void started(); // override
+
 };
 
 } //AS_END_NAMESPACE
