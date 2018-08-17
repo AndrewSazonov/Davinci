@@ -53,8 +53,8 @@
 */
 
 /*!
-\variable As::ScanDict::Properties
-\brief the dictionary with all the possible scan properties.
+    \variable As::ScanDict::Properties
+    \brief the dictionary with all the possible scan properties.
 */
 const As::ScanDict As::Scan::Properties;
 
@@ -63,11 +63,7 @@ const As::ScanDict As::Scan::Properties;
 */
 As::Scan::Scan(QObject* parent)
     : QObject(parent) {
-    init();
-
-    //ADEBUG << Properties;
-
-}
+    init(); }
 
 /*!
     Destroys the scan.
