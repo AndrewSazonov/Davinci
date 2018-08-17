@@ -23,14 +23,37 @@
 
 #include "Colors.hpp"
 #include "Constants.hpp"
+#include "Macros.hpp"
 
 #include "Style.hpp"
 
 /*!
-    Constructs the program style.
+    \class As::Style
+
+    \brief The Style is a singleton class that contains the settings for the
+    program user interface.
+
+    \inmodule Main
+*/
+
+/*!
+    Constructs a style.
 */
 As::Style::Style() {
-    createStyle(); }
+    initStyle(); }
+
+/*!
+    Destroys the style.
+*/
+As::Style::~Style() {
+    ADESTROYED; }
+
+/*!
+    Returns the only instance of the Style class as QString.
+*/
+QString& As::Style::ToQString() {
+    static As::Style instance;
+    return instance.m_style; }
 
 /*!
     Starts the new style part named \a block.
@@ -54,15 +77,9 @@ void As::Style::add(const QString& property,
     m_style += QString("%1 %2;").arg(property).arg(value); }
 
 /*!
-    Returns the style as QString.
+    Initializes the style.
 */
-QString As::Style::toQString() {
-    return m_style; }
-
-/*!
-    Creates the style.
-*/
-void As::Style::createStyle() {
+void As::Style::initStyle() {
 
     //==========
     // QGroupBox

@@ -28,18 +28,25 @@ namespace As { //AS_BEGIN_NAMESPACE
 class Style {
 
   public:
+
+    static QString& ToQString();
+
+  private:
+
     Style();
+    Style(const Style&);
+
+    ~Style();
+
+    const Style& operator=(const Style&);
+
+    void initStyle();
 
     void startBlock(const QString& block);
     void closeBlock();
     void add(const QString& property,
              const QString& value);
 
-    void createStyle();
-
-    QString toQString();
-
-  private:
     QString m_style;
 
 };

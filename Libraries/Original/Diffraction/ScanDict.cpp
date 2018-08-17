@@ -236,7 +236,7 @@ As::ScanDict::ScanDict() {
     Destroys the dictionary.
 */
 As::ScanDict::~ScanDict() {
-    ADEBUG; }
+    ADESTROYED; }
 
 /*!
     Returns the value associated with the key \a section.

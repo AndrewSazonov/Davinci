@@ -27,7 +27,6 @@
 
 class QString;
 class QStringList;
-//template<typename Key, typename T> class QMap;
 
 namespace As { //AS_BEGIN_NAMESPACE
 

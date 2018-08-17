@@ -456,7 +456,7 @@ void As::Window::createStatusBar() {
 QString As::Window::createStyleSheet() const {
     ADEBUG;
 
-    return As::Style().toQString(); }
+    return As::Style::ToQString(); }
 
 /*!
     Returns the scan at the position \a index.
