@@ -31,10 +31,6 @@ namespace As { //AS_BEGIN_NAMESPACE
 
 // Internally defined constants
 
-constexpr int DEBUG_INDEX_WIDTH = 5;
-constexpr int DEBUG_FUNCTION_WIDTH = 25;
-constexpr int DEBUG_TIME_WIDTH = 6;
-constexpr int DEBUG_HYPERLINK_WIDTH = 35;
 
 constexpr int APP_WINDOW_WIDTH  = 900;
 constexpr int APP_WINDOW_HEIGHT = 600;

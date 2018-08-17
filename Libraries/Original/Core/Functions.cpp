@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QDateTime>
 #include <QElapsedTimer>
@@ -39,94 +39,84 @@
 #include "Functions.hpp"
 
 /*!
-Returns the square of \a v.
+    Returns the square of \a v.
 */
-qreal As::Sqr(const qreal v)
-{
+qreal As::Sqr(const qreal v) {
     return qPow(v, 2); // qPow(v, 2) was faster compared to v*v !?
 }
 
 /*!
-Returns the sign of a real number \a v.
+    Returns the sign of a real number \a v.
 
-\sa \link https://en.wikipedia.org/wiki/Sign_function Wiki: Sign function \endlink
+    \sa \link https://en.wikipedia.org/wiki/Sign_function Wiki: Sign function \endlink
 */
-qreal As::Sign(const qreal v)
-{
-    if (v > 0)
-      return 1.;
-    else if (v < 0)
-      return -1.;
-    else
-      return 0.;
-}
+qreal As::Sign(const qreal v) {
+    if (v > 0) {
+        return 1.; }
+    else if (v < 0) {
+        return -1.; }
+    else {
+        return 0.; } }
 
 /*!
-Returns the angle \a angle converted to the range from -180 to +180 degrees.
+    Returns the angle \a angle converted to the range from -180 to +180 degrees.
 */
-qreal As::ToMainAngularRange(const qreal angle)
-{
+qreal As::ToMainAngularRange(const qreal angle) {
     // -180 and 180 cases
-    if (angle == -180. OR angle == 180.)
-        return angle;
+    if (angle == -180. OR angle == 180.) {
+        return angle; }
     // Other cases
-    if (angle > 0.)
-        return std::fmod(angle + 180., 360.) - 180.;
-    else if (angle < 0.)
-        return std::fmod(angle - 180., 360.) + 180.;
-    else /* angle == 0. */
-        return 0.;
-}
+    if (angle > 0.) {
+        return std::fmod(angle + 180., 360.) - 180.; }
+    else if (angle < 0.) {
+        return std::fmod(angle - 180., 360.) + 180.; }
+    else { /* angle == 0. */
+        return 0.; } }
 
 /*!
-Returns the QVector<qreal> variable obtained from the given of \a string.
+    Returns the QVector<qreal> variable obtained from the given of \a string.
 */
-QVector<qreal> As::ToRealVector(const QString &string)
-{
+QVector<qreal> As::ToRealVector(const QString& string) {
     QVector<qreal> vector;
     QStringList list = string.split(QRegExp("[^-.0-9]"), QString::SkipEmptyParts);
-    for (const QString &item : list) {
+    for (const QString& item : list) {
         bool ok = true;
         const qreal value = item.toDouble(&ok);
-        if (ok)
-            vector.append(value); }
-    return vector;
-}
+        if (ok) {
+            vector.append(value); } }
+    return vector; }
 
 /*!
-Returns the string variable in '2 May 1979' format obtained from the given
-\a string in '1979-05-02' format.
+    Returns the string variable in '2 May 1979' format obtained from the given
+    \a string in '1979-05-02' format.
 */
-QString As::ToHumanDate(const QString &string)
-{
+QString As::ToHumanDate(const QString& string) {
     QVector<int> vector;
     QStringList list = string.split(QRegExp("[^0-9]"), QString::SkipEmptyParts);
-    for (const QString &item : list) {
+    for (const QString& item : list) {
         bool ok = true;
         const int value = item.toInt(&ok);
-        if (ok)
-            vector.append(value); }
+        if (ok) {
+            vector.append(value); } }
     if (vector.size() >= 3) {
         int yyyy = vector[0];
         int MM = vector[1];
         int DD = vector[2];
         return QDate(yyyy, MM, DD).toString("d MMM yyyy"); }
-    return QString();
-}
+    return QString(); }
 
 /*!
-Returns the QDateTime variable obtained from the given \a string.
+    Returns the QDateTime variable obtained from the given \a string.
 */
 // not in use?!
-QDateTime As::ToDateTime(const QString &string)
-{
+QDateTime As::ToDateTime(const QString& string) {
     QVector<int> vector;
     QStringList list = string.split(QRegExp("[^0-9]"), QString::SkipEmptyParts);
-    for (const QString &item : list) {
+    for (const QString& item : list) {
         bool ok = true;
         const int value = item.toInt(&ok);
-        if (ok)
-            vector.append(value); }
+        if (ok) {
+            vector.append(value); } }
     if (vector.size() >= 5) {
         int yyyy = vector[0];
         int MM = vector[1];
@@ -134,33 +124,27 @@ QDateTime As::ToDateTime(const QString &string)
         int hh = vector[3];
         int mm = vector[4];
         return QDateTime(QDate(yyyy, MM, DD), QTime(hh, mm)); }
-    return QDateTime();
-}
+    return QDateTime(); }
 
 /*!
-Returns the converted string from the given \a string.
+    Returns the converted string from the given \a string.
 */
-QString As::ToString(const QString &string)
-{
-    return string.split(QRegExp("[^-.0-9]"), QString::SkipEmptyParts).join(" ");
-}
+QString As::ToString(const QString& string) {
+    return string.split(QRegExp("[^-.0-9]"), QString::SkipEmptyParts).join(" "); }
 
 /*!
-Returns the QStringList variable obtained from the given of \a string.
+    Returns the QStringList variable obtained from the given of \a string.
 */
-QStringList As::ToStringList(const QString &string)
-{
-    return string.split(QRegExp("[^-.0-9]"), QString::SkipEmptyParts);
-}
+QStringList As::ToStringList(const QString& string) {
+    return string.split(QRegExp("[^-.0-9]"), QString::SkipEmptyParts); }
 
 /*!
-Returns the string formatted to a single value based on the given of \a string and \a format.
+    Returns the string formatted to a single value based on the given of \a string and \a format.
 */
-const QString As::FormatString(const QString &string,
-                               const QString &format)
-{
-    if (string.isEmpty() OR format.isEmpty())
-        return string;
+const QString As::FormatString(const QString& string,
+                               const QString& format) {
+    if (string.isEmpty() OR format.isEmpty()) {
+        return string; }
     QString result;
     // comma separated values
     if (format.contains("csv")) {
@@ -171,8 +155,8 @@ const QString As::FormatString(const QString &string,
         const QStringList data  = string.split(re, QString::SkipEmptyParts);
         const QStringList fmt  = As::DATA_TIME_FORMAT.split(re, QString::SkipEmptyParts);
         QVector<int> vector;
-        for (const auto num : data)
-            vector << num.toInt();
+        for (const auto num : data) {
+            vector << num.toInt(); }
         const int yyyy = vector[fmt.indexOf("yyyy")];
         const int MM   = vector[fmt.indexOf("MM")];
         const int dd   = vector[fmt.indexOf("dd")];
@@ -201,17 +185,15 @@ const QString As::FormatString(const QString &string,
             sum += num.toDouble(); }
         qreal mean = sum / vector.size();
         result = QString().sprintf(qPrintable("%" + format), qRound(mean)); }
-    return result;
-}
+    return result; }
 
 /*!
-Returns the string formatted to a text based on the given \a string and \a format.
+    Returns the string formatted to a text based on the given \a string and \a format.
 */
-const QString As::FormatStringToText(const QString &string,
-                                     const QString &format)
-{
-    if (string.isEmpty() OR format.isEmpty())
-        return string;
+const QString As::FormatStringToText(const QString& string,
+                                     const QString& format) {
+    if (string.isEmpty() OR format.isEmpty()) {
+        return string; }
     QString result;
     // comma separated values
     if (format.contains("csv")) {
@@ -228,17 +210,15 @@ const QString As::FormatStringToText(const QString &string,
     // show error message if unknown format
     else {
         AASSERT(false, QString("unknown format '%1'").arg(format)); }
-    return result;
-}
+    return result; }
 
 /*!
-Returns the string formatted to the range based on the given of \a string and \a format.
+    Returns the string formatted to the range based on the given of \a string and \a format.
 */
-const QString As::FormatStringToRange(const QString &string,
-                                      const QString &format)
-{
-    if (string.isEmpty() OR format.isEmpty())
-        return string;
+const QString As::FormatStringToRange(const QString& string,
+                                      const QString& format) {
+    if (string.isEmpty() OR format.isEmpty()) {
+        return string; }
     QString other;
     if (format.contains("f")) { // float (real) number
         QVector<qreal> vector;
@@ -247,116 +227,116 @@ const QString As::FormatStringToRange(const QString &string,
         for (const auto num : string.split(" ")) {
             qreal d = num.toDouble();
             vector << d;
-            if (d < min)
-                min = d;
-            if (d > max)
-                max = d; }
-        if (qAbs(max/min) > 1.01)
-            other = QString().sprintf(qPrintable("%" + format + " - " + "%" + format), min, max);
-        else
-            other = FormatString(string, format); }
-    return other;
-}
+            if (d < min) {
+                min = d; }
+            if (d > max) {
+                max = d; } }
+        if (qAbs(max / min) > 1.01) {
+            other = QString().sprintf(qPrintable("%" + format + " - " + "%" + format), min, max); }
+        else {
+            other = FormatString(string, format); } }
+    return other; }
 
 /*!
-Calculates the width of the sidebar (in px) depends on the width of the given \a font.
+    Calculates the width of the sidebar (in px) depends on the width of the given \a font.
 */
-int As::SidebarWidth(const QFont &font)
-{
+int As::SidebarWidth(const QFont& font) {
     QFontMetrics fm(font);
     //setCursorWidth(fm.averageCharWidth());
     int widthPx = fm.width("abcdefghijklmnopqrstuvwxyz0123456789-+*");
-    if (widthPx % 2) // check if it's odd, i.e. 2n+1
-        ++widthPx;   // if it's odd, convert it to even 2n+2 (for equal widths ofthe sidebar tabs)
-    return widthPx;
-}
+    if (widthPx % 2) { // check if it's odd, i.e. 2n+1
+        ++widthPx; }   // if it's odd, convert it to even 2n+2 (for equal widths ofthe sidebar tabs)
+    return widthPx; }
 
 /*!
-Sets the debug output if \a isDebugMode is \c true.
+    Sets the debug output if \a isDebugMode is \c true.
 */
-void As::SetDebugOutputFormat(const bool showDebugInfo)
-{
+void As::SetDebugOutputFormat(const bool showDebugInfo) {
     // Changes the output of the default message handler (qDebug() = ADEBUG, etc.)
     // http://stackoverflow.com/questions/24012108/qdebug-not-showing-file-line
-    if (showDebugInfo)
-        qInstallMessageHandler(As::DetailedMessageOutput);
-    else
-        qInstallMessageHandler(As::NoMessageOutput);
-}
+    if (showDebugInfo) {
+        qInstallMessageHandler(As::DetailedMessageOutput); }
+    else {
+        qInstallMessageHandler(As::NoMessageOutput); } }
 
 /*!
-Prints out no debug messages using the given \a type.
+    Prints out no debug messages using the given \a type.
 */
 void As::NoMessageOutput(QtMsgType type,
-                         const QMessageLogContext &,
-                         const QString &)
-{
-    if (type == QtFatalMsg)
-        abort();
-}
+                         const QMessageLogContext&,
+                         const QString&) {
+    if (type == QtFatalMsg) {
+        abort(); } }
 
 /*!
-Prints out the detailed debug messages using the given \a type,
-\a context and \a msg.
+    Prints out the detailed debug messages using the given \a type, \a context and \a msg.
 */
 void As::DetailedMessageOutput(QtMsgType type,
-                               const QMessageLogContext &context,
-                               const QString &msg)
-{
+                               const QMessageLogContext& context,
+                               const QString& msg) {
+    static const int INDEX_COLUMN_WIDTH = 5;
+    static const int FUNCTION_COLUMN_WIDTH = 25;
+    static const int TIME_COLUMN_WIDTH = 7;
+    static const int HYPERLINK_COLUMN_WIDTH = 35;
 
+    static const int NUM_MILLISEC_IN_SECOND = 1000;
+    static const int NUM_SECONDS_IN_MINUTE = 60;
+    static const int NUM_SECONDS_IN_HOUR = 3600;
 
+    static const qreal TIME_LIMIT_TO_DISPLAY_MESSAGE = 0.1; // in seconds
 
-    // Print original message and abort in the case of fatal message
+    // If the message is fatal
+    // -----------------------
+
     if (type == QtFatalMsg) {
         fprintf(stderr, "\n" "%s\n" "\n", qUtf8Printable(msg));
-        abort(); }
+        abort(); } // consider to replace abort()...
 
-    // Continue, if the message is not QtFatalMsg
+    // If the message is not fatal
+    // ---------------------------
 
-    // Index of the debug message as integer
-    // Local variable which persist between the function calls
-    static int s_debugCount = 0;
+    static int s_debugMsgIndex = 0;
 
-    // Index of the debug message as string
-    const QString index = QString::number(++s_debugCount).
-            rightJustified(As::DEBUG_INDEX_WIDTH).
-            right(As::DEBUG_INDEX_WIDTH);
+    // Index of the debug message (as string)
+    const QString index = QString::number(++s_debugMsgIndex).
+                          rightJustified(INDEX_COLUMN_WIDTH).
+                          right(INDEX_COLUMN_WIDTH);
 
-    // Function name which contains the debug message
+    // Function name which contains the debug message (as string)
     const QString function = QString(context.function).
-            remove(QRegExp("\\(.*$")).
-            remove(QRegExp("^.*:")).
-            leftJustified(As::DEBUG_FUNCTION_WIDTH).
-            left(As::DEBUG_FUNCTION_WIDTH);
+                             remove(QRegExp("\\(.*$")).
+                             remove(QRegExp("^.*:")).
+                             leftJustified(FUNCTION_COLUMN_WIDTH).
+                             left(FUNCTION_COLUMN_WIDTH);
 
     // The timer (stopwatch) with elapsed time since the previous debug message
-    // Local variable which persist between the function calls
     static QElapsedTimer s_timer;
-    if (!s_timer.isValid())
-        s_timer.start(); // start timer just once, after the first function call
-    qreal elapsedTime = static_cast<qreal>(s_timer.elapsed()) / 1000; // convert from milliseconds qint64 to seconds qreal
+    if (!s_timer.isValid()) {
+        s_timer.start(); } // start timer just once, after the first function call
+
+    qreal elapsedTime = static_cast<qreal>(s_timer.elapsed()) / NUM_MILLISEC_IN_SECOND;
     s_timer.restart();
 
-    // Time units for timer
+    // Convert elapsedTime from seconds (if needed) and set time units respectively
     QString units;
-    if (elapsedTime < 0.1) {
+    if (elapsedTime < TIME_LIMIT_TO_DISPLAY_MESSAGE) {
         units = ""; }
-    else if (elapsedTime < 60) {
+    else if (elapsedTime < NUM_SECONDS_IN_MINUTE) {
         units = "s"; }
-    else if (elapsedTime < 3600) {
-        elapsedTime /= 60;
+    else if (elapsedTime < NUM_SECONDS_IN_HOUR) {
+        elapsedTime /= NUM_SECONDS_IN_MINUTE;
         units = "m"; }
     else {
-        elapsedTime /= 3600;
+        elapsedTime /= NUM_SECONDS_IN_HOUR;
         units = "h"; }
 
     // Timer info: elapsed time + units
     QString time = "";
-    if (!units.isEmpty())
-        time = QString::number(elapsedTime, 'f', 1);
+    if (!units.isEmpty()) {
+        time = QString::number(elapsedTime, 'f', 2); }
     time = time.append(units).
-            rightJustified(As::DEBUG_TIME_WIDTH).
-            right(As::DEBUG_TIME_WIDTH);
+           rightJustified(TIME_COLUMN_WIDTH).
+           right(TIME_COLUMN_WIDTH);
 
     // Name of the cpp file which contains the debug message
     const QString file = QFileInfo(context.file).fileName();
@@ -373,10 +353,10 @@ void As::DetailedMessageOutput(QtMsgType type,
     // https://github.com/qt-creator/qt-creator/blob/master/src/plugins/qtsupport/qtoutputformatter.cpp
     // It breaks, however, a normal coloring with codes, like "\033[37m", etc.
     const QString link = QString("file:///%1:%2").arg(file).arg(line).
-            leftJustified(As::DEBUG_HYPERLINK_WIDTH).
-            left(As::DEBUG_HYPERLINK_WIDTH);
+                         leftJustified(HYPERLINK_COLUMN_WIDTH).
+                         left(HYPERLINK_COLUMN_WIDTH);
 
-    // Actual message
+    // Actual message to display
     const QString message = QString(QByteArray(msg.toLocal8Bit()).constData());
 
     // Print with coloring. \033[30m - black, \033[0m - reset to default
@@ -385,50 +365,45 @@ void As::DetailedMessageOutput(QtMsgType type,
             qUtf8Printable(function),
             qUtf8Printable(time),
             qUtf8Printable(link),
-            qUtf8Printable(message));
-}
+            qUtf8Printable(message)); }
 
 /*!
-Returns the \a version in string format converted to integer.
+    Returns the \a version in string format converted to integer.
 
-Example:
-\code
-// string: v1.7.13
-// int: 1007013
-\endcode
+    Example:
+    \code
+    // string: v1.7.13
+    // int: 1007013
+    \endcode
 */
-int As::StringVersionToInt(QString version)
-{
+int As::StringVersionToInt(QString version) {
     const QStringList list = version.remove("v").split(".");
 
-    if (list.size() != 3)
-        return 0;
+    if (list.size() != 3) {
+        return 0; }
 
-    for (const QString &str : list) {
+    for (const QString& str : list) {
         bool ok;
         str.toInt(&ok);
-        if (!ok)
-            return 0; }
+        if (!ok) {
+            return 0; } }
 
     const int major = list[0].toInt();
     const int minor = list[1].toInt();
     const int patch = list[2].toInt();
 
-    return major*1000000 + minor*1000 + patch;
-}
+    return major * 1000000 + minor * 1000 + patch; }
 
 /*!
-Returns the formatted file path from the given base name of the first file
-\a baseNameFirst, base name of the last file \a baseNameLast and absolute
-path of the last file \a absolutePathLast.
+    Returns the formatted file path from the given base name of the first file
+    \a baseNameFirst, base name of the last file \a baseNameLast and absolute
+    path of the last file \a absolutePathLast.
 */
-QString As::FormatToPathWithName(const QString &baseNameFirst,
-                                 const QString &baseNameLast,
-                                 const QString &absolutePathLast)
-{
+QString As::FormatToPathWithName(const QString& baseNameFirst,
+                                 const QString& baseNameLast,
+                                 const QString& absolutePathLast) {
     QString path = QString("%1/%2-%3").arg(absolutePathLast).arg(baseNameFirst).arg(baseNameLast);
-    if (baseNameFirst == baseNameLast)
-        path = QString("%1/%2").arg(absolutePathLast).arg(baseNameLast);
-    return path;
-}
+    if (baseNameFirst == baseNameLast) {
+        path = QString("%1/%2").arg(absolutePathLast).arg(baseNameLast); }
+    return path; }
 
