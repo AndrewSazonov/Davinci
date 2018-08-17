@@ -29,8 +29,6 @@ template <class Key, class T> class QMap;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
-class ScanDatabase;
-
 // Internally defined constants
 
 constexpr int DEBUG_INDEX_WIDTH = 5;
@@ -43,14 +41,7 @@ constexpr int APP_WINDOW_HEIGHT = 600;
 
 constexpr int UI_VERTICAL_SPACE_ROWS = 7;
 
-constexpr int MIN_NUM_SCAN = 3;
-constexpr int MIN_NUM_SKIP = 0;
-constexpr int MIN_NUM_BKG  = 1;
-constexpr int ADD_NUM_PEAK = 1; //1
-
 constexpr int SIDEBAR_WIDTH = 300; //settings.value("Sidebar/width", 300).toInt();
-
-constexpr double MONITOR_NORM = 10000.;
 
 // Internally defined enums
 

@@ -266,3 +266,36 @@ void As::ScanDict::set(const QString& element,
                        const QString& tooltip) {
     m_scanDict[m_selectedGroup][element] = ElementAttributes_t{
         {"format", format }, {"units", units }, {"tooltip", tooltip } }; }
+
+/*!
+    \variable As::ScanDict::MIN_DATA_POINTS
+    \brief the minimum number of data points in the measured scan.
+*/
+const int As::ScanDict::MIN_DATA_POINTS = 3;
+
+/*!
+    \variable As::ScanDict::MIN_SKIP_DATA_POINTS
+    \brief the minimum number of data points to be skipped in the measured scan.
+*/
+const int As::ScanDict::MIN_SKIP_DATA_POINTS = 0;
+
+/*!
+    \variable As::ScanDict::MIN_BKG_DATA_POINTS
+    \brief the minimum number of data points considered as background (in contrast to peak)
+    in the measured scan.
+*/
+const int As::ScanDict::MIN_BKG_DATA_POINTS = 1;
+
+/*!
+    \variable As::ScanDict::EXTRA_PEAK_DATA_POINTS
+    \brief the number of extra points to extend the peak in both left and right directions
+    by reducing the background, if possible.
+*/
+const int As::ScanDict::EXTRA_PEAK_DATA_POINTS = 1;
+
+/*!
+    \variable As::ScanDict::DEFAULT_MONITOR
+    \brief the default value of the monitor counts used for the normsalisation.
+*/
+const qreal As::ScanDict::DEFAULT_MONITOR = 10000.0;
+

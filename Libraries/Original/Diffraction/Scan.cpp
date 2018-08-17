@@ -78,11 +78,11 @@ void As::Scan::init() {
 
     // Single calculated values (doesn't depend on polarisation)
 
-    m_numLeftSkipPoints  = MIN_NUM_SKIP;
-    m_numRightSkipPoints = MIN_NUM_SKIP;
+    m_numLeftSkipPoints  = As::ScanDict::MIN_SKIP_DATA_POINTS;
+    m_numRightSkipPoints = As::ScanDict::MIN_SKIP_DATA_POINTS;
     m_numNonSkipPoints   = 0;
-    m_numLeftBkgPoints   = MIN_NUM_BKG;
-    m_numRightBkgPoints  = MIN_NUM_BKG;
+    m_numLeftBkgPoints   = As::ScanDict::MIN_BKG_DATA_POINTS;
+    m_numRightBkgPoints  = As::ScanDict::MIN_BKG_DATA_POINTS;
     m_numPeakPoints      = 0;
 
     m_normMeanBkg        = qQNaN();

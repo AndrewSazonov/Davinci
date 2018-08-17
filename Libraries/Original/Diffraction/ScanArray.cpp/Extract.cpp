@@ -542,7 +542,7 @@ void As::ScanArray::extractDataFromTable(As::Scan* scan,
 void As::ScanArray::appendScan(As::Scan* scan) {
     //ADEBUG << scan;
 
-    if (scan->numPoints() < MIN_NUM_SCAN) {
+    if (scan->numPoints() < As::ScanDict::MIN_DATA_POINTS) {
         delete scan;
         return; }
 

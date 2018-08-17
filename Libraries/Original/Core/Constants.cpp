@@ -78,13 +78,6 @@ const QHash<int, double> As::MC_CANDLISH_FACTOR
 };
 
 
-// Internally defined constants
-
-/*!
-\variable As::MONITOR_NORM
-\brief the monitor used for the normsalisation.
-*/
-
 // Internally defined enums
 
 /*!

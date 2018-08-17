@@ -145,19 +145,19 @@ void As::ScanArray::normalizeByTime(As::Scan* scan) {
     {
     ADEBUG;
 
-    int from = MIN_NUM_SKIP;
-    int to =   inty.size() - MIN_NUM_SKIP - 2 * MIN_NUM_BKG;
+    int from = As::ScanDict::MIN_SKIP_DATA_POINTS;
+    int to =   inty.size() - As::ScanDict::MIN_SKIP_DATA_POINTS - 2 * As::ScanDict::MIN_BKG_DATA_POINTS;
     for (int numSkipLeft = from; numSkipLeft < to; ++numSkipLeft) {
 
-        int from = MIN_NUM_SKIP;
+        int from = As::ScanDict::MIN_SKIP_DATA_POINTS;
         int to =   inty.size() - numSkipLeft;
         for (int numSkipRight = from; numSkipRight < to; ++numSkipRight) {
 
-            int from = MIN_NUM_BKG;
+            int from = As::ScanDict::MIN_BKG_DATA_POINTS;
             int to =   inty.size() - numSkipLeft - numSkipRight;
             for (int numBkgLeft = from; numBkgLeft < to; ++numBkgLeft) {
 
-                int from = MIN_NUM_BKG;
+                int from = As::ScanDict::MIN_BKG_DATA_POINTS;
                 int to =   inty.size() - numSkipLeft - numSkipRight - numBkgLeft;
                 for (int numBkgRight = from; numBkgRight < to; ++numBkgRight) {
 
@@ -189,10 +189,10 @@ void As::ScanArray::findNonPeakPoints(As::Scan* scan) {
     if (autoBkg AND autoSkip) {
 
         // Find Bkg points
-        const int fromLS = MIN_NUM_BKG;
-        const int toLS   = scan->numPoints() - MIN_NUM_BKG;
+        const int fromLS = As::ScanDict::MIN_BKG_DATA_POINTS;
+        const int toLS   = scan->numPoints() - As::ScanDict::MIN_BKG_DATA_POINTS;
         for (int numLeftBkgPoints = fromLS; numLeftBkgPoints < toLS; ++numLeftBkgPoints) {
-            const int fromRS = MIN_NUM_BKG;
+            const int fromRS = As::ScanDict::MIN_BKG_DATA_POINTS;
             const int toRS   = scan->numPoints() - numLeftBkgPoints;
             for (int numRightBkgPoints = fromRS; numRightBkgPoints < toRS; ++numRightBkgPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
@@ -206,12 +206,12 @@ void As::ScanArray::findNonPeakPoints(As::Scan* scan) {
                     scan->m_numRightBkgPoints = numRightBkgPoints; } } }
 
         // Find Skip points
-        const int fromLB = MIN_NUM_SKIP;
-        const int toLB   = scan->m_numLeftBkgPoints - MIN_NUM_BKG;
+        const int fromLB = As::ScanDict::MIN_SKIP_DATA_POINTS;
+        const int toLB   = scan->m_numLeftBkgPoints - As::ScanDict::MIN_BKG_DATA_POINTS;
         for (int numLeftSkipPoints = fromLB; numLeftSkipPoints < toLB; ++numLeftSkipPoints) {
             const int numLeftBkgPoints = scan->m_numLeftBkgPoints - numLeftSkipPoints;
-            const int fromRB = MIN_NUM_SKIP;
-            const int toRB   = scan->m_numRightBkgPoints - MIN_NUM_BKG;
+            const int fromRB = As::ScanDict::MIN_SKIP_DATA_POINTS;
+            const int toRB   = scan->m_numRightBkgPoints - As::ScanDict::MIN_BKG_DATA_POINTS;
             for (int numRightSkipPoints = fromRB; numRightSkipPoints < toRB; ++numRightSkipPoints) {
                 const int numRightBkgPoints = scan->m_numRightBkgPoints - numRightSkipPoints;
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
@@ -234,10 +234,10 @@ void As::ScanArray::findNonPeakPoints(As::Scan* scan) {
 
         // Find Bkg points
         const int numNonSkipPoints = scan->numPoints() - scan->m_numLeftSkipPoints - scan->m_numRightSkipPoints;
-        const int fromLB = MIN_NUM_BKG;
-        const int toLB   = numNonSkipPoints - MIN_NUM_BKG;
+        const int fromLB = As::ScanDict::MIN_BKG_DATA_POINTS;
+        const int toLB   = numNonSkipPoints - As::ScanDict::MIN_BKG_DATA_POINTS;
         for (int numLeftBkgPoints = fromLB; numLeftBkgPoints < toLB; ++numLeftBkgPoints) {
-            const int fromRB = MIN_NUM_BKG;
+            const int fromRB = As::ScanDict::MIN_BKG_DATA_POINTS;
             const int toRB   = numNonSkipPoints - numLeftBkgPoints;
             for (int numRightBkgPoints = fromRB; numRightBkgPoints < toRB; ++numRightBkgPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
@@ -254,11 +254,11 @@ void As::ScanArray::findNonPeakPoints(As::Scan* scan) {
     // Manually set background and automatically detect skip points
     else if (!autoBkg AND autoSkip) {
         const int numNonBkgPoints = scan->numPoints() - scan->m_numLeftBkgPoints - scan->m_numRightBkgPoints;
-        const int fromLS = MIN_NUM_SKIP;
-        const int toLS   = numNonBkgPoints - MIN_NUM_SKIP;
+        const int fromLS = As::ScanDict::MIN_SKIP_DATA_POINTS;
+        const int toLS   = numNonBkgPoints - As::ScanDict::MIN_SKIP_DATA_POINTS;
         for (int numLeftSkipPoints = fromLS; numLeftSkipPoints < toLS; ++numLeftSkipPoints) {
-            const int fromRS = MIN_NUM_SKIP;
-            const int toRS   = numNonBkgPoints - numLeftSkipPoints - MIN_NUM_SKIP;
+            const int fromRS = As::ScanDict::MIN_SKIP_DATA_POINTS;
+            const int toRS   = numNonBkgPoints - numLeftSkipPoints - As::ScanDict::MIN_SKIP_DATA_POINTS;
             for (int numRightSkipPoints = fromRS; numRightSkipPoints < toRS; ++numRightSkipPoints) {
                 const As::RealVector intyWithSig = IntensityWithSigma(detector, sdetector,
                                                                       scan->m_numLeftBkgPoints, scan->m_numRightBkgPoints,
@@ -286,7 +286,7 @@ void As::ScanArray::findNonPeakPoints(As::Scan* scan) {
 */
 void As::ScanArray::adjustBkgPoints(As::Scan* scan) {
     if (scan->bkgDetectType() == As::Scan::AutoBkgDetect) {
-        for (int i = 0; i < ADD_NUM_PEAK; ++i) {
+        for (int i = 0; i < As::ScanDict::EXTRA_PEAK_DATA_POINTS; ++i) {
             if (scan->m_numLeftBkgPoints > 1) {
                 --scan->m_numLeftBkgPoints;
                 ++scan->m_numPeakPoints; }
@@ -450,9 +450,9 @@ void As::ScanArray::calcNormPeakArea(As::Scan* scan) {
     qreal monitorMean = monitor.mean();
 
     if (monitorMean == 0.) {
-        monitorMean = MONITOR_NORM; }
+        monitorMean = As::ScanDict::DEFAULT_MONITOR; }
 
-    const qreal normalizer = MONITOR_NORM / monitorMean;
+    const qreal normalizer = As::ScanDict::DEFAULT_MONITOR / monitorMean;
 
     for (const QString& countType : As::COUNT_TYPES) {
         if (!qIsNaN(scan->m_peakArea[countType])) {

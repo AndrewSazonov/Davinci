@@ -43,6 +43,12 @@ class ScanDict {
     const GroupElements_t operator[](const QString& section) const;
     const QStringList keys() const;
 
+    static const int MIN_DATA_POINTS;
+    static const int MIN_SKIP_DATA_POINTS;
+    static const int MIN_BKG_DATA_POINTS;
+    static const int EXTRA_PEAK_DATA_POINTS;
+    static const qreal DEFAULT_MONITOR;
+
   private:
     void selectGroup(const QString& group);
     void set(const QString& element,
