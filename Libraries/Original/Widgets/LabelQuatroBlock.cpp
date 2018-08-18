@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QLabel>
 #include <QHBoxLayout>
@@ -26,25 +26,26 @@
 #include "LabelQuatroBlock.hpp"
 
 /*!
-\class As::LabelQuatroBlock
+    \class As::LabelQuatroBlock
 
-\brief The LabelQuatroBlock widget provides a block for side bar.
+    \brief The LabelQuatroBlock widget provides a block for side bar.
 
-\inmodule Widgets
-\ingroup Widgets
+    \inmodule Widgets
+    \ingroup Widgets
 */
 
 /*!
-Constructs a block with four given labels \a label, \a value, \a range, \a step and \a parent.
+    Constructs a block with four given labels \a label, \a value, \a range, \a step and \a parent.
 */
-As::LabelQuatroBlock::LabelQuatroBlock(QLabel *label,
-                                       QLabel *value,
-                                       QLabel *range,
-                                       QLabel *step,
-                                       QWidget *parent)
-    : QWidget(parent)
-{
+As::LabelQuatroBlock::LabelQuatroBlock(QLabel* label,
+                                       QLabel* value,
+                                       QLabel* range,
+                                       QLabel* step,
+                                       QWidget* parent)
+    : QWidget(parent) {
+
     auto layout = new QHBoxLayout;
+
     layout->addWidget(label, 0);
     layout->addWidget(value, 1);
     layout->addWidget(range, 2);
@@ -66,13 +67,10 @@ As::LabelQuatroBlock::LabelQuatroBlock(QLabel *label,
     range->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
     step->setSizePolicy (QSizePolicy::Ignored, QSizePolicy::Preferred);
 
-    setLayout(layout);
-}
+    setLayout(layout); }
 
 /*!
-Destroys the widget.
+    Destroys the widget.
 */
-As::LabelQuatroBlock::~LabelQuatroBlock()
-{
-    ADESTROYED;
-}
+As::LabelQuatroBlock::~LabelQuatroBlock() {
+    ADESTROYED; }

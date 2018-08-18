@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QLabel>
 #include <QString>
@@ -27,25 +27,24 @@
 #include "UnderLabeledWidget.hpp"
 
 /*!
-\class As::UnderLabeledWidget
+    \class As::UnderLabeledWidget
 
-\brief The UnderLabeledWidget widget provides a widget with a text label
-below it for tool bar.
+    \brief The UnderLabeledWidget widget provides a widget with a text label
+    below it for tool bar.
 
-\inmodule Widgets
-\ingroup Widgets
+    \inmodule Widgets
+    \ingroup Widgets
 */
 
 /*!
-Constructs the given \a widget with the under label \a text and
-given \a parent.
+    Constructs the given \a widget with the under label \a text and
+    given \a parent.
 */
 
-As::UnderLabeledWidget::UnderLabeledWidget(QWidget *widget,
-                                           const QString &text,
-                                           QWidget *parent)
-    : QWidget(parent)
-{
+As::UnderLabeledWidget::UnderLabeledWidget(QWidget* widget,
+                                           const QString& text,
+                                           QWidget* parent)
+    : QWidget(parent) {
 
     auto label = new QLabel(text);
     auto font = label->font();
@@ -59,13 +58,10 @@ As::UnderLabeledWidget::UnderLabeledWidget(QWidget *widget,
     layout->setAlignment(label,  Qt::AlignHCenter | Qt::AlignBottom);
     layout->setSpacing(3);
     layout->setMargin(0);
-    setLayout(layout);
-}
+    setLayout(layout); }
 
 /*!
-Destroys the widget.
+    Destroys the widget.
 */
-As::UnderLabeledWidget::~UnderLabeledWidget()
-{
-    ADESTROYED;
-}
+As::UnderLabeledWidget::~UnderLabeledWidget() {
+    ADESTROYED; }

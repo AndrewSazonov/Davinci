@@ -23,7 +23,7 @@
 
 class QString;
 class QStringList;
-template <typename T> class QVector;
+template<typename> class QVector;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
@@ -35,12 +35,12 @@ public:
                 const QStringList &headers);
     ~SaveHeaders();
 
-    QStringList m_name;
-    QStringList m_format;
+    QStringList  m_name;
+    QStringList  m_format;
     QVector<int> m_fieldWidth;
     QVector<int> m_precision;
     QVector<int> m_index;
-    bool m_addHeader;
+    bool         m_addHeader;
 };
 
 } //AS_END_NAMESPACE

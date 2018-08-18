@@ -41,7 +41,7 @@ class QtProFile:
     def addDestDir(self, path):
         if type(path) is not str:
             path = pjoin(path)
-        self.addData('DESTDIR', '=', path)
+        self.addData('DESTDIR', '=', path)  
 
     def addHeaders(self, vars):
         if vars: self.addData('HEADERS', '+=', vars)
@@ -68,6 +68,8 @@ class QtProFile:
         if type(vars) is dict:
             for key, value in vars.items():
                 string = r'"{}=\"\\\"{}\\\"\""'.format(key, value)
+                if type(value) is int:
+                    string = '"{}={}"'.format(key, value)
                 self.addData('DEFINES', '+=', string)
         
     def addConfig(self, vars):
@@ -94,17 +96,19 @@ class QtProFile:
             self.addData('POST_TARGETDEPS', '+=', string)
 
     def addQmakeCxxFlags(self, vars): # QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra -pedantic
-        self.s += '!msvc { '
-        self.addData('QMAKE_CXXFLAGS', '+=', vars, False)
-        self.s += ' }\n'
+        if vars:
+            self.s += '!msvc { '
+            self.addData('QMAKE_CXXFLAGS', '+=', vars, False)
+            self.s += ' }\n'
 
     def addCppVersion(self, ver): 
         self.addConfig(ver)
 
-    def addBuildType(self, debug_dir_name, release_dir_name):
-        string  = 'CONFIG(debug, debug|release) {{ BUILD_TYPE = {} }}\n'
-        string += 'CONFIG(release, debug|release) {{ BUILD_TYPE = {} }}\n'
-        self.s += string.format(debug_dir_name, release_dir_name)
+    def addBuildType(self, debug_dir_name, profile_dir_name, release_dir_name):
+        string  = 'CONFIG(debug, debug|release)  {{\n\t BUILD_TYPE = {} }}\n'                           # debug
+        string += 'else:CONFIG(force_debug_info) {{\n\t BUILD_TYPE = {} \n\t DEFINES += QT_DEBUG }}\n'  # profile
+        string += 'else                          {{\n\t BUILD_TYPE = {} }}\n'                           # release
+        self.s += string.format(debug_dir_name, profile_dir_name, release_dir_name)
 
     def addDepends(self, app, lib):
         self.s += '{}.depends = {}\n'.format(app, lib)
