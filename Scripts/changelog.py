@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from functions import *
+from functions import * 
 
 # ChangelogArticle
 class ChangelogArticle:
@@ -91,7 +91,11 @@ class Changelog:
                  date="2018-07-09",
                   list=[ 'Adds reading of Psi angle from the NICOS instrument data collection files (Issue #5)', # update manual
                          'Adds UMWEG output for the calculation of multiple-diffraction patterns',
-                         'Adds some multi-threading features in order to spead up the data treatment']
-                         
-                         
-                         ) # update manual
+                         'Adds some multi-threading features in order to spead up the data treatment']) # update manual
+
+        #self.add(version="1.0.7",
+        #         date="2018-??-??",
+        #          list=[ 'Fixes an issue with ShelX output format in the console version of the program',
+        #                 'Fixes multiple other issues',
+        #                 'Adds progress bar to give an indication of how long the data processing is going to take',
+        #                 'Adds more multi-threading features in order to spead up the data processing']) # update manual
