@@ -53,12 +53,6 @@
 */
 
 /*!
-    \variable As::ScanDict::Properties
-    \brief the dictionary with all the possible scan properties.
-*/
-//const As::ScanDict As::ScanDict::Properties;
-
-/*!
     Constructs and initializes a scan with the given \a parent.
 */
 As::Scan::Scan(QObject* parent)
