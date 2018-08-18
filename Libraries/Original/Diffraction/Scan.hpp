@@ -43,7 +43,7 @@ class Scan : public QObject {
 
     // static constants
 
-    static const As::ScanDict Properties;
+    //static const As::ScanDict Properties;
 
     // constructor and destructor
 

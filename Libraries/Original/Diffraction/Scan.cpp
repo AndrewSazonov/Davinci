@@ -56,7 +56,7 @@
     \variable As::ScanDict::Properties
     \brief the dictionary with all the possible scan properties.
 */
-const As::ScanDict As::Scan::Properties;
+//const As::ScanDict As::ScanDict::Properties;
 
 /*!
     Constructs and initializes a scan with the given \a parent.
@@ -92,7 +92,7 @@ void As::Scan::init() {
 
     // Multi calculated values (depend on polarisation, i.e. BEAM_TYPES).
 
-    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
+    for (const QString& countType : As::ScanDict::BEAM_TYPES.values()) {
         m_maxPeakInty[countType]  = qQNaN(); m_maxPeakIntyErr[countType]  = qQNaN();
         m_sumPeakInty[countType]  = qQNaN(); m_sumPeakIntyErr[countType]  = qQNaN();
         m_peakArea[countType]     = qQNaN(); m_peakAreaErr[countType]     = qQNaN();
@@ -115,8 +115,8 @@ void As::Scan::setData(const QString& group,
     if (m_scan[group].contains(element)) {
         m_scan[group][element].insert("data", data); }
 
-    else if (As::Scan::Properties[group].contains(element)) {
-        m_scan[group][element] = As::Scan::Properties[group][element];
+    else if (As::ScanDict::Properties[group].contains(element)) {
+        m_scan[group][element] = As::ScanDict::Properties[group][element];
         m_scan[group][element].insert("data", data); }
 
     else {
@@ -138,8 +138,8 @@ void As::Scan::appendData(const QString& group,
     if (m_scan[group].contains(element)) {
         m_scan[group][element].insert("data", m_scan[group][element]["data"] + " " + data); }
 
-    else if (As::Scan::Properties[group].contains(element)) {
-        m_scan[group][element] = As::Scan::Properties[group][element];
+    else if (As::ScanDict::Properties[group].contains(element)) {
+        m_scan[group][element] = As::ScanDict::Properties[group][element];
         m_scan[group][element].insert("data", data); }
 
     else {
@@ -396,7 +396,7 @@ int As::Scan::numPoints() const {
     // Search for maximum of all the BEAM_TYPES
     int numPointsMax = 0;
 
-    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
+    for (const QString& countType : As::ScanDict::BEAM_TYPES.values()) {
 
         //const QString& string = m_scan["intensities"]["Detector" + countType]["data"];
         const QString string = data("intensities", "Detector" + countType);
