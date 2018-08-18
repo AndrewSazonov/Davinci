@@ -34,6 +34,24 @@
 */
 
 /*!
+    \typedef As::ScanDict::ElementAttributes_t
+
+    Synonym for QMap<QString, QString>.
+*/
+
+/*!
+    \typedef As::ScanDict::GroupElements_t
+
+    Synonym for QMap<QString, ElementAttributes_t>.
+*/
+
+/*!
+    \typedef As::ScanDict::PropertyGroups_t
+
+    Synonym for QMap<QString, GroupElements_t>.
+*/
+
+/*!
     \variable As::ScanDict::MIN_DATA_POINTS
     \brief the minimum number of data points in the measured scan.
 */

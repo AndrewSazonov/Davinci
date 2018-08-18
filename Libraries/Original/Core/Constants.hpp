@@ -124,7 +124,7 @@ enum GlobalColor
 extern const int APP_FULL_HEIGHT;
 extern const int APP_FULL_WIDTH;
 extern const int APP_SIDEBAR_WIDTH;
-extern const int UI_VERTICAL_SPACE_ROWS;
+extern const int REDUCED_VERTICAL_SPACING;
 
 extern const QColor SELECTION_BACKGROUND;
 extern const QString DATE_TIME_FORMAT;
@@ -132,15 +132,3 @@ extern const QString DATE_TIME_FORMAT;
 } //AS_END_NAMESPACE
 
 #endif // AS_CONSTANTS_HPP
-
-//#include <QObject> // to recognise the macros 'Q_NAMESPACE', 'Q_ENUM_NS', 'Q_ENUM_NS_IMPL', etc.
-//#include <QtGlobal> // to recognise the type name 'qreal', etc. (also loaded by <QObject>)
-//https://www.kdab.com/new-qt-5-8-meta-object-support-namespaces/
-//#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-//Q_NAMESPACE // Tells moc to generate meta-object information for the enclosing namespace, i.e. 'As'
-//#endif
-//#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-//Q_ENUM_NS(GlobalColor) // Tells moc to generate meta-object information for enum
-//#endif
-
-
