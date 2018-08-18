@@ -293,7 +293,7 @@ void As::Window::openIssueTracker_Slot() {
 void As::Window::acceptAutoUpdate_Slot() {
     ADEBUG;
 
-    setAutoUpdate_Slot(true); }
+    setAutoUpdateSettings(true); }
 
 /*!
     ...
@@ -301,12 +301,12 @@ void As::Window::acceptAutoUpdate_Slot() {
 void As::Window::rejectAutoUpdate_Slot() {
     ADEBUG;
 
-    setAutoUpdate_Slot(false); }
+    setAutoUpdateSettings(false); }
 
 /*!
     ...
 */
-void As::Window::setAutoUpdate_Slot(const bool autoUpdate) {
+void As::Window::setAutoUpdateSettings(const bool autoUpdate) {
     ADEBUG << "autoUpdate:" << autoUpdate;
 
     QSettings().setValue("Preferences/autoUpdate", autoUpdate); }

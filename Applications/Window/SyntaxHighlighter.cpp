@@ -45,36 +45,37 @@ void As::SyntaxHighlighter::load(const QString& type) {
     if (type == "HEiDi DIF4 dat") {
         append(As::blueDark, "[A-Za-z]"); }
 
-    if (type == "HEiDi DIF4 log") {
+    else if (type == "HEiDi DIF4 log") {
         append(As::green,    "^ (Orienting|Matrix|\\(A\\* B\\* C\\*\\))[^\n]*");
         append(As::redDark,  "![^\n]*");
         append(As::blueDark, "^ #[^\n]*"); }
 
-    if (type == "POLI NICOS dat") {
+    else if (type == "POLI NICOS dat") {
         append(As::gray,     "^# .*:.*[^\n]*"); // line start, #, space, any symbol any time, :, any symbol any time, up to line end
         append(As::green,    "^# .*;.*[^\n]*");
         append(As::redDark,  "^###[^\n]*"); // doesn't color 1st line in the multiple opened files
         append(As::blueDark, "(filename|Exp_proposal|Exp_users|Sample_ubmatrix|Sample_rmat)[^\n]*");
         append(As::blueDark, "(fug_value|Pin_value|Pout_value|Fin_value|Fout_value|Ts_value|wavelength_value)[^\n]*");
-        append(As::blueDark, "(chi1_value|chi2_value|omega_value|sth_value|twotheta_value|gamma_value|liftingctr_value|psi_virtual_value)[^\n]*"); }
+        append(As::blueDark, "(chi1_value|chi2_value|omega_value|sth_value|twotheta_value)[^\n]*");
+        append(As::blueDark, "(gamma_value|liftingctr_value|psi_virtual_value)[^\n]*"); }
 
-    if (type == "POLI IgorPro log") {
+    else if (type == "POLI IgorPro log") {
         append(As::gray,     "^  =>[^\n]*");
         append(As::green,    "(WARNING|Error|STOP)[^\n]*");
         append(As::redDark,  "(^(•|�)//|^(•|�)///|///)[^\n]*"); // are brackets needed???
         append(As::blueDark, "^(•|�)[^\n]*"); }
 
-    if (type == "TASP dat") {
+    else if (type == "TASP dat") {
         append(As::gray,     "^([A-Za-z]|    )[^\n]*");
         append(As::green,    "^PARAM[^\n]*");
         append(As::redDark,  "(LOCAL|EXPNO|FILE|USER|INSTR|COMND|DATE|TITLE)[^\n]*");
         append(As::blueDark, "^ PNT[^\n]*"); }
 
-    if (type == "6T2 BRALEVAN dat") {
+    else if (type == "6T2 BRALEVAN dat") {
         append(As::redDark,  "^FILE[^\n]*");
         append(As::blueDark, "^ANGLES[^\n]*"); }
 
-    if (type == "6T2 NEW xml") {
+    else if (type == "6T2 NEW xml") {
         append(As::blueDark,      "<[^>]*>"); // [^>]* - everything but '>' as much as possible times
         append(As::grayLightVery, "</[^>]*>");
         append(As::grayLightVery, "(<|>)"); } }

@@ -28,27 +28,19 @@
 #include "Scan.hpp"
 #include "ScanArray.hpp"
 
-QT_BEGIN_NAMESPACE
-
 class QAbstractItemModel;
 class QAction;
 class QDragEnterEvent;
 class QDropEvent;
 class QFont;
 class QFontComboBox;
-class QNetworkReply;
-class QSvgWidget;
 class QString;
 class QStringList;
 class QTabWidget;
-class QTextEdit;
 class QTextCursor;
-class QTextStream;
 class QTimer;
 class QWidget;
-template <typename T> class QFutureWatcher;
-
-QT_END_NAMESPACE
+template<typename> class QList;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
@@ -149,7 +141,7 @@ class Window : public QMainWindow {
     // Update application
     void acceptAutoUpdate_Slot();
     void rejectAutoUpdate_Slot();
-    void setAutoUpdate_Slot(const bool autoUpdate);
+    void setAutoUpdateSettings(const bool autoUpdate);
     void checkApplicationUpdateNow(const bool hideOutput = false);
     void installUpdate_Slot();
 

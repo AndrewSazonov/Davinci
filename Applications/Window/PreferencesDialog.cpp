@@ -88,11 +88,13 @@ As::GroupBox* As::PreferencesDialog::createUpdateGroup() {
     auto checkAuto = new As::CheckBox(tr("Automatically check for updates"));
     checkAuto->setToolTip(tr("Automatically check for updates."));
     checkAuto->setChecked(autoUpdate);
-    connect(checkAuto, &As::CheckBox::toggled, this, &As::PreferencesDialog::setAutoUpdate_Slot);
+    connect(checkAuto, &As::CheckBox::toggled, this,
+            &As::PreferencesDialog::setAutoUpdateSettings);
 
     auto checkNow = new As::PushButton(tr("Check now"));
     checkNow->setToolTip(tr("Click to check for updates."));
-    connect(checkNow, &As::PushButton::clicked, this, &As::PreferencesDialog::checkUpdateNowClicked);
+    connect(checkNow, &As::PushButton::clicked, this,
+            &As::PreferencesDialog::checkUpdateNowClicked);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(checkAuto);
@@ -107,7 +109,7 @@ As::GroupBox* As::PreferencesDialog::createUpdateGroup() {
 /*!
     ...
 */
-void As::PreferencesDialog::setAutoUpdate_Slot(const bool autoUpdate) {
+void As::PreferencesDialog::setAutoUpdateSettings(const bool autoUpdate) {
     ADEBUG << "autoUpdate:" << autoUpdate;
 
     QSettings().setValue("Preferences/autoUpdate", autoUpdate); }

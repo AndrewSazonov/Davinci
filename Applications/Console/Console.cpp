@@ -154,40 +154,20 @@ QString As::Console::outputFileNameWithExt() const {
     for a given core application \a app.
 */
 void As::Console::createCommandLineParser(QCoreApplication* app) {
-
-    // Application description
     const QString text = QString("%1 v%2 (%3)\n"
                                  "%4\n"
                                  "%5\n"
                                  "%6")
                          .arg(APP_NAME).arg(APP_VERSION).arg(APP_RELEASE_DATE)
                          .arg(APP_URL)
-                         .arg(QString(APP_DESCRIPTION).replace("<br />", " "))
-                         .arg(APP_COPYRIGHT).replace("&copy;", "(C)");
+                         .arg(APP_DESCRIPTION)
+                         .arg(APP_COPYRIGHT);
     m_parser.setApplicationDescription(qPrintable(text));
 
-    // Pre-defined options
-    //m_parser.addVersionOption();
     m_parser.addHelpOption();
-
-    // Add options
     m_parser.addOptions({{{"p", "path" },   "File/dir to open.", "file/dir" },
         {{"o", "output" }, "File to save output data.", "file" },
-        {{"f", "format" }, "Output file format <type>: general, shelx, tbar, umweg, ccsl.", "type" }, }); // {{"d", "debug"},  "Enable debug output."}
-
-    // Add arguments
-    //parser->addPositionalArgument("urls", QObject::tr("Files to open."), "[urls...]");
-    //parser->addPositionalArgument("file", QCoreApplication::translate("main", "The file to open."));
-    //addPositionalArgument("path", QCoreApplication::translate("main", "The path to file or directory to open.")); // what is "main"?
-
-    // Get positional arguments
-    //const QStringList args = parser.positionalArguments();
-    //const QString command = args.isEmpty() ? QString() : args.first();
-    //qDebug() << "is debug:" << parser.isSet("debug");
-    //qDebug() << parser.value("path");
-
-    // Debug output format, depends on the option provided by user
-    //As::SetDebugOutputFormat(m_parser.isSet("debug"));
+        {{"f", "format" }, "Output file format <type>: general, shelx, tbar, umweg, ccsl.", "type" }, });
 
     // Link parser to application
     m_parser.process(*app); }
@@ -298,8 +278,6 @@ void As::Console::printAppDescription() const {
 */
 void As::Console::printProgramOutput() const {
     const QStringList messageList = {
-        //QString("Number of treated files:  %1").arg(m_scans->m_inputFilesContents.first.size()),
-        //QString("Number of treated reflections:  %1").arg(m_scans->size()),
         QString("Output file:  %1").arg(outputFileNameWithExt()),
         "",
         "The program is finished successfully." };

@@ -37,7 +37,7 @@ APP_DOMAIN                  = 'sazonov.org'
 APP_OWNER                   = 'Andrew Sazonov'
 APP_PUBLISHER               = 'Sazonov'
 APP_URL                     = 'http://davinci.sazonov.org'
-APP_COPYRIGHT               = 'Copyright (C) {} {}. All rights reserved.'.format(APP_RELEASE_YEAR, APP_OWNER)
+APP_COPYRIGHT               = 'Copyright (C) {} {}.'.format(APP_RELEASE_YEAR, APP_OWNER)
 APP_DESCRIPTION             = 'A Scientific Software for the Visualization and Processing of Single-Crystal Diffraction Data Measured with a Point Detector'
 
 ISSUETRACKER_URL            = 'https://github.com/AndrewSazonov/{}/issues'.format(APP_NAME)

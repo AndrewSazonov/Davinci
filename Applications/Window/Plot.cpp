@@ -34,7 +34,6 @@
     ...
 */
 As::Plot::Plot() {
-    // Define global vars
     m_debugLineWidth = 2;
     m_markSize  = 8;
 

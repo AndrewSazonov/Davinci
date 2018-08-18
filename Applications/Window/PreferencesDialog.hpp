@@ -23,8 +23,6 @@
 
 #include <QDialog>
 
-class QDialogButtonBox;
-class QTabWidget;
 class QWidget;
 
 namespace As { //AS_BEGIN_NAMESPACE
@@ -45,7 +43,7 @@ class PreferencesDialog : public QDialog {
     As::GroupBox* createUpdateGroup();
 
   private slots:
-    void setAutoUpdate_Slot(const bool autoUpdate);
+    void setAutoUpdateSettings(const bool autoUpdate);
 
 };
 

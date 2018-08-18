@@ -89,17 +89,10 @@ class Plot : public QCustomPlot {
     void mouseReleaseToZoom(QMouseEvent* event);
 
   private:
+    bool m_leftMouseButtonPressed;
+    bool m_rightMouseButtonPressed;
     int m_markSize;
     int m_debugLineWidth;
-    As::Color m_color;
-    //As::Color scanBkgColor_;
-    As::Color m_textColor;
-    As::Color m_textBkgColor;
-    As::Color m_lineDrawColor;
-    As::Color m_markDrawColor;
-    As::Color m_markFillColor;
-    As::Color m_errorBarsDrawColor;
-    As::Color m_areaFillColor;
     qreal m_xAxisMin;
     qreal m_xAxisMax;
     qreal m_yAxisMin;
@@ -108,8 +101,14 @@ class Plot : public QCustomPlot {
     qreal m_yZoom1;
     qreal m_xZoom2;
     qreal m_yZoom2;
-    bool m_leftMouseButtonPressed;
-    bool m_rightMouseButtonPressed;
+    As::Color m_color;
+    As::Color m_textColor;
+    As::Color m_textBkgColor;
+    As::Color m_lineDrawColor;
+    As::Color m_markDrawColor;
+    As::Color m_markFillColor;
+    As::Color m_errorBarsDrawColor;
+    As::Color m_areaFillColor;
     QCPItemRect* m_zoomRectangle;
 
 };

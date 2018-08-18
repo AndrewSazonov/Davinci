@@ -22,21 +22,13 @@
 #define AS_CONSOLE_HPP
 
 #include <QCommandLineParser>
-
 #include <QObject>
 
 #include "ScanArray.hpp"
 
-QT_BEGIN_NAMESPACE
-
-class QAbstractItemModel;
 class QCoreApplication;
 class QString;
 class QStringList;
-class QTextStream;
-template<typename> class QFutureWatcher;
-
-QT_END_NAMESPACE
 
 namespace As { //AS_BEGIN_NAMESPACE
 

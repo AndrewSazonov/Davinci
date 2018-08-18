@@ -61,6 +61,7 @@
 #include "FontComboBox.hpp"
 #include "LineEdit.hpp"
 #include "MessageWidget.hpp"
+#include "ProgressDialog.hpp"
 #include "Style.hpp"
 #include "SyntaxHighlighter.hpp"
 #include "TableView.hpp"
@@ -74,16 +75,6 @@
 #include "ScanDict.hpp"
 
 #include "Window.hpp"
-
-#include "VBoxLayout.hpp"
-#include <QProgressBar>
-#include "ProgressDialog.hpp"
-
-#include "RealVector.hpp"
-#include "RealMatrix9.hpp"
-#include "String.hpp"
-#include "StringParser.hpp"
-#include <QJsonObject>
 
 /*!
     Constructs the main program window.
@@ -162,12 +153,6 @@ void As::Window::loadFiles(const QStringList& filePathList) {
 
     // Save settings
     QSettings().setValue("MainWindow/filePathLastOpen", fileLastOpen.absolutePath());
-
-    // Create or re-create the future watcher
-    //if (m_futureWatcher != Q_NULLPTR) {
-    //    delete m_futureWatcher;
-    //    m_futureWatcher = Q_NULLPTR; }
-    //m_futureWatcher = new QFutureWatcher<void>;
 
     // Create or re-create the scan array
     if (m_scans != Q_NULLPTR) {
