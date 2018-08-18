@@ -1,22 +1,22 @@
 /*
- * Davinci, a software for the single-crystal diffraction data reduction.
- * Copyright (C) 2015-2017 Andrew Sazonov
- *
- * This file is part of Davinci.
- *
- * Davinci is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Davinci is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
- */
+    Davinci, a software for the single-crystal diffraction data reduction.
+    Copyright (C) 2015-2017 Andrew Sazonov
+
+    This file is part of Davinci.
+
+    Davinci is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Davinci is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Davinci.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <QAction>
 #include <QApplication>
@@ -39,10 +39,9 @@
 #include "Window.hpp"
 
 /*!
-Creates actions, menus and tool bar
+    Creates actions, menus and tool bar
 */
-void As::Window::createActionsMenusToolBar()
-{
+void As::Window::createActionsMenusToolBar() {
     ADEBUG;
 
     //===================================
@@ -52,10 +51,10 @@ void As::Window::createActionsMenusToolBar()
     //---------
     // Add menu
     //---------
-    QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
+    QMenu* fileMenu = menuBar()->addMenu(tr("&File"));
 
     // Add action
-    QAction *openFile_Act = fileMenu->addAction(tr("&Open File(s)..."), this, &As::Window::openFile_Slot);
+    QAction* openFile_Act = fileMenu->addAction(tr("&Open File(s)..."), this, &As::Window::openFile_Slot);
     openFile_Act->setToolTip(tr("Open existing file(s)."));
     openFile_Act->setShortcuts(QKeySequence::Open);
     openFile_Act->setIcon(QIcon(":/Images/Button_Open-File.svg"));
@@ -63,7 +62,7 @@ void As::Window::createActionsMenusToolBar()
     auto openFileButton = new As::UnderLabeledWidget(new As::ToolBarButton(openFile_Act), tr("Open file"));
 
     // Add action
-    QAction *openDir_Act = fileMenu->addAction(tr("Open &Directory..."), this, &As::Window::openDir_Slot);
+    QAction* openDir_Act = fileMenu->addAction(tr("Open &Directory..."), this, &As::Window::openDir_Slot);
     openDir_Act->setToolTip(tr("Open existing directory."));
     openDir_Act->setIcon(QIcon(":/Images/Button_Open-Folder.svg"));
 
@@ -73,19 +72,19 @@ void As::Window::createActionsMenusToolBar()
     fileMenu->addSeparator();
 
     // Add action
-    QAction *save_Act = fileMenu->addAction(tr("&Save"), this, &As::Window::aboutApp_Slot);
+    QAction* save_Act = fileMenu->addAction(tr("&Save"), this, &As::Window::aboutApp_Slot);
     save_Act->setToolTip(tr("Save the document."));
     save_Act->setShortcuts(QKeySequence::Save);
     save_Act->setEnabled(false);
 
     // Add action
-    QAction *saveAs_Act = fileMenu->addAction(tr("Save &As..."), this, &As::Window::aboutApp_Slot);
+    QAction* saveAs_Act = fileMenu->addAction(tr("Save &As..."), this, &As::Window::aboutApp_Slot);
     saveAs_Act->setToolTip(tr("Save the document with a new name."));
     saveAs_Act->setShortcuts(QKeySequence::SaveAs);
     saveAs_Act->setEnabled(false);
 
     // Add action
-    QAction *export_Act = fileMenu->addAction(tr("&Export..."), this, &As::Window::export_Slot);
+    QAction* export_Act = fileMenu->addAction(tr("&Export..."), this, &As::Window::export_Slot);
     export_Act->setToolTip(tr("Export the document."));
     export_Act->setIcon(QIcon(":/Images/Button_Export.svg"));
     export_Act->setEnabled(false);
@@ -101,7 +100,7 @@ void As::Window::createActionsMenusToolBar()
     fileMenu->addSeparator();
 
     // Add action
-    QAction *reload_Act = fileMenu->addAction(tr("&Reload"), this, &As::Window::reloadFile_Slot);
+    QAction* reload_Act = fileMenu->addAction(tr("&Reload"), this, &As::Window::reloadFile_Slot);
     reload_Act->setToolTip(tr("Reload opened file(s)."));
     reload_Act->setIcon(QIcon(":/Images/Button_Reload.svg"));
     reload_Act->setEnabled(false);
@@ -114,7 +113,7 @@ void As::Window::createActionsMenusToolBar()
     connect(this, &As::Window::oldFilesClosed_Signal, reloadButton, &As::UnderLabeledWidget::setEnabled);
 
     // Add action
-    QAction *close_Act = fileMenu->addAction(tr("&Close File(s)"), this, &As::Window::closeFile_Slot);
+    QAction* close_Act = fileMenu->addAction(tr("&Close File(s)"), this, &As::Window::closeFile_Slot);
     close_Act->setToolTip(tr("Close the open files."));
     close_Act->setShortcuts(QKeySequence::Close);
     close_Act->setEnabled(false);
@@ -122,7 +121,7 @@ void As::Window::createActionsMenusToolBar()
     connect(this, &As::Window::oldFilesClosed_Signal, close_Act, &QAction::setEnabled);
 
     // Add action
-    QAction *exitApp_Act = fileMenu->addAction(tr("E&xit"), this, &QWidget::close);
+    QAction* exitApp_Act = fileMenu->addAction(tr("E&xit"), this, &QWidget::close);
     exitApp_Act->setToolTip(tr("Exit the application."));
     exitApp_Act->setShortcuts(QKeySequence::Quit);
     exitApp_Act->setMenuRole(QAction::QuitRole); // not required due to the TextHeuristicRole
@@ -130,10 +129,10 @@ void As::Window::createActionsMenusToolBar()
     //---------
     // Add menu
     //---------
-    QMenu *processMenu = menuBar()->addMenu(tr("&Processing"));
+    QMenu* processMenu = menuBar()->addMenu(tr("&Processing"));
 
     // Add action
-    QAction *autoProcessing_Act = processMenu->addAction(tr("&Start auto processing"), this, &As::Window::autoProcessing_Slot);
+    QAction* autoProcessing_Act = processMenu->addAction(tr("&Start auto processing"), this, &As::Window::autoProcessing_Slot);
     autoProcessing_Act->setToolTip(tr("Start data processing in auto mode."));
     autoProcessing_Act->setIcon(QIcon(":/Images/Button_Auto.svg"));
     autoProcessing_Act->setEnabled(false);
@@ -148,16 +147,17 @@ void As::Window::createActionsMenusToolBar()
     //---------
     // Add menu
     //---------
-    QMenu *viewMenu = menuBar()->addMenu(tr("&View"));
+    QMenu* viewMenu = menuBar()->addMenu(tr("&View"));
+
+    // Create icon with 2 states
+    QIcon sidebarIcon;
+    sidebarIcon.addFile(":/Images/Button_Sidebar_On.svg", QSize(), QIcon::Normal, QIcon::On);
+    sidebarIcon.addFile(":/Images/Button_Sidebar_Off.svg", QSize(), QIcon::Normal, QIcon::Off);
 
     // Add action
-    auto sidebarIcon = new QIcon;
-    sidebarIcon->addFile(":/Images/Button_Sidebar_On.svg", QSize(), QIcon::Normal, QIcon::On);
-    sidebarIcon->addFile(":/Images/Button_Sidebar_Off.svg", QSize(), QIcon::Normal, QIcon::Off);
-
-    QAction *showOrHideSidebar_Act = viewMenu->addAction(tr("&Show Side Bar"));
+    QAction* showOrHideSidebar_Act = viewMenu->addAction(tr("&Show Side Bar"));
     showOrHideSidebar_Act->setToolTip(tr("Show or hide the sidebar with options for manual data processing."));
-    showOrHideSidebar_Act->setIcon(*sidebarIcon);
+    showOrHideSidebar_Act->setIcon(sidebarIcon);
     showOrHideSidebar_Act->setCheckable(true);
     showOrHideSidebar_Act->setChecked(false);
     showOrHideSidebar_Act->setEnabled(false);
@@ -175,10 +175,10 @@ void As::Window::createActionsMenusToolBar()
     //---------
     // Add menu
     //---------
-    QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
+    QMenu* helpMenu = menuBar()->addMenu(tr("&Help"));
 
     // Add action
-    QAction *aboutApp_Act = helpMenu->addAction(tr("&About"), this, &As::Window::aboutApp_Slot);
+    QAction* aboutApp_Act = helpMenu->addAction(tr("&About"), this, &As::Window::aboutApp_Slot);
     aboutApp_Act->setToolTip(tr("Show the application's About box."));
     aboutApp_Act->setMenuRole(QAction::AboutRole); // not required due to the TextHeuristicRole
 
@@ -188,38 +188,40 @@ void As::Window::createActionsMenusToolBar()
     //aboutQt_Act->setMenuRole(QAction::AboutQtRole); // not required due to the TextHeuristicRole
 
     // Add action
-    QAction *checkUpdates_Act = helpMenu->addAction(tr("Check for Updates..."), this, &As::Window::checkApplicationUpdateNow_Slot);
+    QAction* checkUpdates_Act = helpMenu->addAction(tr("Check for Updates..."), this, &As::Window::checkApplicationUpdateNow);
     checkUpdates_Act->setToolTip(tr("Check for the application's updates now."));
     checkUpdates_Act->setMenuRole(QAction::ApplicationSpecificRole);
 
     // Add action
-    QAction *preferences_Act = fileMenu->addAction(tr("&Preferences..."), this, &As::Window::showPreferences_Slot);
+    QAction* preferences_Act = fileMenu->addAction(tr("&Preferences..."), this, &As::Window::showPreferences_Slot);
     preferences_Act->setToolTip(tr("Preferences of application."));
     preferences_Act->setShortcuts(QKeySequence::Preferences);
     preferences_Act->setMenuRole(QAction::PreferencesRole); // not required due to the TextHeuristicRole
 
     // Add action
-    QAction *userManual_Act = helpMenu->addAction(tr("&User manual (online)"), this, &As::Window::openUserManual_Slot);
+    QAction* userManual_Act = helpMenu->addAction(tr("&User manual (online)"), this, &As::Window::openUserManual_Slot);
     userManual_Act->setToolTip(tr("Show online user manual in web browser."));
 
     // Add action
-    QAction *issue_Act = helpMenu->addAction(tr("&Report issue (online)"), this, &As::Window::openIssueTracker_Slot);
+    QAction* issue_Act = helpMenu->addAction(tr("&Report issue (online)"), this, &As::Window::openIssueTracker_Slot);
     issue_Act->setToolTip(tr("Report a bug on the online issue tracker."));
 
     //===========================
     // Toolbar additional widgets
     //===========================
 
+    const int height = 28;
     const int width = 100;
 
     auto facilityType = new As::LineEdit;
     facilityType->setToolTip(tr("Neutron facility."));
+    facilityType->setMinimumHeight(height);
     facilityType->setMinimumWidth(width);
     facilityType->setReadOnly(true);
     facilityType->setPlaceholderText(tr("Undefined"));
     facilityType->setAlignment(Qt::AlignHCenter);
     facilityType->setFocusPolicy(Qt::NoFocus);
-    connect(this, &As::Window::facilityTypeChanged_Signal, facilityType, &As::LineEdit::setText);
+    connect(this, &As::Window::facilityTypeChanged, facilityType, &As::LineEdit::setText);
     connect(this, &As::Window::oldFilesClosed_Signal, facilityType, &As::LineEdit::clear);
 
     auto facilityTypeWidget = new As::UnderLabeledWidget(facilityType, tr("Facility"));
@@ -229,12 +231,13 @@ void As::Window::createActionsMenusToolBar()
 
     auto instrumentType = new As::LineEdit;
     instrumentType->setToolTip(tr("Instrument name."));
+    instrumentType->setMinimumHeight(height);
     instrumentType->setMinimumWidth(width);
     instrumentType->setReadOnly(true);
     instrumentType->setPlaceholderText(tr("Undefined"));
     instrumentType->setAlignment(Qt::AlignHCenter);
     instrumentType->setFocusPolicy(Qt::NoFocus);
-    connect(this, &As::Window::instrumentTypeChanged_Signal, instrumentType, &As::LineEdit::setText);
+    connect(this, &As::Window::instrumentTypeChanged, instrumentType, &As::LineEdit::setText);
     connect(this, &As::Window::oldFilesClosed_Signal, instrumentType, &As::LineEdit::clear);
 
     auto instrumentTypeWidget = new As::UnderLabeledWidget(instrumentType, tr("Instrument"));
@@ -244,12 +247,13 @@ void As::Window::createActionsMenusToolBar()
 
     auto dataType = new As::LineEdit;
     dataType->setToolTip(tr("Type of input data."));
+    dataType->setMinimumHeight(height);
     dataType->setMinimumWidth(width);
     dataType->setReadOnly(true);
     dataType->setPlaceholderText(tr("Undefined"));
     dataType->setAlignment(Qt::AlignHCenter);
     dataType->setFocusPolicy(Qt::NoFocus);
-    connect(this, &As::Window::dataTypeChanged_Signal, dataType, &As::LineEdit::setText);
+    connect(this, &As::Window::dataTypeChanged, dataType, &As::LineEdit::setText);
     connect(this, &As::Window::oldFilesClosed_Signal, dataType, &As::LineEdit::clear);
 
     auto dataTypeWidget = new As::UnderLabeledWidget(dataType, tr("Data type"));
@@ -290,37 +294,3 @@ void As::Window::createActionsMenusToolBar()
     setUnifiedTitleAndToolBarOnMac(true);
 #endif
 }
-
-// open recent
-// http://www.walletfox.com/course/qtopenrecentfiles.php
-
-// misc
-//void QIcon::addFile(const QString &fileName, const QSize &size = QSize(), Mode mode = Normal, State state = Off)
-//QT_HIGHDPI_DISABLE_2X_IMAGE_LOADING
-//sidebarIcon->addPixmap(QPixmap(":/Images/Button_Sidebar_On.png"), QIcon::Normal, QIcon::On);
-//sidebarIcon->addPixmap(QPixmap(":/Images/Button_Sidebar_Off.png"), QIcon::Normal, QIcon::Off);
-//sidebarIcon->addFile(":/Images/Button_Sidebar_On.png", QSize(32,32), QIcon::Normal, QIcon::On);
-//sidebarIcon->addFile(":/Images/Button_Sidebar_Off.png", QSize(32,32), QIcon::Normal, QIcon::Off);
-
-/*
-QByteArray sidebarIconByteArray = "<?xml version='1.0' encoding='utf-8'?> <svg viewBox='0 0 16 16' width='16' height='16' xmlns='http://www.w3.org/2000/svg'> <rect style='stroke: #800000; fill: #FF0000;' x='0.5' y='6' width='10' height='8'/> <rect style='stroke: #008000; fill: #00FF00;' x='11.5' y='6' width='4' height='8'/> <rect style='stroke: #000080; fill: #0000FF;' y='2' width='15' height='4' x='0.5'/> </svg>";
-QByteArray sidebarIconByteArrayOn = sidebarIconByteArray.
-        replace("#0000FF", qPrintable(As::Color(As::blueLightUltra).name())).
-        replace("#000080", qPrintable(As::Color(As::blue).name())).
-        replace("#00FF00", qPrintable(As::Color(As::blueLightVery).name())).
-        replace("#008000", qPrintable(As::Color(As::blue).name())).
-        replace("#FF0000", qPrintable(As::Color(As::blueLightUltra).name())).
-        replace("#800000", qPrintable(As::Color(As::blue).name()));
-QByteArray sidebarIconByteArrayOff = sidebarIconByteArray.
-        replace("#0000FF", qPrintable(As::Color(As::grayLightUltra).name())).
-        replace("#000080", qPrintable(As::Color(As::gray).name())).
-        replace("#00FF00", qPrintable(As::Color(As::grayLightVery).name())).
-        replace("#008000", qPrintable(As::Color(As::gray).name())).
-        replace("#FF0000", qPrintable(As::Color(As::grayLightUltra).name())).
-        replace("#800000", qPrintable(As::Color(As::gray).name()));
-QImage sidebarIconImageOn = QImage::fromData(sidebarIconByteArrayOn, "svg"); // QImage sidebarIconImageOn(":/Images/Button_Sidebar.svg");
-QPixmap sidebarIconPixmapOn(QPixmap::fromImage(sidebarIconImageOn));
-QIcon sidebarIcon(sidebarIconPixmapOn);
-ADEBUG << As::Color(As::gray).name() << As::Color(As::grayLightVery).name() << As::Color(As::grayLightUltra).name();
-ADEBUG << As::Color(As::blue).name() << As::Color(As::blueLightVery).name() << As::Color(As::blueLightUltra).name();
-*/
