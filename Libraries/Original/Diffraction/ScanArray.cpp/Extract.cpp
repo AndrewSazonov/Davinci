@@ -45,31 +45,31 @@ void As::ScanArray::extractDataFromFile(const int index) {
 
     switch (m_inputFilesType) {
 
-    case UNKNOWN_FILE:
-        ADEBUG << "Not implemented yet"; break;
+        case UNKNOWN_FILE:
+            ADEBUG << "Not implemented yet"; break;
 
-    case HEIDI_DAT:
-        extractHeidiData(index, filePath, fileContent);
-        break;
+        case HEIDI_DAT:
+            extractHeidiData(index, filePath, fileContent);
+            break;
 
-    case HEIDI_LOG:
-        extractHeidiLog(index, filePath, fileContent);
-        break;
+        case HEIDI_LOG:
+            extractHeidiLog(index, filePath, fileContent);
+            break;
 
-    case NICOS_DAT:
-        extractNicosData(index, filePath, fileContent);
-        break;
+        case NICOS_DAT:
+            extractNicosData(index, filePath, fileContent);
+            break;
 
-    case POLI_LOG:
-        extractPoliLog(index, filePath, fileContent);
-        break;
+        case POLI_LOG:
+            extractPoliLog(index, filePath, fileContent);
+            break;
 
-    case S6T2_DAT:
-        extract6t2Data(index, filePath, m_inputFilesContents.second[index]); // as file content to be modified
-        break;
+        case S6T2_DAT:
+            extract6t2Data(index, filePath, m_inputFilesContents.second[index]); // as file content to be modified
+            break;
 
-    default:
-        ADEBUG << "Not implemented yet"; break; }
+        default:
+            ADEBUG << "Not implemented yet"; break; }
 
 }
 
@@ -444,7 +444,7 @@ void As::ScanArray::extract6t2Data(const int fileIndex,
     auto scan = new As::Scan; // scan to be added to the scan array
 
     // Get the index of the file which contains the current scan
-    scan->setFileIndex(fileIndex);  //!?
+    scan->setFileIndex(fileIndex + 1);
 
     // Set the absolute file path of the file which contains the scan
     scan->setAbsoluteFilePath(filePath);
@@ -540,7 +540,7 @@ void As::ScanArray::extractDataFromTable(As::Scan* scan,
     Appends the \a scan to the scan array.
 */
 void As::ScanArray::appendScan(As::Scan* scan) {
-    //ADEBUG << scan;
+    ADEBUG << scan;
 
     if (scan->numPoints() < As::ScanDict::MIN_DATA_POINTS) {
         delete scan;
