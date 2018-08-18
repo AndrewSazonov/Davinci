@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from changelog import *
+from changelog import * 
 from functions import *
 
 ######
@@ -19,13 +19,14 @@ from functions import *
 
 # Apps
 APP_NAME                    = 'Davinci'
-APP_CONSOLE_SUFFIX          = 'Console'
+WINDOW_APP_NAME             = APP_NAME
+CONSOLE_APP_SUFFIX          = 'Console'
+CONSOLE_APP_NAME            = APP_NAME + CONSOLE_APP_SUFFIX
 TESTS_SUFFIX                = 'Tests'
-APP_CONSOLE_NAME            = APP_NAME + APP_CONSOLE_SUFFIX
 TESTS_NAME                  = APP_NAME + TESTS_SUFFIX
 
-APP_FILE                    = OsSpecificGui(APP_NAME)
-APP_CONSOLE_FILE            = OsSpecificCli(APP_CONSOLE_NAME)
+WINDOW_APP_FILE             = OsSpecificGui(WINDOW_APP_NAME)
+CONSOLE_APP_FILE            = OsSpecificCli(CONSOLE_APP_NAME)
 TESTS_FILE                  = OsSpecificCli(TESTS_NAME)
 
 APP_VERSION                 = Changelog().version()
@@ -36,7 +37,7 @@ APP_DOMAIN                  = 'sazonov.org'
 APP_OWNER                   = 'Andrew Sazonov'
 APP_PUBLISHER               = 'Sazonov'
 APP_URL                     = 'http://davinci.sazonov.org'
-APP_COPYRIGHT               = 'Copyright (C) {} {}. All rights reserved.'.format(APP_RELEASE_YEAR, APP_OWNER)
+APP_COPYRIGHT               = 'Copyright (C) {} {}.'.format(APP_RELEASE_YEAR, APP_OWNER)
 APP_DESCRIPTION             = 'A Scientific Software for the Visualization and Processing of Single-Crystal Diffraction Data Measured with a Point Detector'
 
 ISSUETRACKER_URL            = 'https://github.com/AndrewSazonov/{}/issues'.format(APP_NAME)
@@ -50,9 +51,12 @@ APPS_TEMPLATE               = 'app'
 LIBS_TEMPLATE               = 'lib'
 SUBDIRS_TEMPLATE            = 'subdirs'
 SCRIPT_DIR                  = os.path.dirname(os.path.abspath(__file__))
+
+# Project
 PROJECT_NAME                = 'Project'
 PROJECT_DIR                 = [SCRIPT_DIR, '..']
 PROJECT_FILE                = PROJECT_DIR + [PROJECT_NAME + '.pro']
+PROJECT_OTHER_FILES_DIRS    = ['Beautifiers']
 
 # Apps
 APPS_DIR_NAME               = 'Applications'
@@ -64,16 +68,17 @@ WINDOW_APP_DIR              = APPS_DIR + [WINDOW_APP_DIR_NAME]
 APPS_SUBDIRS                = [CONSOLE_APP_DIR_NAME, WINDOW_APP_DIR_NAME]
 
 # Modules and config
-APP_QT_MODULES              = 'core gui xml svg network widgets printsupport'.split()
-APP_CONSOLE_CONFIG          = 'console'.split()
-APP_CONSOLE_CONFIG_DEL      = 'app_bundle'.split()
+WINDOW_APP_QT_MODULES       = 'core gui xml svg network widgets printsupport concurrent'.split()
+CONSOLE_APP_QT_MODULES      = 'concurrent'.split()
+CONSOLE_APP_CONFIG          = 'console'.split()
+CONSOLE_APP_CONFIG_DEL      = 'app_bundle'.split()
 LIBS_CONFIG                 = 'staticlib'
 
 # Libs
 LIBS_DIR_NAME               = 'Libraries'
 MY_LIBS_PREFIX              = 'As'
 MY_LIBS_DIR_NAME            = 'Original'
-MY_LIBS_NAMES               = 'Core Diffraction DataTypes Widgets'.split() # order is important!
+MY_LIBS_NAMES               = 'Core Widgets Diffraction DataTypes'.split() # order is important!
 OTHER_LIBS_DIR_NAME         = '3rdParty'
 OTHER_LIBS_NAMES            = 'QCodeEditor QCustomPlot'.split()
 LIBS_DIR                    = PROJECT_DIR + [LIBS_DIR_NAME]
@@ -105,11 +110,12 @@ BUILD_DIR                   = PROJECT_DIR + ['..', BUILD_DIR_NAME]
 BUILD_TYPE                  = '$${BUILD_TYPE}'
 BUILD_TYPE_DIR              = BUILD_DIR + [BUILD_TYPE]
 
-# Debug, Release
+# Profile, Debug, Release
 DEBUG_DIR_NAME              = 'Debug'
+PROFILE_DIR_NAME            = 'Profile'
 RELEASE_DIR_NAME            = 'Release'
 RELEASE_DIR                 = BUILD_DIR + [RELEASE_DIR_NAME]
-RELEASE_NAMES_TO_DEPLOY     = [APP_FILE, APP_CONSOLE_FILE, TESTS_FILE]
+RELEASE_NAMES_TO_DEPLOY     = [WINDOW_APP_FILE, CONSOLE_APP_FILE, TESTS_FILE]
 RELEASE_PATHS_TO_DEPLOY     = []
 for item in RELEASE_NAMES_TO_DEPLOY:
     item = RELEASE_DIR + [item]
@@ -118,7 +124,7 @@ for item in RELEASE_NAMES_TO_DEPLOY:
 # Deploy
 DEPLOY_DIR_NAME             = 'Deploy'
 DEPLOY_DIR                  = BUILD_DIR + [DEPLOY_DIR_NAME]
-DEPLOY_NAMES                = [APP_FILE, APP_CONSOLE_FILE, TESTS_FILE]
+DEPLOY_NAMES                = [WINDOW_APP_FILE, CONSOLE_APP_FILE, TESTS_FILE]
 DEPLOY_PATHS                = []
 for item in RELEASE_NAMES_TO_DEPLOY:
     item = DEPLOY_DIR + [item]
@@ -225,33 +231,35 @@ HEADER_EXT                  = '.hpp .h'
 SOURCE_EXT                  = '.cpp'
 RESOURCE_EXT                = '.qrc'
 DOC_EXT                     = '.qdoc'
+ANY_EXT                     = '.*'
 
 ##############
 # DEFINE MACRO
 ##############
 
 # Adding C preprocessor #DEFINE so we can use APP_NAME, etc. in C++ code
-DEFINES_DICT                = {'APP_NAME':          APP_NAME,
-                               'APP_VERSION':       APP_VERSION,
-                               'APP_RELEASE_DATE':  APP_RELEASE_DATE,
-                               'APP_URL':           APP_URL,
-                               'APP_DOMAIN':        APP_DOMAIN,
-                               'APP_OWNER':         APP_OWNER,
-                               'APP_COPYRIGHT':     APP_COPYRIGHT,
-                               'APP_DESCRIPTION':   APP_DESCRIPTION,
-                               'MAINTAINER_NAME':   MAINTAINER_NAME,
-                               'USERMANUAL_URL':    USERMANUAL_URL,
-                               'ISSUETRACKER_URL':  ISSUETRACKER_URL}
+DEFINES_DICT                = {'APP_NAME':              APP_NAME,
+                               'APP_VERSION':           APP_VERSION,
+                               'APP_RELEASE_DATE':      APP_RELEASE_DATE,
+                               'APP_URL':               APP_URL,
+                               'APP_DOMAIN':            APP_DOMAIN,
+                               'APP_OWNER':             APP_OWNER,
+                               'APP_COPYRIGHT':         APP_COPYRIGHT,
+                               'APP_DESCRIPTION':       APP_DESCRIPTION,
+                               'APP_BUILD_TYPE':        BUILD_TYPE,
+                               'MAINTAINER_NAME':       MAINTAINER_NAME,
+                               'USERMANUAL_URL':        USERMANUAL_URL,
+                               'ISSUETRACKER_URL':      ISSUETRACKER_URL}
 
 # Add in release output of such information as %{function}, %{line}, %{message}, etc.
 DEFINES_MISC                = 'QT_MESSAGELOGCONTEXT'
 
-#####
-# C++
-#####
+#############
+# C++ VERSION
+#############
 
-CPP_VERSION                 = 'c++11'
-QMAKE_CXXFLAGS              = '-std=gnu++11 -std=c++11'.split()
+CPP_VERSION                 = 'c++14'   # set automatically via qt. Use c++1z for c++17?
+QMAKE_CXXFLAGS              = ''        # set manually: '-std=gnu++11 -std=c++11'.split()
 
 
 
@@ -260,4 +268,3 @@ QMAKE_CXXFLAGS              = '-std=gnu++11 -std=c++11'.split()
 #release_date_config = ConvertDate(changelog.date(), '%d.%m.%Y', '%Y-%m-%d')
 #update_text = 'This changed compared to the last release'
 #script_name = 'installscript.js'
-

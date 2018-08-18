@@ -22,65 +22,11 @@
 #define AS_CONSTANTS_HPP
 
 class QColor;
-class QElapsedTimer;
 class QString;
-class QStringList;
-template <class Key, class T> class QHash;
-template <class Key, class T> class QMap;
 
 namespace As { //AS_BEGIN_NAMESPACE
-//Q_NAMESPACE
 
-class ScanDatabase;
-
-// Externally defined constants or variables
-
-extern QElapsedTimer elapsedTimer;
-extern int debugCount;
-
-extern const QColor SELECTION_BACKGROUND;
-extern const QString DATA_TIME_FORMAT;
-extern const QStringList COUNT_TYPES;
-
-extern const QHash<int, double> MC_CANDLISH_FACTOR;
-
-extern const ScanDatabase SCAN_DATABASE;
-
-// Alias names
-
-typedef QMap<QString, QMap<QString, QString> > ScanSectionMap;
-typedef QMap<QString, QMap<QString, QMap<QString, QString> > > ScanMap;
-
-// Internally defined constants or enums
-
-const int DEBUG_INDEX_WIDTH = 5;
-const int DEBUG_FILE_WIDTH = 10;
-const int DEBUG_LINE_WIDTH = 4;
-const int DEBUG_FUNCTION_WIDTH = 25;
-const int DEBUG_TIME_WIDTH = 5;
-const int DEBUG_MESSAGE_WIDTH = 90;
-const int DEBUG_SPACE = 3;
-const int DEBUG_WIDTH =
-        DEBUG_INDEX_WIDTH + DEBUG_SPACE +
-        DEBUG_FILE_WIDTH + DEBUG_SPACE +
-        DEBUG_LINE_WIDTH + DEBUG_SPACE +
-        DEBUG_FUNCTION_WIDTH + DEBUG_SPACE +
-        DEBUG_TIME_WIDTH + DEBUG_SPACE +
-        DEBUG_MESSAGE_WIDTH;
-
-const int APP_WINDOW_WIDTH  = 900;
-const int APP_WINDOW_HEIGHT = 600;
-
-const int UI_VERTICAL_SPACE_ROWS = 7;
-
-const int MIN_NUM_SCAN = 3;
-const int MIN_NUM_SKIP = 0;
-const int MIN_NUM_BKG  = 1;
-const int ADD_NUM_PEAK = 1; //1
-
-const double MONITOR_NORM = 10000.;
-
-const int SIDEBAR_WIDTH = 300; //settings.value("Sidebar/width", 300).toInt();
+// Internally defined enums
 
 enum InputFileType
 {
@@ -93,7 +39,7 @@ enum InputFileType
 };
 //Q_ENUM_NS(InputFileType)
 
-enum OutputFileType
+enum class OutputFileType // Currently not in use
 {
     GENERAL_CSV,
     SHELX_INT_HKL,
@@ -170,18 +116,16 @@ enum GlobalColor
 };
 //Q_ENUM_NS(GlobalColor)
 
+// Externally defined constants
+
+extern const int APP_FULL_HEIGHT;
+extern const int APP_FULL_WIDTH;
+extern const int APP_SIDEBAR_WIDTH;
+extern const int REDUCED_VERTICAL_SPACING;
+
+extern const QColor SELECTION_BACKGROUND;
+extern const QString DATE_TIME_FORMAT;
+
 } //AS_END_NAMESPACE
 
 #endif // AS_CONSTANTS_HPP
-
-//#include <QObject> // to recognise the macros 'Q_NAMESPACE', 'Q_ENUM_NS', 'Q_ENUM_NS_IMPL', etc.
-//#include <QtGlobal> // to recognise the type name 'qreal', etc. (also loaded by <QObject>)
-//https://www.kdab.com/new-qt-5-8-meta-object-support-namespaces/
-//#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-//Q_NAMESPACE // Tells moc to generate meta-object information for the enclosing namespace, i.e. 'As'
-//#endif
-//#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-//Q_ENUM_NS(GlobalColor) // Tells moc to generate meta-object information for enum
-//#endif
-
-

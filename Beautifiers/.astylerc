@@ -1,0 +1,109 @@
+# http://astyle.sourceforge.net/astyle.html
+
+# General Options:
+--lineend=linux     # Enforce linux line endings (LF). MacOS and OS X uses the Linux style.
+--preserve-date     # Preserve file modification date
+#--exclude=####     # Specify a file or subdirectory #### to be excluded from processing.
+
+# Style
+#
+# allman:
+# int Foo(bool isBar)
+# {
+#     if (isBar)
+#     {
+#         bar();
+#         return 1;
+#     }
+#     else
+#         return 0;
+# }
+#
+# java:
+# int Foo(bool isBar) {
+#     if (isBar) {
+#         bar();
+#         return 1;
+#     } else
+#         return 0;
+# }
+#
+# kr:
+# int Foo(bool isBar)
+# {
+#     if (isBar) {
+#         bar();
+#         return 1;
+#     } else
+#         return 0;
+# }
+#
+# python:
+# int Foo(bool isBar) {
+#     if (isBar) {
+#         bar()
+#         return 1; }
+#     else
+#         return 0; }
+#
+--style=python
+
+# Indent with 4 spaces, convert tabs to spaces
+--indent=spaces=4
+--convert-tabs
+
+# Indent 'class ' and 'struct' access modifiers, 'public:', 'protected:' and 'private:', one half indent.
+--indent-modifiers
+
+# Indent 'switch' blocks so that the 'case X:' statements are indented in the switch block.
+--indent-switches
+
+# Indent preprocessor blocks, and defines
+--indent-preproc-block
+--indent-preproc-define
+
+# All comments have to be properly indented
+--indent-col1-comments
+
+# Do not indent conditionals
+--min-conditional-indent=0
+
+# Indent statements to be aligned up to 80 cols. Deprecated?
+--max-instatement-indent=120
+
+# Set the  maximum of # spaces to indent a continuation line.
+--max-continuation-indent=120
+
+# Pad empty lines around header blocks (e.g. 'if', 'for', 'while'...).
+#--break-blocks
+
+# Pad empty lines around header blocks (e.g. 'if', 'for', 'while'...). Treat closing header blocks (e.g. 'else', 'catch') as stand-alone blocks.
+#--break-blocks=all
+
+# Paddings around operators, comma and headers
+# (header means `if`, `while`, etc. Example: `if (true)`, instead of `if(true)`)
+--pad-oper
+--pad-comma
+--pad-header
+
+# Fill empty lines with the white space of the previous line
+--fill-empty-lines
+
+# Pointer alignment
+--align-pointer=type
+--align-reference=type
+
+# Break one line headers (e.g. 'if', 'while', 'else', ...) from a statement residing on the same line.
+--break-one-line-headers
+
+# Add braces to unbraced one line conditional statements (e.g. 'if', 'for', 'while'...).
+--add-braces
+
+# Closes whitespace between the ending angle brackets of template definitions.
+--close-templates
+
+# Remove the preceding '*' in a multi-line comment that begins a line.
+--remove-comment-prefix
+
+# https://sourceforge.net/p/astyle/tickets/105/
+#--max-empty-lines=3
