@@ -41,10 +41,6 @@ class Scan : public QObject {
 
   public:
 
-    // static constants
-
-    //static const As::ScanDict Properties;
-
     // constructor and destructor
 
     Scan(QObject* parent = Q_NULLPTR);
