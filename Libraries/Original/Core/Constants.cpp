@@ -23,8 +23,6 @@
 #include <QString>
 #include <QStringList>
 
-#include "ScanDict.hpp"
-
 #include "Constants.hpp"
 
 // Externally defined constants
@@ -59,14 +57,6 @@ const int As::REDUCED_VERTICAL_SPACING = 7;
     \brief the color of the selection background.
 */
 const QColor As::SELECTION_BACKGROUND("#f8f8f8");
-
-/*!
-    \variable As::DATE_TIME_FORMAT
-    \brief the data and time format.
-*/
-//const QString As::DATE_TIME_FORMAT("yyyy/MM/dd hh:mm");
-//const QString As::DATE_TIME_FORMAT("dd-MM-yyyy hh:mm");
-const QString As::DATE_TIME_FORMAT("yyyy-MM-dd hh:mm");
 
 // Internally defined enums
 

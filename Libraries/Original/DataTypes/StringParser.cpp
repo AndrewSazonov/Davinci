@@ -28,6 +28,8 @@
 #include "Functions.hpp"
 #include "Macros.hpp"
 
+#include "ScanDict.hpp"
+
 #include "StringParser.hpp"
 
 /*!
@@ -190,7 +192,7 @@ QString As::StringParser::parseString(const QString& type,
     if (type == "date") {
         before.setPattern("[^0-9]"); // all characters but: '0123456789'
         QString result = this->remove(QRegExp(del)).replace(before, after).simplified();
-        QString format = As::DATE_TIME_FORMAT;
+        QString format = As::ScanDict::DATE_TIME_FORMAT;
         format.replace(" ", "_");
         return As::FormatString(result, format); }
 

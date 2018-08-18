@@ -78,7 +78,7 @@ void As::Window::update_Plot_ExpDetailsGroup(const As::Scan* scan) {
     const QString group = "conditions";
 
     // First, hide all the lines
-    for (const auto& element : As::Scan::Properties[group].keys()) {
+    for (const auto& element : As::ScanDict::Properties[group].keys()) {
         auto widget = findChild<As::LabelQuatroBlock*>(group + element + "Widget");
         widget->hide(); }
 
@@ -100,7 +100,7 @@ void As::Window::update_Plot_ExpAnglesGroup(const As::Scan* scan) {
     const QString group = "angles";
 
     // First, hide all the lines
-    for (const auto& element : As::Scan::Properties[group].keys()) {
+    for (const auto& element : As::ScanDict::Properties[group].keys()) {
         auto widget = findChild<As::LabelQuatroBlock*>(group + element + "Widget");
         widget->hide(); }
 

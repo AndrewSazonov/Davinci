@@ -470,7 +470,7 @@ As::GroupBox* As::Window::create_Plot_ExpDetailsGroup(const QString& objectName,
 
     QStringList groups = { "conditions" };
     for (const auto& group : groups) {
-        QStringList elements = As::Scan::Properties[group].keys();
+        QStringList elements = As::ScanDict::Properties[group].keys();
         for (const auto& element : elements) {
             // Label
             auto label = new QLabel(element);
@@ -481,7 +481,7 @@ As::GroupBox* As::Window::create_Plot_ExpDetailsGroup(const QString& objectName,
             data->setStyleSheet(QString("QLabel {color: %1}").arg(As::Color(As::blue).name()));
 
             // Units
-            auto units = new QLabel(As::Scan::Properties[group][element]["units"]);
+            auto units = new QLabel(As::ScanDict::Properties[group][element]["units"]);
             units->setStyleSheet(QString("QLabel {color: %1}").arg(As::Color(As::grayLight).name()));
 
             // Widget (Label + Data + Units)
@@ -515,7 +515,7 @@ As::GroupBox* As::Window::create_Plot_ExpAnglesGroup(const QString& objectName,
 
     QStringList groups = { "angles" };
     for (const auto& group : groups) {
-        QStringList elements = As::Scan::Properties[group].keys();
+        QStringList elements = As::ScanDict::Properties[group].keys();
         for (const auto& element : elements) {
             // Label
             auto label = new QLabel(element);

@@ -37,22 +37,22 @@ class ScanDict {
     using GroupElements_t     = QMap<QString, ElementAttributes_t>;
     using PropertyGroups_t    = QMap<QString, GroupElements_t>;
 
+    static const As::ScanDict Properties;
     static const int MIN_DATA_POINTS;
     static const int MIN_SKIP_DATA_POINTS;
     static const int MIN_BKG_DATA_POINTS;
     static const int EXTRA_PEAK_DATA_POINTS;
     static const qreal DEFAULT_MONITOR;
+    static const QString DATE_TIME_FORMAT;
     static const QMap<int, qreal> MC_CANDLISH_FACTOR;
-
+    static const QMap<int, QString> BEAM_TYPES;
     enum BeamTypes { UNPOLARISED, POLARISED_UP, POLARISED_DOWN };
-    static const QMap<int, QString> BeamTypes();
 
     ScanDict();
     ~ScanDict();
 
     const GroupElements_t operator[](const QString& section) const;
     const QStringList keys() const;
-
 
   private:
     void selectGroup(const QString& group);
