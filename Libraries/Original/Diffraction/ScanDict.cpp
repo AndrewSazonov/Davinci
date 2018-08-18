@@ -128,10 +128,6 @@ const QMap<int, QString> As::ScanDict::BEAM_TYPES = {
     Constructs the dictionary.
 */
 As::ScanDict::ScanDict()  {
-
-    QString a = As::ScanDict::DATE_TIME_FORMAT;
-    ADEBUG << As::ScanDict::DATE_TIME_FORMAT;
-    ADEBUG << a;
     //  --------------------------------------------------------------------------------------
     //  Holds the number of the experimental scan.
     //  --------------------------------------------------------------------------------------
