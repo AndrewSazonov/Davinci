@@ -36,7 +36,7 @@ Build
 
 # Python files
 __pycache__
-*.pyc
+#*.pyc # Bug! *.py files are also excluded
 
 # Qt files
 /.qmake.cache

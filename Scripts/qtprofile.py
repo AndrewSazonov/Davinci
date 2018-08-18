@@ -41,7 +41,7 @@ class QtProFile:
     def addDestDir(self, path):
         if type(path) is not str:
             path = pjoin(path)
-        self.addData('DESTDIR', '=', path)
+        self.addData('DESTDIR', '=', path)  
 
     def addHeaders(self, vars):
         if vars: self.addData('HEADERS', '+=', vars)

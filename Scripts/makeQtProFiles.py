@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from functions import *
-from variables import *
+from variables import * 
 from qtprofile import *
 
 ######################################
