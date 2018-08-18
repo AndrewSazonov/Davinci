@@ -346,7 +346,8 @@ As::GroupBox* As::Window::create_Text_ExtractGroup() {
     auto button = new As::PushButton(tr("Extract data"));
     button->setToolTip(tr("Click to extract the data from the opened file(s) and switch to the table view tab."));
     connect(button, &As::PushButton::clicked,
-            [button](){ button->setDisabled(true); });
+    [button]() {
+        button->setDisabled(true); });
     connect(button, &As::PushButton::clicked,
             this, &As::Window::extractScans_Slot);
 
@@ -443,7 +444,8 @@ As::GroupBox* As::Window::create_Table_VisualizeGroup() {
     auto button = new As::PushButton(tr("Visualize extracted data"));
     button->setToolTip(tr("Click to visualize the data and switch to the plot view tab."));
     connect(button, &As::PushButton::clicked,
-            [button](){ button->setDisabled(true); });
+    [button]() {
+        button->setDisabled(true); });
     connect(button, &As::PushButton::clicked,
             this, &As::Window::visualizePlots_Slot);
 
@@ -503,7 +505,7 @@ As::GroupBox* As::Window::create_Plot_ExpAnglesGroup(const QString& objectName,
     ADEBUG << "objectName and title:" << objectName << title;
 
     auto layout = new QGridLayout;
-    layout->setSpacing(UI_VERTICAL_SPACE_ROWS);
+    layout->setSpacing(REDUCED_VERTICAL_SPACING);
 
     auto header = new As::LabelQuatroBlock(new QLabel(""),
                                            new QLabel(tr("Value")),
@@ -690,7 +692,8 @@ As::GroupBox* As::Window::create_Plot_ShowOutputGroup() {
     auto calcButton = new As::PushButton(tr("Show processed scans"));
     calcButton->setToolTip(tr("Click to show the processed scans with some calculated parameters."));
     connect(calcButton, &As::PushButton::clicked,
-            [calcButton](){ calcButton->setDisabled(true); });
+    [calcButton]() {
+        calcButton->setDisabled(true); });
     //connect(calcButton, &As::PushButton::clicked,
     //        calcButton, &As::PushButton::setEnabled);
     connect(calcButton, &As::PushButton::clicked,
@@ -710,7 +713,8 @@ As::GroupBox* As::Window::create_Plot_ShowOutputGroup() {
     outputButton->setToolTip(tr("Click to process (reprocess) all the scans and generate (update) the output table tab."));
     outputButton->setDisabled(true);
     connect(outputButton, &As::PushButton::clicked,
-            [outputButton](){ outputButton->setDisabled(true); });
+    [outputButton]() {
+        outputButton->setDisabled(true); });
     connect(this, &As::Window::peaksTreatmentIsFinished,
             outputButton, &As::PushButton::setEnabled);
     connect(this, &As::Window::calculateButtonPressed_Signal,
