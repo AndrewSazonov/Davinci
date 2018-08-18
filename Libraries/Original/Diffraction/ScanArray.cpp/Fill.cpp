@@ -92,8 +92,8 @@ void As::ScanArray::calcUnpolData(const QString& section,
                                   As::Scan* scan) {
     bool okUp, okDown;
 
-    const QString typeUp   = As::ScanDict::BeamTypes()[As::ScanDict::POLARISED_UP];
-    const QString typeDown = As::ScanDict::BeamTypes()[As::ScanDict::POLARISED_DOWN];
+    const QString typeUp   = As::ScanDict::BEAM_TYPES[As::ScanDict::POLARISED_UP];
+    const QString typeDown = As::ScanDict::BEAM_TYPES[As::ScanDict::POLARISED_DOWN];
 
     const As::RealVector up   = scan->data(section, entry + typeUp, &okUp);
     const As::RealVector down = scan->data(section, entry + typeDown, &okDown);
