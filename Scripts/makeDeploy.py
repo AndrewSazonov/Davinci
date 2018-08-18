@@ -15,8 +15,8 @@ for src in RELEASE_PATHS_TO_DEPLOY:
 # Deploy
 if Os() == 'mac':
     args = ['macdeployqt',
-            '{}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(APP_FILE)][0]),
-            '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(APP_CONSOLE_FILE)][0]),
+            '{}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(WINDOW_APP_FILE)][0]),
+            '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(CONSOLE_APP_FILE)][0]),
             '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(TESTS_FILE)][0]),
             '-verbose=1']
     subprocess.run(args, stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -29,15 +29,15 @@ elif Os() == 'win':
         subprocess.run(args, stdout=subprocess.PIPE).stdout.decode('utf-8')
 elif Os() == 'lin':
     args = ['linuxdeployqt',
-            '{}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(APP_FILE)][0]),
-            '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(APP_CONSOLE_FILE)][0]),
+            '{}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(WINDOW_APP_FILE)][0]),
+            '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(CONSOLE_APP_FILE)][0]),
             '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(TESTS_FILE)][0]),
             '-bundle-non-qt-libs']
     result = subprocess.run(args, stdout=subprocess.PIPE).stdout.decode('utf-8')
     print(result)
     #args = ['linuxdeployqt',
-    #        '{}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(APP_FILE)][0]),
-    #        '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(APP_CONSOLE_FILE)][0]),
+    #        '{}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(WINDOW_APP_FILE)][0]),
+    #        '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(CONSOLE_APP_FILE)][0]),
     #        '-executable={}'.format(DEPLOY_PATHS[DEPLOY_NAMES.index(TESTS_FILE)][0]),
     #        '-appimage']
     #result = subprocess.run(args, stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -45,4 +45,3 @@ elif Os() == 'lin':
 else:
     print('ERROR: Unknown OS')
     exit()
-

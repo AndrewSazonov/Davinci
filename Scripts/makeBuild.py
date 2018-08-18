@@ -43,9 +43,9 @@ else:
 # Qmake
 args = ['qmake', pro_file, *spec.split()]
 result = subprocess.run(args, stdout=subprocess.PIPE).stdout.decode('utf-8')
-#print(result)
+print(result)
 
 # Make
 args = compiler.split()
 result = subprocess.run(args, stdout=subprocess.PIPE).stdout.decode('utf-8')
-#print(result)
+print(result)
