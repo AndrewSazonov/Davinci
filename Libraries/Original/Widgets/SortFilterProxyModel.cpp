@@ -68,10 +68,10 @@ bool As::SortFilterProxyModel::lessThan(const QModelIndex& left,
         return false; }
 
     // Check if the cell contains date&time object in the specific format
-    const QDateTime leftDateTime = QDateTime::fromString(leftDataStr, As::DATA_TIME_FORMAT);
+    const QDateTime leftDateTime = QDateTime::fromString(leftDataStr, As::DATE_TIME_FORMAT);
 
     if (leftDateTime.isValid()) {
-        const QDateTime rightDateTime = QDateTime::fromString(rightDataStr, As::DATA_TIME_FORMAT);
+        const QDateTime rightDateTime = QDateTime::fromString(rightDataStr, As::DATE_TIME_FORMAT);
         return leftDateTime < rightDateTime; }
 
     // Check if the cell contains double (real) number

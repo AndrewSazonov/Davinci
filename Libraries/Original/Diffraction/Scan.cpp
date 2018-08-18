@@ -90,9 +90,9 @@ void As::Scan::init() {
     m_flippingRatio      = qQNaN(); m_flippingRatioErr    = qQNaN();
     m_peakPosition       = qQNaN(); // Is it used? Calc esd?
 
-    // Multi calculated values (depend on polarisation, i.e. COUNT_TYPES).
+    // Multi calculated values (depend on polarisation, i.e. BEAM_TYPES).
 
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
         m_maxPeakInty[countType]  = qQNaN(); m_maxPeakIntyErr[countType]  = qQNaN();
         m_sumPeakInty[countType]  = qQNaN(); m_sumPeakIntyErr[countType]  = qQNaN();
         m_peakArea[countType]     = qQNaN(); m_peakAreaErr[countType]     = qQNaN();
@@ -393,10 +393,10 @@ qreal As::Scan::millerIndex(const QString& name) const {
 */
 int As::Scan::numPoints() const {
 
-    // Search for maximum of all the COUNT_TYPES
+    // Search for maximum of all the BEAM_TYPES
     int numPointsMax = 0;
 
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
 
         //const QString& string = m_scan["intensities"]["Detector" + countType]["data"];
         const QString string = data("intensities", "Detector" + countType);

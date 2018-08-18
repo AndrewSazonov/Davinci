@@ -153,7 +153,7 @@ const QString As::FormatString(const QString& string,
     else if (format.contains("dd")) {
         const QRegularExpression re("[-/\\s_:.]");
         const QStringList data  = string.split(re, QString::SkipEmptyParts);
-        const QStringList fmt  = As::DATA_TIME_FORMAT.split(re, QString::SkipEmptyParts);
+        const QStringList fmt  = As::DATE_TIME_FORMAT.split(re, QString::SkipEmptyParts);
         QVector<int> vector;
         for (const auto num : data) {
             vector << num.toInt(); }

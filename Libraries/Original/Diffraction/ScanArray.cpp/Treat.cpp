@@ -109,7 +109,7 @@ void As::ScanArray::definePolarisationCrossSection(As::Scan* scan) {
     monitor data arrays of the given \a scan.
 */
 void As::ScanArray::calcEsd(As::Scan* scan) {
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
 
         const As::RealVector detector = scan->data("intensities", "Detector" + countType);
         const As::RealVector monitor  = scan->data("intensities", "Monitor" + countType);
@@ -123,7 +123,7 @@ void As::ScanArray::calcEsd(As::Scan* scan) {
     Normalizes the measured detector and monitor data arrays of the given \a scan by the measured time.
 */
 void As::ScanArray::normalizeByTime(As::Scan* scan) {
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
 
         const As::RealVector detector  = scan->data("intensities", "Detector" + countType);
         const As::RealVector sdetector = scan->data("intensities", "sDetector" + countType);
@@ -386,7 +386,7 @@ As::RealVector As::ScanArray::IntensityWithSigma(const As::RealVector& intensiti
     Calculates the maximum peak intensity of the given \a scan.
 */
 void As::ScanArray::calcMaxPeakInty(As::Scan* scan) {
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
         const As::RealVector detector  = scan->data("intensities", "DetectorNorm" + countType);
         const As::RealVector sdetector = scan->data("intensities", "sDetectorNorm" + countType);
 
@@ -404,7 +404,7 @@ void As::ScanArray::calcMaxPeakInty(As::Scan* scan) {
     Calculates the sum of all the peak point intensities of the given \a scan.
 */
 void As::ScanArray::calcSumPeakInty(As::Scan* scan) {
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
         const As::RealVector detector  = scan->data("intensities", "DetectorNorm" + countType);
         const As::RealVector sdetector = scan->data("intensities", "sDetectorNorm" + countType);
 
@@ -432,7 +432,7 @@ void As::ScanArray::calcPeakArea(As::Scan* scan) {
     const As::RealVector angle = scan->data("angles", scan->scanAngle());
     const qreal step = angle.step();
 
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
         if (!qIsNaN(scan->m_sumPeakInty[countType])) {
             scan->m_peakArea[countType]    = scan->m_sumPeakInty[countType]    * step;
             scan->m_peakAreaErr[countType] = scan->m_sumPeakIntyErr[countType] * step;
@@ -454,7 +454,7 @@ void As::ScanArray::calcNormPeakArea(As::Scan* scan) {
 
     const qreal normalizer = As::ScanDict::DEFAULT_MONITOR / monitorMean;
 
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
         if (!qIsNaN(scan->m_peakArea[countType])) {
             scan->m_normPeakArea[countType]    = scan->m_peakArea[countType]    * normalizer;
             scan->m_normPeakAreaErr[countType] = scan->m_peakAreaErr[countType] * normalizer;
@@ -492,7 +492,7 @@ void As::ScanArray::calcStructFactor(As::Scan* scan) {
     //else
     //    qFatal("%s: unknown Lorentz correction input", __FUNCTION__);
 
-    for (const QString& countType : As::COUNT_TYPES) {
+    for (const QString& countType : As::ScanDict::BeamTypes().values()) {
         if (!qIsNaN(scan->m_normPeakArea[countType])) {
             scan->m_structFactor[countType]    = scan->m_normPeakArea[countType]    * correction;
             scan->m_structFactorErr[countType] = scan->m_normPeakAreaErr[countType] * correction;
@@ -580,15 +580,17 @@ void As::ScanArray::calcFullWidthHalfMax(As::Scan* scan) {
 */
 void As::ScanArray::calcFlippingRatio(As::Scan* scan) {
     // Check if all the countTypes are defined
-    for (const QString& countType : As::COUNT_TYPES)
+    for (const QString& countType : As::ScanDict::BeamTypes().values())
         if (qIsNaN(scan->m_structFactor[countType])) {
             return; }
 
     // Get structure factors of the up(-) and down(-) polarised data
-    const qreal plus     = scan->m_structFactor[As::COUNT_TYPES[1]];
-    const qreal minus    = scan->m_structFactor[As::COUNT_TYPES[2]];
-    const qreal sigPlus  = scan->m_structFactorErr[As::COUNT_TYPES[1]];
-    const qreal sigMinus = scan->m_structFactorErr[As::COUNT_TYPES[2]];
+    const QString typeUp   = As::ScanDict::BeamTypes()[As::ScanDict::POLARISED_UP];
+    const QString typeDown = As::ScanDict::BeamTypes()[As::ScanDict::POLARISED_DOWN];
+    const qreal plus     = scan->m_structFactor[typeUp];
+    const qreal minus    = scan->m_structFactor[typeDown];
+    const qreal sigPlus  = scan->m_structFactorErr[typeUp];
+    const qreal sigMinus = scan->m_structFactorErr[typeDown];
 
     // Calc flipping ratio
     scan->m_flippingRatio    = plus / minus;

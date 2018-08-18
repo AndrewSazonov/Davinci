@@ -34,10 +34,80 @@
 */
 
 /*!
-    Constructs the database.
+    \variable As::ScanDict::MIN_DATA_POINTS
+    \brief the minimum number of data points in the measured scan.
 */
-As::ScanDict::ScanDict() {
-    //activateGroup("number);
+const int As::ScanDict::MIN_DATA_POINTS = 3;
+
+/*!
+    \variable As::ScanDict::MIN_SKIP_DATA_POINTS
+    \brief the minimum number of data points to be skipped in the measured scan.
+*/
+const int As::ScanDict::MIN_SKIP_DATA_POINTS = 0;
+
+/*!
+    \variable As::ScanDict::MIN_BKG_DATA_POINTS
+    \brief the minimum number of data points considered as background (in contrast to peak)
+    in the measured scan.
+*/
+const int As::ScanDict::MIN_BKG_DATA_POINTS = 1;
+
+/*!
+    \variable As::ScanDict::EXTRA_PEAK_DATA_POINTS
+    \brief the number of extra points to extend the peak in both left and right directions
+    by reducing the background, if possible.
+*/
+const int As::ScanDict::EXTRA_PEAK_DATA_POINTS = 1;
+
+/*!
+    \variable As::ScanDict::DEFAULT_MONITOR
+    \brief the default value of the monitor counts used for the normsalisation.
+*/
+const qreal As::ScanDict::DEFAULT_MONITOR = 10000.0;
+
+/*!
+    \variable As::ScanDict::MC_CANDLISH_FACTOR
+    \brief the McCandlish factor lookup table depends on the instrument type.
+*/
+const QMap<int, qreal> As::ScanDict::MC_CANDLISH_FACTOR {
+    { As::UNKNOWN_FILE,  0. },
+    { As::NICOS_DAT,     0. },
+    { As::HEIDI_DAT,     2.5e-2 },
+    { As::HEIDI_LOG,     2.5e-2 },
+    { As::POLI_LOG,      0. },
+    { As::S6T2_DAT,      0. } };
+
+/*!
+    \enum As::ScanDict::BeamTypes
+
+    This enum type describes types of the neutron beam.
+
+    \value UNPOLARISED      Unpolarised neutron beam
+    \value POLARISED_UP     Polarised neutron beam with spins up
+    \value POLARISED_DOWN   Polarised neutron beam with spins down
+*/
+
+/*  Definition of the static BeamTypes as static QMap, similar to MC_CANDLISH_FACTOR,
+    doesn't work here. Reason: static variable of non-int type is not yet initialized,
+    when we try to access it from the ScanDict class constructor or memeber functions.
+    When we try to access from another class, however, everything is ok. So, the
+    static function is used instead.
+*/
+/*!
+    Returns the types of the neutron beam as dictionary:
+    enum type as keys, string type as abbreviations.
+*/
+const QMap<int, QString> As::ScanDict::BeamTypes() {
+    static const QMap<int, QString> beamTypes {
+        { As::ScanDict::UNPOLARISED,     "" },
+        { As::ScanDict::POLARISED_UP,    "(+)" },
+        { As::ScanDict::POLARISED_DOWN,  "(-)" } };
+    return beamTypes; }
+
+/*!
+    Constructs the dictionary.
+*/
+As::ScanDict::ScanDict()  {
     //  --------------------------------------------------------------------------------------
     //  Holds the number of the experimental scan.
     //  --------------------------------------------------------------------------------------
@@ -102,7 +172,7 @@ As::ScanDict::ScanDict() {
     //  --------------------------------------------------------------------------------------
     set("Absolute index",        "i",                  "",       "Absolute index number of the experimental scan");
     set("Points count",          "i",                  "",       "The number of data points in the scan");
-    set("Date & Time",           As::DATA_TIME_FORMAT, "",       "Date and time of the measurements");
+    set("Date & Time",           As::DATE_TIME_FORMAT, "",       "Date and time of the measurements");
     set("Temperature",           "0.3f",               "K",      "Temperature during the measurements");
     set("Magnetic field",        "0.2f",               "T",      "Magnetic field during the measurements");
     set("Electric field",        "0.2f",               "kV",     "Electric field during the measurements");
@@ -182,7 +252,7 @@ As::ScanDict::ScanDict() {
     set("numSkipLeft",  "0.2f", "counts",    "Number of the left skipped points");
     set("numSkipRight", "0.2f", "counts",    "Number of the right skipped points");
     //  --------------------------------------------------------------------------------------
-    for (const QString& t : As::COUNT_TYPES) {
+    for (const QString& t : As::ScanDict::BeamTypes().values()) {
         set("IntMax" + t,      "0.2f", "arb.units", "Peak intensity in maximum");
         set("IntMaxErr" + t,   "0.2f", "arb.units", "ESD Peak intensity in maximum");
         set("IntSum" + t,      "0.2f", "arb.units", "Total peak intensity... sum");
@@ -230,7 +300,10 @@ As::ScanDict::ScanDict() {
     //  --------------------------------------------------------------------------------------
     //  element       format  units   tooltip
     //  --------------------------------------------------------------------------------------
-    set("lines",      "",     "",     "Numbers of lines of the scan points in the file"); }
+    set("lines",      "",     "",     "Numbers of lines of the scan points in the file");
+
+
+}
 
 /*!
     Destroys the dictionary.
@@ -264,38 +337,10 @@ void As::ScanDict::set(const QString& element,
                        const QString& format,
                        const QString& units,
                        const QString& tooltip) {
+
+    //ADEBUG << BEAM_TYPES;
+
     m_scanDict[m_selectedGroup][element] = ElementAttributes_t{
         {"format", format }, {"units", units }, {"tooltip", tooltip } }; }
 
-/*!
-    \variable As::ScanDict::MIN_DATA_POINTS
-    \brief the minimum number of data points in the measured scan.
-*/
-const int As::ScanDict::MIN_DATA_POINTS = 3;
-
-/*!
-    \variable As::ScanDict::MIN_SKIP_DATA_POINTS
-    \brief the minimum number of data points to be skipped in the measured scan.
-*/
-const int As::ScanDict::MIN_SKIP_DATA_POINTS = 0;
-
-/*!
-    \variable As::ScanDict::MIN_BKG_DATA_POINTS
-    \brief the minimum number of data points considered as background (in contrast to peak)
-    in the measured scan.
-*/
-const int As::ScanDict::MIN_BKG_DATA_POINTS = 1;
-
-/*!
-    \variable As::ScanDict::EXTRA_PEAK_DATA_POINTS
-    \brief the number of extra points to extend the peak in both left and right directions
-    by reducing the background, if possible.
-*/
-const int As::ScanDict::EXTRA_PEAK_DATA_POINTS = 1;
-
-/*!
-    \variable As::ScanDict::DEFAULT_MONITOR
-    \brief the default value of the monitor counts used for the normsalisation.
-*/
-const qreal As::ScanDict::DEFAULT_MONITOR = 10000.0;
 

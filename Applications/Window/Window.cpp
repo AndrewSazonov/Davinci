@@ -124,7 +124,6 @@ void As::Window::show() {
     checkApplicationUpdate();
     setApplicationStartCount();
 
-
     // Auto run test
     //autoRun("/Users/asazonov/tmp/p10533");
 }

@@ -50,32 +50,13 @@ Synonym for QMap<QString, QMap<QString, QMap<QString, QString> > >.
 const QColor As::SELECTION_BACKGROUND("#f8f8f8");
 
 /*!
-\variable As::DATA_TIME_FORMAT
+\variable As::DATE_TIME_FORMAT
 \brief the data and time format.
 */
-//const QString As::DATA_TIME_FORMAT("yyyy/MM/dd hh:mm");
-//const QString As::DATA_TIME_FORMAT("dd-MM-yyyy hh:mm");
-const QString As::DATA_TIME_FORMAT("yyyy-MM-dd hh:mm");
+//const QString As::DATE_TIME_FORMAT("yyyy/MM/dd hh:mm");
+//const QString As::DATE_TIME_FORMAT("dd-MM-yyyy hh:mm");
+const QString As::DATE_TIME_FORMAT("yyyy-MM-dd hh:mm");
 
-/*!
-\variable As::COUNT_TYPES
-\brief the list of count types (unpolarised, spin up, spin down).
-*/
-const QStringList As::COUNT_TYPES({"", "(+)", "(-)"});
-
-/*!
-\variable As::MC_CANDLISH_FACTOR
-\brief the McCandlish factor hash.
-*/
-const QHash<int, double> As::MC_CANDLISH_FACTOR
-{
-    {As::UNKNOWN_FILE,  0.},
-    {As::NICOS_DAT,     0.},
-    {As::HEIDI_DAT,     2.5e-2},
-    {As::HEIDI_LOG,     2.5e-2},
-    {As::POLI_LOG,      0.},
-    {As::S6T2_DAT,      0.}
-};
 
 
 // Internally defined enums

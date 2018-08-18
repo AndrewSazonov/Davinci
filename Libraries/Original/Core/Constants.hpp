@@ -132,10 +132,7 @@ enum GlobalColor
 // Externally defined constants
 
 extern const QColor SELECTION_BACKGROUND;
-extern const QString DATA_TIME_FORMAT;
-extern const QStringList COUNT_TYPES;
-
-extern const QHash<int, double> MC_CANDLISH_FACTOR;
+extern const QString DATE_TIME_FORMAT;
 
 } //AS_END_NAMESPACE
 

@@ -276,10 +276,10 @@ void As::Plot::updateInfoBox(const As::Scan* scan) {
     // Add information to be shown
     text += formatForInfoBox("HKL", scan->millerIndex("H"), scan->millerIndex("K"), scan->millerIndex("L"));
     if (scan->plotType() != As::PlotType::Excluded) {
-        for (const QString& countType : As::COUNT_TYPES) {
+        for (const QString& countType : As::ScanDict::BeamTypes().values()) {
             if (!qIsNaN(scan->m_normPeakArea[countType])) {
                 text += formatForInfoBox("Area" + countType, scan->m_normPeakArea[countType], scan->m_normPeakAreaErr[countType]); } }
-        for (const QString& countType : As::COUNT_TYPES) {
+        for (const QString& countType : As::ScanDict::BeamTypes().values()) {
             if (!qIsNaN(scan->m_structFactor[countType])) {
                 text += formatForInfoBox("F2" + countType,   scan->m_structFactor[countType], scan->m_structFactorErr[countType]); } }
         text += formatForInfoBox("Fwhm", scan->m_fullWidthHalfMax, scan->m_fullWidthHalfMaxErr);

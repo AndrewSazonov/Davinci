@@ -46,7 +46,7 @@ void As::ScanArray::fillMissingDataArray(const int index) {
     scan->setData("conditions", "Points count", QString::number(scan->numPoints()));
 
     // Set McCandlish factor depends on the instrument
-    scan->setMcCandlishFactor( As::MC_CANDLISH_FACTOR[ m_inputFilesType ] );
+    scan->setMcCandlishFactor( As::ScanDict::MC_CANDLISH_FACTOR[ m_inputFilesType ] );
 
     // Add zeros to empty but required variables depends on the instrument geometry
     QStringList subitemKeys;
@@ -92,8 +92,11 @@ void As::ScanArray::calcUnpolData(const QString& section,
                                   As::Scan* scan) {
     bool okUp, okDown;
 
-    const As::RealVector up   = scan->data(section, entry + COUNT_TYPES[1], &okUp);
-    const As::RealVector down = scan->data(section, entry + COUNT_TYPES[2], &okDown);
+    const QString typeUp   = As::ScanDict::BeamTypes()[As::ScanDict::POLARISED_UP];
+    const QString typeDown = As::ScanDict::BeamTypes()[As::ScanDict::POLARISED_DOWN];
+
+    const As::RealVector up   = scan->data(section, entry + typeUp, &okUp);
+    const As::RealVector down = scan->data(section, entry + typeDown, &okDown);
 
     if (!okUp OR !okDown) {
         return; }
