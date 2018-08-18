@@ -30,7 +30,7 @@ class QMessageLogContext;
 class QString;
 class QStringList;
 class QTextStream;
-template <typename T> class QVector;
+template<typename> class QVector;
 
 namespace As { //AS_BEGIN_NAMESPACE
 

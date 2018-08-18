@@ -56,6 +56,6 @@
 //#define AS_END_NAMESPACE }
 
 namespace As { //AS_BEGIN_NAMESPACE
-extern int macrosObjFileHasNoSymbols; } //AS_END_NAMESPACE
+extern const int macrosObjFileHasNoSymbols; } //AS_END_NAMESPACE
 
 #endif // AS_MACROS_HPP

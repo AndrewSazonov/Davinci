@@ -466,7 +466,7 @@ As::GroupBox* As::Window::create_Plot_ExpDetailsGroup(const QString& objectName,
     ADEBUG << "objectName and title:" << objectName << title;
 
     auto layout = new QVBoxLayout;
-    //layout->setSpacing(UI_VERTICAL_SPACE_ROWS);
+    layout->setSpacing(REDUCED_VERTICAL_SPACING);
 
     QStringList groups = { "conditions" };
     for (const auto& group : groups) {

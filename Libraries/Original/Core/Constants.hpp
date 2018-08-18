@@ -23,9 +23,6 @@
 
 class QColor;
 class QString;
-class QStringList;
-template <class Key, class T> class QHash;
-template <class Key, class T> class QMap;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
