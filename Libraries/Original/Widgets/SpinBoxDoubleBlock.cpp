@@ -22,6 +22,7 @@
 #include <QSettings>
 #include <QString>
 
+#include "Constants.hpp"
 #include "Macros.hpp"
 
 #include "Label.hpp"
@@ -54,10 +55,10 @@ As::SpinBoxDoubleBlock::SpinBoxDoubleBlock(As::SpinBox*  leftChanger,
                                            QWidget*       parent)
     : QWidget(parent) {
 
-    const int SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
+    //const int APP_SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
 
-    leftChanger->setMinimumWidth (0.33 * SIDEBAR_WIDTH);
-    rightChanger->setMinimumWidth(0.33 * SIDEBAR_WIDTH);
+    leftChanger->setMinimumWidth (0.33 * As::APP_SIDEBAR_WIDTH);
+    rightChanger->setMinimumWidth(0.33 * As::APP_SIDEBAR_WIDTH);
 
     auto objectLeft   = new As::UnderLabeledWidget(leftChanger,  nameLeft);
     auto objectMiddle = new As::UnderLabeledWidget(middleText,   nameMiddle);

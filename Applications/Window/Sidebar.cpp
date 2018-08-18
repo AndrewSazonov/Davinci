@@ -66,14 +66,14 @@
 QWidget* As::Window::createSidebarWidget() {
     ADEBUG;
 
-    const int SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
+    //const int APP_SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
 
     auto layout = new As::HBoxLayout;
     layout->addWidget(createSidebarTabsWidget());
 
     m_sidebarWidget = new QWidget;
     m_sidebarWidget->setLayout(layout);
-    m_sidebarWidget->setFixedWidth(SIDEBAR_WIDTH);
+    m_sidebarWidget->setFixedWidth(As::APP_SIDEBAR_WIDTH);
     m_sidebarWidget->setVisible(false);
 
     return m_sidebarWidget; }

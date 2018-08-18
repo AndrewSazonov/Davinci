@@ -424,7 +424,7 @@ void As::Window::setupWindowSizeAndPosition() {
     //QRect desktopRect = desktop->screenGeometry(desktop->screenNumber(QCursor::pos())); // screen with cursor
 
     // Read window size
-    QSize windowRect = QSettings().value("MainWindow/size", QSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT)).toSize();
+    QSize windowRect = QSettings().value("MainWindow/size", QSize(APP_FULL_HEIGHT, APP_FULL_HEIGHT)).toSize();
 
     // Correct window size to be not larger than screen size
     windowRect.setWidth(qMin(windowRect.width(), desktopRect.width()));

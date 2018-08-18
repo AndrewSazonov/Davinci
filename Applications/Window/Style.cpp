@@ -397,9 +397,9 @@ void As::Style::initStyle() {
     // QTabWidget
     //===========
 
-    QSettings().setValue("Sidebar/width", SIDEBAR_WIDTH);
-    //const auto SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
-    const auto TAB_WIDTH = QString::number(0.5 * SIDEBAR_WIDTH - 1) + "px";
+    //QSettings().setValue("Sidebar/width", APP_SIDEBAR_WIDTH);
+    //const auto APP_SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
+    //const auto TAB_WIDTH = QString::number(0.5 * APP_SIDEBAR_WIDTH - 1) + "px";
 
     startBlock("QTabWidget::pane");
     add("background-color:", As::Color(As::grayLightUltra).name());

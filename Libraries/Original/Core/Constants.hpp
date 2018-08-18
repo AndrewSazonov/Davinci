@@ -29,16 +29,6 @@ template <class Key, class T> class QMap;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
-// Internally defined constants
-
-
-constexpr int APP_WINDOW_WIDTH  = 900;
-constexpr int APP_WINDOW_HEIGHT = 600;
-
-constexpr int UI_VERTICAL_SPACE_ROWS = 7;
-
-constexpr int SIDEBAR_WIDTH = 300; //settings.value("Sidebar/width", 300).toInt();
-
 // Internally defined enums
 
 enum InputFileType
@@ -130,6 +120,11 @@ enum GlobalColor
 //Q_ENUM_NS(GlobalColor)
 
 // Externally defined constants
+
+extern const int APP_FULL_HEIGHT;
+extern const int APP_FULL_WIDTH;
+extern const int APP_SIDEBAR_WIDTH;
+extern const int UI_VERTICAL_SPACE_ROWS;
 
 extern const QColor SELECTION_BACKGROUND;
 extern const QString DATE_TIME_FORMAT;

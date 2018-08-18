@@ -22,6 +22,7 @@
 #include <QSettings>
 #include <QString>
 
+#include "Constants.hpp"
 #include "Macros.hpp"
 
 #include "Label.hpp"
@@ -49,10 +50,10 @@ As::SpinBoxSingleBlock::SpinBoxSingleBlock(As::SpinBox*   changer,
                                            QWidget*       parent)
     : QWidget(parent) {
 
-    const int SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
+    //const int APP_SIDEBAR_WIDTH = QSettings().value("Sidebar/width").toInt();
 
-    changer->setMinimumWidth(0.4 * SIDEBAR_WIDTH);
-    //changer->setFixedWidth(0.4 * SIDEBAR_WIDTH);
+    changer->setMinimumWidth(0.4 * As::APP_SIDEBAR_WIDTH);
+    //changer->setFixedWidth(0.4 * As::APP_SIDEBAR_WIDTH);
 
     auto layout = new QHBoxLayout;
     layout->addWidget(changer);

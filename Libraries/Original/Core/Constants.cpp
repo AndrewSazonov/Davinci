@@ -44,6 +44,30 @@ Synonym for QMap<QString, QMap<QString, QMap<QString, QString> > >.
 // Externally defined constants
 
 /*!
+\variable As::APP_FULL_HEIGHT
+\brief the default full height of the application window.
+*/
+const int As::APP_FULL_HEIGHT = 900;
+
+/*!
+\variable As::APP_FULL_WIDTH
+\brief the default full width of the application window.
+*/
+const int As::APP_FULL_WIDTH = 600;
+
+/*!
+\variable As::APP_SIDEBAR_WIDTH
+\brief the width of the application sidebar.
+*/
+const int As::APP_SIDEBAR_WIDTH = 300; //settings.value("Sidebar/width", 300).toInt();
+
+/*!
+\variable As::UI_VERTICAL_SPACE_ROWS
+\brief the...
+*/
+const int As::UI_VERTICAL_SPACE_ROWS = 7;
+
+/*!
 \variable As::SELECTION_BACKGROUND
 \brief the color of the selection background.
 */
