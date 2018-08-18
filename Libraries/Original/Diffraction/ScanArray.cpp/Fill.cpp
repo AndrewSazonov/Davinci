@@ -49,26 +49,26 @@ void As::ScanArray::fillMissingDataArray(const int index) {
     scan->setMcCandlishFactor( As::ScanDict::MC_CANDLISH_FACTOR[ m_inputFilesType ] );
 
     // Add zeros to empty but required variables depends on the instrument geometry
-    QStringList subitemKeys;
+    QStringList elements;
 
     if (!scan->data("angles", "2Theta").isEmpty()) {            // 4-circle geometry
-        subitemKeys = QStringList({"Omega", "Chi", "Phi"}); }
+        elements = QStringList({"Omega", "Chi", "Phi" }); }
 
     if (!scan->data("angles", "Gamma").isEmpty()) {             // Liffting counter geometry
-        subitemKeys = QStringList({"Nu", "Omega"}); }
+        elements = QStringList({"Nu", "Omega" }); }
 
-    for (const auto& subitemKey : subitemKeys) {
-        if (scan->data("angles", subitemKey).isEmpty()) {
-            scan->setData("angles", subitemKey, "0"); } }
+    for (const auto& element : elements) {
+        if (scan->data("angles", element).isEmpty()) {
+            scan->setData("angles", element, "0"); } }
 
     // Fill arrays with existing single values
-    const QStringList itemKeys = {"angles", "conditions", "indices", "intensities" };
+    const QStringList groups = { "angles", "conditions", "indices", "intensities" };
 
-    for (const auto& itemKey : itemKeys) {
-        const QStringList subitemKeys = (*scan)[itemKey].keys();
+    for (const auto& group : groups) {
+        const QStringList elements = (*scan)[group].keys();
 
-        for (const auto& subitemKey : subitemKeys) {
-            const QString data = scan->data(itemKey, subitemKey);
+        for (const auto& element : elements) {
+            const QString data = scan->data(group, element);
 
             if (!data.contains(" ")) {
                 QStringList list;
@@ -76,7 +76,7 @@ void As::ScanArray::fillMissingDataArray(const int index) {
                 for (int i = 0; i < scan->numPoints(); ++i) {
                     list.append(data); }
 
-                scan->setData(itemKey, subitemKey, list.join(" ")); } } }
+                scan->setData(group, element, list.join(" ")); } } }
 
     // All the reflections are considered to belong to just 1st group...
     scan->setData("number", "Batch", "1");
@@ -85,18 +85,24 @@ void As::ScanArray::fillMissingDataArray(const int index) {
 
 /*!
     Sets the unpolarised neutron data based on the polarised neutron diffraction
-    measurement for the given \a scan using the provided \a section and \a entry.
+    measurement for the given \a scan using the provided \a group and \a element.
 */
-void As::ScanArray::calcUnpolData(const QString& section,
-                                  const QString& entry,
+void As::ScanArray::calcUnpolData(const QString& group,
+                                  const QString& element,
                                   As::Scan* scan) {
     bool okUp, okDown;
 
     const QString typeUp   = As::ScanDict::BEAM_TYPES[As::ScanDict::POLARISED_UP];
     const QString typeDown = As::ScanDict::BEAM_TYPES[As::ScanDict::POLARISED_DOWN];
 
-    const As::RealVector up   = scan->data(section, entry + typeUp, &okUp);
-    const As::RealVector down = scan->data(section, entry + typeDown, &okDown);
+    ADEBUG << (*scan)["intensities"]["Detector(+)"]["data"];
+    ADEBUG << scan->data("intensities", "Detector(+)");
+    ADEBUG << scan->data(group, element + typeUp);
+    ADEBUG << scan->data(group, element + typeUp, &okUp) << okUp;
+
+    const As::RealVector up   = scan->data(group, element + typeUp, &okUp);
+    const As::RealVector down = scan->data(group, element + typeDown, &okDown);
+    ADEBUG << up;
 
     if (!okUp OR !okDown) {
         return; }
@@ -104,6 +110,9 @@ void As::ScanArray::calcUnpolData(const QString& section,
     if (up.size() != down.size() OR up.size() == 0) {
         return; }
 
-    const As::RealVector sum = up + down;
+    //const As::RealVector sum = up + down; // operator+ was modified for As::RealArray
+    As::RealVector sum;
+    for (int i = 0; i < up.size(); ++i) {
+        sum.append(up[i] + down[i]); }
 
-    scan->setData(section, entry, sum.toQString()); }
+    scan->setData(group, element, sum.toQString()); }
