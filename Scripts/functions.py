@@ -2,7 +2,7 @@
 
 import os
 import sys
-import shutil
+import shutil 
 from datetime import datetime
 
 ##############
@@ -103,6 +103,12 @@ def Copy(src, dst):
         #dst = pjoin(dst, os.path.basename(src))
         #print(src, dst)
         shutil.copy2(src, dst)
+        
+def GetFileExt(file):
+    name, ext = os.path.splitext(file)
+    if (ext == "" and name.startswith(".")):
+        return name
+    return ext
 
 def GetFileList(dir):
     dir = pjoin(dir)
@@ -117,19 +123,20 @@ def GetFileAndSubDirList(dir):
     return [fad for fad in os.listdir(dir)]
 
 def GetSelectedFileList(dir, ext):
+    from fnmatch import fnmatch
     list = []
     if type(ext) is str:
         exts = ext.split()
     # search files in the dir
     files = GetFileList(dir)
     for ext in exts:
-        list += [file for file in files if os.path.splitext(file)[1] == ext]
+        list += [file for file in files if fnmatch(GetFileExt(file), ext)]
     # search files in the 1st level subdirs
     subdirs = GetSubDirList(dir)
     for subdir in subdirs:
         files = GetFileList(dir + [subdir])
         for ext in exts:
-            list += ['{}/{}'.format(subdir, file) for file in files if os.path.splitext(file)[1] == ext]
+            list += ['{}/{}'.format(subdir, file) for file in files if fnmatch(GetFileExt(file), ext)]
     return list
 
 def GetAllSelectedFiles(path, ext):
