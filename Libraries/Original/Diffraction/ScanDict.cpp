@@ -221,36 +221,36 @@ As::ScanDict::ScanDict()  {
     //  --------------------------------------------------------------------------------------
     //  element             format  units     tooltip
     //  --------------------------------------------------------------------------------------
-    set("Detector",         "",    "counts", "Intensity measured in the detector");
-    set("sDetector",        "",    "counts", "ESD Intensity measured in the detector");
-    set("Detector(+)",      "",    "counts", "Intensity (Up) measured in the detector");
-    set("sDetector(+)",     "",    "counts", "ESD Intensity measured in the detector");
-    set("Detector(-)",      "",    "counts", "Intensity (Down) measured in the detector");
-    set("sDetector(-)",     "",    "counts", "ESD Intensity measured in the detector");
-    set("Monitor",          "",    "counts", "Intensity measured in the monitor");
-    set("sMonitor",         "",    "counts", "ESD Intensity measured in the monitor");
-    set("Monitor(+)",       "",    "counts", "Intensity (Up) measured in the monitor");
-    set("sMonitor(+)",      "",    "counts", "ESD Intensity measured in the monitor");
-    set("Monitor(-)",       "",    "counts", "Intensity (Down) measured in the monitor");
-    set("sMonitor(-)",      "",    "counts", "ESD Intensity measured in the monitor");
-    set("Monitor1",         "",    "counts", "Intensity measured in the first monitor");
-    set("Monitor1(+)",      "",    "counts", "Intensity (Up) measured in the monitor");
-    set("Monitor1(-)",      "",    "counts", "Intensity (Down) measured in the monitor");
-    set("Monitor2",         "",    "counts", "Intensity measured in the second monitor");
-    set("Monitor2(+)",      "",    "counts", "Intensity (Up) measured in the monitor");
-    set("Monitor2(-)",      "",    "counts", "Intensity (Down) measured in the monitor");
-    set("DetectorNorm",     "",    "counts", "Intensity measured in the detector normalised by time");
-    set("sDetectorNorm",    "",    "counts", "ESD Intensity measured in the detector normalised by time");
-    set("DetectorNorm(+)",  "",    "counts", "Intensity measured in the detector normalised by time");
-    set("sDetectorNorm(+)", "",    "counts", "ESD Intensity measured in the detector normalised by time");
-    set("DetectorNorm(-)",  "",    "counts", "Intensity measured in the detector normalised by time");
-    set("sDetectorNorm(-)", "",    "counts", "ESD Intensity measured in the detector normalised by time");
-    set("MonitorNorm",      "",    "counts", "Intensity measured in the monitor normalised by time");
-    set("sMonitorNorm",     "",    "counts", "ESD Intensity measured in the monitor normalised by time");
-    set("MonitorNorm(+)",   "",    "counts", "Intensity measured in the monitor normalised by time");
-    set("sMonitorNorm(+)",  "",    "counts", "ESD Intensity measured in the monitor normalised by time");
-    set("MonitorNorm(-)",   "",    "counts", "Intensity measured in the monitor normalised by time");
-    set("sMonitorNorm(-)",  "",    "counts", "ESD Intensity measured in the monitor normalised by time");
+    set("Detector",         "0.0f",    "counts", "Intensity measured in the detector");
+    set("sDetector",        "0.2f",    "counts", "ESD Intensity measured in the detector");
+    set("Detector(+)",      "0.0f",    "counts", "Intensity (Up) measured in the detector");
+    set("sDetector(+)",     "0.2f",    "counts", "ESD Intensity measured in the detector");
+    set("Detector(-)",      "0.0f",    "counts", "Intensity (Down) measured in the detector");
+    set("sDetector(-)",     "0.2f",    "counts", "ESD Intensity measured in the detector");
+    set("Monitor",          "0.0f",    "counts", "Intensity measured in the monitor");
+    set("sMonitor",         "0.2f",    "counts", "ESD Intensity measured in the monitor");
+    set("Monitor(+)",       "0.0f",    "counts", "Intensity (Up) measured in the monitor");
+    set("sMonitor(+)",      "0.2f",    "counts", "ESD Intensity measured in the monitor");
+    set("Monitor(-)",       "0.0f",    "counts", "Intensity (Down) measured in the monitor");
+    set("sMonitor(-)",      "0.2f",    "counts", "ESD Intensity measured in the monitor");
+    set("Monitor1",         "0.0f",    "counts", "Intensity measured in the first monitor");
+    set("Monitor1(+)",      "0.0f",    "counts", "Intensity (Up) measured in the monitor");
+    set("Monitor1(-)",      "0.0f",    "counts", "Intensity (Down) measured in the monitor");
+    set("Monitor2",         "0.0f",    "counts", "Intensity measured in the second monitor");
+    set("Monitor2(+)",      "0.0f",    "counts", "Intensity (Up) measured in the monitor");
+    set("Monitor2(-)",      "0.0f",    "counts", "Intensity (Down) measured in the monitor");
+    set("DetectorNorm",     "0.2f",    "counts", "Intensity measured in the detector normalised by time");
+    set("sDetectorNorm",    "0.2f",    "counts", "ESD Intensity measured in the detector normalised by time");
+    set("DetectorNorm(+)",  "0.2f",    "counts", "Intensity measured in the detector normalised by time");
+    set("sDetectorNorm(+)", "0.2f",    "counts", "ESD Intensity measured in the detector normalised by time");
+    set("DetectorNorm(-)",  "0.2f",    "counts", "Intensity measured in the detector normalised by time");
+    set("sDetectorNorm(-)", "0.2f",    "counts", "ESD Intensity measured in the detector normalised by time");
+    set("MonitorNorm",      "0.2f",    "counts", "Intensity measured in the monitor normalised by time");
+    set("sMonitorNorm",     "0.2f",    "counts", "ESD Intensity measured in the monitor normalised by time");
+    set("MonitorNorm(+)",   "0.2f",    "counts", "Intensity measured in the monitor normalised by time");
+    set("sMonitorNorm(+)",  "0.2f",    "counts", "ESD Intensity measured in the monitor normalised by time");
+    set("MonitorNorm(-)",   "0.2f",    "counts", "Intensity measured in the monitor normalised by time");
+    set("sMonitorNorm(-)",  "0.2f",    "counts", "ESD Intensity measured in the monitor normalised by time");
 
     //  --------------------------------------------------------------------------------------
     //  Holds the calculated parameters.
