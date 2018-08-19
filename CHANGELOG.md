@@ -1,5 +1,11 @@
 # Davinci Version History
 
+## Version 1.0.7 (19 Aug 2018)
+* Adds progress bar to give an indication of how long the data processing is going to take
+* Adds more multi-threading features in order to spead up the data processing
+* Fixes an issue with ShelX output format in the console version of the program
+* Fixes multiple other issues
+
 ## Version 1.0.6 (09 Jul 2018)
 * Adds reading of Psi angle from the NICOS instrument data collection files (Issue #5)
 * Adds UMWEG output for the calculation of multiple-diffraction patterns
