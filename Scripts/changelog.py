@@ -53,7 +53,7 @@ class Changelog:
 
         self.add(version="1.0.0",
                  date="2017-12-09",
-                 list=[ 'First release'])
+                 list=[ 'First release' ])
 
         self.add(version="1.0.1",
                  date="2018-01-11",
@@ -61,21 +61,21 @@ class Changelog:
                         'Fixes an issue with automatic determination of the peak and background parameters',
                         'Fixes a bug with cursor position change in the input data viewer when go through the scans',
                         'Fixes a crash when open a new file',
-                        'Fixes a sidebar issue with the tabs width'])
+                        'Fixes a sidebar issue with the tabs width' ])
 
         self.add(version="1.0.2",
                  date="2018-01-27",
-                 list=[ 'Fixes a bug with the update function of the installer parogram'])
+                 list=[ 'Fixes a bug with the update function of the installer parogram' ])
 
         self.add(version="1.0.3",
                  date="2018-03-13",
-                 list=[ 'Fixes issue #2, Not reading new files with Oxford magnet on POLI'])
+                 list=[ 'Fixes issue #2, Not reading new files with Oxford magnet on POLI' ])
 
         self.add(version="1.0.4",
                  date="2018-03-28",
                  list=[ 'Adds support of the new input format for POLI: polarized NICOS data with adet',
                         'Adds user manual and report issue links to the Help menu',
-                        'Adds a program icon and desktop file for the Linux version'])
+                        'Adds a program icon and desktop file for the Linux version' ])
 
         self.add(version="1.0.5",
                  date="2018-05-30",
@@ -85,17 +85,17 @@ class Changelog:
                          'Adds ShelX output with real (non-integer) Miller indices hkl',
                          'Fixes calculation of the Phi angle in the 4-circle geometry',
                          'Fixes an issue with Tbar/D9 output (theta + temperature, psi, fwhm)',
-                         'Fixes some minor issues'])
+                         'Fixes some minor issues' ])
 
         self.add(version="1.0.6",
                  date="2018-07-09",
                   list=[ 'Adds reading of Psi angle from the NICOS instrument data collection files (Issue #5)', # update manual
                          'Adds UMWEG output for the calculation of multiple-diffraction patterns',
-                         'Adds some multi-threading features in order to spead up the data treatment']) # update manual
+                         'Adds some multi-threading features in order to spead up the data treatment' ]) # update manual
 
-        #self.add(version="1.0.7",
-        #         date="2018-??-??",
-        #          list=[ 'Fixes an issue with ShelX output format in the console version of the program',
-        #                 'Fixes multiple other issues',
-        #                 'Adds progress bar to give an indication of how long the data processing is going to take',
-        #                 'Adds more multi-threading features in order to spead up the data processing']) # update manual
+        self.add(version="1.0.7",
+                 date="2018-08-19",
+                  list=[ 'Adds progress bar to give an indication of how long the data processing is going to take',
+                         'Adds more multi-threading features in order to spead up the data processing',
+                         'Fixes an issue with ShelX output format in the console version of the program',
+                         'Fixes multiple other issues' ]) # update manual
