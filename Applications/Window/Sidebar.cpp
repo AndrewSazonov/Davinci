@@ -202,7 +202,7 @@ As::GroupBox* As::Window::create_Common_ChangeCurrentScanGroup() {
             scanChanger, &As::SpinBox::setRange);
     connect(this, &As::Window::scansCountChanged_Signal,
             scanText, &As::Label::setText);
-    connect(scanChanger, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(scanChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::gotoScan_Slot);
 
     // Relatives: Exclude current scan
@@ -247,13 +247,13 @@ As::GroupBox* As::Window::create_Text_GotoGroup(const QString& objectName,
             fileChanger, &As::SpinBox::setRange);
     connect(this, &As::Window::filesCountChanged_Signal,
             fileText, &As::Label::setText);
-    connect(fileChanger, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(fileChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::gotoFile_Slot);
     connect(m_scans, &As::ScanArray::fileIndexChanged,
-            fileChanger, qOverload<int>(&As::SpinBox::setValueSilently));
-    connect(fileChanger, qOverload<int>(&As::SpinBox::valueChanged),
+            fileChanger, QOverload<int>::of(&As::SpinBox::setValueSilently));
+    connect(fileChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::highlightCurrentScanLines_Slot);
-    connect(fileChanger, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(fileChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::highlightFoundText_Slot);
 
     // Relatives: Go to line changer
@@ -267,10 +267,10 @@ As::GroupBox* As::Window::create_Text_GotoGroup(const QString& objectName,
             lineChanger, &As::SpinBox::setRange);
     connect(this, &As::Window::linesCountChanged_Signal,
             lineText, &As::Label::setText);
-    connect(lineChanger, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(lineChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
             m_inputTextWidget, &As::TextEditor::setCursorPosition);
-    connect(m_inputTextWidget, qOverload<int>(&As::TextEditor::cursorPositionChanged),
-            lineChanger, qOverload<int>(&As::SpinBox::setValueSilently));
+    connect(m_inputTextWidget, QOverload<int>::of(&As::TextEditor::cursorPositionChanged),
+            lineChanger, QOverload<int>::of(&As::SpinBox::setValueSilently));
 
     // Layout
     auto layout = new QVBoxLayout;
@@ -312,7 +312,7 @@ As::GroupBox* As::Window::create_Text_FindGroup(const QString& objectName,
             matchText, &As::Label::setText);
     connect(this, &As::Window::matchesIndexChanged_Signal,
             matchChanger, &As::SpinBox::setValueSilently);
-    connect(matchChanger, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(matchChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::gotoMatch_Slot);
 
     auto findField = new As::LineEdit;
@@ -423,7 +423,7 @@ As::GroupBox* As::Window::create_Text_FontGroup(const QString& objectName,
     fontSize->setRange(1, 32);
     fontSize->setSuffix(" pt");
     fontSize->setValue(size);
-    connect(fontSize, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(fontSize, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::setFontSize_Slot);
 
     auto layout = new QHBoxLayout;
@@ -589,19 +589,19 @@ As::GroupBox* As::Window::create_Plot_ScanCorrectGroup(const QString& objectName
     //m_removeNeighborsType->setToolTip(tr("???"));
     m_removeNeighborsType->addItems(QStringList(As::Scan::NeighborsRemoveTypeDict.values()));
     //m_removeNeighborsType->setCurrentIndex(As::Scan::ManualNeighborsRemove);
-    connect(m_removeNeighborsType, qOverload<int>(&As::ComboBox::currentIndexChanged),
+    connect(m_removeNeighborsType, QOverload<int>::of(&As::ComboBox::currentIndexChanged),
             this, &As::Window::selectNeighborsRemoveType);
 
     // Relatives: Numbers of points to be skipped in the scan
     m_leftSkipCount = new As::SpinBox;
-    connect(m_leftSkipCount, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(m_leftSkipCount, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::setLeftSkipCount_Slot);
 
     m_nonSkipPointsCount = new As::Label;
     m_nonSkipPointsCount->setObjectName("nonSkipPointsCount");
 
     m_rightSkipCount = new As::SpinBox;
-    connect(m_rightSkipCount, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(m_rightSkipCount, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::setRightSkipCount_Slot);
 
     auto skipRemainSkip = new As::SpinBoxDoubleBlock(m_leftSkipCount, m_nonSkipPointsCount, m_rightSkipCount,
@@ -632,7 +632,7 @@ As::GroupBox* As::Window::create_Plot_PeakIntegrateGroup(const QString& objectNa
     //integrationType->setObjectName("integrationType");
     integrationType->setToolTip(tr("Select peak integration type"));
     integrationType->addItems(As::Scan::PeakAnalysisTypeDict.values());
-    connect(integrationType, qOverload<int>(&As::ComboBox::currentIndexChanged),
+    connect(integrationType, QOverload<int>::of(&As::ComboBox::currentIndexChanged),
             this, &As::Window::selectPeakAnalysisType);
 
     // Relatives: Background type
@@ -640,20 +640,20 @@ As::GroupBox* As::Window::create_Plot_PeakIntegrateGroup(const QString& objectNa
     m_backgroundType = new As::ComboBox;
     m_backgroundType->setToolTip(tr("Select algorithm for background estimation"));
     m_backgroundType->addItems(As::Scan::BkgDetectTypeDict.values());
-    connect(m_backgroundType, qOverload<int>(&As::ComboBox::currentIndexChanged),
+    connect(m_backgroundType, QOverload<int>::of(&As::ComboBox::currentIndexChanged),
             this, &As::Window::selectBkgDetectType);
 
     // Relatives: Numbers of background points in the scan
     //auto bkgLeft = new As::SpinBox;
     m_leftBkgCount = new As::SpinBox;
-    connect(m_leftBkgCount, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(m_leftBkgCount, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::setLeftBkgCount_Slot);
 
     m_peakPointsCount = new As::Label;
     m_peakPointsCount->setObjectName("peakPointsCount");
 
     m_rightBkgCount = new As::SpinBox;
-    connect(m_rightBkgCount, qOverload<int>(&As::SpinBox::valueChanged),
+    connect(m_rightBkgCount, QOverload<int>::of(&As::SpinBox::valueChanged),
             this, &As::Window::setRightBkgCount_Slot);
 
     //connect(bkgRight, SIGNAL(valueChanged(int)), obj, SLOT(rightBkgPointsChanged(int)));
@@ -666,7 +666,7 @@ As::GroupBox* As::Window::create_Plot_PeakIntegrateGroup(const QString& objectNa
     //fitType->setToolTip(tr("Select function for the peak fitting"));
     fitType->addItems(As::Scan::PeakFitTypeDict.values());
     fitType->hide(); //hide until implemented
-    connect(fitType, qOverload<int>(&As::ComboBox::currentIndexChanged),
+    connect(fitType, QOverload<int>::of(&As::ComboBox::currentIndexChanged),
             this, &As::Window::selectPeakFitType);
 
     auto layout = new QVBoxLayout;
