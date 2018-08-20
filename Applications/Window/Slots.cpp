@@ -54,7 +54,7 @@
 /*!
     Opens open file(s) dialog.
 */
-void As::Window::openFile_Slot() {
+void As::Window::openFileSlot() {
     ADEBUG;
 
     const QString filePathLastOpen = QSettings().value("MainWindow/filePathLastOpen", "").toString();
@@ -70,7 +70,7 @@ void As::Window::openFile_Slot() {
 /*!
     Opens open directory dialog.
 */
-void As::Window::openDir_Slot() {
+void As::Window::openDirSlot() {
     ADEBUG;
 
     QString filePathLastOpen = QSettings().value("MainWindow/filePathLastOpen", "").toString();
@@ -87,42 +87,42 @@ void As::Window::openDir_Slot() {
 /*!
     Closes the current files.
 */
-void As::Window::closeFile_Slot() {
+void As::Window::closeFileSlot() {
     ADEBUG;
 
     setCentralWidget(createDragAndDropWidget()); // mainWidget is then deleted automatically
 
     // To disable actions and buttons. False - to use both with setEnabled and setChecked
-    emit oldFilesClosed_Signal(false); }
+    emit oldFilesClosedSignal(false); }
 
 /*!
     Reloads the current files.
 */
-void As::Window::reloadFile_Slot() {
+void As::Window::reloadFileSlot() {
     ADEBUG;
 
-    closeFile_Slot();
+    closeFileSlot();
 
     openFiles(m_pathList); }
 
 /*!
     Export slot, depends on the tab selected in the main window.
 */
-void As::Window::export_Slot() {
+void As::Window::exportSlot() {
     ADEBUG;
 
     auto currentTab = m_tabsWidget->currentWidget();
 
     if (currentTab == m_visualizedPlotsWidget) {
-        exportImage_Slot(); }
+        exportImageSlot(); }
 
     else if (currentTab == m_outputTableWidget) {
-        exportOutputTable_Slot(); } }
+        exportOutputTableSlot(); } }
 
 /*!
     Exports the plot as an image.
 */
-void As::Window::exportImage_Slot() {
+void As::Window::exportImageSlot() {
     ADEBUG;
 
     const QString path = currentScan()->absolutePathWithBaseNameAndHkl();
@@ -148,11 +148,11 @@ void As::Window::exportImage_Slot() {
 /*!
     Exports the output table.
 */
-void As::Window::exportOutputTable_Slot() {
+void As::Window::exportOutputTableSlot() {
     ADEBUG;
 
     // Update output table
-    createFullOutputTableModel_Slot();
+    createFullOutputTableModelSlot();
 
     // Define the path of the file to be exported.
     // Repetition of console.cpp part!?
@@ -186,7 +186,7 @@ void As::Window::exportOutputTable_Slot() {
 /*!
     Shows the application about info.
 */
-void As::Window::aboutApp_Slot() {
+void As::Window::aboutAppSlot() {
     ADEBUG;
 
     const QString title = QMessageBox::tr("About");
@@ -211,7 +211,7 @@ void As::Window::aboutApp_Slot() {
 /*!
     Shows the application preferences window.
 */
-void As::Window::showPreferences_Slot() {
+void As::Window::showPreferencesSlot() {
     ADEBUG << this;
 
     PreferencesDialog* dialog = new PreferencesDialog(this);
@@ -224,18 +224,18 @@ void As::Window::showPreferences_Slot() {
 /*!
     Runs the program in the auto mode, to quickly go through all the data treatment processes.
 */
-void As::Window::autoProcessing_Slot() {
+void As::Window::autoProcessingSlot() {
     ADEBUG;
 
-    extractScans_Slot();
-    visualizePlots_Slot();
-    showOutput_Slot();
-    exportOutputTable_Slot(); }
+    extractScansSlot();
+    visualizePlotsSlot();
+    showOutputSlot();
+    exportOutputTableSlot(); }
 
 /*!
     Shows or hides the sidebar.
 */
-void As::Window::showSidebar_Slot(const bool show) {
+void As::Window::showSidebarSlot(const bool show) {
     ADEBUG << "show:" << show;
 
     m_sidebarWidget->setVisible(show); }
@@ -243,7 +243,7 @@ void As::Window::showSidebar_Slot(const bool show) {
 /*!
     Shows or hide sidebar group boxes depends on the selected tab of mainTabs.
 */
-void As::Window::showOrHideSidebarBlocks_Slot(const int index) {
+void As::Window::showOrHideSidebarBlocksSlot(const int index) {
     ADEBUG << "index:" << index;
 
     AASSERT(index >= 0 AND index <= 3, QString("unknown index '%1'").arg(index));
@@ -274,7 +274,7 @@ void As::Window::showOrHideSidebarBlocks_Slot(const int index) {
 /*!
     Opens online user manual in web browser.
 */
-void As::Window::openUserManual_Slot() {
+void As::Window::openUserManualSlot() {
     ADEBUG;
 
     QDesktopServices::openUrl(QUrl(USERMANUAL_URL)); }
@@ -282,7 +282,7 @@ void As::Window::openUserManual_Slot() {
 /*!
     Opens online issue tracker in web browser.
 */
-void As::Window::openIssueTracker_Slot() {
+void As::Window::openIssueTrackerSlot() {
     ADEBUG;
 
     QDesktopServices::openUrl(QUrl(ISSUETRACKER_URL)); }
@@ -290,7 +290,7 @@ void As::Window::openIssueTracker_Slot() {
 /*!
     ...
 */
-void As::Window::acceptAutoUpdate_Slot() {
+void As::Window::acceptAutoUpdateSlot() {
     ADEBUG;
 
     setAutoUpdateSettings(true); }
@@ -298,7 +298,7 @@ void As::Window::acceptAutoUpdate_Slot() {
 /*!
     ...
 */
-void As::Window::rejectAutoUpdate_Slot() {
+void As::Window::rejectAutoUpdateSlot() {
     ADEBUG;
 
     setAutoUpdateSettings(false); }
@@ -368,7 +368,7 @@ void As::Window::checkApplicationUpdateNow(const bool hideOutput) {
         const QString okButton = QMessageBox::tr("Install Update Now");
         const QString cancelButton = QMessageBox::tr("Remind Me Later");
         As::MessageWidget dialog(this, title, newVersionFound, okButton, cancelButton);
-        connect(&dialog, &QDialog::accepted, this, &As::Window::installUpdate_Slot);
+        connect(&dialog, &QDialog::accepted, this, &As::Window::installUpdateSlot);
         dialog.exec(); }
 
     else {
@@ -378,7 +378,7 @@ void As::Window::checkApplicationUpdateNow(const bool hideOutput) {
 /*!
     ...
 */
-void As::Window::installUpdate_Slot() {
+void As::Window::installUpdateSlot() {
     ADEBUG;
 
     // Start the external maintenance tool as detached process

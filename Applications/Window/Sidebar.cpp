@@ -198,23 +198,23 @@ As::GroupBox* As::Window::create_Common_ChangeCurrentScanGroup() {
     scanBlock->setToolTip(tr("Go to another scan."));
     //scanBlock->setEnabled(false);
 
-    connect(this, &As::Window::scansRangeChanged_Signal,
+    connect(this, &As::Window::scansRangeChangedSignal,
             scanChanger, &As::SpinBox::setRange);
-    connect(this, &As::Window::scansCountChanged_Signal,
+    connect(this, &As::Window::scansCountChangedSignal,
             scanText, &As::Label::setText);
     connect(scanChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::gotoScan_Slot);
+            this, &As::Window::gotoScanSlot);
 
     // Relatives: Exclude current scan
     auto excludeScan = new As::CheckBox(tr("Exclude current scan"));
     excludeScan->setToolTip(tr("Exclude current scan from the treatment process and output."));
     excludeScan->setChecked(false);
     connect(excludeScan, &As::CheckBox::toggled,
-            this, &As::Window::excludeScan_Slot);
-    connect(this, &As::Window::excludeScanStateChanged_Signal,
+            this, &As::Window::excludeScanSlot);
+    connect(this, &As::Window::excludeScanStateChangedSignal,
             excludeScan, &As::CheckBox::setCheckedSilently);
     connect(excludeScan, &As::CheckBox::stateChanged,
-            this, &As::Window::createFullOutputTableModel_Slot);
+            this, &As::Window::createFullOutputTableModelSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(scanBlock);
@@ -223,7 +223,7 @@ As::GroupBox* As::Window::create_Common_ChangeCurrentScanGroup() {
     auto group = new As::GroupBox;
     group->setLayout(layout);
     group->hide();
-    connect(this, &As::Window::newScansExtracted_Signal,
+    connect(this, &As::Window::newScansExtractedSignal,
             group, &As::GroupBox::show);
 
     return group; }
@@ -243,18 +243,18 @@ As::GroupBox* As::Window::create_Text_GotoGroup(const QString& objectName,
     auto fileBlock = new As::SpinBoxSingleBlock(fileChanger, fileText, tr("files"));
     fileBlock->setToolTip(tr("Go to another file."));
     //fileBlock->setEnabled(false);
-    connect(this, &As::Window::filesRangeChanged_Signal,
+    connect(this, &As::Window::filesRangeChangedSignal,
             fileChanger, &As::SpinBox::setRange);
-    connect(this, &As::Window::filesCountChanged_Signal,
+    connect(this, &As::Window::filesCountChangedSignal,
             fileText, &As::Label::setText);
     connect(fileChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::gotoFile_Slot);
+            this, &As::Window::gotoFileSlot);
     connect(m_scans, &As::ScanArray::fileIndexChanged,
             fileChanger, QOverload<int>::of(&As::SpinBox::setValueSilently));
     connect(fileChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::highlightCurrentScanLines_Slot);
+            this, &As::Window::highlightCurrentScanLinesSlot);
     connect(fileChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::highlightFoundText_Slot);
+            this, &As::Window::highlightFoundTextSlot);
 
     // Relatives: Go to line changer
     auto lineChanger = new As::SpinBox;
@@ -263,9 +263,9 @@ As::GroupBox* As::Window::create_Text_GotoGroup(const QString& objectName,
     lineText->setStyleSheet(QString("color: %1").arg(As::Color(As::blue).name()));
     auto lineBlock = new As::SpinBoxSingleBlock(lineChanger, lineText, tr("lines"));
     lineBlock->setToolTip(tr("Go to another line in the file."));
-    connect(this, &As::Window::linesRangeChanged_Signal,
+    connect(this, &As::Window::linesRangeChangedSignal,
             lineChanger, &As::SpinBox::setRange);
-    connect(this, &As::Window::linesCountChanged_Signal,
+    connect(this, &As::Window::linesCountChangedSignal,
             lineText, &As::Label::setText);
     connect(lineChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
             m_inputTextWidget, &As::TextEditor::setCursorPosition);
@@ -296,9 +296,9 @@ As::GroupBox* As::Window::create_Text_FindGroup(const QString& objectName,
     ignoreCase->setToolTip(tr("Ignore case in the search."));
     ignoreCase->setChecked(isCaseIgnored);
     connect(ignoreCase, &As::CheckBox::toggled,
-            this, &As::Window::ignoreCase_Slot);
+            this, &As::Window::ignoreCaseSlot);
     connect(ignoreCase, &As::CheckBox::toggled,
-            this, &As::Window::highlightFoundText_Slot);
+            this, &As::Window::highlightFoundTextSlot);
 
     auto matchChanger = new As::SpinBox;
     auto matchText = new As::Label;
@@ -306,17 +306,17 @@ As::GroupBox* As::Window::create_Text_FindGroup(const QString& objectName,
     matchText->setStyleSheet(QString("color: %1").arg(As::Color(As::blue).name()));
     auto matchBlock = new As::SpinBoxSingleBlock(matchChanger, matchText, tr("matches"));
     matchBlock->setToolTip(tr("The total number of matches in the search."));
-    connect(this, &As::Window::matchesRangeChanged_Signal,
+    connect(this, &As::Window::matchesRangeChangedSignal,
             matchChanger, &As::SpinBox::setRange);
-    connect(this, &As::Window::matchesCountChanged_Signal,
+    connect(this, &As::Window::matchesCountChangedSignal,
             matchText, &As::Label::setText);
-    connect(this, &As::Window::matchesIndexChanged_Signal,
+    connect(this, &As::Window::matchesIndexChangedSignal,
             matchChanger, &As::SpinBox::setValueSilently);
     connect(matchChanger, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::gotoMatch_Slot);
+            this, &As::Window::gotoMatchSlot);
 
     auto findField = new As::LineEdit;
-    findField->setObjectName("findField"); // required in the highlightFoundText_Slot()
+    findField->setObjectName("findField"); // required in the highlightFoundTextSlot()
     findField->setToolTip(tr("Enter text to search for in the current file."));
     findField->setPlaceholderText(tr("Find"));
     findField->setStyleSheet(QString("color: %1").arg(As::Color(As::gray).name()));
@@ -325,7 +325,7 @@ As::GroupBox* As::Window::create_Text_FindGroup(const QString& objectName,
     m_delayBeforeSearching = new QTimer(this); // doesn't work without 'this'
     m_delayBeforeSearching->setSingleShot(true);
     connect(findField, &As::LineEdit::textEdited,
-            this, &As::Window::textSearchTimer_Slot);
+            this, &As::Window::textSearchTimerSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(ignoreCase);
@@ -349,7 +349,7 @@ As::GroupBox* As::Window::create_Text_ExtractGroup() {
     [button]() {
         button->setDisabled(true); });
     connect(button, &As::PushButton::clicked,
-            this, &As::Window::extractScans_Slot);
+            this, &As::Window::extractScansSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(button);
@@ -375,12 +375,12 @@ As::GroupBox* As::Window::create_Text_ViewGroup(const QString& objectName,
     highlightSyntax->setToolTip(tr("Highlight syntax for input files."));
     highlightSyntax->setChecked(isSyntaxHighlighted);
     connect(highlightSyntax, &As::CheckBox::toggled,
-            this, &As::Window::highlightSyntax_Slot);
+            this, &As::Window::highlightSyntaxSlot);
 
     auto wrapText = new As::CheckBox(tr("Wrap text"));
     wrapText->setToolTip(tr("Wrap lines to the width of the window."));
     wrapText->setChecked(isTextWraped);
-    connect(wrapText, &As::CheckBox::toggled, this, &As::Window::wrapText_Slot);
+    connect(wrapText, &As::CheckBox::toggled, this, &As::Window::wrapTextSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(highlightSyntax);
@@ -415,7 +415,7 @@ As::GroupBox* As::Window::create_Text_FontGroup(const QString& objectName,
     font->setFontFilters(QFontComboBox::MonospacedFonts); // slow!?
     font->setToolTip(tr("Choose the font family."));
     connect(font, &As::FontComboBox::currentFontChanged,
-            this, &As::Window::setFont_Slot);
+            this, &As::Window::setFontSlot);
     font->setCurrentFont(QFont(family, size)); // after connect!
 
     auto fontSize = new As::SpinBox;
@@ -424,7 +424,7 @@ As::GroupBox* As::Window::create_Text_FontGroup(const QString& objectName,
     fontSize->setSuffix(" pt");
     fontSize->setValue(size);
     connect(fontSize, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::setFontSize_Slot);
+            this, &As::Window::setFontSizeSlot);
 
     auto layout = new QHBoxLayout;
     layout->addWidget(font);
@@ -447,7 +447,7 @@ As::GroupBox* As::Window::create_Table_VisualizeGroup() {
     [button]() {
         button->setDisabled(true); });
     connect(button, &As::PushButton::clicked,
-            this, &As::Window::visualizePlots_Slot);
+            this, &As::Window::visualizePlotsSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(button);
@@ -559,10 +559,10 @@ As::GroupBox* As::Window::create_Plot_ScanTreatGroup(const QString& objectName,
     individualTreat->setToolTip(tr("Treat current scan with independent settings"));
 
     connect(individualTreat, &As::CheckBox::clicked,
-            this, &As::Window::treatIndividually_Slot);
+            this, &As::Window::treatIndividuallySlot);
     ///connect(individualTreat, &As::CheckBox::clicked,
     /// currentScan(), &As::Scan::setIndividuallyTreated);
-    connect(this, &As::Window::individualTreatStateChanged_Signal,
+    connect(this, &As::Window::individualTreatStateChangedSignal,
             individualTreat, &As::CheckBox::setCheckedSilently);
 
     auto layout = new QVBoxLayout;
@@ -571,7 +571,7 @@ As::GroupBox* As::Window::create_Plot_ScanTreatGroup(const QString& objectName,
     auto group = new As::GroupBox(objectName, title);
     group->setLayout(layout);
     group->setHidden(true);
-    connect(this, &As::Window::calculateButtonPressed_Signal,
+    connect(this, &As::Window::calculateButtonPressedSignal,
             group, &As::GroupBox::setHidden);
 
     return group; }
@@ -595,14 +595,14 @@ As::GroupBox* As::Window::create_Plot_ScanCorrectGroup(const QString& objectName
     // Relatives: Numbers of points to be skipped in the scan
     m_leftSkipCount = new As::SpinBox;
     connect(m_leftSkipCount, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::setLeftSkipCount_Slot);
+            this, &As::Window::setLeftSkipCountSlot);
 
     m_nonSkipPointsCount = new As::Label;
     m_nonSkipPointsCount->setObjectName("nonSkipPointsCount");
 
     m_rightSkipCount = new As::SpinBox;
     connect(m_rightSkipCount, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::setRightSkipCount_Slot);
+            this, &As::Window::setRightSkipCountSlot);
 
     auto skipRemainSkip = new As::SpinBoxDoubleBlock(m_leftSkipCount, m_nonSkipPointsCount, m_rightSkipCount,
                                                      tr("left skip"), tr("non-skip"), tr("right skip"));
@@ -615,7 +615,7 @@ As::GroupBox* As::Window::create_Plot_ScanCorrectGroup(const QString& objectName
     auto group = new As::GroupBox(objectName, title);
     group->setLayout(layout);
     group->setHidden(true);
-    connect(this, &As::Window::calculateButtonPressed_Signal,
+    connect(this, &As::Window::calculateButtonPressedSignal,
             group, &As::GroupBox::setHidden);
 
     return group; }
@@ -647,14 +647,14 @@ As::GroupBox* As::Window::create_Plot_PeakIntegrateGroup(const QString& objectNa
     //auto bkgLeft = new As::SpinBox;
     m_leftBkgCount = new As::SpinBox;
     connect(m_leftBkgCount, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::setLeftBkgCount_Slot);
+            this, &As::Window::setLeftBkgCountSlot);
 
     m_peakPointsCount = new As::Label;
     m_peakPointsCount->setObjectName("peakPointsCount");
 
     m_rightBkgCount = new As::SpinBox;
     connect(m_rightBkgCount, QOverload<int>::of(&As::SpinBox::valueChanged),
-            this, &As::Window::setRightBkgCount_Slot);
+            this, &As::Window::setRightBkgCountSlot);
 
     //connect(bkgRight, SIGNAL(valueChanged(int)), obj, SLOT(rightBkgPointsChanged(int)));
     auto bkgPeakBkg = new As::SpinBoxDoubleBlock(m_leftBkgCount, m_peakPointsCount, m_rightBkgCount,
@@ -678,7 +678,7 @@ As::GroupBox* As::Window::create_Plot_PeakIntegrateGroup(const QString& objectNa
     auto group = new As::GroupBox(objectName, title);
     group->setLayout(layout);
     group->setHidden(true);
-    connect(this, &As::Window::calculateButtonPressed_Signal,
+    connect(this, &As::Window::calculateButtonPressedSignal,
             group, &As::GroupBox::setHidden);
 
     return group; }
@@ -697,16 +697,16 @@ As::GroupBox* As::Window::create_Plot_ShowOutputGroup() {
     //connect(calcButton, &As::PushButton::clicked,
     //        calcButton, &As::PushButton::setEnabled);
     connect(calcButton, &As::PushButton::clicked,
-            this, &As::Window::calcStructureFactor_Slot);
+            this, &As::Window::calcStructureFactorSlot);
     connect(calcButton, &As::PushButton::clicked,
-            this, &As::Window::calculateButtonPressed_Signal);
+            this, &As::Window::calculateButtonPressedSignal);
 
     /*
         auto outputButton = new As::PushButton(tr("Show output table"));
         outputButton->setToolTip(tr("Click to switch to the output table tab."));
         outputButton->setDisabled(true);
-        connect(outputButton, &As::PushButton::clicked, this, &As::Window::showOutput_Slot);
-        connect(this, &As::Window::calculateButtonPressed_Signal, outputButton, &As::PushButton::setDisabled);
+        connect(outputButton, &As::PushButton::clicked, this, &As::Window::showOutputSlot);
+        connect(this, &As::Window::calculateButtonPressedSignal, outputButton, &As::PushButton::setDisabled);
     */
 
     auto outputButton = new As::PushButton(tr("(Re)process all scans"));
@@ -717,10 +717,10 @@ As::GroupBox* As::Window::create_Plot_ShowOutputGroup() {
         outputButton->setDisabled(true); });
     connect(this, &As::Window::peaksTreatmentIsFinished,
             outputButton, &As::PushButton::setEnabled);
-    connect(this, &As::Window::calculateButtonPressed_Signal,
+    connect(this, &As::Window::calculateButtonPressedSignal,
             outputButton, &As::PushButton::setDisabled);
     connect(outputButton, &As::PushButton::clicked,
-            this, &As::Window::showOutput_Slot);
+            this, &As::Window::showOutputSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(calcButton);
@@ -745,7 +745,7 @@ As::GroupBox* As::Window::create_Plot_ViewGroup(const QString& objectName,
     hideLegend->setToolTip(tr("Hide legend on the plot."));
     hideLegend->setChecked(isLegendHidden);
     connect(hideLegend, &As::CheckBox::toggled,
-            this, &As::Window::hideLegend_Slot);
+            this, &As::Window::hideLegendSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(hideLegend);
@@ -764,7 +764,7 @@ As::GroupBox* As::Window::create_Output_ExportGroup() {
     auto button = new As::PushButton(tr("Export output data"));
     button->setToolTip(tr("Click to open the save output table dialog."));
     connect(button, &As::PushButton::clicked,
-            this, &As::Window::export_Slot);
+            this, &As::Window::exportSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(button);
@@ -790,13 +790,13 @@ As::GroupBox* As::Window::create_Output_FormatGroup(const QString& objectName,
     exportExcluded->setToolTip(tr("Export excluded scans to the output files."));
     exportExcluded->setChecked(isExcludedSaved);
     connect(exportExcluded, &As::CheckBox::toggled,
-            this, &As::Window::exportExcluded_Slot);
+            this, &As::Window::exportExcludedSlot);
 
     auto alwaysSaveHeaders = new As::CheckBox(tr("Always save headers"));
     alwaysSaveHeaders->setToolTip(tr("Always save headers in the output files."));
     alwaysSaveHeaders->setChecked(isAlwaysHeadersSaved);
     connect(alwaysSaveHeaders, &As::CheckBox::toggled,
-            this, &As::Window::alwaysSaveHeaders_Slot);
+            this, &As::Window::alwaysSaveHeadersSlot);
 
     auto layout = new QVBoxLayout;
     layout->addWidget(exportExcluded);
@@ -811,7 +811,7 @@ As::GroupBox* As::Window::create_Output_FormatGroup(const QString& objectName,
     Returns the table model for the program output.
 */
 // called when switch to any tab in m_tabsWidget. change to m_outputTableWidget only !?
-void As::Window::createFullOutputTableModel_Slot() {
+void As::Window::createFullOutputTableModelSlot() {
     ADEBUG;
 
     // Exit if no m_outputTableWidget exist yet

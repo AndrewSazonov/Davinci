@@ -86,34 +86,34 @@ class Window : public QMainWindow {
     void dataTypeChanged(const QString& text);
 
     // For all sidebar tabs
-    void currentScanChanged_Signal(const int index);
-    ///void currentScanUpdated_Signal(const int index);
-    void excludeScanStateChanged_Signal(const bool treat);
+    void currentScanChangedSignal(const int index);
+    ///void currentScanUpdatedSignal(const int index);
+    void excludeScanStateChangedSignal(const bool treat);
 
     // For text sidebar tab
-    void newFilesLoaded_Signal(const int count);
-    void oldFilesClosed_Signal(const bool areClosed);
-    void currentFileIndexChanged_Signal(const int index);
-    void currentFilePathChanged_Signal(const QString& path);
-    void currentFileContentChanged_Signal(const QString& content);
-    void filesCountChanged_Signal(const QString& count);
-    void filesRangeChanged_Signal(const int min, const int max);
-    void linesCountChanged_Signal(const QString& count);
-    void linesRangeChanged_Signal(const int min, const int max);
-    void matchesCountChanged_Signal(const QString& count);
-    void matchesRangeChanged_Signal(const int min, const int max);
-    void matchesIndexChanged_Signal(const int index);
+    void newFilesLoadedSignal(const int count);
+    void oldFilesClosedSignal(const bool areClosed);
+    void currentFileIndexChangedSignal(const int index);
+    void currentFilePathChangedSignal(const QString& path);
+    void currentFileContentChangedSignal(const QString& content);
+    void filesCountChangedSignal(const QString& count);
+    void filesRangeChangedSignal(const int min, const int max);
+    void linesCountChangedSignal(const QString& count);
+    void linesRangeChangedSignal(const int min, const int max);
+    void matchesCountChangedSignal(const QString& count);
+    void matchesRangeChangedSignal(const int min, const int max);
+    void matchesIndexChangedSignal(const int index);
 
     // For table sidebar tab
-    void newScansExtracted_Signal(const int count);
-    void scansCountChanged_Signal(const QString& count);
-    void scansRangeChanged_Signal(const int min, const int max);
+    void newScansExtractedSignal(const int count);
+    void scansCountChangedSignal(const QString& count);
+    void scansRangeChangedSignal(const int min, const int max);
     void extractedTableModelChanged(QAbstractItemModel* model);
 
     // For plot sidebar tab
-    void newScansPlotted_Signal(const int count);
-    void individualTreatStateChanged_Signal(const bool treat);
-    void calculateButtonPressed_Signal(const bool);
+    void newScansPlottedSignal(const int count);
+    void individualTreatStateChangedSignal(const bool treat);
+    void calculateButtonPressedSignal(const bool);
     void peaksTreatmentIsFinished(const bool);
 
     // For output sidebar tab
@@ -121,78 +121,78 @@ class Window : public QMainWindow {
 
   private slots:
     // Debug
-    void printAppInfo_Slot();
+    void printAppInfoSlot();
 
     // Actions
-    void openFile_Slot();
-    void openDir_Slot();
-    void reloadFile_Slot();
-    void closeFile_Slot();
-    void export_Slot();
-    void exportImage_Slot();
-    void exportOutputTable_Slot();
-    void aboutApp_Slot();
-    void showPreferences_Slot();
-    void showSidebar_Slot(const bool show = true);
-    void showOrHideSidebarBlocks_Slot(const int index);
-    void openUserManual_Slot();
-    void openIssueTracker_Slot();
+    void openFileSlot();
+    void openDirSlot();
+    void reloadFileSlot();
+    void closeFileSlot();
+    void exportSlot();
+    void exportImageSlot();
+    void exportOutputTableSlot();
+    void aboutAppSlot();
+    void showPreferencesSlot();
+    void showSidebarSlot(const bool show = true);
+    void showOrHideSidebarBlocksSlot(const int index);
+    void openUserManualSlot();
+    void openIssueTrackerSlot();
 
     // Update application
-    void acceptAutoUpdate_Slot();
-    void rejectAutoUpdate_Slot();
+    void acceptAutoUpdateSlot();
+    void rejectAutoUpdateSlot();
     void setAutoUpdateSettings(const bool autoUpdate);
     void checkApplicationUpdateNow(const bool hideOutput = false);
-    void installUpdate_Slot();
+    void installUpdateSlot();
 
     // For all sidebar tabs
-    void gotoScan_Slot(const int index);
-    void updateScan_Slot();
-    void excludeScan_Slot(const bool exclude);
-    void autoProcessing_Slot();
+    void gotoScanSlot(const int index);
+    void updateScanSlot();
+    void excludeScanSlot(const bool exclude);
+    void autoProcessingSlot();
 
     // For text sidebar tab
-    void ignoreCase_Slot(const bool ignore);
-    void gotoLine_Slot(const int index);
-    void gotoFile_Slot(const int index);
-    void gotoMatch_Slot(const int index);
-    //void textSearchTimer_Slot();
-    void extractScans_Slot();
-    void highlightSyntax_Slot(const bool highlight);
-    void wrapText_Slot(const bool wrap);
-    void setFont_Slot(const QFont& font);
-    void setFontSize_Slot(const int size);
-    //void highlightCurrentLine_Slot();
-    void highlightCurrentScanLines_Slot(const int fileIndex);
-    void highlightScanLines_Slot(const int scanIndex);
-    void highlightFoundText_Slot();
-    void textSearchTimer_Slot();
-    //void highlightTextFoundTimer_Slot();
+    void ignoreCaseSlot(const bool ignore);
+    void gotoLineSlot(const int index);
+    void gotoFileSlot(const int index);
+    void gotoMatchSlot(const int index);
+    //void textSearchTimerSlot();
+    void extractScansSlot();
+    void highlightSyntaxSlot(const bool highlight);
+    void wrapTextSlot(const bool wrap);
+    void setFontSlot(const QFont& font);
+    void setFontSizeSlot(const int size);
+    //void highlightCurrentLineSlot();
+    void highlightCurrentScanLinesSlot(const int fileIndex);
+    void highlightScanLinesSlot(const int scanIndex);
+    void highlightFoundTextSlot();
+    void textSearchTimerSlot();
+    //void highlightTextFoundTimerSlot();
     //void highlightAll();
 
     // For table sidebar tab
-    void visualizePlots_Slot();
+    void visualizePlotsSlot();
 
     // For plot sidebar tab
-    void treatIndividually_Slot(const bool b);
+    void treatIndividuallySlot(const bool b);
 
     void selectNeighborsRemoveType(int index);
-    void setLeftSkipCount_Slot(const int count);
-    void setRightSkipCount_Slot(const int count);
+    void setLeftSkipCountSlot(const int count);
+    void setRightSkipCountSlot(const int count);
 
     void selectPeakAnalysisType(int index);
     void selectBkgDetectType(int index);
     void selectPeakFitType(int index);
-    void setLeftBkgCount_Slot(const int count);
-    void setRightBkgCount_Slot(const int count);
+    void setLeftBkgCountSlot(const int count);
+    void setRightBkgCountSlot(const int count);
 
-    void calcStructureFactor_Slot();
-    void showOutput_Slot();
-    void hideLegend_Slot(const bool hide);
+    void calcStructureFactorSlot();
+    void showOutputSlot();
+    void hideLegendSlot(const bool hide);
 
     // For output sidebar tab
-    void exportExcluded_Slot(const bool save);
-    void alwaysSaveHeaders_Slot(const bool save);
+    void exportExcludedSlot(const bool save);
+    void alwaysSaveHeadersSlot(const bool save);
 
   private:
     // Init
@@ -322,7 +322,7 @@ class Window : public QMainWindow {
     QWidget* m_outputSettingsBlock;
     As::GroupBox* create_Output_ExportGroup();
     As::GroupBox* create_Output_FormatGroup(const QString& objectName, const QString& title);
-    void createFullOutputTableModel_Slot();
+    void createFullOutputTableModelSlot();
 
 };
 

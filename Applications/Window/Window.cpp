@@ -80,7 +80,7 @@
     Constructs the main program window.
 */
 As::Window::Window() {
-    //printAppInfo_Slot();
+    //printAppInfoSlot();
     SetDebugOutputFormat(IS_DEBUG_OR_PROFILE);
 
     setStyleSheet(createStyleSheet());
@@ -90,7 +90,7 @@ As::Window::Window() {
     setCentralWidget(createDragAndDropWidget()); // Initial central widget before new files are loaded
     //setCentralWidget(createMainWidget());
     setupWindowSizeAndPosition();
-    connect(this, &As::Window::currentFilePathChanged_Signal, this, &As::Window::setWindowTitle);
+    connect(this, &As::Window::currentFilePathChangedSignal, this, &As::Window::setWindowTitle);
 
     // Method setFontFilters(QFontComboBox::MonospacedFonts) takes some time (1-2s),
     // when called for the 1st time after the program start. So, we do it once here
@@ -124,11 +124,11 @@ void As::Window::show() {
 */
 void As::Window::autoRun(const QString& path) {
     openFiles(QStringList{ path });
-    extractScans_Slot();
-    visualizePlots_Slot();
-    calcStructureFactor_Slot();
-    showOutput_Slot();
-    exportOutputTable_Slot(); }
+    extractScansSlot();
+    visualizePlotsSlot();
+    calcStructureFactorSlot();
+    showOutputSlot();
+    exportOutputTableSlot(); }
 
 /*!
     Writes application setting to disk.
@@ -161,15 +161,15 @@ void As::Window::loadFiles(const QStringList& filePathList) {
     m_scans = new As::ScanArray;
 
     // Signal-slot connections for the scans array
-    //connect(this, SIGNAL(currentFileIndexChanged_Signal(int)), m_scans, SLOT(setModel(int)));
-    connect(this, &As::Window::currentFileIndexChanged_Signal,
+    //connect(this, SIGNAL(currentFileIndexChangedSignal(int)), m_scans, SLOT(setModel(int)));
+    connect(this, &As::Window::currentFileIndexChangedSignal,
             m_scans, &As::ScanArray::setFileIndex);
-    connect(this, &As::Window::currentScanChanged_Signal,
+    connect(this, &As::Window::currentScanChangedSignal,
             m_scans, &As::ScanArray::setScanIndex);
     connect(m_scans, &As::ScanArray::scanIndexChanged,
-            this, &As::Window::highlightScanLines_Slot);
+            this, &As::Window::highlightScanLinesSlot);
     connect(m_scans, &As::ScanArray::scanIndexChanged,
-            this, &As::Window::highlightFoundText_Slot);
+            this, &As::Window::highlightFoundTextSlot);
     connect(m_scans, &As::ScanArray::facilityTypeChanged,
             this, &As::Window::facilityTypeChanged);
     connect(m_scans, &As::ScanArray::instrumentTypeChanged,
@@ -215,7 +215,7 @@ void As::Window::loadFiles(const QStringList& filePathList) {
         m_scans->m_inputFilesContents.second << textStream.readAll(); }
 
     // To disable actions and buttons. False - to use both with setEnabled and setChecked
-    emit oldFilesClosed_Signal(false);
+    emit oldFilesClosedSignal(false);
 
     // Detect data
     bool ok = m_scans->detectInputFilesType();
@@ -227,15 +227,15 @@ void As::Window::loadFiles(const QStringList& filePathList) {
                         "Please open the files of the same type only.");
         msgBox->exec();
         m_scans->m_inputFilesContents = oldInputFilesContents;
-        openFile_Slot(); }
+        openFileSlot(); }
 
     // Emit signal(s)
     const int size = m_scans->m_inputFilesContents.second.size();
 
     if (size > 0) {
-        emit newFilesLoaded_Signal(1);
-        emit filesRangeChanged_Signal(1, size);
-        emit filesCountChanged_Signal(QString::number(size)); }
+        emit newFilesLoadedSignal(1);
+        emit filesRangeChangedSignal(1, size);
+        emit filesCountChangedSignal(QString::number(size)); }
 
     // Highlight syntax
     // Use enum InputFileType here and in SyntaxHighlighter!?
@@ -299,7 +299,7 @@ void As::Window::openFiles(const QStringList& pathList) {
 /*!
     Prints the application information.
 */
-void As::Window::printAppInfo_Slot() {
+void As::Window::printAppInfoSlot() {
     ADEBUG << "";
     ADEBUG << " - Application:  " << APP_NAME;
     ADEBUG << " - Version:      " << APP_VERSION;
@@ -364,8 +364,8 @@ void As::Window::offerAutoUpdate() {
     const QString cancelButton = QMessageBox::tr("Don't Check");
 
     As::MessageWidget dialog(this, title, text, okButton, cancelButton);
-    connect(&dialog, &QDialog::accepted, this, &As::Window::acceptAutoUpdate_Slot);
-    connect(&dialog, &QDialog::rejected, this, &As::Window::rejectAutoUpdate_Slot);
+    connect(&dialog, &QDialog::accepted, this, &As::Window::acceptAutoUpdateSlot);
+    connect(&dialog, &QDialog::rejected, this, &As::Window::rejectAutoUpdateSlot);
 
     dialog.exec();
 

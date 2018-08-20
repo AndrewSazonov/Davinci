@@ -39,7 +39,7 @@
 #include "Window.hpp"
 
 /*!
-    Creates actions, menus and tool bar
+    Creates actions, menus and tool bar for the application user interface.
 */
 void As::Window::createActionsMenusToolBar() {
     ADEBUG;
@@ -54,77 +54,82 @@ void As::Window::createActionsMenusToolBar() {
     QMenu* fileMenu = menuBar()->addMenu(tr("&File"));
 
     // Add action
-    QAction* openFile_Act = fileMenu->addAction(tr("&Open File(s)..."), this, &As::Window::openFile_Slot);
-    openFile_Act->setToolTip(tr("Open existing file(s)."));
-    openFile_Act->setShortcuts(QKeySequence::Open);
-    openFile_Act->setIcon(QIcon(":/Images/Button_Open-File.svg"));
+    QAction* openFileAct = fileMenu->addAction(tr("&Open File(s)..."),
+                                               this, &As::Window::openFileSlot);
+    openFileAct->setToolTip(tr("Open existing file(s)."));
+    openFileAct->setShortcuts(QKeySequence::Open);
+    openFileAct->setIcon(QIcon(":/Images/Button_Open-File.svg"));
 
-    auto openFileButton = new As::UnderLabeledWidget(new As::ToolBarButton(openFile_Act), tr("Open file"));
+    auto openFileButton = new As::UnderLabeledWidget(new As::ToolBarButton(openFileAct),
+                                                     tr("Open file"));
 
     // Add action
-    QAction* openDir_Act = fileMenu->addAction(tr("Open &Directory..."), this, &As::Window::openDir_Slot);
-    openDir_Act->setToolTip(tr("Open existing directory."));
-    openDir_Act->setIcon(QIcon(":/Images/Button_Open-Folder.svg"));
+    QAction* openDirAct = fileMenu->addAction(tr("Open &Directory..."),
+                                              this, &As::Window::openDirSlot);
+    openDirAct->setToolTip(tr("Open existing directory."));
+    openDirAct->setIcon(QIcon(":/Images/Button_Open-Folder.svg"));
 
-    auto openDirButton = new As::UnderLabeledWidget(new As::ToolBarButton(openDir_Act), tr("Open dir"));
+    auto openDirButton = new As::UnderLabeledWidget(new As::ToolBarButton(openDirAct),
+                                                    tr("Open dir"));
 
     // Add separator --------
     fileMenu->addSeparator();
 
     // Add action
-    QAction* save_Act = fileMenu->addAction(tr("&Save"), this, &As::Window::aboutApp_Slot);
-    save_Act->setToolTip(tr("Save the document."));
-    save_Act->setShortcuts(QKeySequence::Save);
-    save_Act->setEnabled(false);
+    QAction* saveAct = fileMenu->addAction(tr("&Save"),
+                                           this, &As::Window::aboutAppSlot);
+    saveAct->setToolTip(tr("Save the document."));
+    saveAct->setShortcuts(QKeySequence::Save);
+    saveAct->setEnabled(false);
 
     // Add action
-    QAction* saveAs_Act = fileMenu->addAction(tr("Save &As..."), this, &As::Window::aboutApp_Slot);
-    saveAs_Act->setToolTip(tr("Save the document with a new name."));
-    saveAs_Act->setShortcuts(QKeySequence::SaveAs);
-    saveAs_Act->setEnabled(false);
+    QAction* saveAsAct = fileMenu->addAction(tr("Save &As..."), this, &As::Window::aboutAppSlot);
+    saveAsAct->setToolTip(tr("Save the document with a new name."));
+    saveAsAct->setShortcuts(QKeySequence::SaveAs);
+    saveAsAct->setEnabled(false);
 
     // Add action
-    QAction* export_Act = fileMenu->addAction(tr("&Export..."), this, &As::Window::export_Slot);
-    export_Act->setToolTip(tr("Export the document."));
-    export_Act->setIcon(QIcon(":/Images/Button_Export.svg"));
-    export_Act->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, export_Act, &QAction::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, export_Act, &QAction::setEnabled);
+    QAction* exportAct = fileMenu->addAction(tr("&Export..."), this, &As::Window::exportSlot);
+    exportAct->setToolTip(tr("Export the document."));
+    exportAct->setIcon(QIcon(":/Images/Button_Export.svg"));
+    exportAct->setEnabled(false);
+    connect(this, &As::Window::newFilesLoadedSignal, exportAct, &QAction::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, exportAct, &QAction::setEnabled);
 
-    auto exportButton = new As::UnderLabeledWidget(new As::ToolBarButton(export_Act), tr("Export"));
+    auto exportButton = new As::UnderLabeledWidget(new As::ToolBarButton(exportAct), tr("Export"));
     exportButton->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, exportButton, &As::UnderLabeledWidget::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, exportButton, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::newFilesLoadedSignal, exportButton, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, exportButton, &As::UnderLabeledWidget::setEnabled);
 
     // Add separator --------
     fileMenu->addSeparator();
 
     // Add action
-    QAction* reload_Act = fileMenu->addAction(tr("&Reload"), this, &As::Window::reloadFile_Slot);
-    reload_Act->setToolTip(tr("Reload opened file(s)."));
-    reload_Act->setIcon(QIcon(":/Images/Button_Reload.svg"));
-    reload_Act->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, reload_Act, &QAction::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, reload_Act, &QAction::setEnabled);
+    QAction* reloadAct = fileMenu->addAction(tr("&Reload"), this, &As::Window::reloadFileSlot);
+    reloadAct->setToolTip(tr("Reload opened file(s)."));
+    reloadAct->setIcon(QIcon(":/Images/Button_Reload.svg"));
+    reloadAct->setEnabled(false);
+    connect(this, &As::Window::newFilesLoadedSignal, reloadAct, &QAction::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, reloadAct, &QAction::setEnabled);
 
-    auto reloadButton = new As::UnderLabeledWidget(new As::ToolBarButton(reload_Act), tr("Reload"));
+    auto reloadButton = new As::UnderLabeledWidget(new As::ToolBarButton(reloadAct), tr("Reload"));
     reloadButton->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, reloadButton, &As::UnderLabeledWidget::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, reloadButton, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::newFilesLoadedSignal, reloadButton, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, reloadButton, &As::UnderLabeledWidget::setEnabled);
 
     // Add action
-    QAction* close_Act = fileMenu->addAction(tr("&Close File(s)"), this, &As::Window::closeFile_Slot);
-    close_Act->setToolTip(tr("Close the open files."));
-    close_Act->setShortcuts(QKeySequence::Close);
-    close_Act->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, close_Act, &QAction::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, close_Act, &QAction::setEnabled);
+    QAction* closeAct = fileMenu->addAction(tr("&Close File(s)"), this, &As::Window::closeFileSlot);
+    closeAct->setToolTip(tr("Close the open files."));
+    closeAct->setShortcuts(QKeySequence::Close);
+    closeAct->setEnabled(false);
+    connect(this, &As::Window::newFilesLoadedSignal, closeAct, &QAction::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, closeAct, &QAction::setEnabled);
 
     // Add action
-    QAction* exitApp_Act = fileMenu->addAction(tr("E&xit"), this, &QWidget::close);
-    exitApp_Act->setToolTip(tr("Exit the application."));
-    exitApp_Act->setShortcuts(QKeySequence::Quit);
-    exitApp_Act->setMenuRole(QAction::QuitRole); // not required due to the TextHeuristicRole
+    QAction* exitAppAct = fileMenu->addAction(tr("E&xit"), this, &QWidget::close);
+    exitAppAct->setToolTip(tr("Exit the application."));
+    exitAppAct->setShortcuts(QKeySequence::Quit);
+    exitAppAct->setMenuRole(QAction::QuitRole); // not required due to the TextHeuristicRole
 
     //---------
     // Add menu
@@ -132,17 +137,17 @@ void As::Window::createActionsMenusToolBar() {
     QMenu* processMenu = menuBar()->addMenu(tr("&Processing"));
 
     // Add action
-    QAction* autoProcessing_Act = processMenu->addAction(tr("&Start auto processing"), this, &As::Window::autoProcessing_Slot);
-    autoProcessing_Act->setToolTip(tr("Start data processing in auto mode."));
-    autoProcessing_Act->setIcon(QIcon(":/Images/Button_Auto.svg"));
-    autoProcessing_Act->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, autoProcessing_Act, &QAction::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, autoProcessing_Act, &QAction::setEnabled);
+    QAction* autoProcessingAct = processMenu->addAction(tr("&Start auto processing"), this, &As::Window::autoProcessingSlot);
+    autoProcessingAct->setToolTip(tr("Start data processing in auto mode."));
+    autoProcessingAct->setIcon(QIcon(":/Images/Button_Auto.svg"));
+    autoProcessingAct->setEnabled(false);
+    connect(this, &As::Window::newFilesLoadedSignal, autoProcessingAct, &QAction::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, autoProcessingAct, &QAction::setEnabled);
 
-    auto autoProcessingButton = new As::UnderLabeledWidget(new As::ToolBarButton(autoProcessing_Act), tr("Process"));
+    auto autoProcessingButton = new As::UnderLabeledWidget(new As::ToolBarButton(autoProcessingAct), tr("Process"));
     autoProcessingButton->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, autoProcessingButton, &As::UnderLabeledWidget::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, autoProcessingButton, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::newFilesLoadedSignal, autoProcessingButton, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, autoProcessingButton, &As::UnderLabeledWidget::setEnabled);
 
     //---------
     // Add menu
@@ -155,22 +160,22 @@ void As::Window::createActionsMenusToolBar() {
     sidebarIcon.addFile(":/Images/Button_Sidebar_Off.svg", QSize(), QIcon::Normal, QIcon::Off);
 
     // Add action
-    QAction* showOrHideSidebar_Act = viewMenu->addAction(tr("&Show Side Bar"));
-    showOrHideSidebar_Act->setToolTip(tr("Show or hide the sidebar with options for manual data processing."));
-    showOrHideSidebar_Act->setIcon(sidebarIcon);
-    showOrHideSidebar_Act->setCheckable(true);
-    showOrHideSidebar_Act->setChecked(false);
-    showOrHideSidebar_Act->setEnabled(false);
-    connect(showOrHideSidebar_Act, &QAction::toggled, this, &As::Window::showSidebar_Slot);
-    connect(this, &As::Window::newFilesLoaded_Signal, showOrHideSidebar_Act, &QAction::setChecked);
-    connect(this, &As::Window::oldFilesClosed_Signal, showOrHideSidebar_Act, &QAction::setChecked);
-    connect(this, &As::Window::newFilesLoaded_Signal, showOrHideSidebar_Act, &QAction::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, showOrHideSidebar_Act, &QAction::setEnabled);
+    QAction* showOrHideSidebarAct = viewMenu->addAction(tr("&Show Side Bar"));
+    showOrHideSidebarAct->setToolTip(tr("Show or hide the sidebar with options for manual data processing."));
+    showOrHideSidebarAct->setIcon(sidebarIcon);
+    showOrHideSidebarAct->setCheckable(true);
+    showOrHideSidebarAct->setChecked(false);
+    showOrHideSidebarAct->setEnabled(false);
+    connect(showOrHideSidebarAct, &QAction::toggled, this, &As::Window::showSidebarSlot);
+    connect(this, &As::Window::newFilesLoadedSignal, showOrHideSidebarAct, &QAction::setChecked);
+    connect(this, &As::Window::oldFilesClosedSignal, showOrHideSidebarAct, &QAction::setChecked);
+    connect(this, &As::Window::newFilesLoadedSignal, showOrHideSidebarAct, &QAction::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, showOrHideSidebarAct, &QAction::setEnabled);
 
-    auto sidebarButton = new As::UnderLabeledWidget(new As::ToolBarButton(showOrHideSidebar_Act), tr("Sidebar"));
+    auto sidebarButton = new As::UnderLabeledWidget(new As::ToolBarButton(showOrHideSidebarAct), tr("Sidebar"));
     sidebarButton->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, sidebarButton, &As::UnderLabeledWidget::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, sidebarButton, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::newFilesLoadedSignal, sidebarButton, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, sidebarButton, &As::UnderLabeledWidget::setEnabled);
 
     //---------
     // Add menu
@@ -178,33 +183,33 @@ void As::Window::createActionsMenusToolBar() {
     QMenu* helpMenu = menuBar()->addMenu(tr("&Help"));
 
     // Add action
-    QAction* aboutApp_Act = helpMenu->addAction(tr("&About"), this, &As::Window::aboutApp_Slot);
-    aboutApp_Act->setToolTip(tr("Show the application's About box."));
-    aboutApp_Act->setMenuRole(QAction::AboutRole); // not required due to the TextHeuristicRole
+    QAction* aboutAppAct = helpMenu->addAction(tr("&About"), this, &As::Window::aboutAppSlot);
+    aboutAppAct->setToolTip(tr("Show the application's About box."));
+    aboutAppAct->setMenuRole(QAction::AboutRole); // not required due to the TextHeuristicRole
 
     // Add action
-    //QAction *aboutQt_Act = helpMenu->addAction(tr("About &Qt"), qApp, &QApplication::aboutQt);
-    //aboutQt_Act->setToolTip(tr("Show the Qt library's About box."));
-    //aboutQt_Act->setMenuRole(QAction::AboutQtRole); // not required due to the TextHeuristicRole
+    //QAction *aboutQtAct = helpMenu->addAction(tr("About &Qt"), qApp, &QApplication::aboutQt);
+    //aboutQtAct->setToolTip(tr("Show the Qt library's About box."));
+    //aboutQtAct->setMenuRole(QAction::AboutQtRole); // not required due to the TextHeuristicRole
 
     // Add action
-    QAction* checkUpdates_Act = helpMenu->addAction(tr("Check for Updates..."), this, &As::Window::checkApplicationUpdateNow);
-    checkUpdates_Act->setToolTip(tr("Check for the application's updates now."));
-    checkUpdates_Act->setMenuRole(QAction::ApplicationSpecificRole);
+    QAction* checkUpdatesAct = helpMenu->addAction(tr("Check for Updates..."), this, &As::Window::checkApplicationUpdateNow);
+    checkUpdatesAct->setToolTip(tr("Check for the application's updates now."));
+    checkUpdatesAct->setMenuRole(QAction::ApplicationSpecificRole);
 
     // Add action
-    QAction* preferences_Act = fileMenu->addAction(tr("&Preferences..."), this, &As::Window::showPreferences_Slot);
-    preferences_Act->setToolTip(tr("Preferences of application."));
-    preferences_Act->setShortcuts(QKeySequence::Preferences);
-    preferences_Act->setMenuRole(QAction::PreferencesRole); // not required due to the TextHeuristicRole
+    QAction* preferencesAct = fileMenu->addAction(tr("&Preferences..."), this, &As::Window::showPreferencesSlot);
+    preferencesAct->setToolTip(tr("Preferences of application."));
+    preferencesAct->setShortcuts(QKeySequence::Preferences);
+    preferencesAct->setMenuRole(QAction::PreferencesRole); // not required due to the TextHeuristicRole
 
     // Add action
-    QAction* userManual_Act = helpMenu->addAction(tr("&User manual (online)"), this, &As::Window::openUserManual_Slot);
-    userManual_Act->setToolTip(tr("Show online user manual in web browser."));
+    QAction* userManualAct = helpMenu->addAction(tr("&User manual (online)"), this, &As::Window::openUserManualSlot);
+    userManualAct->setToolTip(tr("Show online user manual in web browser."));
 
     // Add action
-    QAction* issue_Act = helpMenu->addAction(tr("&Report issue (online)"), this, &As::Window::openIssueTracker_Slot);
-    issue_Act->setToolTip(tr("Report a bug on the online issue tracker."));
+    QAction* issueAct = helpMenu->addAction(tr("&Report issue (online)"), this, &As::Window::openIssueTrackerSlot);
+    issueAct->setToolTip(tr("Report a bug on the online issue tracker."));
 
     //===========================
     // Toolbar additional widgets
@@ -222,12 +227,12 @@ void As::Window::createActionsMenusToolBar() {
     facilityType->setAlignment(Qt::AlignHCenter);
     facilityType->setFocusPolicy(Qt::NoFocus);
     connect(this, &As::Window::facilityTypeChanged, facilityType, &As::LineEdit::setText);
-    connect(this, &As::Window::oldFilesClosed_Signal, facilityType, &As::LineEdit::clear);
+    connect(this, &As::Window::oldFilesClosedSignal, facilityType, &As::LineEdit::clear);
 
     auto facilityTypeWidget = new As::UnderLabeledWidget(facilityType, tr("Facility"));
     facilityTypeWidget->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, facilityTypeWidget, &As::UnderLabeledWidget::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, facilityTypeWidget, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::newFilesLoadedSignal, facilityTypeWidget, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, facilityTypeWidget, &As::UnderLabeledWidget::setEnabled);
 
     auto instrumentType = new As::LineEdit;
     instrumentType->setToolTip(tr("Instrument name."));
@@ -238,12 +243,12 @@ void As::Window::createActionsMenusToolBar() {
     instrumentType->setAlignment(Qt::AlignHCenter);
     instrumentType->setFocusPolicy(Qt::NoFocus);
     connect(this, &As::Window::instrumentTypeChanged, instrumentType, &As::LineEdit::setText);
-    connect(this, &As::Window::oldFilesClosed_Signal, instrumentType, &As::LineEdit::clear);
+    connect(this, &As::Window::oldFilesClosedSignal, instrumentType, &As::LineEdit::clear);
 
     auto instrumentTypeWidget = new As::UnderLabeledWidget(instrumentType, tr("Instrument"));
     instrumentTypeWidget->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, instrumentTypeWidget, &As::UnderLabeledWidget::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, instrumentTypeWidget, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::newFilesLoadedSignal, instrumentTypeWidget, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, instrumentTypeWidget, &As::UnderLabeledWidget::setEnabled);
 
     auto dataType = new As::LineEdit;
     dataType->setToolTip(tr("Type of input data."));
@@ -254,12 +259,12 @@ void As::Window::createActionsMenusToolBar() {
     dataType->setAlignment(Qt::AlignHCenter);
     dataType->setFocusPolicy(Qt::NoFocus);
     connect(this, &As::Window::dataTypeChanged, dataType, &As::LineEdit::setText);
-    connect(this, &As::Window::oldFilesClosed_Signal, dataType, &As::LineEdit::clear);
+    connect(this, &As::Window::oldFilesClosedSignal, dataType, &As::LineEdit::clear);
 
     auto dataTypeWidget = new As::UnderLabeledWidget(dataType, tr("Data type"));
     dataTypeWidget->setEnabled(false);
-    connect(this, &As::Window::newFilesLoaded_Signal, dataTypeWidget, &As::UnderLabeledWidget::setEnabled);
-    connect(this, &As::Window::oldFilesClosed_Signal, dataTypeWidget, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::newFilesLoadedSignal, dataTypeWidget, &As::UnderLabeledWidget::setEnabled);
+    connect(this, &As::Window::oldFilesClosedSignal, dataTypeWidget, &As::UnderLabeledWidget::setEnabled);
 
     //============================
     // Toolbar layout and settings

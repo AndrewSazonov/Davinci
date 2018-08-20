@@ -140,36 +140,6 @@ void As::ScanArray::normalizeByTime(As::Scan* scan) {
         if (!smonitor.isEmpty()) {
             scan->setData("intensities", "sMonitorNorm" + countType,  smonitor.normalizeBy(time).toQString()); } } }
 
-/*
-    void As::ScanArray::findNonPeakPoints(const As::RealVector &inty)
-    {
-    ADEBUG;
-
-    int from = As::ScanDict::MIN_SKIP_DATA_POINTS;
-    int to =   inty.size() - As::ScanDict::MIN_SKIP_DATA_POINTS - 2 * As::ScanDict::MIN_BKG_DATA_POINTS;
-    for (int numSkipLeft = from; numSkipLeft < to; ++numSkipLeft) {
-
-        int from = As::ScanDict::MIN_SKIP_DATA_POINTS;
-        int to =   inty.size() - numSkipLeft;
-        for (int numSkipRight = from; numSkipRight < to; ++numSkipRight) {
-
-            int from = As::ScanDict::MIN_BKG_DATA_POINTS;
-            int to =   inty.size() - numSkipLeft - numSkipRight;
-            for (int numBkgLeft = from; numBkgLeft < to; ++numBkgLeft) {
-
-                int from = As::ScanDict::MIN_BKG_DATA_POINTS;
-                int to =   inty.size() - numSkipLeft - numSkipRight - numBkgLeft;
-                for (int numBkgRight = from; numBkgRight < to; ++numBkgRight) {
-
-                    qreal ratio = sigmaToInty(inty, numBkgLeft, numBkgRight, numSkipLeft, numSkipRight);
-                    if (ratio > 0 AND ratio < ratio_) {
-                        ratio_        = ratio;
-                        numBkgLeft_   = numBkgLeft;
-                        numBkgRight_  = numBkgRight;
-                        numSkipLeft_  = numSkipLeft;
-                        numSkipRight_ = numSkipRight; } } } } } }
-*/
-
 /*!
     Finds non-peak points (neighbors to be skipped + background) of
     the given \a scan.
@@ -287,9 +257,11 @@ void As::ScanArray::findNonPeakPoints(As::Scan* scan) {
 void As::ScanArray::adjustBkgPoints(As::Scan* scan) {
     if (scan->bkgDetectType() == As::Scan::AutoBkgDetect) {
         for (int i = 0; i < As::ScanDict::EXTRA_PEAK_DATA_POINTS; ++i) {
+            // left
             if (scan->m_numLeftBkgPoints > 1) {
                 --scan->m_numLeftBkgPoints;
                 ++scan->m_numPeakPoints; }
+            // right
             if (scan->m_numRightBkgPoints > 1) {
                 --scan->m_numRightBkgPoints;
                 ++scan->m_numPeakPoints; } } } }
@@ -307,7 +279,7 @@ void As::ScanArray::calcBkg(As::Scan* scan) {
         return; }
 
     int from, to;
-    qreal bkg = 0.;
+    qreal bkg = 0.0;
 
     // Calculate the sum of the left background intensities
     from = scan->m_numLeftSkipPoints;

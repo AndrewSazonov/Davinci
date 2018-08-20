@@ -69,7 +69,8 @@ void As::ScanArray::extractDataFromFile(const int index) {
             break;
 
         default:
-            ADEBUG << "Not implemented yet"; break; }
+            ADEBUG << "Not implemented yet";
+            break; }
 
 }
 

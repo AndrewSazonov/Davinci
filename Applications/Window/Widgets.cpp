@@ -97,7 +97,7 @@ QWidget* As::Window::createMainWidget() {
     layout->setObjectName("mainWidget layout");
     layout->addWidget(createDataWidget());
     layout->addWidget(createSidebarWidget());
-    showOrHideSidebarBlocks_Slot(0);
+    showOrHideSidebarBlocksSlot(0);
 
     auto mainWidget = new As::Widget;
     mainWidget->setObjectName("mainWidget");
@@ -135,7 +135,7 @@ QTabWidget* As::Window::createTabsWidget() {
     m_tabsWidget->addTab(createInputTextWidget(), "Input Text");
 
     // Show or hide sidebar group boxes depends on the selected tab of m_tabsWidget
-    connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::showOrHideSidebarBlocks_Slot);
+    connect(m_tabsWidget, &QTabWidget::currentChanged, this, &As::Window::showOrHideSidebarBlocksSlot);
 
     return m_tabsWidget; }
 
@@ -148,7 +148,7 @@ As::TextEditor* As::Window::createInputTextWidget() {
     m_inputTextWidget = new As::TextEditor;
     m_inputTextWidget->setObjectName("inputTextWidget");
 
-    connect(this, &As::Window::currentFileContentChanged_Signal, m_inputTextWidget, &As::TextEditor::setPlainText);
+    connect(this, &As::Window::currentFileContentChangedSignal, m_inputTextWidget, &As::TextEditor::setPlainText);
 
     return m_inputTextWidget; }
 
