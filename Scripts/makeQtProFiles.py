@@ -13,9 +13,6 @@ def SetCommonForAll(pro):
     # Build type (as directory name)
     pro.addBuildType(DEBUG_DIR_NAME, PROFILE_DIR_NAME, RELEASE_DIR_NAME)
 
-    # Destination
-    pro.addDestDir(BUILD_TYPE_DIR)
-
     # Source paths to be included
     for lib in MY_LIBS_NAMES:
         pro.addIncludePath(MY_LIBS_DIR + [lib])
@@ -27,9 +24,9 @@ def SetCommonForAll(pro):
 
     # Compiled libraries paths to be included
     for lib in MY_LIBS_NAMES:
-        pro.addLibs(BUILD_TYPE_DIR, MY_LIBS_PREFIX, lib)
+        pro.addLibs(BUILD_TYPE_DIR + [LIB_ARCHIVES_DIR_NAME], MY_LIBS_PREFIX, lib)
     for lib in OTHER_LIBS_NAMES:
-        pro.addLibs(BUILD_TYPE_DIR, '', lib)
+        pro.addLibs(BUILD_TYPE_DIR + [LIB_ARCHIVES_DIR_NAME], '', lib)
 
     # C++11 support for qmake when generating a Makefile.
     pro.addCppVersion(CPP_VERSION)
@@ -50,9 +47,9 @@ def SetCommonForApps(pro):
 
     # List of libraries to be checked on changes when building the project
     for lib in MY_LIBS_NAMES:
-        pro.addPostTargetDeps(BUILD_TYPE_DIR, MY_LIBS_PREFIX, lib)
+        pro.addPostTargetDeps(BUILD_TYPE_DIR + [LIB_ARCHIVES_DIR_NAME], MY_LIBS_PREFIX, lib)
     for lib in OTHER_LIBS_NAMES:
-        pro.addPostTargetDeps(BUILD_TYPE_DIR, '', lib)
+        pro.addPostTargetDeps(BUILD_TYPE_DIR + [LIB_ARCHIVES_DIR_NAME], '', lib)
 
 ###########################
 # Common libraries settings
@@ -120,7 +117,7 @@ SetCommonForApps(window)
 # Set application icon
 window.addIcon(ICON_DIR + [APP_NAME])
 
-# Qt modules to used in the project
+# Qt modules to be used
 window.addQt(WINDOW_APP_QT_MODULES)
 
 # Set name of the executable
@@ -131,6 +128,7 @@ window.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [APPS_DIR_NAME] + [AP
 window.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [APPS_DIR_NAME] + [APP_NAME])
 window.addRccDir(BUILD_TYPE_DIR + [RCC_DIR_NAME] + [APPS_DIR_NAME] + [APP_NAME])
 window.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [APPS_DIR_NAME] + [APP_NAME])
+window.addDestDir(BUILD_TYPE_DIR + [EXE_DIR_NAME])
 
 # List of files to be used in the project
 window.addHeaders(GetSelectedFileList(WINDOW_APP_DIR, HEADER_EXT))
@@ -162,6 +160,7 @@ console.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [APPS_DIR_NAME] + [C
 console.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [APPS_DIR_NAME] + [CONSOLE_APP_NAME])
 console.addRccDir(BUILD_TYPE_DIR + [RCC_DIR_NAME] + [APPS_DIR_NAME] + [CONSOLE_APP_NAME])
 console.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [APPS_DIR_NAME] + [CONSOLE_APP_NAME])
+console.addDestDir(BUILD_TYPE_DIR + [EXE_DIR_NAME])
 
 # List of files to be used in the project
 console.addHeaders(GetSelectedFileList(CONSOLE_APP_DIR, HEADER_EXT))
@@ -200,17 +199,23 @@ other_libs.save(OTHER_LIBS_DIR + [OTHER_LIBS_DIR_NAME])
 # Create pro file for every lib
 for lib in OTHER_LIBS_NAMES:
     pro = QtProFile()
+    
     SetCommonForAll(pro)
     SetCommonForLibs(pro)
+    
     pro.addQt('widgets')
+    
     pro.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [LIBS_DIR_NAME] + [OTHER_LIBS_DIR_NAME] + [lib])
     pro.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [LIBS_DIR_NAME] + [OTHER_LIBS_DIR_NAME] + [lib])
     pro.addRccDir(BUILD_TYPE_DIR + [RCC_DIR_NAME] + [LIBS_DIR_NAME] + [OTHER_LIBS_DIR_NAME] + [lib])
     pro.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [LIBS_DIR_NAME] + [OTHER_LIBS_DIR_NAME] + [lib])
+    pro.addDestDir(BUILD_TYPE_DIR + [LIB_ARCHIVES_DIR_NAME])
+
     dir = OTHER_LIBS_DIR + [lib]
     pro.addHeaders(GetSelectedFileList(dir, HEADER_EXT))
     pro.addSources(GetSelectedFileList(dir, SOURCE_EXT))
     pro.addOtherFiles(GetSelectedFileList(dir, DOC_EXT))
+    
     pro.save(dir + [lib])
 
 ####################
@@ -230,47 +235,70 @@ my_libs.save(MY_LIBS_DIR + [MY_LIBS_DIR_NAME])
 # Create pro file for every lib
 for lib in MY_LIBS_NAMES:
     pro = QtProFile()
+    
     SetCommonForAll(pro)
     SetCommonForLibs(pro)
+    
     if lib == 'Diffraction':
         pro.addQt('widgets concurrent') # move to variables.py!?
     if lib == 'Widgets':
         pro.addQt('widgets') # move to variables.py!?
+    
     pro.addTarget(MY_LIBS_PREFIX + lib)
+
     pro.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [LIBS_DIR_NAME] + [MY_LIBS_DIR_NAME] + [lib])
     pro.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [LIBS_DIR_NAME] + [MY_LIBS_DIR_NAME] + [lib])
     pro.addRccDir(BUILD_TYPE_DIR + [RCC_DIR_NAME] + [LIBS_DIR_NAME] + [MY_LIBS_DIR_NAME] + [lib])
     pro.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [LIBS_DIR_NAME] + [MY_LIBS_DIR_NAME] + [lib])
+    pro.addDestDir(BUILD_TYPE_DIR + [LIB_ARCHIVES_DIR_NAME])
+
     dir = MY_LIBS_DIR + [lib]
     pro.addHeaders(GetSelectedFileList(dir, HEADER_EXT))
     pro.addSources(GetSelectedFileList(dir, SOURCE_EXT))
     pro.addOtherFiles(GetSelectedFileList(dir, DOC_EXT))
+    
     pro.save(dir + [lib])
 
-###################
-# Tests application
-###################
+#############
+# Tests suite
+#############
 
 tests = QtProFile()
-SetCommonForAll(tests)
-SetCommonForApps(tests)
 
-# Set name of the executable
-tests.addTarget(TESTS_NAME)
-
-# Variable that qmake uses when generating a Makefile
-tests.addConfig(CONSOLE_APP_CONFIG)
-tests.delConfig(CONSOLE_APP_CONFIG_DEL)
-
-# Builds paths
-tests.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [APPS_DIR_NAME] + [TESTS_NAME])
-tests.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [APPS_DIR_NAME] + [TESTS_NAME])
-tests.addRccDir(BUILD_TYPE_DIR + [RCC_DIR_NAME] + [APPS_DIR_NAME] + [TESTS_NAME])
-tests.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [APPS_DIR_NAME] + [TESTS_NAME])
-
-# List of files to be used in the project
-tests.addHeaders(GetSelectedFileList(TESTS_DIR, HEADER_EXT))
-tests.addSources(GetSelectedFileList(TESTS_DIR, SOURCE_EXT))
-
-# Save to files
+# Main tests pro file
+tests.addTemplate(SUBDIRS_TEMPLATE)
+tests.addSubDirs(GetSubDirList(TESTS_DIR))
 tests.save(TESTS_DIR + [TESTS_DIR_NAME])
+
+# Pro files in sub-directories (groups of classes to be tested)
+for subdir in GetSubDirList(TESTS_DIR):
+    groupFname = [subdir]
+    groupDir = TESTS_DIR + [subdir]
+    
+    groupPro = QtProFile()
+    groupPro.addTemplate(SUBDIRS_TEMPLATE)
+    groupPro.addSubDirs(GetSubDirList(groupDir))
+    groupPro.save(groupDir + groupFname)
+
+    # Pro files in sub-sub-directories (individual classes to be tested)
+    for subsubdir in GetSubDirList(groupDir):
+        classFname = [subsubdir]
+        classDir = groupDir + [subsubdir]
+
+        classPro = QtProFile()
+        SetCommonForAll(classPro)
+        
+        classPro.addQt(TESTS_QT_MODULES)
+        classPro.addConfig(TESTS_CONFIG)
+        classPro.delConfig(TESTS_CONFIG_DEL)
+        
+        classPro.addObjectsDir(BUILD_TYPE_DIR + [OBJECTS_DIR_NAME] + [TESTS_DIR_NAME] + groupFname)
+        classPro.addMocDir(BUILD_TYPE_DIR + [MOC_DIR_NAME] + [TESTS_DIR_NAME] + groupFname)
+        classPro.addRccDir(BUILD_TYPE_DIR + [RCC_DIR_NAME] + [TESTS_DIR_NAME] + groupFname)
+        classPro.addUiDir(BUILD_TYPE_DIR + [UI_DIR_NAME] + [TESTS_DIR_NAME] + groupFname)
+        classPro.addDestDir(BUILD_TYPE_DIR + [EXE_DIR_NAME] + [TESTS_DIR_NAME] + groupFname)
+
+        classPro.addSources(GetSelectedFileList(classDir, SOURCE_EXT))
+
+        classPro.save(classDir + classFname)
+

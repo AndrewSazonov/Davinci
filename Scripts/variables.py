@@ -67,12 +67,17 @@ CONSOLE_APP_DIR             = APPS_DIR + [CONSOLE_APP_DIR_NAME]
 WINDOW_APP_DIR              = APPS_DIR + [WINDOW_APP_DIR_NAME]
 APPS_SUBDIRS                = [CONSOLE_APP_DIR_NAME, WINDOW_APP_DIR_NAME]
 
-# Modules and config
+# Qt modules
 WINDOW_APP_QT_MODULES       = 'core gui xml svg network widgets printsupport concurrent'.split()
 CONSOLE_APP_QT_MODULES      = 'concurrent'.split()
+TESTS_QT_MODULES            = 'testlib'.split()
+
+# Config
 CONSOLE_APP_CONFIG          = 'console'.split()
 CONSOLE_APP_CONFIG_DEL      = 'app_bundle'.split()
 LIBS_CONFIG                 = 'staticlib'
+TESTS_CONFIG                = 'testcase'.split()
+TESTS_CONFIG_DEL            = 'app_bundle'.split()
 
 # Libs
 LIBS_DIR_NAME               = 'Libraries'
@@ -102,13 +107,17 @@ ICON_FILE_PNG               = ICON_DIR + [APP_NAME + '.png']
 
 # Builds
 BUILD_DIR_NAME              = 'Build'
-OBJECTS_DIR_NAME            = '.obj'
-MOC_DIR_NAME                = '.moc'
-RCC_DIR_NAME                = '.rcc'
-UI_DIR_NAME                 = '.ui'
 BUILD_DIR                   = PROJECT_DIR + ['..', BUILD_DIR_NAME]
 BUILD_TYPE                  = '$${BUILD_TYPE}'
 BUILD_TYPE_DIR              = BUILD_DIR + [BUILD_TYPE]
+
+# Dirs names
+OBJECTS_DIR_NAME            = 'obj'
+MOC_DIR_NAME                = 'moc'
+RCC_DIR_NAME                = 'rcc'
+UI_DIR_NAME                 = 'ui'
+EXE_DIR_NAME                = 'exe'
+LIB_ARCHIVES_DIR_NAME       = 'lib'
 
 # Profile, Debug, Release
 DEBUG_DIR_NAME              = 'Debug'
