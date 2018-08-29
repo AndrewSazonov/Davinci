@@ -32,7 +32,10 @@ class TestRealVector : public QObject {
 
     QVector<As::RealVector> m_vectors;
 
+    QVector<As::RealVector> m_sqrt;
     QVector<As::RealVector> m_reversed;
+    QVector<As::RealVector> m_simplified;
+    QVector<As::RealVector> m_normalized;
 
     QVector<qreal> m_min;
     QVector<qreal> m_max;
@@ -42,6 +45,9 @@ class TestRealVector : public QObject {
     QVector<qreal> m_range;
     QVector<qreal> m_middle;
     QVector<qreal> m_step;
+
+    QVector<int> m_indexOfMax;
+    QVector<int> m_indexOfMin;
 
     QVector<bool> m_isZero;
 
@@ -69,6 +75,11 @@ class TestRealVector : public QObject {
     void step_data();
     void step();
 
+    void indexOfMax_data();
+    void indexOfMax();
+    void indexOfMin_data();
+    void indexOfMin();
+
     void isZero_data();
     void isZero(); };
 
@@ -86,6 +97,8 @@ void TestRealVector::initTestCase() {
     m_range.append(4.);
     m_middle.append(3.);
     m_step.append(1.);
+    m_indexOfMax.append(3);
+    m_indexOfMin.append(2);
     m_isZero.append(false);
 
     m_info.append("random integer-like vector with negative values only; from std::initializer_list");
@@ -99,9 +112,11 @@ void TestRealVector::initTestCase() {
     m_range.append(4.);
     m_middle.append(-3.);
     m_step.append(1.);
+    m_indexOfMax.append(2);
+    m_indexOfMin.append(3);
     m_isZero.append(false);
 
-    m_info.append("random vector with both positive and negative values; from QString");
+    m_info.append("random vector with both positive and negative values; some values are equal; from QString");
     m_vectors.append(QString("5.5 -3. 0. 5.5 -4. 0.5"));
     m_reversed.append(QString("0.5 -4. 5.5 0. -3. 5.5"));
     m_min.append(-4.);
@@ -112,6 +127,8 @@ void TestRealVector::initTestCase() {
     m_range.append(9.5);
     m_middle.append(0.75);
     m_step.append(1.9);
+    m_indexOfMax.append(0);
+    m_indexOfMin.append(4);
     m_isZero.append(false);
 
     m_info.append("vector with zero values only; from size + defaultValue");
@@ -125,6 +142,8 @@ void TestRealVector::initTestCase() {
     m_range.append(0.);
     m_middle.append(0.);
     m_step.append(0.);
+    m_indexOfMax.append(0);
+    m_indexOfMin.append(0);
     m_isZero.append(true);
 
 }
@@ -236,6 +255,30 @@ void TestRealVector::step_data() {
 void TestRealVector::step() {
     QFETCH(RealVector, vector);
     QTEST(vector.step(), "step"); }
+
+// test next method
+
+void TestRealVector::indexOfMax_data() {
+    QTest::addColumn<RealVector>("vector");
+    QTest::addColumn<int>("indexOfMax");
+    for (int i = 0; i < m_vectors.size(); ++i) {
+        QTest::newRow(m_info[i]) << m_vectors[i] << m_indexOfMax[i]; } }
+
+void TestRealVector::indexOfMax() {
+    QFETCH(RealVector, vector);
+    QTEST(vector.indexOfMax(), "indexOfMax"); }
+
+// test next method
+
+void TestRealVector::indexOfMin_data() {
+    QTest::addColumn<RealVector>("vector");
+    QTest::addColumn<int>("indexOfMin");
+    for (int i = 0; i < m_vectors.size(); ++i) {
+        QTest::newRow(m_info[i]) << m_vectors[i] << m_indexOfMin[i]; } }
+
+void TestRealVector::indexOfMin() {
+    QFETCH(RealVector, vector);
+    QTEST(vector.indexOfMin(), "indexOfMin"); }
 
 // test next method
 
