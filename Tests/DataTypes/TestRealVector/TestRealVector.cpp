@@ -118,8 +118,7 @@ void TestRealVector::reverse_data() {
 
 void TestRealVector::reverse() {
     QFETCH(RealVector, vector);
-    QFETCH(RealVector, reverse);
-    QCOMPARE(vector.reverse(), reverse); }
+    QTEST(vector.reverse(), "reverse"); }
 
 // test next method
 
@@ -131,8 +130,7 @@ void TestRealVector::min_data() {
 
 void TestRealVector::min() {
     QFETCH(RealVector, vector);
-    QFETCH(qreal, min);
-    QCOMPARE(vector.min(), min); }
+    QTEST(vector.min(), "min"); }
 
 // test next method
 
@@ -144,8 +142,7 @@ void TestRealVector::max_data() {
 
 void TestRealVector::max() {
     QFETCH(RealVector, vector);
-    QFETCH(qreal, max);
-    QCOMPARE(vector.max(), max); }
+    QTEST(vector.max(), "max"); }
 
 // test next method
 
@@ -157,8 +154,7 @@ void TestRealVector::sum_data() {
 
 void TestRealVector::sum() {
     QFETCH(RealVector, vector);
-    QFETCH(qreal, sum);
-    QCOMPARE(vector.sum(), sum); }
+    QTEST(vector.sum(), "sum"); }
 
 // test next method
 
@@ -170,8 +166,7 @@ void TestRealVector::sumSqr_data() {
 
 void TestRealVector::sumSqr() {
     QFETCH(RealVector, vector);
-    QFETCH(qreal, sumSqr);
-    QCOMPARE(vector.sumSqr(), sumSqr); }
+    QTEST(vector.sumSqr(), "sumSqr"); }
 
 // test next method
 
@@ -183,8 +178,7 @@ void TestRealVector::mean_data() {
 
 void TestRealVector::mean() {
     QFETCH(RealVector, vector);
-    QFETCH(qreal, mean);
-    QCOMPARE(vector.mean(), mean); }
+    QTEST(vector.mean(), "mean"); }
 
 // test next method
 
@@ -196,8 +190,7 @@ void TestRealVector::range_data() {
 
 void TestRealVector::range() {
     QFETCH(RealVector, vector);
-    QFETCH(qreal, range);
-    QCOMPARE(vector.range(), range); }
+    QTEST(vector.range(), "range"); }
 
 // test next method
 
@@ -209,8 +202,7 @@ void TestRealVector::middle_data() {
 
 void TestRealVector::middle() {
     QFETCH(RealVector, vector);
-    QFETCH(qreal, middle);
-    QCOMPARE(vector.middle(), middle); }
+    QTEST(vector.middle(), "middle"); }
 
 // test next method
 
@@ -222,8 +214,7 @@ void TestRealVector::step_data() {
 
 void TestRealVector::step() {
     QFETCH(RealVector, vector);
-    QFETCH(qreal, step);
-    QCOMPARE(vector.step(), step); }
+    QTEST(vector.step(), "step"); }
 
 } //AS_END_NAMESPACE
 

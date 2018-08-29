@@ -74,8 +74,7 @@ void TestRealMatrix9::det_data() {
 
 void TestRealMatrix9::det() {
     QFETCH(RealMatrix9, matrix);
-    QFETCH(qreal, det);
-    QCOMPARE(matrix.det(), det); }
+    QTEST(matrix.det(), "det"); }
 
 // test next method
 
@@ -87,8 +86,7 @@ void TestRealMatrix9::trans_data() {
 
 void TestRealMatrix9::trans() {
     QFETCH(RealMatrix9, matrix);
-    QFETCH(RealMatrix9, trans);
-    QCOMPARE(matrix.trans(), trans); }
+    QTEST(matrix.trans(), "trans"); }
 
 // test next method
 
@@ -100,8 +98,7 @@ void TestRealMatrix9::inv_data() {
 
 void TestRealMatrix9::inv() {
     QFETCH(RealMatrix9, matrix);
-    QFETCH(RealMatrix9, inv);
-    QCOMPARE(matrix.inv(), inv); }
+    QTEST(matrix.inv(), "inv"); }
 
 } //AS_END_NAMESPACE
 
