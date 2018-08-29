@@ -43,6 +43,8 @@ class TestRealVector : public QObject {
     QVector<qreal> m_middle;
     QVector<qreal> m_step;
 
+    QVector<bool> m_isZero;
+
   private slots:
 
     void initTestCase();
@@ -67,7 +69,8 @@ class TestRealVector : public QObject {
     void step_data();
     void step();
 
-};
+    void isZero_data();
+    void isZero(); };
 
 // init
 
@@ -83,10 +86,11 @@ void TestRealVector::initTestCase() {
     m_range.append(4.);
     m_middle.append(3.);
     m_step.append(1.);
+    m_isZero.append(false);
 
-    m_info.append("random integer-like vector with negative values only; from QString");
-    m_vectors.append(QString("-2. -3. -1. -5. -4."));
-    m_reversed.append(QString("-4. -5. -1. -3. -2."));
+    m_info.append("random integer-like vector with negative values only; from std::initializer_list");
+    m_vectors.append(RealVector{ -2., -3., -1., -5., -4. });
+    m_reversed.append(RealVector{ -4., -5., -1., -3., -2. });
     m_min.append(-5.);
     m_max.append(-1.);
     m_sum.append(-15.);
@@ -95,6 +99,7 @@ void TestRealVector::initTestCase() {
     m_range.append(4.);
     m_middle.append(-3.);
     m_step.append(1.);
+    m_isZero.append(false);
 
     m_info.append("random vector with both positive and negative values; from QString");
     m_vectors.append(QString("5.5 -3. 0. 5.5 -4. 0.5"));
@@ -106,7 +111,23 @@ void TestRealVector::initTestCase() {
     m_mean.append(0.75);
     m_range.append(9.5);
     m_middle.append(0.75);
-    m_step.append(1.9); }
+    m_step.append(1.9);
+    m_isZero.append(false);
+
+    m_info.append("vector with zero values only; from size + defaultValue");
+    m_vectors.append(RealVector(3, 0.));
+    m_reversed.append(RealVector(3, 0.));
+    m_min.append(0.);
+    m_max.append(0.);
+    m_sum.append(0.);
+    m_sumSqr.append(0.);
+    m_mean.append(0.);
+    m_range.append(0.);
+    m_middle.append(0.);
+    m_step.append(0.);
+    m_isZero.append(true);
+
+}
 
 // test next method
 
@@ -215,6 +236,18 @@ void TestRealVector::step_data() {
 void TestRealVector::step() {
     QFETCH(RealVector, vector);
     QTEST(vector.step(), "step"); }
+
+// test next method
+
+void TestRealVector::isZero_data() {
+    QTest::addColumn<RealVector>("vector");
+    QTest::addColumn<bool>("isZero");
+    for (int i = 0; i < m_vectors.size(); ++i) {
+        QTest::newRow(m_info[i]) << m_vectors[i] << m_isZero[i]; } }
+
+void TestRealVector::isZero() {
+    QFETCH(RealVector, vector);
+    QTEST(vector.isZero(), "isZero"); }
 
 } //AS_END_NAMESPACE
 
