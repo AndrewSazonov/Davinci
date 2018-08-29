@@ -255,7 +255,7 @@ As::RealVector As::RealVector::reverse() const {
 As::RealVector As::RealVector::normalizeBy(const qreal v) const {
     AASSERT(v != 0.0, "dividing by zero");
 
-    if (v == 1.0) {
+    if (FuzzyCompareDouble(v, 1.0)) {
         return *this; }
 
     As::RealVector out;

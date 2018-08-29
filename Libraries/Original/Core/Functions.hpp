@@ -34,6 +34,9 @@ template<typename> class QVector;
 
 namespace As { //AS_BEGIN_NAMESPACE
 
+bool FuzzyCompareDouble(double d1,
+                        double d2);
+
 qreal Sqr(const qreal v);
 qreal Sign(const qreal v);
 qreal ToMainAngularRange(const qreal angle);
@@ -67,9 +70,6 @@ int StringVersionToInt(QString version);
 QString FormatToPathWithName(const QString& baseNameFirst,
                              const QString& baseNameLast,
                              const QString& absolutePathLast);
-
-bool FuzzyCompareDouble(double d1,
-                        double d2);
 
 } //AS_END_NAMESPACE
 

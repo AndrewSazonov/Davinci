@@ -41,10 +41,26 @@
 #include "Functions.hpp"
 
 /*!
+    Compares the floating point value \a p1 and \a p2 and returns \c true if they are
+    considered equal, otherwise \c false.
+
+    Modified qFuzzyCompare function to compare the variables of type double and
+    to work also with values equal to 0.0.
+*/
+bool As::FuzzyCompareDouble(double p1,
+                            double p2) {
+    if (qFuzzyIsNull(p1)) {
+        return qFuzzyIsNull(p2); }
+    else if (qFuzzyIsNull(p2)) {
+        return false; }
+    else {
+        return qFuzzyCompare(p1, p2); } }
+
+/*!
     Returns the square of \a v.
 */
 qreal As::Sqr(const qreal v) {
-    return qPow(v, 2); // qPow(v, 2) was faster compared to v*v !?
+    return qPow(v, 2); // qPow(v, 2) was faster compared to v*v... !?
 }
 
 /*!
@@ -65,7 +81,7 @@ qreal As::Sign(const qreal v) {
 */
 qreal As::ToMainAngularRange(const qreal angle) {
     // -180 and 180 cases
-    if (angle == -180. OR angle == 180.) {
+    if (FuzzyCompareDouble(angle, -180.) OR FuzzyCompareDouble(angle, 180.)) {
         return angle; }
     // Other cases
     if (angle > 0.) {
@@ -409,15 +425,3 @@ QString As::FormatToPathWithName(const QString& baseNameFirst,
         path = QString("%1/%2").arg(absolutePathLast).arg(baseNameLast); }
     return path; }
 
-/*!
-    Modified qFuzzyCompare function to compare the variables of type double and
-    to work also with values equal to 0.0.
-*/
-bool As::FuzzyCompareDouble(double p1,
-                            double p2) {
-    if (qFuzzyIsNull(p1)) {
-        return qFuzzyIsNull(p2); }
-    else if (qFuzzyIsNull(p2)) {
-        return false; }
-    else {
-        return qFuzzyCompare(p1, p2); } }
