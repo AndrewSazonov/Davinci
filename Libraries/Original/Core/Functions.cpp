@@ -409,3 +409,15 @@ QString As::FormatToPathWithName(const QString& baseNameFirst,
         path = QString("%1/%2").arg(absolutePathLast).arg(baseNameLast); }
     return path; }
 
+/*!
+    Modified qFuzzyCompare function to compare the variables of type double and
+    to work also with values equal to 0.0.
+*/
+bool As::FuzzyCompareDouble(double p1,
+                            double p2) {
+    if (qFuzzyIsNull(p1)) {
+        return qFuzzyIsNull(p2); }
+    else if (qFuzzyIsNull(p2)) {
+        return false; }
+    else {
+        return qFuzzyCompare(p1, p2); } }
