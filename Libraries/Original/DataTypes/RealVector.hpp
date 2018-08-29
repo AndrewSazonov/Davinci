@@ -43,6 +43,7 @@ class RealVector : public RealArray {
     RealVector(const int size,
                const qreal defaultValue);
     RealVector(const QString& string);
+    RealVector(std::initializer_list<qreal> args);
     virtual ~RealVector() Q_DECL_OVERRIDE;
 
     // methods

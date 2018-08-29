@@ -73,6 +73,12 @@ As::RealVector::RealVector(const QString& string) :
     As::RealArray(string) {}
 
 /*!
+    Constructs a vector from the std::initializer_list given by \a args.    .
+*/
+As::RealVector::RealVector(std::initializer_list<qreal> args) :
+    As::RealArray(QVector<qreal>(args)) {}
+
+/*!
     Destroys the vector.
 */
 As::RealVector::~RealVector() {}
@@ -88,6 +94,8 @@ As::RealVector::~RealVector() {}
 */
 qreal As::RealVector::min() const {
     AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
+    if (size() == 0) {
+        return qQNaN(); }
     return *std::min_element(begin(), end()); }
 
 /*!
@@ -101,6 +109,8 @@ qreal As::RealVector::min() const {
 */
 qreal As::RealVector::max() const {
     AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
+    if (size() == 0) {
+        return qQNaN(); }
     return *std::max_element(begin(), end()); }
 
 /*!
@@ -114,6 +124,8 @@ qreal As::RealVector::max() const {
 */
 qreal As::RealVector::sum() const {
     AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
+    if (size() == 0) {
+        return qQNaN(); }
     return std::accumulate(begin(), end(), 0.0); }
 
 /*!
@@ -127,11 +139,12 @@ qreal As::RealVector::sum() const {
 */
 qreal As::RealVector::sumSqr() const {
     AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
-    qreal out = 0.0;
+    if (size() == 0) {
+        return qQNaN(); }
 
+    qreal out = 0.0;
     for (const auto v : *this) {
         out += v * v; }
-
     return out; }
 
 /*!
@@ -146,7 +159,6 @@ qreal As::RealVector::sumSqr() const {
 qreal As::RealVector::mean() const {
     if (size() == 0) {
         return qQNaN(); }
-
     return sum() / size(); }
 
 /*!
@@ -160,6 +172,8 @@ qreal As::RealVector::mean() const {
 */
 qreal As::RealVector::range() const {
     //AASSERT(this->size() > 0, "vector size is too small");
+    if (size() == 0) {
+        return qQNaN(); }
     return max() - min(); }
 
 /*!
@@ -173,6 +187,8 @@ qreal As::RealVector::range() const {
 */
 qreal As::RealVector::middle() const {
     //AASSERT(this->size() > 0, "vector size is too small");
+    if (size() == 0) {
+        return qQNaN(); }
     return (max() + min()) / 2.; }
 
 /*!
@@ -186,6 +202,8 @@ qreal As::RealVector::middle() const {
 */
 qreal As::RealVector::step() const {
     AASSERT(size() > 1, QString("vector size = '%1', which is too small for this function").arg(size()));
+    if (size() <= 1) {
+        return qQNaN(); }
     return range() / (size() - 1); }
 
 /*!
@@ -195,7 +213,6 @@ qreal As::RealVector::step() const {
 int As::RealVector::indexOfMin() const {
     AASSERT(size() > 0, QString("vector size = '%1', which is too small for this function").arg(size()));
     return indexOf(min()); }
-
 
 /*!
     Returns the index position of the first occurrence of the max() element in the vector,
@@ -259,10 +276,8 @@ As::RealVector As::RealVector::normalizeBy(const qreal v) const {
         return *this; }
 
     As::RealVector out;
-
     for (int i = 0; i < size(); ++i) {
         out.append(this->at(i) / v); }
-
     return out; }
 
 /*!
@@ -321,8 +336,12 @@ As::RealVector As::RealVector::sqrt() const {
 */
 As::RealVector As::RealVector::simplify() const {
     //AASSERT(this->size() > 0, "vector size is too small");
-    for (int i = 0; i < this->size() - 1; ++i) {
-        if (this->at(i) != this->at(i + 1)) {
+
+    if (size() == 0) {
+        return As::RealVector(); }
+
+    for (int i = 0; i < size() - 1; ++i) {
+        if (!FuzzyCompareDouble( at(i), at(i + 1) )) {
             return *this; } }
 
     return As::RealVector(1, at(0)); }
