@@ -168,12 +168,6 @@ void As::RealArray::append(const qreal value) {
     m_array.append(value); }
 
 /*!
-    Inserts \a value at the beginning of the array.
-*/
-void As::RealArray::prepend(const qreal value) {
-    m_array.prepend(value); }
-
-/*!
     Returns \c true if the base array is empty; otherwise returns \c false.
 */
 bool As::RealArray::isEmpty() const {

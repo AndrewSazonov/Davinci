@@ -41,7 +41,7 @@ class RealArray {
     RealArray(const QVector<qreal>& other);     // parameterized constructor
     RealArray(const int size,
               const qreal defaultValue = 0.0);  // parameterized constructor
-    RealArray(const QString &string);           // parameterized constructor
+    RealArray(const QString& string);           // parameterized constructor
     virtual ~RealArray();                       // virtual destructor
 
     // operators
@@ -57,7 +57,6 @@ class RealArray {
     int size() const;
     int indexOf(const qreal value) const;
     void append(const qreal value);
-    void prepend(const qreal value);
     As::RealArray mid(const int pos,
                       const int length = -1) const;
     QVector<qreal> toQVector() const;

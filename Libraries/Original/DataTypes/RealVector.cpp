@@ -243,23 +243,6 @@ bool As::RealVector::isZero() const {
     return true; }
 
 /*!
-    Returns a vector with a reversed order of elements.
-
-    Example:
-    \code
-    // vector: [3.0, 5.0, 1.0]
-    // vector.reverse(): [1.0, 5.0, 3.0]
-    \endcode
-*/
-As::RealVector As::RealVector::reverse() const {
-    As::RealVector out;
-
-    for (const auto& value : *this) {
-        out.prepend(value); }
-
-    return out; }
-
-/*!
     Returns a vector with elements divided by the real value \a v.
 
     Example:

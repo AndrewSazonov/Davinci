@@ -59,7 +59,6 @@ class RealVector : public RealArray {
     qreal middle() const;
     qreal step() const;
     RealVector sqrt() const;
-    RealVector reverse() const;
     RealVector simplify() const;
     RealVector normalizeBy(const qreal v) const;
     RealVector normalizeBy(const As::RealVector& other) const;

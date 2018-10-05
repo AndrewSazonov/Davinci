@@ -33,7 +33,6 @@ class TestRealVector : public QObject {
     QVector<As::RealVector> m_vectors;
 
     QVector<As::RealVector> m_sqrt;
-    QVector<As::RealVector> m_reversed;
     QVector<As::RealVector> m_simplified;
     QVector<As::RealVector> m_normalized;
 
@@ -54,9 +53,6 @@ class TestRealVector : public QObject {
   private slots:
 
     void initTestCase();
-
-    void reverse_data();
-    void reverse();
 
     void min_data();
     void min();
@@ -88,7 +84,6 @@ class TestRealVector : public QObject {
 void TestRealVector::initTestCase() {
     m_info.append("random integer-like vector with positive values only; from QVector<qreal>");
     m_vectors.append(QVector<qreal> { 2., 3., 1., 5., 4. });
-    m_reversed.append(QVector<qreal> { 4., 5., 1., 3., 2. });
     m_min.append(1.);
     m_max.append(5.);
     m_sum.append(15.);
@@ -103,7 +98,6 @@ void TestRealVector::initTestCase() {
 
     m_info.append("random integer-like vector with negative values only; from std::initializer_list");
     m_vectors.append(RealVector{ -2., -3., -1., -5., -4. });
-    m_reversed.append(RealVector{ -4., -5., -1., -3., -2. });
     m_min.append(-5.);
     m_max.append(-1.);
     m_sum.append(-15.);
@@ -118,7 +112,6 @@ void TestRealVector::initTestCase() {
 
     m_info.append("random vector with both positive and negative values; some values are equal; from QString");
     m_vectors.append(QString("5.5 -3. 0. 5.5 -4. 0.5"));
-    m_reversed.append(QString("0.5 -4. 5.5 0. -3. 5.5"));
     m_min.append(-4.);
     m_max.append(5.5);
     m_sum.append(4.5);
@@ -133,7 +126,6 @@ void TestRealVector::initTestCase() {
 
     m_info.append("vector with zero values only; from size + defaultValue");
     m_vectors.append(RealVector(3, 0.));
-    m_reversed.append(RealVector(3, 0.));
     m_min.append(0.);
     m_max.append(0.);
     m_sum.append(0.);
@@ -147,18 +139,6 @@ void TestRealVector::initTestCase() {
     m_isZero.append(true);
 
 }
-
-// test next method
-
-void TestRealVector::reverse_data() {
-    QTest::addColumn<RealVector>("vector");
-    QTest::addColumn<RealVector>("reverse");
-    for (int i = 0; i < m_vectors.size(); ++i) {
-        QTest::newRow(m_info[i]) << m_vectors[i] << m_reversed[i]; } }
-
-void TestRealVector::reverse() {
-    QFETCH(RealVector, vector);
-    QTEST(vector.reverse(), "reverse"); }
 
 // test next method
 
